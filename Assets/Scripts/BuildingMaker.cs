@@ -1,15 +1,116 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 class BuildingMaker : InfrstructureBehaviour
 {
-    public Material building;
+    public Material building_material;
+    public bool bNotCreateOSMParts;
+
+    public bool isUseHeightFix = true;
+
+    public float MinRandHeight = 3.0f;
+    public float MaxRandHeight = 21.0f;
+
+    private float GetHeights(BaseOsm geo)
+    {
+        var height = 0.0f;
+
+        var min_height = 0.0f;
+
+        if (geo.HasField("height"))
+        {
+            height = geo.GetValueFloatByKey("height");
+        }
+        else if (geo.HasField("building:levels"))
+        {
+            height = geo.GetValueFloatByKey("building:levels") * 3.0f;
+        }
+        else if (geo.HasField("man_made"))
+        {
+            var man_made_type = geo.GetValueStringByKey("man_made");
+
+            if (man_made_type == "tower")
+            {
+                height = 200.0f;
+            }
+        }
+        else
+        {
+            height = UnityEngine.Random.Range(MinRandHeight, MaxRandHeight);
+        }
+
+        if (geo.GetValueStringByKey("kind") == "pier")
+        {
+            height = 0.1f;
+        }
+        else if (geo.GetValueStringByKey("kind") == "bridge")
+        {
+            height = 0.1f;
+        }
+
+        if (geo.HasField("min_height"))
+        {
+            min_height = geo.GetValueFloatByKey("min_height");
+        }
+        else if (geo.HasField("building:min_level"))
+        {
+            min_height = geo.GetValueFloatByKey("building:min_level") * 3.0f;
+        }
+
+        if (isUseHeightFix)
+        {
+            height -= min_height;
+        }
+
+        return height;
+    }
+
+    private float GetMinHeight(BaseOsm geo)
+    {
+        var min_height = 0.0f;
+
+        if (geo.HasField("min_height"))
+        {
+            min_height = geo.GetValueFloatByKey("min_height");
+        }
+        else if (geo.HasField("building:min_level"))
+        {
+            min_height = geo.GetValueFloatByKey("building:min_level") * 3.0f;
+        }
+
+        //Level correction
+        return min_height;
+    }
+
+    private void SetProperties(OsmWay geo, Building building)
+    {
+        building.name = "building " + geo.ID.ToString();
+        if (geo.HasField("name"))
+            building.Name = geo.GetValueStringByKey("name");
+
+        building.Id = geo.ID.ToString();
+
+        var kind = "";
+
+        if (geo.HasField("building"))
+        {
+            kind = geo.GetValueStringByKey("building");
+        }
+        else
+        {
+            kind = "yes";
+        }
+
+        building.Kind = kind;
+
+        building.GetComponent<MeshRenderer>().material.SetColor("_Color", GR.SetOSMColour(geo));
+    }
 
     IEnumerator Start()
-    {
-        
+    {        
         while (!map.IsReady)
         {
             yield return null;
@@ -17,14 +118,38 @@ class BuildingMaker : InfrstructureBehaviour
 
         foreach (var way in map.ways.FindAll((w) => { return w.IsBuilding && w.NodeIDs.Count > 1; }))
         {
-            GameObject go = new GameObject();
+            var searchname = "building " + way.ID.ToString();
+
+            //Check for duplicates in case of loading multiple locations
+            if (GameObject.Find(searchname))
+            {
+                continue;
+            }
+
+            //Check on parts of a complex building if their creation is prohibited.
+            if (way.HasField("building:part") && way.GetValueStringByKey("building:part").Equals("yes") && bNotCreateOSMParts)
+            {
+                continue;
+            }
+
+            var building = new GameObject(searchname).AddComponent<Building>();
+
+            building.itemlist = way.itemlist;
+
+            MeshFilter mf = building.AddComponent<MeshFilter>();
+            MeshRenderer mr = building.AddComponent<MeshRenderer>();
+            mr.material = building_material;
+
+            SetProperties(way, building);
+
+            var height = GetHeights(way);
+            var minHeight = GetMinHeight(way);
+
+            building.Height = height;
+            building.MinHeight = minHeight;
+
             Vector3 localOrigin = GetCentre(way);
-            go.transform.position = localOrigin - map.bounds.Centre;
-
-            MeshFilter mf = go.AddComponent<MeshFilter>();
-            MeshRenderer mr = go.AddComponent<MeshRenderer>();
-
-            mr.material = building;
+            building.transform.position = localOrigin - map.bounds.Centre;
 
             List<Vector3> vectors = new List<Vector3>();
             List<Vector3> normals = new List<Vector3>();
@@ -35,10 +160,10 @@ class BuildingMaker : InfrstructureBehaviour
                 OsmNode p1 = map.nodes[way.NodeIDs[i - 1]];
                 OsmNode p2 = map.nodes[way.NodeIDs[i]];
 
-                Vector3 v1 = p1 - localOrigin;
-                Vector3 v2 = p2 - localOrigin;
-                Vector3 v3 = v1 + new Vector3(0, way.Height, 0);
-                Vector3 v4 = v2 + new Vector3(0, way.Height, 0);
+                Vector3 v1 = p1 - localOrigin + new Vector3(0, minHeight, 0);
+                Vector3 v2 = p2 - localOrigin + new Vector3(0, minHeight, 0);
+                Vector3 v3 = p1 - localOrigin + new Vector3(0, height, 0);
+                Vector3 v4 = p2 - localOrigin + new Vector3(0, height, 0);
 
                 vectors.Add(v1);
                 vectors.Add(v2);

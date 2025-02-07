@@ -10,18 +10,15 @@ class OsmWay : BaseOsm
 
     public List<ulong> NodeIDs {get; private set; }
 
-    public bool IsBoundary {get; private set; }
+    public bool IsClosedPolygon { get; private set; }
 
     public bool IsBuilding {get; private set; }
 
     public bool IsRoad {get; private set; }
 
-    public float Height {get; private set; }
-
     public OsmWay(XmlNode node)
     {
         NodeIDs = new List<ulong>();
-        Height = 10.0f; // ! Originally 3.0f (need to fix the building height - building:levels not being recognized)
 
         ID = GetAttribute<ulong>("id", node.Attributes);
         Visible = GetAttribute<bool>("visible", node.Attributes);
@@ -37,13 +34,21 @@ class OsmWay : BaseOsm
 
         if (NodeIDs.Count > 1)
         {
-            IsBoundary = NodeIDs[0] == NodeIDs[NodeIDs.Count - 1];
+            IsClosedPolygon = NodeIDs[0] == NodeIDs[NodeIDs.Count - 1];
         }
 
         XmlNodeList tags = node.SelectNodes("tag");
+
+        itemlist = new Item[tags.Count];
+
+        int i = 0;
+
         foreach (XmlNode t in tags)
         {
             string key = GetAttribute<string>("k", t.Attributes);
+
+            itemlist[i].key = key;
+            itemlist[i].value = GetAttribute<string>("v", t.Attributes);
 
             if (key == "building" || key == "building:part")
             {
@@ -54,26 +59,14 @@ class OsmWay : BaseOsm
                 IsRoad = true;
             }
 
-
-            if (key == "height")
-            {
-                Height = 0.3048f * GetAttribute<float>("v", t.Attributes);
-            }            
-            else if (key == "building:levels")
-            {
-                 Height = 3.0f * GetAttribute<float>("v", t.Attributes);
-            }
-            else if (IsBuilding)
-            {
-                Height = 10.0f;
-            }
-
             /** would preferably like to use only: 
             ** trunk roads
             ** primary roads
             ** secondary roads
             ** service roads
             */
+
+            i++;
         }
 
     }

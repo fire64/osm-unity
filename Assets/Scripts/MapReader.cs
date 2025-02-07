@@ -48,7 +48,7 @@ class MapReader : MonoBehaviour
             if (w.Visible)
             {
                 Color c = Color.cyan; // cyan for buildings
-                if (!w.IsBoundary) c = Color.red; // red for roads
+                if (!w.IsClosedPolygon) c = Color.red; // red for roads
 
                 for (int i =1; i < w.NodeIDs.Count; i++)
                 {
