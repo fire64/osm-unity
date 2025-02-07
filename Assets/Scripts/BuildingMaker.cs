@@ -110,27 +110,40 @@ class BuildingMaker : InfrstructureBehaviour
 
     private void CreateMesh(List<Vector3> corners, float min_height, float height, MeshData data, Vector2 min, Vector2 size)
     {
+        // Create bottom face
+        for (int i = 0; i < corners.Count; i++)
+        {
+            data.Vertices.Add(corners[i] + new Vector3(0, min_height, 0));
+            data.Normals.Add(-Vector3.forward);
+        }
+        for (int i = 2; i < corners.Count; i++)
+        {
+            data.Indices.Add(0);
+            data.Indices.Add(i - 1);
+            data.Indices.Add(i);
+        }
+
         for (int i = 1; i < corners.Count; i++)
         {
             Vector3 p1 = corners[i - 1];
             Vector3 p2 = corners[i];
 
-            Vector3 v1 = p1;
-            Vector3 v2 = p2;
-            Vector3 v3 = p1 + new Vector3(0, height, 0);
-            Vector3 v4 = p2 + new Vector3(0, height, 0);
+            Vector3 v1 = p1 + new Vector3(0, min_height, 0);
+            Vector3 v2 = p2 + new Vector3(0, min_height, 0);
+            Vector3 v3 = p1 + new Vector3(0, min_height + height, 0);
+            Vector3 v4 = p2 + new Vector3(0, min_height + height, 0);
 
-            data.Vertices.Add(v1);
-            data.Vertices.Add(v2);
             data.Vertices.Add(v3);
             data.Vertices.Add(v4);
 
+            data.Normals.Add(-Vector3.forward);
+            data.Normals.Add(-Vector3.forward);
+
             // index values
-            int idx1, idx2, idx3, idx4;
-            idx4 = data.Vertices.Count - 1;
-            idx3 = data.Vertices.Count - 2;
-            idx2 = data.Vertices.Count - 3;
-            idx1 = data.Vertices.Count - 4;
+            int idx1 = i - 1;
+            int idx2 = i;
+            int idx3 = data.Vertices.Count - 2;
+            int idx4 = data.Vertices.Count - 1;
 
             // first triangle v1, v3, v2
             data.Indices.Add(idx1);
@@ -152,6 +165,29 @@ class BuildingMaker : InfrstructureBehaviour
             data.Indices.Add(idx4);
             data.Indices.Add(idx3);
         }
+
+        // Create top face
+        int topOffset = data.Vertices.Count;
+        for (int i = 0; i < corners.Count; i++)
+        {
+            data.Vertices.Add(corners[i] + new Vector3(0, min_height + height, 0));
+            data.Normals.Add(-Vector3.forward);
+        }
+
+        for (int i = 2; i < corners.Count; i++)
+        {
+            data.Indices.Add(topOffset + 0);
+            data.Indices.Add(topOffset + i);
+            data.Indices.Add(topOffset + i - 1); // Обратный порядок индексов для верхней грани
+        }
+
+        for (int i = 2; i < corners.Count; i++) //fix for backfaces
+        {
+            data.Indices.Add(topOffset + i - 1); // Обратный порядок индексов для верхней грани
+            data.Indices.Add(topOffset + i);
+            data.Indices.Add(topOffset + 0);
+        }
+
     }
 
     void CreateBuilding(BaseOsm geo)
@@ -216,7 +252,20 @@ class BuildingMaker : InfrstructureBehaviour
 
         mesh.vertices = tb.Vertices.ToArray();
         mesh.triangles = tb.Indices.ToArray();
+        mesh.normals = tb.Normals.ToArray();
         mesh.SetUVs(0, tb.UV);
+
+        mesh.RecalculateBounds();
+        mesh.RecalculateTangents();
+//      mesh.RecalculateNormals(); //TODO: Fix calculating lightmaps
+
+        //Add colider 
+//TODO: fix error or add check
+/*
+        building.transform.gameObject.AddComponent<MeshCollider>();
+        building.transform.GetComponent<MeshCollider>().sharedMesh = building.GetComponent<MeshFilter>().mesh;
+        building.transform.GetComponent<MeshCollider>().convex = false;
+*/
     }
 
     IEnumerator Start()
