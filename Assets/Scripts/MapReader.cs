@@ -17,6 +17,7 @@ class MapReader : MonoBehaviour
     [Tooltip("The resource file that contains the OSM map data")]
     public string resourceFile;
 
+    public bool isDebugDraw;
     public bool IsReady {get; private set; }
 
     // Start is called before the first frame update
@@ -39,6 +40,9 @@ class MapReader : MonoBehaviour
 
     void Update()
     {
+        if (!isDebugDraw)
+            return;
+
         foreach ( OsmWay w in ways)
         {
             if (w.Visible)

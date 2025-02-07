@@ -44,29 +44,28 @@ class OsmWay : BaseOsm
         foreach (XmlNode t in tags)
         {
             string key = GetAttribute<string>("k", t.Attributes);
+
+            if (key == "building" || key == "building:part")
+            {
+                IsBuilding = true;
+            }
+            else if (key == "highway")
+            {
+                IsRoad = true;
+            }
+
+
             if (key == "height")
             {
                 Height = 0.3048f * GetAttribute<float>("v", t.Attributes);
-            }
-            
+            }            
             else if (key == "building:levels")
             {
                  Height = 3.0f * GetAttribute<float>("v", t.Attributes);
             }
-
-            else if (key == "building")
-            {
-                IsBuilding = GetAttribute<string>("v", t.Attributes) == "yes";
-            }
-
-            else if (key == "building")
+            else if (IsBuilding)
             {
                 Height = 10.0f;
-            }
-
-            else if (key == "highway")
-            {
-                IsRoad = true;
             }
 
             /** would preferably like to use only: 

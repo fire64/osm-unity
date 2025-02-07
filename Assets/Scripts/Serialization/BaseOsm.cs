@@ -14,6 +14,9 @@ class BaseOsm
         // TODO: We are going to assume 'attrName' exists in the collection
         
         string strValue = attributes[attrName].Value;
+
+        strValue = strValue.Replace(".", ",");
+
         return (T)Convert.ChangeType(strValue, typeof(T));
     }
 }
