@@ -4,18 +4,6 @@ using System.Xml;
 
 class OsmWay : BaseOsm
 {
-    public ulong ID {get; private set; }
-
-    public bool Visible { get; private set; }
-
-    public List<ulong> NodeIDs {get; private set; }
-
-    public bool IsClosedPolygon { get; private set; }
-
-    public bool IsBuilding {get; private set; }
-
-    public bool IsRoad {get; private set; }
-
     public OsmWay(XmlNode node)
     {
         NodeIDs = new List<ulong>();

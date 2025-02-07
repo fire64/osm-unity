@@ -10,7 +10,7 @@ abstract class InfrstructureBehaviour : MonoBehaviour
         map = GetComponent<MapReader>();
     }
 
-    protected Vector3 GetCentre(OsmWay way)
+    protected Vector3 GetCentre(BaseOsm way)
     {
         Vector3 total = Vector3.zero;
 

@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a85b096eab9582409324b760bae020b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceFile: nuigroute
+  resourceFile: kreml
   isDebugDraw: 1
 --- !u!4 &108401118
 Transform:
@@ -197,6 +197,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   building_material: {fileID: 2100000, guid: 90cc4ee604aa1ff4f94242c9448de8b0, type: 2}
   bNotCreateOSMParts: 0
+  isUseHeightFix: 1
+  MinRandHeight: 3
+  MaxRandHeight: 21
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0

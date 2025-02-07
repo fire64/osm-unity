@@ -1,8 +1,21 @@
 using System;
+using System.Collections.Generic;
 using System.Xml;
 
 public class BaseOsm
 {
+    public ulong ID { get; set; }
+
+    public bool Visible { get; set; }
+
+    public List<ulong> NodeIDs { get; set; }
+
+    public bool IsClosedPolygon { get; set; }
+
+    public bool IsBuilding { get; set; }
+
+    public bool IsRoad { get; set; }
+
     public Item[] itemlist;
 
     public bool HasField(string sKey)
