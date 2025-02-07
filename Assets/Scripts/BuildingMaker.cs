@@ -87,9 +87,10 @@ class BuildingMaker : InfrstructureBehaviour
     private void SetProperties(BaseOsm geo, Building building)
     {
         building.name = "building " + geo.ID.ToString();
+		
         if (geo.HasField("name"))
-            building.Name = geo.GetValueStringByKey("name");
-
+            building.Name = geo.GetValueStringByKey("name");		
+		
         building.Id = geo.ID.ToString();
 
         var kind = "";
@@ -104,6 +105,9 @@ class BuildingMaker : InfrstructureBehaviour
         }
 
         building.Kind = kind;
+
+        if (geo.HasField("source_type"))
+            building.Source = geo.GetValueStringByKey("source_type");
 
         building.GetComponent<MeshRenderer>().material.SetColor("_Color", GR.SetOSMColour(geo));
     }
@@ -275,9 +279,17 @@ class BuildingMaker : InfrstructureBehaviour
             yield return null;
         }
 
-        foreach (var way in map.ways.FindAll((w) => { return w.IsBuilding && w.NodeIDs.Count > 1; }))
+        foreach (var way in map.ways.FindAll((w) => { return w.IsBuilding && w.IsClosedPolygon && w.NodeIDs.Count > 1; }))
         {
+            way.AddField("source_type", "way");
             CreateBuilding(way);
+            yield return null;
+        }
+
+        foreach (var relation in map.relations.FindAll((w) => { return w.IsBuilding && w.IsClosedPolygon && w.NodeIDs.Count > 1; }))
+        {
+            relation.AddField("source_type", "relation");
+            CreateBuilding(relation);
             yield return null;
         }
 

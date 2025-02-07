@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 
 public class BaseOsm
@@ -28,6 +29,32 @@ public class BaseOsm
             }
         }
         return false;
+    }
+
+    public void AddField(string sKey, string sValue, bool bReplaceIfFound = true)
+    {
+        // Check if the key already exists in the item list
+        for (int i = 0; i < itemlist.Length; i++)
+        {
+            if (itemlist[i].key == sKey)
+            {
+                // If the key is found and bReplaceIfFound is true, replace the value
+                if (bReplaceIfFound)
+                {
+                    itemlist[i].value = sValue;
+                    return;
+                }
+                else
+                {
+                    // If bReplaceIfFound is false, do nothing and return
+                    return;
+                }
+            }
+        }
+
+        // If the key is not found, add a new item to the list
+        Item newItem = new Item { key = sKey, value = sValue };
+        itemlist = itemlist.Concat(new[] { newItem }).ToArray();
     }
 
     public string GetValueStringByKey(string sKey)
