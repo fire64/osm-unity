@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 108401117}
   - component: {fileID: 108401120}
   - component: {fileID: 108401119}
+  - component: {fileID: 108401121}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -153,7 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a85b096eab9582409324b760bae020b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceFile: kreml
+  resourceFile: teestmap
   isDebugDraw: 1
 --- !u!4 &108401118
 Transform:
@@ -200,6 +201,20 @@ MonoBehaviour:
   isUseHeightFix: 1
   MinRandHeight: 3
   MaxRandHeight: 21
+--- !u!114 &108401121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108401116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 638748d8371038342906ebc2f4bd05f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  zoom: 16
+  tileServerURL: https://a.tile.openstreetmap.org/{0}/{1}/{2}.png
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0

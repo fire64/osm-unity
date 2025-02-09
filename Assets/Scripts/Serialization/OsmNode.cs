@@ -2,7 +2,7 @@
 using System.Xml;
 using UnityEngine;
 
-class OsmNode : BaseOsm
+public class OsmNode : BaseOsm
 {
     public float Latitude { get; private set; }
 

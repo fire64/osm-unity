@@ -2,7 +2,7 @@
 // new
 using System.Xml;
 
-class OsmWay : BaseOsm
+public class OsmWay : BaseOsm
 {
     public OsmWay(XmlNode node)
     {

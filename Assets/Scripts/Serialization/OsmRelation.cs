@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 
-class OsmRelation : BaseOsm
+public class OsmRelation : BaseOsm
 {
     List<OsmWay> ways;
 

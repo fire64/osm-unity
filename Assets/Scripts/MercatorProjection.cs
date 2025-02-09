@@ -68,4 +68,26 @@ public static class MercatorProjection
     {
         return deg * DEG2RAD;
     }
+
+    public static double lonToTileX(double lon, int z)
+    {
+        return (lon + 180.0) / 360.0 * Math.Pow(2.0, z);
+    }
+
+    public static double latToTileY(double lat, int z)
+    {
+        return (1.0 - Math.Log(Math.Tan(lat * Math.PI / 180.0) +
+                               1.0 / Math.Cos(lat * Math.PI / 180.0)) / Math.PI) / 2.0 * Math.Pow(2.0, z);
+    }
+
+    public static double tileXToLon(double x, int z)
+    {
+        return x / Math.Pow(2.0, z) * 360.0 - 180.0;
+    }
+
+    public static double tileYToLat(double y, int z)
+    {
+        double n = Math.PI - 2.0 * Math.PI * y / Math.Pow(2.0, z);
+        return 180.0 / Math.PI * Math.Atan(0.5 * (Math.Exp(n) - Math.Exp(-n)));
+    }
 }
