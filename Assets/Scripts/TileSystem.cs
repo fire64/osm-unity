@@ -66,7 +66,7 @@ class TileSystem : InfrstructureBehaviour
                 double centerLat = MercatorProjection.tileYToLat(y + 0.5, zoom);
 
                 double[] worldPos = MercatorProjection.toPixel(centerLon, centerLat);
-                Vector3 tilePosition = new Vector3((float)worldPos[0], 0, (float)worldPos[1]) - map.bounds.Centre;
+                Vector3 tilePosition = new Vector3((float)worldPos[0], -0.01f, (float)worldPos[1]) - map.bounds.Centre;
 
 
                 StartCoroutine(DownloadTile(x, y, zoom, tilePosition));
