@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3e132d5854bb67b48863bf87cb56ae6a, type: 3}
+  m_Name: BuildingMaterials
+  m_EditorClassIdentifier: 
+  BuildingMaterialsList:
+  - buildingmaterialname: brick
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: plaster
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: concrete
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: metal_plates
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: plastic
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: metal
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: glass
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: marble
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: limestone
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: granite
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: gold
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: wood
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: stone
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: glass;metal
+    buildingmaterial: {fileID: 0}

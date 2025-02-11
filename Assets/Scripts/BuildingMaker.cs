@@ -16,6 +16,11 @@ class BuildingMaker : InfrstructureBehaviour
 
     public GenerateRoof generateRoof;
 
+    public static GameContentSelector contentselector;
+
+    public BuildingTypeMaterials buildingTypes;
+    public BuildingMaterials buildingMaterials;
+
     private float GetHeights(BaseOsm geo)
     {
         var height = 0.0f;
@@ -112,6 +117,42 @@ class BuildingMaker : InfrstructureBehaviour
         if (geo.HasField("source_type"))
             building.Source = geo.GetValueStringByKey("source_type");
 
+        Material mat_by_type = null;
+        Material mat_by_tag = null;
+
+        if (!kind.Equals("yes"))
+        {
+            mat_by_type = buildingTypes.GetBuildingTypeMaterialByName(kind);
+        }
+
+        if (geo.HasField("building:material"))
+        {
+            var mat_name = geo.GetValueStringByKey("building:material");
+
+            mat_by_tag = buildingMaterials.GetBuildingMaterialByName(mat_name);
+        }
+
+        if (kind == "apartments")
+        {
+            //TODO: Add default material for apartments buildings
+        }
+        else if (mat_by_type != null)
+        {
+            building.GetComponent<MeshRenderer>().material = mat_by_type;
+        }
+        else if (geo.HasField("building:material") && mat_by_tag != null)
+        {
+            building.GetComponent<MeshRenderer>().material = mat_by_tag;
+        }
+        else if (geo.HasField("building:material") && mat_by_tag == null)
+        {
+            building.GetComponent<MeshRenderer>().material = null;
+        }
+        else
+        {
+            //TODO: Add default material for apartments buildings
+        }
+
         building.GetComponent<MeshRenderer>().material.SetColor("_Color", GR.SetOSMColour(geo));
     }
 
@@ -121,6 +162,11 @@ class BuildingMaker : InfrstructureBehaviour
 
         //Check for duplicates in case of loading multiple locations
         if (GameObject.Find(searchname))
+        {
+            return;
+        }
+
+        if (contentselector.isGeoObjectDisabled(geo.ID))
         {
             return;
         }
@@ -191,7 +237,11 @@ class BuildingMaker : InfrstructureBehaviour
                 building.transform.GetComponent<MeshCollider>().sharedMesh = building.GetComponent<MeshFilter>().mesh;
                 building.transform.GetComponent<MeshCollider>().convex = false;
         */
-        generateRoof.GenerateRoofForBuillding(building.gameObject, buildingCorners, minHeight, height, new Vector2(minx, miny), new Vector2(maxx - minx, maxy - miny), geo);
+
+        if (!contentselector.isRoofDisabled(geo.ID))
+        {
+            generateRoof.GenerateRoofForBuillding(building.gameObject, buildingCorners, minHeight, height, new Vector2(minx, miny), new Vector2(maxx - minx, maxy - miny), geo);
+        }
     }
 
     IEnumerator Start()
@@ -200,6 +250,8 @@ class BuildingMaker : InfrstructureBehaviour
         {
             yield return null;
         }
+
+        contentselector = FindObjectOfType<GameContentSelector>();
 
         foreach (var way in map.ways.FindAll((w) => { return w.IsBuilding && w.IsClosedPolygon && w.NodeIDs.Count > 1; }))
         {

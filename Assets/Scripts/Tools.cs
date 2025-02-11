@@ -171,7 +171,9 @@ public static class GR
         }
         else
         {
-            return new Color(1.0f, 1.0f, 1.0f, 1.0f);
+            GameContentSelector contentselector = GameObject.FindObjectOfType<GameContentSelector>();
+
+            return contentselector.colorByName.GetColorByName(hex);
         }
     }
 }

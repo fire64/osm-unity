@@ -1,0 +1,89 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df8a75c1ca8e7ab47bee2152542f6443, type: 3}
+  m_Name: BuildingTypeMaterials
+  m_EditorClassIdentifier: 
+  BuildingTypesMaterialsList:
+  - buildingtype: apartments
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: kindergarten
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: school
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: civic
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: service
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: public
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: office
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: retail
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: commercial
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: hospital
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: garages
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: sports_hall
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: dormitory
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: university
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: clinic
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: undefined
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: greenhouse
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: kiosk
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: church
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: roof
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: static_caravan
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: construction
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: college
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: guardhouse
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: parking
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: museum
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: mansion
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: cathedral
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: gatehouse
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: stable
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: train_station
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: tower
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: chapel
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: wall
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: library
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: grandstand
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: transportation
+    buildingtypematerial: {fileID: 0}

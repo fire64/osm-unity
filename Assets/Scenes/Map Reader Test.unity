@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a85b096eab9582409324b760bae020b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceFile: teestmap
+  resourceFile: spacitel
   isDebugDraw: 1
 --- !u!4 &108401118
 Transform:
@@ -203,6 +203,8 @@ MonoBehaviour:
   MinRandHeight: 3
   MaxRandHeight: 21
   generateRoof: {fileID: 108401122}
+  buildingTypes: {fileID: 11400000, guid: 4a8be10b830a0be499f6a8cd952185a3, type: 2}
+  buildingMaterials: {fileID: 11400000, guid: 954ea7baef9fe2b4aa0ce793cc250ec0, type: 2}
 --- !u!114 &108401121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,6 +419,53 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &727894443
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 727894445}
+  - component: {fileID: 727894444}
+  m_Layer: 0
+  m_Name: GameContentSelector
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &727894444
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727894443}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6bb4641f5faa6145bc48cbc034a859e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DisabledObjects: []
+  DisabledRoofs: []
+  colorByName: {fileID: 11400000, guid: fa72238b5f06ca548ae789991a472141, type: 2}
+--- !u!4 &727894445
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 727894443}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1523.2954, y: 72.59851, z: -1443.4905}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!850595691 &1344593933
 LightingSettings:
   m_ObjectHideFlags: 0
@@ -488,3 +537,4 @@ SceneRoots:
   - {fileID: 534669905}
   - {fileID: 170076735}
   - {fileID: 108401118}
+  - {fileID: 727894445}
