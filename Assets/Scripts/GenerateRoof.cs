@@ -67,7 +67,7 @@ public class GenerateRoof : MonoBehaviour
 
             float scale_fator = (Mathf.Min(size.x, size.y) / 2) * 100;
 
-            data.Vertices.Add(new Vector3(verticle.x * scale_fator, verticle.y * scale_fator + min_height, verticle.z * scale_fator));
+            data.Vertices.Add(new Vector3(verticle.x * scale_fator, (verticle.y * scale_fator) + min_height, verticle.z * scale_fator));
         }
 
         for (int i = 0; i < triangles.Length; i++)
@@ -330,7 +330,7 @@ public class GenerateRoof : MonoBehaviour
                 roof_height = 1.0f;
             }
 
-            CreateDomeRoof(corners, height, height + roof_height, tb, min, size);
+            CreateDomeRoof(corners, minHeight + height, minHeight + height + roof_height, tb, min, size);
         }
         else if (roof_type == "pyramidal")
         {
@@ -339,7 +339,7 @@ public class GenerateRoof : MonoBehaviour
                 roof_height = 1.0f;
             }
 
-            CreatePyramidalRoof(corners, height, height + roof_height, tb, min, size);
+            CreatePyramidalRoof(corners, minHeight + height, minHeight + height + roof_height, tb, min, size);
         }
         else if (roof_type == "onion")
         {
@@ -348,38 +348,7 @@ public class GenerateRoof : MonoBehaviour
                 roof_height = 1.0f;
             }
 
-            CreateOnionRoof(corners, height, height + roof_height, tb, min, size);
-        }
-
-        else if (roof_type == "round")
-        {
-            //Not supported, use flat
-            GR.CreateMeshWithHeight(corners, minHeight + height, roof_height, tb, min, size);
-        }
-        else if (roof_type == "skillion")
-        {
-            //Not supported, use flat
-            GR.CreateMeshWithHeight(corners, minHeight + height, roof_height, tb, min, size);
-        }
-        else if (roof_type == "many")
-        {
-            //Not supported, use flat
-            GR.CreateMeshWithHeight(corners, minHeight + height, roof_height, tb, min, size);
-        }
-        else if (roof_type == "falt")
-        {
-            //Not supported, use flat
-            GR.CreateMeshWithHeight(corners, minHeight + height, roof_height, tb, min, size);
-        }
-        else if (roof_type == "quadruple_saltbox")
-        {
-            //Not supported, use flat
-            GR.CreateMeshWithHeight(corners, minHeight + height, roof_height, tb, min, size);
-        }
-        else if (roof_type == "mansard")
-        {
-            //Not supported, use flat
-            GR.CreateMeshWithHeight(corners, minHeight + height, roof_height, tb, min, size);
+            CreateOnionRoof(corners, minHeight + height, minHeight + height + roof_height, tb, min, size);
         }
         else
         {

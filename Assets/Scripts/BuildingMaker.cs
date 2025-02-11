@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -161,9 +162,9 @@ class BuildingMaker : InfrstructureBehaviour
             Vector3 coords = point - localOrigin;
 
             if (coords.x < minx) minx = (float)coords.x;
-            if (coords.y < miny) miny = (float)coords.y;
+            if (coords.z < miny) miny = (float)coords.z;
             if (coords.x > maxx) maxx = (float)coords.x;
-            if (coords.y > maxy) maxy = (float)coords.y;
+            if (coords.z > maxy) maxy = (float)coords.z;
 
             buildingCorners.Add(coords);
         }
