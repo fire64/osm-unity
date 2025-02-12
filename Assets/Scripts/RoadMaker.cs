@@ -1,101 +1,183 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
+using Unity.VisualScripting;
 using UnityEngine;
- 
+
 class RoadMaker : InfrstructureBehaviour
 {
     public Material roadMaterial;
+    public static GameContentSelector contentselector;
 
-    IEnumerator Start()
+    public RoadTypesInfo roadTypes;
+    public RoadSurfacesMaterials roadSurfacesMaterials;
+
+    private void SetProperties(BaseOsm geo, Road road)
     {
-        
+        road.name = "road " + geo.ID.ToString();
+
+        if (geo.HasField("name"))
+            road.Name = geo.GetValueStringByKey("name");
+
+        road.Id = geo.ID.ToString();
+
+        var kind = "";
+
+        if (geo.HasField("highway"))
+        {
+            kind = geo.GetValueStringByKey("highway");
+        }
+        else
+        {
+            kind = "yes";
+        }
+
+        road.Kind = kind;
+
+        if (geo.HasField("lanes"))
+        {
+            road.Lanes = geo.GetValueIntByKey("lanes");
+        }
+        else
+        {
+            road.Lanes = 1;
+        }
+
+        var roadInfo = roadTypes.GetRoadTypeInfoByName(road.Kind);
+
+        Material surfaceMaterial = null;
+
+        if (geo.HasField("surface"))
+        {
+            var surfaceName = geo.GetValueStringByKey("surface");
+
+            surfaceMaterial = roadSurfacesMaterials.GetRoadSurfacesMaterialByName(surfaceName);
+        }
+
+        if (surfaceMaterial != null)
+        {
+            road.GetComponent<MeshRenderer>().material = surfaceMaterial;
+        }
+        else if(roadInfo.roadMaterial)
+        {
+            road.GetComponent<MeshRenderer>().material = roadInfo.roadMaterial;
+        }
+        else
+        {
+            road.GetComponent<MeshRenderer>().material = roadMaterial;
+        }
+
+        if (roadInfo.roadWidth != 0.0f)
+        {
+            road.Width = roadInfo.roadWidth;
+        }
+        else
+        {
+            road.Width = 2.0f;
+        }
+
+        road.GetComponent<MeshRenderer>().material.SetColor("_Color", GR.SetOSMColour(geo));
+    }
+
+    void CreateRoads(BaseOsm geo)
+    {
+        var searchname = "road " + geo.ID.ToString();
+
+        //Check for duplicates in case of loading multiple locations
+        if (GameObject.Find(searchname))
+        {
+            return;
+        }
+
+        if (contentselector.isGeoObjectDisabled(geo.ID))
+        {
+            return;
+        }
+
+        var road = new GameObject(searchname).AddComponent<Road>();
+
+        road.AddComponent<MeshFilter>();
+        road.AddComponent<MeshRenderer>();
+
+        road.itemlist = geo.itemlist;
+
+        SetProperties(geo, road);
+
+        var roadsCorners = new List<Vector3>();
+
+        var count = geo.NodeIDs.Count;
+
+        Vector3 localOrigin = GetCentre(geo);
+        road.transform.position = localOrigin - map.bounds.Centre;
+
+        for (int i = 0; i < count; i++)
+        {
+            OsmNode point = map.nodes[geo.NodeIDs[i]];
+
+            Vector3 coords = point - localOrigin;
+
+            roadsCorners.Add(coords);
+        }
+
+        var mesh = road.GetComponent<MeshFilter>().mesh;
+
+        var tb = new MeshData();
+
+        float finalWidth = road.Width * road.Lanes;
+
+        GR.CreateMeshLineWithWidth(roadsCorners, finalWidth, tb);
+
+        mesh.vertices = tb.Vertices.ToArray();
+        mesh.triangles = tb.Indices.ToArray();
+        mesh.normals = tb.Normals.ToArray();
+        mesh.SetUVs(0, tb.UV);
+
+        mesh.RecalculateBounds();
+        mesh.RecalculateTangents();
+        //      mesh.RecalculateNormals(); //TODO: Fix calculating normals
+
+        //Add colider 
+        //TODO: fix error or add check
+        /*
+                building.transform.gameObject.AddComponent<MeshCollider>();
+                building.transform.GetComponent<MeshCollider>().sharedMesh = building.GetComponent<MeshFilter>().mesh;
+                building.transform.GetComponent<MeshCollider>().convex = false;
+        */
+    }
+    IEnumerator Start()
+    {        
         while (!map.IsReady)
         {
             yield return null;
         }
 
+        contentselector = FindObjectOfType<GameContentSelector>();
+
         foreach (var way in map.ways.FindAll((w) => { return w.IsRoad; }))
         {
-            GameObject go = new GameObject();
-            Vector3 localOrigin = GetCentre(way);
-            go.transform.position = localOrigin - map.bounds.Centre;
+            way.AddField("source_type", "way");
+            CreateRoads(way);
+            yield return null;
+        }
 
-            MeshFilter mf = go.AddComponent<MeshFilter>();
-            MeshRenderer mr = go.AddComponent<MeshRenderer>();
+        //TODO: Reenable relation for roads
+/*
+        foreach (var relation in map.relations.FindAll((w) => { return w.IsRoad; }))
+        {
+            relation.AddField("source_type", "relation");
 
-            mr.material = roadMaterial;
-
-            List<Vector3> vectors = new List<Vector3>();
-            List<Vector3> normals = new List<Vector3>();
-            List<Vector2> uvs = new List<Vector2>();
-            List<int> indices = new List<int>();
-
-            for (int i = 1; i < way.NodeIDs.Count; i++)
+            if(relation.IsClosedPolygon)
             {
-                OsmNode p1 = map.nodes[way.NodeIDs[i - 1]];
-                OsmNode p2 = map.nodes[way.NodeIDs[i]];
-
-                Vector3 s1 = p1 - localOrigin;
-                Vector3 s2 = p2 - localOrigin;
-                
-                Vector3 diff = (s2 - s1).normalized;
-                var cross = Vector3.Cross(diff, Vector3.up) * 2.0f; // 2 meters - width of lane
-
-                Vector3 v1 = s1 + cross;
-                Vector3 v2 = s1 - cross;
-                Vector3 v3 = s2 + cross;
-                Vector3 v4 = s2 - cross;
-
-                vectors.Add(v1);
-                vectors.Add(v2);
-                vectors.Add(v3);
-                vectors.Add(v4);
-
-                uvs.Add(new Vector2(0,0));
-                uvs.Add(new Vector2(1,0));
-                uvs.Add(new Vector3(0,1));
-                uvs.Add(new Vector3(1,1));
-
-                normals.Add(-Vector3.up);
-                normals.Add(-Vector3.up);
-                normals.Add(-Vector3.up);
-                normals.Add(-Vector3.up);
-                
-                // index values
-                int idx1, idx2,idx3, idx4;
-                idx4 = vectors.Count - 1;
-                idx3 = vectors.Count - 2;
-                idx2 = vectors.Count - 3;
-                idx1 = vectors.Count - 4;
-
-                // first triangle v1, v3, v2
-                indices.Add(idx1);
-                indices.Add(idx3);
-                indices.Add(idx2);
-
-                // second triangle v3, v4, v2
-                indices.Add(idx3);
-                indices.Add(idx4);
-                indices.Add(idx2);
-
-                // third triangle v2, v3, v1
-                indices.Add(idx2);
-                indices.Add(idx3);
-                indices.Add(idx1);
-
-                // fourth triangle v2, v4, v3
-                indices.Add(idx2);
-                indices.Add(idx4);
-                indices.Add(idx3);
+                CreateRoadsPlogon(way);
             }
-
-            mf.mesh.vertices = vectors.ToArray();
-            mf.mesh.normals = normals.ToArray();
-            mf.mesh.triangles = indices.ToArray();
-            mf.mesh.uv = uvs.ToArray();
+            else
+            {
+                CreateRoadsLines(way);
+            }
 
             yield return null;
         }
+*/
 
     }
          

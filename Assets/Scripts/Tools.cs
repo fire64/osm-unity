@@ -12,6 +12,64 @@ public struct Item
 
 public static class GR
 {
+    public static void CreateMeshLineWithWidth(List<Vector3> corners, float width, MeshData data)
+    {
+        for (int i = 1; i < corners.Count; i++)
+        {
+            Vector3 s1 = corners[i - 1];
+            Vector3 s2 = corners[i];
+
+            Vector3 diff = (s2 - s1).normalized;
+            var cross = Vector3.Cross(diff, Vector3.up) * width; //width of lane
+
+            Vector3 v1 = s1 + cross;
+            Vector3 v2 = s1 - cross;
+            Vector3 v3 = s2 + cross;
+            Vector3 v4 = s2 - cross;
+
+            data.Vertices.Add(v1);
+            data.Vertices.Add(v2);
+            data.Vertices.Add(v3);
+            data.Vertices.Add(v4);
+
+            data.UV.Add(new Vector2(0, 0));
+            data.UV.Add(new Vector2(1, 0));
+            data.UV.Add(new Vector3(0, 1));
+            data.UV.Add(new Vector3(1, 1));
+
+            data.Normals.Add(-Vector3.up);
+            data.Normals.Add(-Vector3.up);
+            data.Normals.Add(-Vector3.up);
+            data.Normals.Add(-Vector3.up);
+
+            // index values
+            int idx1, idx2, idx3, idx4;
+            idx4 = data.Vertices.Count - 1;
+            idx3 = data.Vertices.Count - 2;
+            idx2 = data.Vertices.Count - 3;
+            idx1 = data.Vertices.Count - 4;
+
+            // first triangle v1, v3, v2
+            data.Indices.Add(idx1);
+            data.Indices.Add(idx3);
+            data.Indices.Add(idx2);
+
+            // second triangle v3, v4, v2
+            data.Indices.Add(idx3);
+            data.Indices.Add(idx4);
+            data.Indices.Add(idx2);
+
+            // third triangle v2, v3, v1
+            data.Indices.Add(idx2);
+            data.Indices.Add(idx3);
+            data.Indices.Add(idx1);
+
+            // fourth triangle v2, v4, v3
+            data.Indices.Add(idx2);
+            data.Indices.Add(idx4);
+            data.Indices.Add(idx3);
+        }
+    }
     public static void CreateMeshWithHeight(List<Vector3> corners, float min_height, float height, MeshData data, Vector2 min, Vector2 size)
     {
         // Create bottom face

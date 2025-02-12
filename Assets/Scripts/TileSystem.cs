@@ -12,7 +12,6 @@ class TileSystem : InfrstructureBehaviour
 
     public float GetZoomScale(int zoomLevel)
     {
-
         double baseScale = 61.15;
 
         int referenceLevel = 16;
@@ -43,7 +42,6 @@ class TileSystem : InfrstructureBehaviour
             tileGO.transform.Rotate(0, 180, 0);
         }
     }
-
 
     IEnumerator Start()
     {
@@ -81,14 +79,8 @@ class TileSystem : InfrstructureBehaviour
                 double[] worldPos = MercatorProjection.toPixel(centerLon, centerLat);
                 Vector3 tilePosition = new Vector3((float)worldPos[0], -0.01f, (float)worldPos[1]) - map.bounds.Centre;
 
-
                 StartCoroutine(DownloadTile(x, y, zoom, tilePosition));
-
             }
         }
-
-
     }
-
-
 }

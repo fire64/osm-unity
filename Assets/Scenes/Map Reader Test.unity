@@ -185,6 +185,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   roadMaterial: {fileID: 2100000, guid: 4455ec24bb06afd4586a99281013b637, type: 2}
+  roadTypes: {fileID: 11400000, guid: ec6da49b1d95b9344be1c2540f7cbd7b, type: 2}
+  roadSurfacesMaterials: {fileID: 11400000, guid: 6f1b538e155893b4ebe43d7b990cc530, type: 2}
 --- !u!114 &108401120
 MonoBehaviour:
   m_ObjectHideFlags: 0

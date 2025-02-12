@@ -76,7 +76,7 @@ public class BaseOsm
 
         if (res == null)
         {
-            return 0.0f;
+            return vDefault;
         }
 
         res = res.Replace(".", ",");
@@ -94,7 +94,7 @@ public class BaseOsm
 
         if (res == null)
         {
-            return 0.0f;
+            return vDefault;
         }
 
         res = res.Replace(".", ",");
@@ -102,6 +102,22 @@ public class BaseOsm
         double result = vDefault;
 
         double.TryParse(res, out result);
+
+        return result;
+    }
+
+    public int GetValueIntByKey(string sKey, int vDefault = 0)
+    {
+        string res = GetValueStringByKey(sKey);
+
+        if (res == null)
+        {
+            return vDefault;
+        }
+
+        int result = vDefault;
+
+        int.TryParse(res, out result);
 
         return result;
     }
