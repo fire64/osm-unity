@@ -155,7 +155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a85b096eab9582409324b760bae020b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceFile: spacitel
+  resourceFile: teestmap
   isDebugDraw: 1
 --- !u!4 &108401118
 Transform:
