@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 public class GenerateRoof : MonoBehaviour
 {
@@ -85,6 +87,11 @@ public class GenerateRoof : MonoBehaviour
         {
             Debug.Log("Ќедостаточно вершин дл€ создани€ пирамиды!");
             return;
+        }
+
+        if (!GR.IsClockwise(baseCorners))
+        {
+            baseCorners.Reverse();
         }
 
         //  оличество вершин = углы основани€ + 1 центральна€ вершина
@@ -294,7 +301,7 @@ public class GenerateRoof : MonoBehaviour
 
         if (roof_type == "flat")
         {
-            GR.CreateMeshWithHeight(corners, minHeight + height, roof_height, tb, min, size);
+            GR.CreateMeshWithHeight(corners, minHeight + height, roof_height, tb);
         }
         else if (roof_type == "hipped")
         {
@@ -353,7 +360,7 @@ public class GenerateRoof : MonoBehaviour
         else
         {
             //Not supported, use flat
-            GR.CreateMeshWithHeight(corners, minHeight + height, roof_height, tb, min, size);
+            GR.CreateMeshWithHeight(corners, minHeight + height, roof_height, tb);
             Debug.Log("Unknown rooftype: " + roof_type);
         }
 

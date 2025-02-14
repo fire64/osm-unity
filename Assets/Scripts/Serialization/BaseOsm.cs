@@ -13,9 +13,19 @@ public class BaseOsm
 
     public bool IsClosedPolygon { get; set; }
 
-    public bool IsBuilding { get; set; }
+    public enum ObjectType
+    {
+        Undefined = 0,
+        Building,
+        Road,
+        Landuse,
+        Water,
+        Barrier,
+        Detail,
+        Other
+    };
 
-    public bool IsRoad { get; set; }
+    public ObjectType objectType { get; set; }
 
     public Item[] itemlist;
 

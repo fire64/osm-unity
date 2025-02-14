@@ -31,6 +31,8 @@ public class OsmWay : BaseOsm
 
         int i = 0;
 
+        objectType = ObjectType.Undefined;
+
         foreach (XmlNode t in tags)
         {
             string key = GetAttribute<string>("k", t.Attributes);
@@ -40,11 +42,11 @@ public class OsmWay : BaseOsm
 
             if (key == "building" || key == "building:part")
             {
-                IsBuilding = true;
+                objectType = ObjectType.Building;
             }
             else if (key == "highway")
             {
-                IsRoad = true;
+                objectType = ObjectType.Road;
             }
 
             /** would preferably like to use only: 

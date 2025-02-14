@@ -17,6 +17,8 @@ public class RoadTypesInfo : ScriptableObject
         public Material roadMaterial;
         [SerializeField]
         public float roadWidth;
+        [SerializeField]
+        public int layersLevel; //for sorting...
     }
 
     [SerializeField]

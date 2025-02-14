@@ -219,7 +219,7 @@ class BuildingMaker : InfrstructureBehaviour
 
         var tb = new MeshData();
 
-        GR.CreateMeshWithHeight(buildingCorners, minHeight, height, tb, new Vector2(minx, miny), new Vector2(maxx - minx, maxy - miny));
+        GR.CreateMeshWithHeight(buildingCorners, minHeight, height, tb);
 
         mesh.vertices = tb.Vertices.ToArray();
         mesh.triangles = tb.Indices.ToArray();
@@ -253,14 +253,14 @@ class BuildingMaker : InfrstructureBehaviour
 
         contentselector = FindObjectOfType<GameContentSelector>();
 
-        foreach (var way in map.ways.FindAll((w) => { return w.IsBuilding && w.IsClosedPolygon && w.NodeIDs.Count > 1; }))
+        foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Building && w.IsClosedPolygon && w.NodeIDs.Count > 1; }))
         {
             way.AddField("source_type", "way");
             CreateBuilding(way);
             yield return null;
         }
 
-        foreach (var relation in map.relations.FindAll((w) => { return w.IsBuilding && w.IsClosedPolygon && w.NodeIDs.Count > 1; }))
+        foreach (var relation in map.relations.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Building && w.IsClosedPolygon && w.NodeIDs.Count > 1; }))
         {
             relation.AddField("source_type", "relation");
             CreateBuilding(relation);

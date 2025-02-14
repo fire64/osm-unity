@@ -11,7 +11,6 @@ class RoadMaker : InfrstructureBehaviour
 
     public RoadTypesInfo roadTypes;
     public RoadSurfacesMaterials roadSurfacesMaterials;
-
     private void SetProperties(BaseOsm geo, Road road)
     {
         road.name = "road " + geo.ID.ToString();
@@ -153,7 +152,7 @@ class RoadMaker : InfrstructureBehaviour
 
         contentselector = FindObjectOfType<GameContentSelector>();
 
-        foreach (var way in map.ways.FindAll((w) => { return w.IsRoad; }))
+        foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Road; }))
         {
             way.AddField("source_type", "way");
             CreateRoads(way);

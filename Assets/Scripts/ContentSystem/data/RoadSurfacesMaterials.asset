@@ -14,20 +14,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoadSurfacesMaterialsList:
   - roadSurfacesMaterialName: asphalt
+    roadSurfacesMaterial: {fileID: 2100000, guid: 63a7a44a03b04434b941e895fcb5ac68, type: 2}
+  - roadSurfacesMaterialName: paving_stones
     roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: paved
+  - roadSurfacesMaterialName: sett
     roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: concrete
+    roadSurfacesMaterial: {fileID: 2100000, guid: 48ca4edd30ae5e44f96d7d93c83c6606, type: 2}
   - roadSurfacesMaterialName: ground
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: metal
+    roadSurfacesMaterial: {fileID: 2100000, guid: d4c75380ffe93714f9921c0ee69e7127, type: 2}
+  - roadSurfacesMaterialName: wood
+    roadSurfacesMaterial: {fileID: 2100000, guid: a2492083eb998cc4dbd6520bb066fd91, type: 2}
+  - roadSurfacesMaterialName: grass
+    roadSurfacesMaterial: {fileID: 2100000, guid: c395a0ddb4889ce41ae31cdb53140e27, type: 2}
+  - roadSurfacesMaterialName: paved
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: dirt
     roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: paving_stones
-    roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: gravel
-    roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: grass
-    roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: wood
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: cobblestone
     roadSurfacesMaterial: {fileID: 0}
