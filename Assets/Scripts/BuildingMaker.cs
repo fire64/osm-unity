@@ -228,15 +228,12 @@ class BuildingMaker : InfrstructureBehaviour
 
         mesh.RecalculateBounds();
         mesh.RecalculateTangents();
-        //      mesh.RecalculateNormals(); //TODO: Fix calculating normals
+        mesh.RecalculateNormals();
 
         //Add colider 
-        //TODO: fix error or add check
-        /*
-                building.transform.gameObject.AddComponent<MeshCollider>();
-                building.transform.GetComponent<MeshCollider>().sharedMesh = building.GetComponent<MeshFilter>().mesh;
-                building.transform.GetComponent<MeshCollider>().convex = false;
-        */
+        building.transform.gameObject.AddComponent<MeshCollider>();
+        building.transform.GetComponent<MeshCollider>().sharedMesh = building.GetComponent<MeshFilter>().mesh;
+        building.transform.GetComponent<MeshCollider>().convex = false;
 
         if (!contentselector.isRoofDisabled(geo.ID))
         {
