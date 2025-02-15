@@ -135,3 +135,13 @@ MonoBehaviour:
     buildingtypematerial: {fileID: 0}
   - buildingtype: sport
     buildingtypematerial: {fileID: 0}
+  - buildingtype: barn
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: shed
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: no
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: synagogue
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: toilets
+    buildingtypematerial: {fileID: 0}

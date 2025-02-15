@@ -136,23 +136,23 @@ MonoBehaviour:
   - colorname: blue
     color: {r: 0, g: 0, b: 1, a: 1}
   - colorname: grey;green
-    color: {r: 1, g: 1, b: 1, a: 1}
+    color: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
   - colorname: white;beige
-    color: {r: 1, g: 1, b: 1, a: 1}
+    color: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 1}
   - colorname: white;green
-    color: {r: 1, g: 1, b: 1, a: 1}
+    color: {r: 0.69803923, g: 1, b: 0.9882353, a: 1}
   - colorname: beige;grey
-    color: {r: 1, g: 1, b: 1, a: 1}
+    color: {r: 0.827451, g: 0.827451, b: 0.84313726, a: 1}
   - colorname: lightgrey;lightblue
-    color: {r: 1, g: 1, b: 1, a: 1}
+    color: {r: 0.5294118, g: 0.80784315, b: 0.92156863, a: 1}
   - colorname: grey;orange
-    color: {r: 1, g: 1, b: 1, a: 1}
+    color: {r: 1, g: 0.84313726, b: 0.74509805, a: 1}
   - colorname: grey;red
-    color: {r: 1, g: 1, b: 1, a: 1}
+    color: {r: 1, g: 0.7529412, b: 0.5019608, a: 1}
   - colorname: beige;red
-    color: {r: 1, g: 1, b: 1, a: 1}
+    color: {r: 0.7607843, g: 0.69803923, b: 0.5019608, a: 1}
   - colorname: white;brown;black
-    color: {r: 1, g: 1, b: 1, a: 1}
+    color: {r: 0.47058824, g: 0.42352942, b: 0.23137255, a: 1}
   - colorname: white;blue;black
     color: {r: 1, g: 1, b: 1, a: 1}
   - colorname: white;beige;black
@@ -242,4 +242,14 @@ MonoBehaviour:
   - colorname: lightblue
     color: {r: 1, g: 1, b: 1, a: 1}
   - colorname: yellow;beige
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightcyan
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: powderblue
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: tan
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: papayawhip
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: chocolate
     color: {r: 1, g: 1, b: 1, a: 1}

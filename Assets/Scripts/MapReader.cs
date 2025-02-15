@@ -17,6 +17,9 @@ public class MapReader : MonoBehaviour
     public Dictionary<ulong, OsmNode> nodes;
 
     [HideInInspector]
+    public List<OsmNode> nodeslist;
+
+    [HideInInspector]
     public List<OsmWay> ways;
 
     [HideInInspector]
@@ -56,8 +59,6 @@ public class MapReader : MonoBehaviour
         }
         else
         {
-            try
-            {
                 // Создаем запрос
                 using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
                 {
@@ -93,11 +94,7 @@ public class MapReader : MonoBehaviour
 
                     IsReady = true;
                 }
-            }
-            catch (System.Exception e)
-            {
-                Debug.LogError($"Download failed: {e.Message} for url: {url}");
-            }
+
         }
     }
 
@@ -107,6 +104,7 @@ public class MapReader : MonoBehaviour
         nodes = new Dictionary<ulong, OsmNode>();
         ways = new List<OsmWay>();
         relations = new List<OsmRelation>();
+        nodeslist = new List<OsmNode>();
 
 #if UNITY_ANDROID || UNITY_IPHONE
             CacheFolderPath = Path.Combine(Application.persistentDataPath, RelativeCachePath);
@@ -204,10 +202,11 @@ public class MapReader : MonoBehaviour
 
     void GetNodes(XmlNodeList xmlNodeList)
     {
-         foreach (XmlNode n in xmlNodeList)
+        foreach (XmlNode n in xmlNodeList)
         {
             OsmNode node = new OsmNode(n);
             nodes[node.ID] = node;
+            nodeslist.Add(node);
         }
     }
 

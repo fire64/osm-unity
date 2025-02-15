@@ -49,3 +49,5 @@ MonoBehaviour:
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: sand
     roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: earth
+    roadSurfacesMaterial: {fileID: 0}

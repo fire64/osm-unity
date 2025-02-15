@@ -1,6 +1,8 @@
 ﻿// removed unnecessary usings
+using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
+using static BaseOsm;
 
 public class OsmNode : BaseOsm
 {
@@ -20,12 +22,43 @@ public class OsmNode : BaseOsm
     
     public OsmNode(XmlNode node)
     {
+        NodeIDs = new List<ulong>();
+
         ID = GetAttribute<ulong>("id", node.Attributes);
         Latitude = GetAttribute<float>("lat", node.Attributes);
         Longitude = GetAttribute<float>("lon", node.Attributes);
 
+        NodeIDs.Add(ID); //Hack for coordinates parser
+
         X = (float)MercatorProjection.lonToX(Longitude);
         Y = (float)MercatorProjection.latToY(Latitude);
+
+        XmlNodeList tags = node.SelectNodes("tag");
+
+        itemlist = new Item[tags.Count];
+
+        int i = 0;
+
+        objectType = ObjectType.Undefined;
+
+        foreach (XmlNode t in tags)
+        {
+            string key = GetAttribute<string>("k", t.Attributes);
+
+            itemlist[i].key = key;
+            itemlist[i].value = GetAttribute<string>("v", t.Attributes);
+
+            objectType = ObjectType.Detail;
+
+            /** would preferably like to use only: 
+            ** trunk roads
+            ** primary roads
+            ** secondary roads
+            ** service roads
+            */
+
+            i++;
+        }
     }
 
 }
