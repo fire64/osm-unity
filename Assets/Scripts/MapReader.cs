@@ -1,6 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
+using UnityEngine.Networking;
+using System.Threading.Tasks;
+using UnityEngine.TextCore.Text;
+using System.Text;
+using System.IO;
+using UnityEditor.Build.Content;
+using System.Net;
+
 
 public class MapReader : MonoBehaviour
 {
@@ -16,11 +25,81 @@ public class MapReader : MonoBehaviour
     [HideInInspector]
     public OsmBounds bounds;
 
-    [Tooltip("The resource file that contains the OSM map data")]
-    public string resourceFile;
+    public double latitude;
+    public double longitude;
+    public float radiusmeters;
 
     public bool isDebugDraw;
     public bool IsReady {get; private set; }
+
+    public string RelativeCachePath = "../CachedTileData/";
+    protected string CacheFolderPath;
+
+    public async void LoadOSMData(string url, string tilePath)
+    {
+        if (File.Exists(tilePath))
+        {
+            // Получаем данные
+            byte[] fileData = File.ReadAllBytes(tilePath);
+
+            string result = Encoding.UTF8.GetString(fileData);
+
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(result);
+
+            SetBounds(doc.SelectSingleNode("/osm/bounds"));
+            GetNodes(doc.SelectNodes("/osm/node"));
+            GetWays(doc.SelectNodes("osm/way"));
+            GetRelations(doc.SelectNodes("osm/relation"));
+
+            IsReady = true;
+        }
+        else
+        {
+            try
+            {
+                // Создаем запрос
+                using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+                {
+                    // Отправляем запрос асинхронно
+                    var operation = webRequest.SendWebRequest();
+
+                    // Ожидаем завершения запроса
+                    while (!operation.isDone)
+                        await Task.Yield();
+
+                    // Проверяем на ошибки
+                    if (webRequest.result == UnityWebRequest.Result.ConnectionError ||
+                        webRequest.result == UnityWebRequest.Result.ProtocolError)
+                    {
+                        Debug.LogError($"Error: {webRequest.error}  for url: {url}");
+                        return;
+                    }
+
+                    // Получаем данные
+                    byte[] fileData = webRequest.downloadHandler.data;
+
+                    await File.WriteAllBytesAsync(tilePath, fileData);
+
+                    string result = Encoding.UTF8.GetString(fileData);
+
+                    XmlDocument doc = new XmlDocument();
+                    doc.LoadXml(result);
+
+                    SetBounds(doc.SelectSingleNode("/osm/bounds"));
+                    GetNodes(doc.SelectNodes("/osm/node"));
+                    GetWays(doc.SelectNodes("osm/way"));
+                    GetRelations(doc.SelectNodes("osm/relation"));
+
+                    IsReady = true;
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError($"Download failed: {e.Message} for url: {url}");
+            }
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -29,17 +108,30 @@ public class MapReader : MonoBehaviour
         ways = new List<OsmWay>();
         relations = new List<OsmRelation>();
 
-        var txtAsset = Resources.Load<TextAsset>(resourceFile);
+#if UNITY_ANDROID || UNITY_IPHONE
+            CacheFolderPath = Path.Combine(Application.persistentDataPath, RelativeCachePath);
+#else
+        CacheFolderPath = Path.Combine(Application.dataPath, RelativeCachePath);
+#endif
 
-        XmlDocument doc = new XmlDocument();
-        doc.LoadXml(txtAsset.text);
+        if (!Directory.Exists(CacheFolderPath))
+            Directory.CreateDirectory(CacheFolderPath);
 
-        SetBounds(doc.SelectSingleNode("/osm/bounds"));
-        GetNodes(doc.SelectNodes("/osm/node"));
-        GetWays(doc.SelectNodes("osm/way"));
-        GetRelations(doc.SelectNodes("osm/relation"));
+        double[] bbox = MercatorProjection.GetBoundingBox(longitude, latitude, radiusmeters);
 
-        IsReady = true;
+        String minLon = bbox[0].ToString().Replace(",", ".");
+        String minLat = bbox[1].ToString().Replace(",", ".");
+
+        String maxLon = bbox[2].ToString().Replace(",", ".");
+        String maxLat = bbox[3].ToString().Replace(",", ".");
+
+        string dataURL = "https://www.openstreetmap.org/api/0.6/map?bbox=" + minLon + "," + minLat + "," + maxLon + "," + maxLat;
+
+        var document = "mapdata_" + longitude + "_" + latitude + "_" + radiusmeters + ".txt";
+
+        var tilePath = Path.Combine(CacheFolderPath, document);
+
+        LoadOSMData(dataURL, tilePath);
     }
 
     void Update()

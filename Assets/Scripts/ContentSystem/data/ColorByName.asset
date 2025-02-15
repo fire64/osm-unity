@@ -135,3 +135,111 @@ MonoBehaviour:
     color: {r: 1, g: 0.627451, b: 0.47843137, a: 1}
   - colorname: blue
     color: {r: 0, g: 0, b: 1, a: 1}
+  - colorname: grey;green
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;beige
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;green
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;lightblue
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: grey;orange
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: grey;red
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;red
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;brown;black
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;blue;black
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;beige;black
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: brown;red
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;black;red
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: grey;beige
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: brown;green
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: grey;brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;white
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;green
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;white
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;orange;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: red;white;yellow;blue
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightblue;white;orange
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightblue;lightgreen
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;green
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: burlywood
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;yellow
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;beige;lightgrey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;grey;brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;blue
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;grey;brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;lightgrey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;blue;red
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;black;pink;red
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;lightgreen
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;red
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: green;beige;white
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;white;brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: yellow;white
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: yellow;brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: brown;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;orange
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;orange;brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;grey;white;brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: grey;yellow
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: orange;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: orange;blue;lightgrey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: red;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: yellow;beige;red
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: orange;green
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: black;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightblue
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: yellow;beige
+    color: {r: 1, g: 1, b: 1, a: 1}

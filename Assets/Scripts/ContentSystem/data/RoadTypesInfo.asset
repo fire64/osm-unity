@@ -16,48 +16,76 @@ MonoBehaviour:
   - roadtype: residential
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
   - roadtype: secondary
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
   - roadtype: tertiary
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
   - roadtype: primary_link
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
   - roadtype: primary
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
   - roadtype: footway
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
   - roadtype: service
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
   - roadtype: path
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
   - roadtype: unclassified
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
   - roadtype: pedestrian
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
   - roadtype: steps
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
   - roadtype: track
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
   - roadtype: secondary_link
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
   - roadtype: cycleway
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
   - roadtype: living_street
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
   - roadtype: tertiary_link
     roadMaterial: {fileID: 0}
     roadWidth: 0
+    layersLevel: 0
+  - roadtype: trunk
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: trunk_link
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: services
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0

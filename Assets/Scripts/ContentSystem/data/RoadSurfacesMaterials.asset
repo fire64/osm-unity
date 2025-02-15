@@ -43,3 +43,9 @@ MonoBehaviour:
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: unhewn_cobblestone
     roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: pebblestone
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: compacted
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: sand
+    roadSurfacesMaterial: {fileID: 0}

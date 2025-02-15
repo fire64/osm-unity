@@ -127,3 +127,11 @@ MonoBehaviour:
     buildingtypematerial: {fileID: 0}
   - buildingtype: bunker
     buildingtypematerial: {fileID: 0}
+  - buildingtype: abandoned
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: sports_centre
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: hangar
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: sport
+    buildingtypematerial: {fileID: 0}

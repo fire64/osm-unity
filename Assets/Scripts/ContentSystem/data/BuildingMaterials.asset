@@ -43,3 +43,9 @@ MonoBehaviour:
     buildingmaterial: {fileID: 2100000, guid: 37c42c4e7a4c84044bd2bc4db207005c, type: 2}
   - buildingmaterialname: silicate brick
     buildingmaterial: {fileID: 2100000, guid: 3275de488e700e2469c589368e4bcc5d, type: 2}
+  - buildingmaterialname: porcelain_stoneware
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: glass;metal_plates
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: cement_block
+    buildingmaterial: {fileID: 0}

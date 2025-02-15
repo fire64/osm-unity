@@ -90,4 +90,47 @@ public static class MercatorProjection
         double n = Math.PI - 2.0 * Math.PI * y / Math.Pow(2.0, z);
         return 180.0 / Math.PI * Math.Atan(0.5 * (Math.Exp(n) - Math.Exp(-n)));
     }
+
+    public static double[] GetBoundingBox(double lon, double lat, float radius)
+    {
+        const double metersPerDegree = 111111.0;
+
+        // Рассчитываем смещение по широте
+        double deltaLat = radius / metersPerDegree;
+
+        // Рассчитываем смещение по долготе
+        double deltaLon;
+        if (Math.Abs(lat) >= 90.0)
+        {
+            deltaLon = 180.0; // На полюсах долгота не имеет значения
+        }
+        else
+        {
+            double latRad = lat * Math.PI / 180.0;
+            double cosLat = Math.Cos(latRad);
+            deltaLon = Math.Abs(cosLat) > 1e-9
+                ? radius / (metersPerDegree * cosLat)
+                : 180.0; // Избегаем деления на ноль
+        }
+
+        // Вычисляем границы
+        double minLon = NormalizeLongitude(lon - deltaLon);
+        double maxLon = NormalizeLongitude(lon + deltaLon);
+        double minLat = Math.Max(lat - deltaLat, -90.0);
+        double maxLat = Math.Min(lat + deltaLat, 90.0);
+
+        return new[] { minLon, minLat, maxLon, maxLat };
+    }
+
+    private static double NormalizeLongitude(double longitude)
+    {
+        // Приводим долготу к диапазону [-180, 180)
+        longitude %= 360;
+        if (longitude < -180)
+            longitude += 360;
+        else if (longitude >= 180)
+            longitude -= 360;
+        return longitude;
+    }
+
 }

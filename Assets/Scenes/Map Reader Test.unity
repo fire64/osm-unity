@@ -155,8 +155,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a85b096eab9582409324b760bae020b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceFile: teestmap
+  latitude: 55.759795
+  longitude: 37.863436
+  radiusmeters: 2000
   isDebugDraw: 0
+  RelativeCachePath: ../CachedTileData/
 --- !u!4 &108401118
 Transform:
   m_ObjectHideFlags: 0
@@ -387,8 +390,8 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
-  far clip plane: 1000
+  near clip plane: 0.01
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
