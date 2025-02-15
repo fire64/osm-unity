@@ -47,6 +47,7 @@ public class BuildingMaterials : ScriptableObject
     {
         BuildingMaterialReplace item = new BuildingMaterialReplace();
         item.buildingmaterialname = curBuildingMaterialName;
+        item.buildingmaterial = null;
         BuildingMaterialsList.Add(item);
 
 #if UNITY_EDITOR

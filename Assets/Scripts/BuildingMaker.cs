@@ -9,8 +9,6 @@ class BuildingMaker : InfrstructureBehaviour
     public Material building_material;
     public bool bNotCreateOSMParts;
 
-    public bool isUseHeightFix = true;
-
     public float MinRandHeight = 3.0f;
     public float MaxRandHeight = 21.0f;
 
@@ -20,6 +18,7 @@ class BuildingMaker : InfrstructureBehaviour
 
     public BuildingTypeMaterials buildingTypes;
     public BuildingMaterials buildingMaterials;
+    public bool bNotCreateNotClosedPolygon;
 
     private float GetHeights(BaseOsm geo)
     {
@@ -65,11 +64,6 @@ class BuildingMaker : InfrstructureBehaviour
         else if (geo.HasField("building:min_level"))
         {
             min_height = geo.GetValueFloatByKey("building:min_level") * 3.0f;
-        }
-
-        if (isUseHeightFix)
-        {
-            height -= min_height;
         }
 
         return height;
@@ -177,6 +171,11 @@ class BuildingMaker : InfrstructureBehaviour
             return;
         }
 
+        if(!geo.IsClosedPolygon && bNotCreateNotClosedPolygon)
+        {
+            return;
+        }
+
         var building = new GameObject(searchname).AddComponent<Building>();
 
         building.AddComponent<MeshFilter>();
@@ -250,14 +249,14 @@ class BuildingMaker : InfrstructureBehaviour
 
         contentselector = FindObjectOfType<GameContentSelector>();
 
-        foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Building && w.IsClosedPolygon && w.NodeIDs.Count > 1; }))
+        foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Building && w.NodeIDs.Count > 1; }))
         {
             way.AddField("source_type", "way");
             CreateBuilding(way);
             yield return null;
         }
 
-        foreach (var relation in map.relations.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Building && w.IsClosedPolygon && w.NodeIDs.Count > 1; }))
+        foreach (var relation in map.relations.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Building && w.NodeIDs.Count > 1; }))
         {
             relation.AddField("source_type", "relation");
             CreateBuilding(relation);

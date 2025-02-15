@@ -49,3 +49,19 @@ MonoBehaviour:
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: cement_block
     buildingmaterial: {fileID: 0}
+  - buildingmaterialname: tiles
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: concrete;glass
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: plsater
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: porcelain_stoneware;brick
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: cement_block;glass
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: mirror
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: 
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: stal
+    buildingmaterial: {fileID: 0}

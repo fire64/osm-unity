@@ -145,3 +145,17 @@ MonoBehaviour:
     buildingtypematerial: {fileID: 0}
   - buildingtype: toilets
     buildingtypematerial: {fileID: 0}
+  - buildingtype: Museum
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: store
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: historic
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: bridge
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: gate
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: collapsed
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: houseboat
+    buildingtypematerial: {fileID: 0}

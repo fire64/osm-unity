@@ -89,3 +89,19 @@ MonoBehaviour:
     roadMaterial: {fileID: 0}
     roadWidth: 0
     layersLevel: 0
+  - roadtype: street_lamp
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: construction
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: corridor
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: proposed
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0

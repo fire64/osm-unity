@@ -51,3 +51,13 @@ MonoBehaviour:
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: earth
     roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: rubber
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: tartan
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: as\
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: concrete:plates
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: building_passage
+    roadSurfacesMaterial: {fileID: 0}

@@ -8,6 +8,7 @@ public class GenerateRoof : MonoBehaviour
 {
     public GameObject roof_onion;
     public GameObject roof_dome;
+    public BuildingMaterials buildingMaterials;
 
     private void CreateHippedRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, Vector2 min, Vector2 size)
     {
@@ -369,6 +370,18 @@ public class GenerateRoof : MonoBehaviour
         mesh.SetUVs(0, tb.UV);
 
         roof.transform.localPosition = Vector3.zero;
+
+        if (geo.HasField("roof:material"))
+        {
+            var mat_name = geo.GetValueStringByKey("roof:material");
+
+            var mat_by_tag = buildingMaterials.GetBuildingMaterialByName(mat_name);
+
+            if(mat_by_tag != null)
+            {
+                roof.GetComponent<MeshRenderer>().material = mat_by_tag;
+            }
+        }
 
         roof.GetComponent<MeshRenderer>().material.SetColor("_Color", GR.SetOSMRoofColour(geo));
     }

@@ -253,3 +253,53 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
   - colorname: chocolate
     color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: coral;yellow
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: darkslategrey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightslategrey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: darkorange
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;lightgrey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;orange
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: yellow;red;white
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: aqua
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;lightyellow
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightsalmon
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: red;white
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: red;yellow
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: yellow;red
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lime
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: rosybrown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: grey;blue
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: salmon
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: sandybrown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: palegoldenrod
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: peachpuff
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: dimgray
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgreen;beige
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;lightblue
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: peru
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: indianred
+    color: {r: 1, g: 1, b: 1, a: 1}
