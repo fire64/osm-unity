@@ -65,3 +65,9 @@ MonoBehaviour:
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: stal
     buildingmaterial: {fileID: 0}
+  - buildingmaterialname: tar_paper
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: roof_tiles
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: metal_plates;glass
+    buildingmaterial: {fileID: 0}

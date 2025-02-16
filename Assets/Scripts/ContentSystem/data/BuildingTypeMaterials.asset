@@ -159,3 +159,5 @@ MonoBehaviour:
     buildingtypematerial: {fileID: 0}
   - buildingtype: houseboat
     buildingtypematerial: {fileID: 0}
+  - buildingtype: dovecote
+    buildingtypematerial: {fileID: 0}

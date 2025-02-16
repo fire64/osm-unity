@@ -14,50 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoadSurfacesMaterialsList:
   - roadSurfacesMaterialName: asphalt
-    roadSurfacesMaterial: {fileID: 2100000, guid: 63a7a44a03b04434b941e895fcb5ac68, type: 2}
-  - roadSurfacesMaterialName: paving_stones
     roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: sett
-    roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: concrete
-    roadSurfacesMaterial: {fileID: 2100000, guid: 48ca4edd30ae5e44f96d7d93c83c6606, type: 2}
-  - roadSurfacesMaterialName: ground
-    roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: metal
-    roadSurfacesMaterial: {fileID: 2100000, guid: d4c75380ffe93714f9921c0ee69e7127, type: 2}
-  - roadSurfacesMaterialName: wood
-    roadSurfacesMaterial: {fileID: 2100000, guid: a2492083eb998cc4dbd6520bb066fd91, type: 2}
-  - roadSurfacesMaterialName: grass
-    roadSurfacesMaterial: {fileID: 2100000, guid: c395a0ddb4889ce41ae31cdb53140e27, type: 2}
   - roadSurfacesMaterialName: paved
+    roadSurfacesMaterial: {fileID: 2100000, guid: 235158f0bdaf21c48958f0c53f90ecec, type: 2}
+  - roadSurfacesMaterialName: ground
+    roadSurfacesMaterial: {fileID: 2100000, guid: df9f368fceab184459e4e0962e617946, type: 2}
+  - roadSurfacesMaterialName: unpaved
+    roadSurfacesMaterial: {fileID: 2100000, guid: 30bfb594fd3ba7d4eac196245dd274f3, type: 2}
+  - roadSurfacesMaterialName: gravel
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: dirt
     roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: gravel
-    roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: cobblestone
+  - roadSurfacesMaterialName: paving_stones
+    roadSurfacesMaterial: {fileID: 2100000, guid: eaf7b0ac5f41cfb4f905441b64e0690c, type: 2}
+  - roadSurfacesMaterialName: sand
+    roadSurfacesMaterial: {fileID: 2100000, guid: e7d1bafc680019d4a967ab4070bd255b, type: 2}
+  - roadSurfacesMaterialName: concrete
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: fine_gravel
-    roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: unpaved
-    roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: unhewn_cobblestone
+    roadSurfacesMaterial: {fileID: 2100000, guid: cc2af82a91f2a864996eeb94f4d829ed, type: 2}
+  - roadSurfacesMaterialName: grass
+    roadSurfacesMaterial: {fileID: 2100000, guid: f0039cec9d91f95489b34732206d0f3d, type: 2}
+  - roadSurfacesMaterialName: wood
+    roadSurfacesMaterial: {fileID: 2100000, guid: dae66b9f3df211d458b8aba04486d61f, type: 2}
+  - roadSurfacesMaterialName: cobblestone
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: pebblestone
-    roadSurfacesMaterial: {fileID: 0}
+    roadSurfacesMaterial: {fileID: 2100000, guid: cc981715fd63cf441a5dae9e7aa8b3e1, type: 2}
   - roadSurfacesMaterialName: compacted
-    roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: sand
-    roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: earth
-    roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: rubber
-    roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: tartan
-    roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: as\
-    roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: concrete:plates
-    roadSurfacesMaterial: {fileID: 0}
-  - roadSurfacesMaterialName: building_passage
-    roadSurfacesMaterial: {fileID: 0}
+    roadSurfacesMaterial: {fileID: 2100000, guid: d666c481e95e3614faf5820da2fb4180, type: 2}
+  - roadSurfacesMaterialName: unhewn_cobblestone
+    roadSurfacesMaterial: {fileID: 2100000, guid: 2b5af82f8f425a7468d9a358242c849d, type: 2}

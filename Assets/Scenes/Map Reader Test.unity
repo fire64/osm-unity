@@ -156,9 +156,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a85b096eab9582409324b760bae020b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  latitude: 59.934849
-  longitude: 30.3074239
-  radiusmeters: 1000
+  latitude: 55.736996
+  longitude: 37.831491
+  radiusmeters: 1900
   isDebugDraw: 0
   RelativeCachePath: ../CachedTileData/
 --- !u!4 &108401118
@@ -205,7 +205,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   building_material: {fileID: 2100000, guid: 90cc4ee604aa1ff4f94242c9448de8b0, type: 2}
   bNotCreateOSMParts: 0
-  isUseHeightFix: 0
   MinRandHeight: 3
   MaxRandHeight: 21
   generateRoof: {fileID: 108401122}

@@ -303,3 +303,65 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
   - colorname: indianred
     color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;yellow;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;brown;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;yellow
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: brown;gold
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;grey;green
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;grey;brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: green;white
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;white;black
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;lightblue;black
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;white;pink
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: pink'white;red
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: grey;black;blue
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: brown;black
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;yellow;orange
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;grey;orange
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightyellow;orange;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;lightgrey;brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: grey;white;brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;brown;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: yellow;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;beige;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: yellow;white;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;black
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white'lightgrey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: orange;white;lightgrey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;red;yellow;blue
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;orange;black
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: orange;white;blue;yellow
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: pink;white;black
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: red;yellow;orange
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: orange;brown
+    color: {r: 1, g: 1, b: 1, a: 1}

@@ -27,62 +27,88 @@ public static class GR
 
     public static void CreateMeshLineWithWidth(List<Vector3> corners, float width, MeshData data)
     {
-        for (int i = 1; i < corners.Count; i++)
+        if (corners.Count < 2)
+            return;
+
+        List<Vector3> leftPoints = new List<Vector3>();
+        List<Vector3> rightPoints = new List<Vector3>();
+
+        // Генерируем точки слева и справа с учётом соседних сегментов
+        for (int i = 0; i < corners.Count; i++)
         {
-            Vector3 s1 = corners[i - 1];
-            Vector3 s2 = corners[i];
+            Vector3 dirPrev, dirNext;
+            Vector3 cross;
 
-            Vector3 diff = (s2 - s1).normalized;
-            var cross = Vector3.Cross(diff, Vector3.up) * width; //width of lane
+            if (i == 0)
+            {
+                // Первая точка: используем следующий сегмент
+                dirNext = (corners[i + 1] - corners[i]).normalized;
+                cross = Vector3.Cross(dirNext, Vector3.up) * width;
+            }
+            else if (i == corners.Count - 1)
+            {
+                // Последняя точка: используем предыдущий сегмент
+                dirPrev = (corners[i] - corners[i - 1]).normalized;
+                cross = Vector3.Cross(dirPrev, Vector3.up) * width;
+            }
+            else
+            {
+                // Внутренние точки: вычисляем биссектрису направлений
+                dirPrev = (corners[i] - corners[i - 1]).normalized;
+                dirNext = (corners[i + 1] - corners[i]).normalized;
 
-            Vector3 v1 = s1 + cross;
-            Vector3 v2 = s1 - cross;
-            Vector3 v3 = s2 + cross;
-            Vector3 v4 = s2 - cross;
+                Vector3 bisectorDir = dirPrev + dirNext;
+                if (bisectorDir.magnitude < 0.001f)
+                {
+                    // Направления противоположны - используем перпендикуляр к dirPrev
+                    cross = Vector3.Cross(dirPrev, Vector3.up) * width;
+                }
+                else
+                {
+                    bisectorDir.Normalize();
+                    cross = Vector3.Cross(bisectorDir, Vector3.up) * width;
+                }
+            }
 
-            data.Vertices.Add(v1);
-            data.Vertices.Add(v2);
-            data.Vertices.Add(v3);
-            data.Vertices.Add(v4);
+            leftPoints.Add(corners[i] + cross);
+            rightPoints.Add(corners[i] - cross);
+        }
 
-            data.UV.Add(new Vector2(0, 0));
-            data.UV.Add(new Vector2(1, 0));
-            data.UV.Add(new Vector3(0, 1));
-            data.UV.Add(new Vector3(1, 1));
+        // Добавляем вершины, UV и нормали
+        for (int i = 0; i < corners.Count; i++)
+        {
+            data.Vertices.Add(leftPoints[i]);
+            data.Vertices.Add(rightPoints[i]);
+
+            // UV: растягиваем текстуру вдоль линии
+            float uvProgress = i / (float)(corners.Count - 1);
+            data.UV.Add(new Vector2(uvProgress, 0f));
+            data.UV.Add(new Vector2(uvProgress, 1f));
 
             data.Normals.Add(-Vector3.up);
             data.Normals.Add(-Vector3.up);
-            data.Normals.Add(-Vector3.up);
-            data.Normals.Add(-Vector3.up);
+        }
 
-            // index values
-            int idx1, idx2, idx3, idx4;
-            idx4 = data.Vertices.Count - 1;
-            idx3 = data.Vertices.Count - 2;
-            idx2 = data.Vertices.Count - 3;
-            idx1 = data.Vertices.Count - 4;
+        // Создаём треугольники для полосы
+        for (int i = 0; i < corners.Count - 1; i++)
+        {
+            int leftCurrent = i * 2;
+            int rightCurrent = i * 2 + 1;
+            int leftNext = (i + 1) * 2;
+            int rightNext = (i + 1) * 2 + 1;
 
-            // first triangle v1, v3, v2
-            data.Indices.Add(idx1);
-            data.Indices.Add(idx3);
-            data.Indices.Add(idx2);
+            // Первый треугольник: leftCurrent, leftNext, rightCurrent
+            data.Indices.Add(leftCurrent);
+            data.Indices.Add(leftNext);
+            data.Indices.Add(rightCurrent);
 
-            // second triangle v3, v4, v2
-            data.Indices.Add(idx3);
-            data.Indices.Add(idx4);
-            data.Indices.Add(idx2);
-
-            // third triangle v2, v3, v1
-            data.Indices.Add(idx2);
-            data.Indices.Add(idx3);
-            data.Indices.Add(idx1);
-
-            // fourth triangle v2, v4, v3
-            data.Indices.Add(idx2);
-            data.Indices.Add(idx4);
-            data.Indices.Add(idx3);
+            // Второй треугольник: rightCurrent, leftNext, rightNext
+            data.Indices.Add(rightCurrent);
+            data.Indices.Add(leftNext);
+            data.Indices.Add(rightNext);
         }
     }
+
     public static void CreateMeshWithHeight(List<Vector3> corners, float min_height, float height, MeshData data)
     {
         if(IsClockwise(corners))
