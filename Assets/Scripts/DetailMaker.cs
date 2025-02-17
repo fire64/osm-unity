@@ -2,11 +2,43 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using Unity.VisualScripting;
 using UnityEngine;
 
 class DetailMaker : InfrstructureBehaviour
 {
     public static GameContentSelector contentselector;
+
+    public GameObject tempMarker;
+    public bool isShowTempMarker;
+
+    void CreateTempMarker(Detail detail)
+    {
+        string Text = detail.Description + ": " + detail.Type;
+
+        var go = Instantiate(tempMarker, detail.transform.position, Quaternion.identity);
+
+        if (isShowTempMarker)
+        {
+            go.GetComponentInChildren<TMPro.TextMeshPro>().text = Text;
+        }
+        else
+        {
+            go.GetComponentInChildren<TMPro.TextMeshPro>().text = "";
+        }
+
+        go.transform.SetParent(detail.transform);
+    }
+
+    private void CheckAndAddCategory(BaseOsm geo, Detail detail, string keyword)
+    {
+        //Type parser
+        if (geo.HasField(keyword))
+        {
+            detail.Description = keyword;
+            detail.Type = geo.GetValueStringByKey(keyword);
+        }
+    }
 
     private void SetProperties(BaseOsm geo, Detail detail)
     {
@@ -16,6 +48,43 @@ class DetailMaker : InfrstructureBehaviour
             detail.Name = geo.GetValueStringByKey("name");
 
         detail.Id = geo.ID.ToString();
+
+        detail.Description = "Undefined";
+        detail.Type = "Undefined";
+
+        //Type parser
+        CheckAndAddCategory(geo, detail, "attraction");
+        CheckAndAddCategory(geo, detail, "information");
+        CheckAndAddCategory(geo, detail, "disused:amenity");
+        CheckAndAddCategory(geo, detail, "disused:shop");
+        CheckAndAddCategory(geo, detail, "playground");
+
+        CheckAndAddCategory(geo, detail, "natural");
+        CheckAndAddCategory(geo, detail, "man_made");
+        CheckAndAddCategory(geo, detail, "historic");
+        CheckAndAddCategory(geo, detail, "power");
+        CheckAndAddCategory(geo, detail, "emergency");
+        CheckAndAddCategory(geo, detail, "amenity");
+        CheckAndAddCategory(geo, detail, "highway");
+        CheckAndAddCategory(geo, detail, "traffic_calming");
+        CheckAndAddCategory(geo, detail, "railway");
+        CheckAndAddCategory(geo, detail, "barrier");
+        CheckAndAddCategory(geo, detail, "shop");
+        CheckAndAddCategory(geo, detail, "place");
+        CheckAndAddCategory(geo, detail, "office");
+        CheckAndAddCategory(geo, detail, "public_transport");
+        CheckAndAddCategory(geo, detail, "noexit");
+        CheckAndAddCategory(geo, detail, "entrance");
+        CheckAndAddCategory(geo, detail, "was:shop"); //not use, old shop
+        CheckAndAddCategory(geo, detail, "tourism");
+        CheckAndAddCategory(geo, detail, "leisure");
+
+
+        if (detail.Description == "Undefined")
+        {
+            CreateTempMarker(detail); //For debug
+ //         Debug.Log(detail.name + " Undefined");
+        }
     }
 
     void CreateDetails(OsmNode geo)

@@ -9,5 +9,8 @@ public class Detail : MonoBehaviour
     public string Kind;
     public string Source;
 
+    public string Description;
+    public string Type;
+
     public Item[] itemlist;
 }
