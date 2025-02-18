@@ -77,21 +77,7 @@ public class OsmRelation : BaseOsm
             itemlist[i].key = key;
             itemlist[i].value = GetAttribute<string>("v", t.Attributes);
 
-            if (key == "building" || key == "building:part" || key == "building:levels" || key == "building:min_level")
-            {
-                objectType = ObjectType.Building;
-            }
-            else if (key == "highway")
-            {
-                objectType = ObjectType.Road;
-            }
-
-            /** would preferably like to use only: 
-            ** trunk roads
-            ** primary roads
-            ** secondary roads
-            ** service roads
-            */
+            DetectObjectType(t);
 
             i++;
         }

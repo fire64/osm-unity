@@ -365,3 +365,5 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
   - colorname: orange;brown
     color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: pink;white
+    color: {r: 1, g: 1, b: 1, a: 1}

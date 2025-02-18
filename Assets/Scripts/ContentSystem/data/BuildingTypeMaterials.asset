@@ -161,3 +161,11 @@ MonoBehaviour:
     buildingtypematerial: {fileID: 0}
   - buildingtype: dovecote
     buildingtypematerial: {fileID: 0}
+  - buildingtype: water_works
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: shelter
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: quonset_hut
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: prison
+    buildingtypematerial: {fileID: 0}

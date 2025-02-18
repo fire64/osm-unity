@@ -75,7 +75,25 @@ class RoadMaker : InfrstructureBehaviour
             road.Width = 2.0f;
         }
 
+        road.layersLevel = roadInfo.layersLevel;
+
         road.GetComponent<MeshRenderer>().material.SetColor("_Color", GR.SetOSMColour(geo));
+    }
+
+    Vector3 GetRoadHeight(Road road, ulong roadid)
+    {
+        // Ѕазова€ высота из уровн€ слоев дороги
+        double height = 0.001f * road.layersLevel;
+
+        // √енераци€ уникального смещени€ в диапазоне [0.0001, 0.0009]
+        double idBasedOffset = 0.0001f + (float)((double)roadid / 1000000000 * 0.0008f);
+
+        // ƒобавл€ем смещение к общей высоте
+        height += idBasedOffset;
+
+        Vector3 vec = new Vector3(0f, (float)height, 0f);
+
+        return vec;
     }
 
     void CreateRoads(BaseOsm geo)
@@ -106,8 +124,10 @@ class RoadMaker : InfrstructureBehaviour
 
         var count = geo.NodeIDs.Count;
 
+        Vector3 roadlayerHeight = GetRoadHeight(road, geo.ID);
+
         Vector3 localOrigin = GetCentre(geo);
-        road.transform.position = localOrigin - map.bounds.Centre;
+        road.transform.position = localOrigin - map.bounds.Centre + roadlayerHeight;
 
         for (int i = 0; i < count; i++)
         {

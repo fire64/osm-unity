@@ -29,6 +29,39 @@ public class BaseOsm
 
     public Item[] itemlist;
 
+    public void DetectObjectType(XmlNode tag)
+    {
+        string key = GetAttribute<string>("k", tag.Attributes);
+        string value = GetAttribute<string>("v", tag.Attributes);
+
+        if (key == "building" || key == "building:part" || key == "building:levels" || key == "building:min_level")
+        {
+            objectType = ObjectType.Building;
+        }
+        else if (key == "highway")
+        {
+            objectType = ObjectType.Road;
+        }
+        else if (key == "leisure")
+        {
+            if (value == "park")
+            {
+                objectType = ObjectType.Landuse;
+            }
+        }
+        else if (key == "natural" && value != "water")
+        {
+            objectType = ObjectType.Landuse;
+        }
+        else if (key == "landuse")
+        {
+            if (value == "grass")
+            {
+                objectType = ObjectType.Landuse;
+            }
+        }
+    }
+
     public bool HasField(string sKey)
     {
         foreach (Item item in itemlist)

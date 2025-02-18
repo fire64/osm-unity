@@ -1,0 +1,69 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9158f68cf1a88ee4393a4907dada99ee, type: 3}
+  m_Name: LanduseTypes
+  m_EditorClassIdentifier: 
+  LanduseTypesReplacesList:
+  - landuseType: wood
+    landuseDescription: "\u041B\u0435\u0441"
+    groundMaterial: {fileID: 2100000, guid: 672101889d5c3ce439f989cf5f5ba6ff, type: 2}
+    isGrassGenerate: 1
+    isTreesGenerate: 1
+    isRenderEnable: 1
+  - landuseType: grassland
+    landuseDescription: "\u041F\u043E\u043B\u0435"
+    groundMaterial: {fileID: 2100000, guid: 650f2cedbe2840945814ce7cb8f34f5e, type: 2}
+    isGrassGenerate: 1
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: park
+    landuseDescription: "\u041F\u0430\u0440\u043A"
+    groundMaterial: {fileID: 2100000, guid: f5c34ae054f828f4c9cb6559298bbba7, type: 2}
+    isGrassGenerate: 1
+    isTreesGenerate: 1
+    isRenderEnable: 1
+  - landuseType: grass
+    landuseDescription: "\u0413\u0430\u0437\u043E\u043D"
+    groundMaterial: {fileID: 2100000, guid: c395a0ddb4889ce41ae31cdb53140e27, type: 2}
+    isGrassGenerate: 1
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: mud
+    landuseDescription: "\u0411\u043E\u043B\u043E\u0442\u043E"
+    groundMaterial: {fileID: 2100000, guid: 35c5bac3dea04dd4c9b2e3e4563d90b5, type: 2}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: wetland
+    landuseDescription: "\u0411\u043E\u043B\u043E\u0442\u043E"
+    groundMaterial: {fileID: 2100000, guid: 35c5bac3dea04dd4c9b2e3e4563d90b5, type: 2}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: scrub
+    landuseDescription: "\u041A\u0443\u0441\u0442\u0430\u0440\u043D\u0438\u043A\u0438"
+    groundMaterial: {fileID: 2100000, guid: b536d4fa585c0844b8377bf434205971, type: 2}
+    isGrassGenerate: 1
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: tree_row
+    landuseDescription: "\u0410\u043B\u043B\u0435\u044F"
+    groundMaterial: {fileID: 2100000, guid: c395a0ddb4889ce41ae31cdb53140e27, type: 2}
+    isGrassGenerate: 1
+    isTreesGenerate: 1
+    isRenderEnable: 1
+  - landuseType: earth_bank
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0

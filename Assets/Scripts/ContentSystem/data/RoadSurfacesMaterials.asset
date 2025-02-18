@@ -45,3 +45,13 @@ MonoBehaviour:
     roadSurfacesMaterial: {fileID: 2100000, guid: d666c481e95e3614faf5820da2fb4180, type: 2}
   - roadSurfacesMaterialName: unhewn_cobblestone
     roadSurfacesMaterial: {fileID: 2100000, guid: 2b5af82f8f425a7468d9a358242c849d, type: 2}
+  - roadSurfacesMaterialName: rock
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: sett
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: concrete:plates
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: metal
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: tartan
+    roadSurfacesMaterial: {fileID: 0}

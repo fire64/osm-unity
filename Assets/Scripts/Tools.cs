@@ -109,6 +109,45 @@ public static class GR
         }
     }
 
+    public static void CreateMeshPlane(List<Vector3> corners, MeshData data)
+    {
+        if (IsClockwise(corners))
+        {
+            corners.Reverse();
+        }
+
+        // Рассчитываем границы для проекции UV
+        float minX = corners.Min(c => c.x);
+        float maxX = corners.Max(c => c.x);
+        float minZ = corners.Min(c => c.z);
+        float maxZ = corners.Max(c => c.z);
+
+        // Избегаем деления на ноль
+        if (Mathf.Approximately(maxX, minX)) maxX = minX + 1e-6f;
+        if (Mathf.Approximately(maxZ, minZ)) maxZ = minZ + 1e-6f;
+
+        // Создаем верхнюю грань
+        int topOffset = data.Vertices.Count;
+        for (int i = 0; i < corners.Count; i++)
+        {
+            data.Vertices.Add(corners[i] + new Vector3(0, 0.0001f, 0));
+            data.Normals.Add(Vector3.up); // Нормаль вверх для верхней грани
+
+            // UV аналогично нижней грани
+            float u = (corners[i].x - minX) / (maxX - minX);
+            float v = (corners[i].z - minZ) / (maxZ - minZ);
+            data.UV.Add(new Vector2(u, v));
+        }
+
+        // Триангуляция верхней грани
+        for (int i = 2; i < corners.Count; i++)
+        {
+            data.Indices.Add(topOffset + 0);
+            data.Indices.Add(topOffset + i);
+            data.Indices.Add(topOffset + i - 1);
+        }
+    }
+
     public static void CreateMeshWithHeight(List<Vector3> corners, float min_height, float height, MeshData data)
     {
         if(IsClockwise(corners))
@@ -204,9 +243,7 @@ public static class GR
             data.Indices.Add(topOffset + i);
             data.Indices.Add(topOffset + i - 1);
         }
-
     }
-
 
     public static Color SetOSMRoofColour(BaseOsm geo)
     {

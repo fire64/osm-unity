@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 108401119}
   - component: {fileID: 108401123}
   - component: {fileID: 108401121}
+  - component: {fileID: 108401124}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -156,9 +157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a85b096eab9582409324b760bae020b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  latitude: 55.736996
-  longitude: 37.831491
-  radiusmeters: 1900
+  latitude: 55.776982
+  longitude: 37.492905
+  radiusmeters: 1400
   isDebugDraw: 0
   RelativeCachePath: ../CachedTileData/
 --- !u!4 &108401118
@@ -224,7 +225,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoom: 17
-  TileService: 2
+  TileService: 1
 --- !u!114 &108401122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -254,6 +255,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tempMarker: {fileID: 1354046477611645516, guid: 08ea2906474b6814690e685c6df23932, type: 3}
   isShowTempMarker: 1
+--- !u!114 &108401124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108401116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef9e4c082c4c4924784290250928b3f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bNotCreateNotClosedPolygon: 1
+  grassMaterial: {fileID: 2100000, guid: c395a0ddb4889ce41ae31cdb53140e27, type: 2}
+  landuseTypes: {fileID: 11400000, guid: 7348cebaa8e06154aa3d807aff5922bf, type: 2}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,9 +469,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb5c73d4721154488bccb20492f094b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 10
+  movementSpeed: 15
   mouseSensitivity: 2
-  fastMovementMultiplier: 5
+  fastMovementMultiplier: 10
 --- !u!1 &727894443
 GameObject:
   m_ObjectHideFlags: 0

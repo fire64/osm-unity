@@ -19,7 +19,6 @@ public class OsmWay : BaseOsm
         }
 
         // TODO: Determine what type of way this is; is it a road? / boudary etc.
-
         if (NodeIDs.Count > 1)
         {
             IsClosedPolygon = NodeIDs[0] == NodeIDs[NodeIDs.Count - 1];
@@ -40,21 +39,7 @@ public class OsmWay : BaseOsm
             itemlist[i].key = key;
             itemlist[i].value = GetAttribute<string>("v", t.Attributes);
 
-            if (key == "building" || key == "building:part" || key == "building:levels" || key == "building:min_level")
-            {
-                objectType = ObjectType.Building;
-            }
-            else if (key == "highway")
-            {
-                objectType = ObjectType.Road;
-            }
-
-            /** would preferably like to use only: 
-            ** trunk roads
-            ** primary roads
-            ** secondary roads
-            ** service roads
-            */
+            DetectObjectType(t);
 
             i++;
         }
