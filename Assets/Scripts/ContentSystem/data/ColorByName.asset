@@ -367,3 +367,27 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
   - colorname: pink;white
     color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: red/white
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: slategray
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;white;brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;beige;brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: pink;red
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: pink'white
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: brown;beige
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;lightyellow
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: darkred
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: orange;lightyellow
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: black;lightgrey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: mediumaquamarine
+    color: {r: 1, g: 1, b: 1, a: 1}

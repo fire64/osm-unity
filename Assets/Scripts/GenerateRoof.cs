@@ -300,9 +300,9 @@ public class GenerateRoof : MonoBehaviour
 
         var tb = new MeshData();
 
-        if (roof_type == "flat")
+        if (roof_type == "flat") //fix
         {
-            GR.CreateMeshWithHeight(corners, minHeight + height, roof_height, tb);
+            GR.CreateMeshWithHeight(corners, height, height + roof_height, tb);
         }
         else if (roof_type == "hipped")
         {
@@ -331,14 +331,14 @@ public class GenerateRoof : MonoBehaviour
 
             CreateGambrelRoof(corners, height, height + roof_height, tb, min, size);
         }
-        else if (roof_type == "dome")
+        else if (roof_type == "dome") //fix
         {
             if (!geo.HasField("roof:height"))
             {
                 roof_height = 1.0f;
             }
 
-            CreateDomeRoof(corners, minHeight + height, minHeight + height + roof_height, tb, min, size);
+            CreateDomeRoof(corners, height, height + roof_height, tb, min, size);
         }
         else if (roof_type == "pyramidal")
         {
@@ -347,7 +347,7 @@ public class GenerateRoof : MonoBehaviour
                 roof_height = 1.0f;
             }
 
-            CreatePyramidalRoof(corners, minHeight + height, minHeight + height + roof_height, tb, min, size);
+            CreatePyramidalRoof(corners, height, height + roof_height, tb, min, size);
         }
         else if (roof_type == "onion")
         {
@@ -356,12 +356,12 @@ public class GenerateRoof : MonoBehaviour
                 roof_height = 1.0f;
             }
 
-            CreateOnionRoof(corners, minHeight + height, minHeight + height + roof_height, tb, min, size);
+            CreateOnionRoof(corners, height, height + roof_height, tb, min, size);
         }
         else
         {
             //Not supported, use flat
-            GR.CreateMeshWithHeight(corners, minHeight + height, roof_height, tb);
+            GR.CreateMeshWithHeight(corners, height, height + roof_height, tb); //Fix
             Debug.Log("Unknown rooftype: " + roof_type);
         }
 

@@ -55,3 +55,7 @@ MonoBehaviour:
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: tartan
     roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: stone
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: grass_paver
+    roadSurfacesMaterial: {fileID: 0}

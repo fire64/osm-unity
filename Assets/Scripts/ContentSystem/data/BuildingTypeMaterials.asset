@@ -169,3 +169,15 @@ MonoBehaviour:
     buildingtypematerial: {fileID: 0}
   - buildingtype: prison
     buildingtypematerial: {fileID: 0}
+  - buildingtype: hut
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: trailer
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: stands
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: column
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: mall
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: checkpoint
+    buildingtypematerial: {fileID: 0}

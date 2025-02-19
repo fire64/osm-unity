@@ -10,7 +10,7 @@ class DetailMaker : InfrstructureBehaviour
     public static GameContentSelector contentselector;
 
     public GameObject tempMarker;
-    public bool isShowTempMarker;
+    public DetailsTypes detailsTypes;
 
     void CreateTempMarker(Detail detail)
     {
@@ -18,14 +18,16 @@ class DetailMaker : InfrstructureBehaviour
 
         var go = Instantiate(tempMarker, detail.transform.position, Quaternion.identity);
 
-        if (isShowTempMarker)
-        {
-            go.GetComponentInChildren<TMPro.TextMeshPro>().text = Text;
-        }
-        else
-        {
-            go.GetComponentInChildren<TMPro.TextMeshPro>().text = "";
-        }
+        go.GetComponentInChildren<TMPro.TextMeshPro>().text = Text;
+
+        go.transform.SetParent(detail.transform);
+    }
+
+    void CreateDetailPrefab(Detail detail, GameObject detailPrefab)
+    {
+        string Text = detail.Description + ": " + detail.Type;
+
+        var go = Instantiate(detailPrefab, detail.transform.position, Quaternion.identity);
 
         go.transform.SetParent(detail.transform);
     }
@@ -79,11 +81,18 @@ class DetailMaker : InfrstructureBehaviour
         CheckAndAddCategory(geo, detail, "tourism");
         CheckAndAddCategory(geo, detail, "leisure");
 
+        var typeName = detail.Description + ":" + detail.Type;
 
-        if (detail.Description == "Undefined")
+        var detailsInfo = detailsTypes.GetDetailsTypeInfoByName(typeName);
+
+        if(detailsInfo.isTempMarkerEnable)
         {
-            CreateTempMarker(detail); //For debug
- //         Debug.Log(detail.name + " Undefined");
+            CreateTempMarker(detail);
+        }
+
+        if (detailsInfo.detailsPrefab != null)
+        {
+            CreateDetailPrefab(detail, detailsInfo.detailsPrefab);
         }
     }
 

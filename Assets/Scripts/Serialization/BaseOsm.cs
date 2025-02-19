@@ -38,6 +38,10 @@ public class BaseOsm
         {
             objectType = ObjectType.Building;
         }
+        else if (key == "man_made" && IsClosedPolygon == true)
+        {
+            objectType = ObjectType.Building;
+        }
         else if (key == "highway")
         {
             objectType = ObjectType.Road;

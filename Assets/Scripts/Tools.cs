@@ -192,8 +192,8 @@ public static class GR
             // Вершины для боковой грани
             Vector3 v1 = p1 + new Vector3(0, min_height, 0);
             Vector3 v2 = p2 + new Vector3(0, min_height, 0);
-            Vector3 v3 = p1 + new Vector3(0, min_height + height, 0);
-            Vector3 v4 = p2 + new Vector3(0, min_height + height, 0);
+            Vector3 v3 = p1 + new Vector3(0, height, 0);
+            Vector3 v4 = p2 + new Vector3(0, height, 0);
 
             // Добавляем вершины и UV
             int startIndex = data.Vertices.Count;
@@ -227,7 +227,7 @@ public static class GR
         int topOffset = data.Vertices.Count;
         for (int i = 0; i < corners.Count; i++)
         {
-            data.Vertices.Add(corners[i] + new Vector3(0, min_height + height, 0));
+            data.Vertices.Add(corners[i] + new Vector3(0, height, 0));
             data.Normals.Add(Vector3.up); // Нормаль вверх для верхней грани
 
             // UV аналогично нижней грани

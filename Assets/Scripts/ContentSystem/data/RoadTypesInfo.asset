@@ -93,3 +93,31 @@ MonoBehaviour:
     roadMaterial: {fileID: 0}
     roadWidth: 0
     layersLevel: 0
+  - roadtype: motorway_link
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: motorway
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: trunk_link
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: corridor
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: platform
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: street_lamp
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: bridleway
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0

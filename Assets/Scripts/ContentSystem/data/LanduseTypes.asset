@@ -67,3 +67,27 @@ MonoBehaviour:
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
+  - landuseType: sand
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: pitch
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: shingle
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: bare_rock
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0

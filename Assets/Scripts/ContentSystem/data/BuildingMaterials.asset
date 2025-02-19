@@ -71,3 +71,13 @@ MonoBehaviour:
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: metal_plates;glass
     buildingmaterial: {fileID: 0}
+  - buildingmaterialname: grass
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: other
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: grey
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: zinc
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: tar_paper;metal
+    buildingmaterial: {fileID: 0}
