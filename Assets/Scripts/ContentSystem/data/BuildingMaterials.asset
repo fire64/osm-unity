@@ -81,3 +81,27 @@ MonoBehaviour:
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: tar_paper;metal
     buildingmaterial: {fileID: 0}
+  - buildingmaterialname: plater
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: vinyl
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: metal_plates;porcelain_stoneware
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: brick;cement_block
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: mixed
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: brivk
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: metal_plates;brick
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: concrate
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: block
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: mdf
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: eternit
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: asphalt
+    buildingmaterial: {fileID: 0}

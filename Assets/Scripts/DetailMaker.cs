@@ -11,6 +11,8 @@ class DetailMaker : InfrstructureBehaviour
 
     public GameObject tempMarker;
     public DetailsTypes detailsTypes;
+    public bool isAlwaysShowTempMarker;
+    public bool isShowTempMarkerForeNotSetPrefab;
 
     void CreateTempMarker(Detail detail)
     {
@@ -85,7 +87,7 @@ class DetailMaker : InfrstructureBehaviour
 
         var detailsInfo = detailsTypes.GetDetailsTypeInfoByName(typeName);
 
-        if(detailsInfo.isTempMarkerEnable)
+        if(detailsInfo.isTempMarkerEnable || isAlwaysShowTempMarker)
         {
             CreateTempMarker(detail);
         }
@@ -93,6 +95,10 @@ class DetailMaker : InfrstructureBehaviour
         if (detailsInfo.detailsPrefab != null)
         {
             CreateDetailPrefab(detail, detailsInfo.detailsPrefab);
+        }
+        else if(isShowTempMarkerForeNotSetPrefab)
+        {
+            CreateTempMarker(detail);
         }
     }
 
@@ -119,6 +125,11 @@ class DetailMaker : InfrstructureBehaviour
 
         Vector3 localOrigin = GetCentre(geo);
         detail.transform.position = localOrigin - map.bounds.Centre;
+
+        foreach (Transform child in detail.transform)
+        {
+            child.SendMessage("ActivateObject", null, SendMessageOptions.DontRequireReceiver);
+        }
     }
 
     // Start is called before the first frame update

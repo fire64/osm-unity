@@ -59,3 +59,17 @@ MonoBehaviour:
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: grass_paver
     roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: stepping_stones
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: woodchips
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: brick
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: mud
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: concrete:lanes
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: rubbercrumb
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: cobblestone:flattened
+    roadSurfacesMaterial: {fileID: 0}

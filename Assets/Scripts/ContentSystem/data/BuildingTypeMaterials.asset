@@ -181,3 +181,25 @@ MonoBehaviour:
     buildingtypematerial: {fileID: 0}
   - buildingtype: checkpoint
     buildingtypematerial: {fileID: 0}
+  - buildingtype: citywall
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: temple
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: theatre
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: container
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: sauna
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: "\u043E\u0445\u0440\u0430\u043D"
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: bank
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: monastery
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: mosque
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: police
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: castle_tower
+    buildingtypematerial: {fileID: 0}
