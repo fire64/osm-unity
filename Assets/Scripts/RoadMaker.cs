@@ -33,6 +33,9 @@ class RoadMaker : InfrstructureBehaviour
 
         road.Kind = kind;
 
+        if (geo.HasField("source_type"))
+            road.Source = geo.GetValueStringByKey("source_type");
+
         if (geo.HasField("lanes"))
         {
             road.Lanes = geo.GetValueIntByKey("lanes");
@@ -156,7 +159,6 @@ class RoadMaker : InfrstructureBehaviour
         mesh.RecalculateNormals();
 
         //Add colider 
-        //TODO: fix error or add check
         road.transform.gameObject.AddComponent<MeshCollider>();
         road.transform.GetComponent<MeshCollider>().sharedMesh = road.GetComponent<MeshFilter>().mesh;
         road.transform.GetComponent<MeshCollider>().convex = false;
@@ -177,25 +179,11 @@ class RoadMaker : InfrstructureBehaviour
             yield return null;
         }
 
-        //TODO: Reenable relation for roads
-/*
-        foreach (var relation in map.relations.FindAll((w) => { return w.IsRoad; }))
+        foreach (var relation in map.relations.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Road && w.IsClosedPolygon; }))
         {
             relation.AddField("source_type", "relation");
-
-            if(relation.IsClosedPolygon)
-            {
-                CreateRoadsPlogon(way);
-            }
-            else
-            {
-                CreateRoadsLines(way);
-            }
-
+            CreateRoads(relation);
             yield return null;
         }
-*/
-
-    }
-         
+    }         
 }

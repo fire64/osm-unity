@@ -50,7 +50,7 @@ public class BaseOsm
         {
             objectType = ObjectType.Barrier;
         }
-        else if (key == "water" || (key == "natural" && value == "water") )
+        else if (key == "water" || (key == "natural" && value == "water") || (key == "leisure" && value == "swimming_pool"))
         {
             objectType = ObjectType.Water;
         }

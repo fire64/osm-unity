@@ -21,6 +21,9 @@ class LanduseMaker : InfrstructureBehaviour
 
         landuse.Id = geo.ID.ToString();
 
+        if (geo.HasField("source_type"))
+            landuse.Source = geo.GetValueStringByKey("source_type");
+
         var kind = "";
 
         if (geo.HasField("natural"))

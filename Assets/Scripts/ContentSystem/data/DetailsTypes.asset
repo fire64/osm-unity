@@ -1039,9 +1039,9 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: man_made:column
-    detailsDescription: 
+    detailsDescription: "\u041A\u043E\u043B\u043E\u043D\u043D\u0430"
     isTempMarkerEnable: 0
-    detailsPrefab: {fileID: 0}
+    detailsPrefab: {fileID: 3530100813079934754, guid: 2ad317bed4de4244db9a043ee8d75e6c, type: 3}
   - detailsType: man_made:crane
     detailsDescription: 
     isTempMarkerEnable: 0

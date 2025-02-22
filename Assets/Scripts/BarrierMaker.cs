@@ -30,6 +30,9 @@ class BarrierMaker : InfrstructureBehaviour
 
         barrier.Kind = kind;
 
+        if (geo.HasField("source_type"))
+            barrier.Source = geo.GetValueStringByKey("source_type");
+
         var barrierInfo = barrierTypes.GetBarrierTypeInfoByName(barrier.Kind);
 
         if (geo.HasField("height"))
@@ -69,7 +72,6 @@ class BarrierMaker : InfrstructureBehaviour
         {
             barrier.GetComponent<MeshRenderer>().material = barrierInfo.barrierMaterial;
         }
-
 
         barrier.GetComponent<MeshRenderer>().material.SetColor("_Color", GR.SetOSMColour(geo));
     }

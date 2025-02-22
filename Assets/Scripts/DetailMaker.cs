@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -52,6 +53,9 @@ class DetailMaker : InfrstructureBehaviour
             detail.Name = geo.GetValueStringByKey("name");
 
         detail.Id = geo.ID.ToString();
+
+        if (geo.HasField("source_type"))
+            detail.Source = geo.GetValueStringByKey("source_type");
 
         detail.Description = "Undefined";
         detail.Type = "Undefined";

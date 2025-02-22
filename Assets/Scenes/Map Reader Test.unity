@@ -140,6 +140,7 @@ GameObject:
   - component: {fileID: 108401124}
   - component: {fileID: 108401125}
   - component: {fileID: 108401126}
+  - component: {fileID: 108401127}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -161,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   latitude: 46.7366724
   longitude: 38.2859206
-  radiusmeters: 500
+  radiusmeters: 650
   isDebugDraw: 0
   RelativeCachePath: ../CachedTileData/
 --- !u!4 &108401118
@@ -301,6 +302,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barrierTypes: {fileID: 11400000, guid: b49782923b6a6054e8afefdb6baf6af5, type: 2}
   barrierMaterials: {fileID: 11400000, guid: 1b5fc87b995305d4f89e56652a44d2d6, type: 2}
+--- !u!114 &108401127
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108401116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3864150d26f6f543ab30e00f0ec7d9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waterMaterial: {fileID: 2100000, guid: ed3b5db7d7988584a96254393d4af29f, type: 2}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
