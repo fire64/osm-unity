@@ -132,12 +132,14 @@ GameObject:
   m_Component:
   - component: {fileID: 108401118}
   - component: {fileID: 108401117}
+  - component: {fileID: 108401121}
   - component: {fileID: 108401120}
   - component: {fileID: 108401122}
   - component: {fileID: 108401119}
   - component: {fileID: 108401123}
-  - component: {fileID: 108401121}
   - component: {fileID: 108401124}
+  - component: {fileID: 108401125}
+  - component: {fileID: 108401126}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -157,8 +159,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a85b096eab9582409324b760bae020b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  latitude: 55.776832
-  longitude: 37.493379
+  latitude: 46.7366724
+  longitude: 38.2859206
   radiusmeters: 500
   isDebugDraw: 0
   RelativeCachePath: ../CachedTileData/
@@ -272,6 +274,33 @@ MonoBehaviour:
   bNotCreateNotClosedPolygon: 1
   grassMaterial: {fileID: 2100000, guid: c395a0ddb4889ce41ae31cdb53140e27, type: 2}
   landuseTypes: {fileID: 11400000, guid: 7348cebaa8e06154aa3d807aff5922bf, type: 2}
+--- !u!114 &108401125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108401116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 82287a1fe8ab9cc4d9fb4884be935b74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tempMarker: {fileID: 7176526127470114266, guid: 7e9359ff4ff21084da259c26f4fab45a, type: 3}
+--- !u!114 &108401126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108401116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90fcc2d50197fdf4289b6aadf3a5c364, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  barrierTypes: {fileID: 11400000, guid: b49782923b6a6054e8afefdb6baf6af5, type: 2}
+  barrierMaterials: {fileID: 11400000, guid: 1b5fc87b995305d4f89e56652a44d2d6, type: 2}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -384,7 +413,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &638740658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,7 +560,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4459864850019384736, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384738, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_LocalPosition.x
@@ -579,11 +608,11 @@ PrefabInstance:
       objectReference: {fileID: 955424945}
     - target: {fileID: 4459864850019384741, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_UseGravity
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384741, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_ImplicitTensor
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_Name
@@ -591,7 +620,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4459864851310106426, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: far clip plane
@@ -600,6 +629,10 @@ PrefabInstance:
     - target: {fileID: 4459864851310106426, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_RenderingPath
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864851310106429, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

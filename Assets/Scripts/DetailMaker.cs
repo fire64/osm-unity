@@ -37,7 +37,7 @@ class DetailMaker : InfrstructureBehaviour
     private void CheckAndAddCategory(BaseOsm geo, Detail detail, string keyword)
     {
         //Type parser
-        if (geo.HasField(keyword))
+        if (geo.HasField(keyword) && detail.Type == "Undefined") //for sorting by order
         {
             detail.Description = keyword;
             detail.Type = geo.GetValueStringByKey(keyword);

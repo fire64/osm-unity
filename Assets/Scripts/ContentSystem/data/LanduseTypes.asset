@@ -115,3 +115,21 @@ MonoBehaviour:
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
+  - landuseType: valley
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: dog_park
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: scree
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0

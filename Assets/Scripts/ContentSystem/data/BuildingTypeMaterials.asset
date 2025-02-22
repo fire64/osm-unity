@@ -203,3 +203,21 @@ MonoBehaviour:
     buildingtypematerial: {fileID: 0}
   - buildingtype: castle_tower
     buildingtypematerial: {fileID: 0}
+  - buildingtype: cinema
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: riding_hall
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: pavilion
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: bungalow
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: boathouse
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: use
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: transformer_tower
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: allotment_house
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: storage_tank
+    buildingtypematerial: {fileID: 0}

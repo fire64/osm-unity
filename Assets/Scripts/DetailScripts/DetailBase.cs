@@ -6,6 +6,6 @@ abstract class DetailBase : MonoBehaviour
 {
     public void ActivateObject()
     {
-        Debug.Log("DetailBase:: ActivateObject");
+//      Debug.Log("DetailBase:: ActivateObject");
     }
 }

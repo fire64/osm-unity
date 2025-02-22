@@ -362,7 +362,7 @@ public class GenerateRoof : MonoBehaviour
         {
             //Not supported, use flat
             GR.CreateMeshWithHeight(corners, height, height + roof_height, tb); //Fix
-            Debug.Log("Unknown rooftype: " + roof_type);
+//          Debug.Log("Unknown rooftype: " + roof_type);
         }
 
         mesh.vertices = tb.Vertices.ToArray();

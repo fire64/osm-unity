@@ -105,3 +105,5 @@ MonoBehaviour:
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: asphalt
     buildingmaterial: {fileID: 0}
+  - buildingmaterialname: b2
+    buildingmaterial: {fileID: 0}

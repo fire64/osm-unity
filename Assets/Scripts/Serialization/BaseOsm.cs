@@ -46,6 +46,14 @@ public class BaseOsm
         {
             objectType = ObjectType.Road;
         }
+        else if (key == "barrier")
+        {
+            objectType = ObjectType.Barrier;
+        }
+        else if (key == "water" || (key == "natural" && value == "water") )
+        {
+            objectType = ObjectType.Water;
+        }
         else if (key == "leisure")
         {
             if (value == "park")

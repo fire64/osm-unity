@@ -86,7 +86,7 @@ class DoorPlacer : DetailBase
         Quaternion rotation = Quaternion.LookRotation(normal);
         Instantiate(doorPrefab, position, rotation, parent);
 
-        Debug.Log($"Door placed at {position} with normal {normal}");
+//      Debug.Log($"Door placed at {position} with normal {normal}");
     }
 
     void OnDrawGizmosSelected()

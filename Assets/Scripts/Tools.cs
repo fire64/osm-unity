@@ -25,6 +25,201 @@ public static class GR
         return sum > 0;
     }
 
+    private static bool IsClosed(List<Vector3> corners)
+    {
+        return Vector3.Distance(corners[0], corners[^1]) < 0.01f;
+    }
+
+    private static void AddQuad(MeshData data, Vector3 a, Vector3 b, Vector3 c, Vector3 d, Vector3 normal)
+    {
+        int baseIndex = data.Vertices.Count;
+        data.Vertices.AddRange(new[] { a, b, c, d });
+        for (int i = 0; i < 4; i++) data.Normals.Add(normal);
+        data.UV.AddRange(new[]
+        {
+            new Vector2(0, 0), new Vector2(1, 0),
+            new Vector2(0, 1), new Vector2(1, 1)
+        });
+
+        //Reverse
+        data.Indices.Add(baseIndex + 3);
+        data.Indices.Add(baseIndex + 1);
+        data.Indices.Add(baseIndex + 2);
+        data.Indices.Add(baseIndex + 2);
+        data.Indices.Add(baseIndex + 1);
+        data.Indices.Add(baseIndex);
+    }
+
+    private static void AddEndCap(MeshData data, Vector3 bottomA, Vector3 bottomB,
+        Vector3 topA, Vector3 topB, Vector3 direction, bool isReverse = true)
+    {
+        int baseIndex = data.Vertices.Count;
+        data.Vertices.AddRange(new[] { bottomA, topA, bottomB, topB });
+
+        Vector3 normal = new Vector3(-direction.z, 0, direction.x).normalized;
+        for (int i = 0; i < 4; i++) data.Normals.Add(normal);
+
+        data.UV.AddRange(new[]
+        {
+            new Vector2(0, 0), new Vector2(0, 1),
+            new Vector2(1, 0), new Vector2(1, 1)
+        });
+
+        if(isReverse)
+        {
+            data.Indices.Add(baseIndex + 3);
+            data.Indices.Add(baseIndex + 1);
+            data.Indices.Add(baseIndex + 2);
+            data.Indices.Add(baseIndex + 2);
+            data.Indices.Add(baseIndex + 1);
+            data.Indices.Add(baseIndex);
+        }
+        else
+        {
+            data.Indices.Add(baseIndex);
+            data.Indices.Add(baseIndex + 1);
+            data.Indices.Add(baseIndex + 2);
+            data.Indices.Add(baseIndex + 2);
+            data.Indices.Add(baseIndex + 1);
+            data.Indices.Add(baseIndex + 3);
+        }
+    }
+
+    public static void CreateMeshLineWithWidthAndHeight(List<Vector3> corners, float height, float width, MeshData data)
+    {
+        if (corners == null || corners.Count < 2) return;
+
+        bool isClosed = IsClosed(corners);
+        List<Vector3> offsets = new List<Vector3>();
+
+        // Предварительно вычисляем смещения для каждой точки контура
+        for (int i = 0; i < corners.Count; i++)
+        {
+            Vector3 prevDir, nextDir;
+
+            if (isClosed)
+            {
+                prevDir = (corners[i] - corners[(i - 1 + corners.Count) % corners.Count]).normalized;
+                nextDir = (corners[(i + 1) % corners.Count] - corners[i]).normalized;
+            }
+            else
+            {
+                if (i == 0)
+                {
+                    prevDir = Vector3.zero;
+                    nextDir = (corners[i + 1] - corners[i]).normalized;
+                }
+                else if (i == corners.Count - 1)
+                {
+                    prevDir = (corners[i] - corners[i - 1]).normalized;
+                    nextDir = Vector3.zero;
+                }
+                else
+                {
+                    prevDir = (corners[i] - corners[i - 1]).normalized;
+                    nextDir = (corners[i + 1] - corners[i]).normalized;
+                }
+            }
+
+            Vector3 bisector = prevDir + nextDir;
+            if (bisector == Vector3.zero) bisector = prevDir;
+            bisector.Normalize();
+
+            Vector3 normal = new Vector3(-bisector.z, 0, bisector.x).normalized;
+
+            // Корректировка направления для начальных/конечных точек
+            if (!isClosed)
+            {
+                if (i == 0) normal = new Vector3(-nextDir.z, 0, nextDir.x).normalized;
+                else if (i == corners.Count - 1) normal = new Vector3(-prevDir.z, 0, prevDir.x).normalized;
+            }
+
+            offsets.Add(normal * width * 0.5f);
+        }
+
+        for (int i = 0; i < corners.Count; i++)
+        {
+            int nextI = (i + 1) % corners.Count;
+            if (!isClosed && i == corners.Count - 1) break;
+
+            Vector3 start = corners[i];
+            Vector3 end = corners[nextI];
+
+            Vector3 leftOffsetStart = -offsets[i];
+            Vector3 rightOffsetStart = offsets[i];
+
+            Vector3 leftOffsetEnd = -offsets[nextI];
+            Vector3 rightOffsetEnd = offsets[nextI];
+
+            Vector3 sl = start + leftOffsetStart;
+            Vector3 sr = start + rightOffsetStart;
+            Vector3 el = end + leftOffsetEnd;
+            Vector3 er = end + rightOffsetEnd;
+
+            Vector3 sul = sl + Vector3.up * height;
+            Vector3 sur = sr + Vector3.up * height;
+            Vector3 eul = el + Vector3.up * height;
+            Vector3 eur = er + Vector3.up * height;
+
+            // Добавление боковых граней с плавными нормалями
+            AddSmoothQuad(data, sl, el, sul, eul, leftOffsetStart.normalized, leftOffsetEnd.normalized, true); // Левая сторона
+            AddSmoothQuad(data, sr, er, sur, eur, rightOffsetStart.normalized, rightOffsetEnd.normalized, false); // Правая сторона
+
+            // Верхняя часть
+            AddQuad(data, sul, eul, sur, eur, Vector3.up);
+
+            // Нижняя часть
+            AddQuad(data, el, sl, er, sr, Vector3.down);
+
+            // Торцы
+            if (!isClosed)
+            {
+                if (i == 0) AddEndCap(data, sl, sr, sul, sur, (end - start).normalized);
+                if (i == corners.Count - 2) AddEndCap(data, el, er, eul, eur, (end - start).normalized, false);
+            }
+        }
+    }
+
+    private static void AddSmoothQuad(MeshData data, Vector3 aBottom, Vector3 bBottom, Vector3 aTop, Vector3 bTop, Vector3 normalA, Vector3 normalB, bool isReverse)
+    {
+        int baseIndex = data.Vertices.Count;
+        data.Vertices.AddRange(new[] { aBottom, aTop, bBottom, bTop });
+
+        data.Normals.Add(normalA);
+        data.Normals.Add(normalA);
+        data.Normals.Add(normalB);
+        data.Normals.Add(normalB);
+
+        float length = Vector3.Distance(aBottom, bBottom);
+
+        data.UV.AddRange(new[]
+        {
+            new Vector2(0, 0), new Vector2(0, 1),
+            new Vector2(length, 0), new Vector2(length, 1)
+        });
+
+        if(isReverse)
+        {
+            data.Indices.Add(baseIndex + 2);
+            data.Indices.Add(baseIndex + 1);
+            data.Indices.Add(baseIndex + 3);
+
+            data.Indices.Add(baseIndex + 2);
+            data.Indices.Add(baseIndex + 0);
+            data.Indices.Add(baseIndex + 1);
+        }
+        else
+        {
+            data.Indices.Add(baseIndex + 1);
+            data.Indices.Add(baseIndex + 0);
+            data.Indices.Add(baseIndex + 2);
+
+            data.Indices.Add(baseIndex + 3);
+            data.Indices.Add(baseIndex + 1);
+            data.Indices.Add(baseIndex + 2);
+        }
+    }
+
     public static void CreateMeshLineWithWidth(List<Vector3> corners, float width, MeshData data)
     {
         if (corners.Count < 2)

@@ -519,3 +519,7 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
   - colorname: lightyellow;orange
     color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;brown;orange
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: navy
+    color: {r: 1, g: 1, b: 1, a: 1}
