@@ -46,6 +46,14 @@ public class DetailsTypes : ScriptableObject
         return isFound;
     }
 
+    public void DeleteUnused()
+    {
+        DetailsTypesReplacesList.RemoveAll(item => item.detailsPrefab == null);
+#if UNITY_EDITOR
+        EditorUtility.SetDirty(this);
+#endif
+    }
+
     public void AddNewDetailsTypeInfo(string curDetailsTypeName)
     {
         DetailsTypesItem item = new DetailsTypesItem();
@@ -65,8 +73,6 @@ public class DetailsTypes : ScriptableObject
     public DetailsTypesItem GetDetailsTypeInfoByName(string curDetailsTypeName)
     {
         int countitems = DetailsTypesReplacesList.Count;
-
-        DetailsTypesReplacesList.Sort((p1, p2) => p1.detailsType.CompareTo(p2.detailsType));
 
         for (int i = 0; i < countitems; i++)
         {

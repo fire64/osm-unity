@@ -38,11 +38,11 @@ class RoadMaker : InfrstructureBehaviour
 
         if (geo.HasField("lanes"))
         {
-            road.Lanes = geo.GetValueIntByKey("lanes");
+            road.lanes = geo.GetValueIntByKey("lanes");
         }
         else
         {
-            road.Lanes = 1;
+            road.lanes = 1;
         }
 
         var roadInfo = roadTypes.GetRoadTypeInfoByName(road.Kind);
@@ -71,11 +71,11 @@ class RoadMaker : InfrstructureBehaviour
 
         if (roadInfo.roadWidth != 0.0f)
         {
-            road.Width = roadInfo.roadWidth;
+            road.width = roadInfo.roadWidth;
         }
         else
         {
-            road.Width = 2.0f;
+            road.width = 2.0f;
         }
 
         road.layersLevel = roadInfo.layersLevel;
@@ -145,7 +145,7 @@ class RoadMaker : InfrstructureBehaviour
 
         var tb = new MeshData();
 
-        float finalWidth = road.Width * road.Lanes;
+        float finalWidth = road.width * road.lanes;
 
         GR.CreateMeshLineWithWidth(roadsCorners, finalWidth, tb);
 

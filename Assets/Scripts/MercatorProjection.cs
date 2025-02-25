@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 public static class MercatorProjection
 {
@@ -131,6 +132,52 @@ public static class MercatorProjection
         else if (longitude >= 180)
             longitude -= 360;
         return longitude;
+    }
+
+    // Основная функция для получения размера тайла
+    public static Vector2 GetTileSizeInMeters(int x, int y, int zoom)
+    {
+        // Получаем угловые координаты тайла
+        double[] topLeft = GetTileLatLon(x, y, zoom);
+        double[] bottomRight = GetTileLatLon(x + 1, y + 1, zoom);
+
+        // Конвертируем в метры
+        Vector2 topLeftMeters = LatLonToMeters(topLeft[0], topLeft[1]);
+        Vector2 bottomRightMeters = LatLonToMeters(bottomRight[0], bottomRight[1]);
+
+        // Рассчитываем размеры
+        float width = Mathf.Abs(bottomRightMeters.x - topLeftMeters.x);
+        float height = Mathf.Abs(topLeftMeters.y - bottomRightMeters.y);
+
+        return new Vector2(width, height);
+    }
+
+    // Перевод координат тайла в географические координаты
+    public static double[] GetTileLatLon(int x, int y, int zoom)
+    {
+        double n = Math.Pow(2, zoom);
+        double lon = x / n * 360.0 - 180.0;
+
+        double arg = Math.PI * (1 - 2.0 * y / n);
+        double latRad = Math.Atan(Math.Sinh(arg)); // Исправленная строка
+
+        double lat = latRad * 180.0 / Math.PI;
+        return new double[] { lat, lon };
+    }
+
+    // Перевод географических координат в метры по проекции Меркатора
+    public static Vector2 LatLonToMeters(double lat, double lon)
+    {
+        // Earth radius in meters
+        const double R = 6378137;
+
+        double latRad = lat * Math.PI / 180.0;
+        double lonRad = lon * Math.PI / 180.0;
+
+        double x = R * lonRad;
+        double y = R * Math.Log(Math.Tan((Math.PI / 4) + (latRad / 2)));
+
+        return new Vector2((float)x, (float)y);
     }
 
 }

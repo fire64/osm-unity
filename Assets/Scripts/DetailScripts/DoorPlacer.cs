@@ -9,7 +9,7 @@ class DoorPlacer : DetailBase
     [Tooltip("Offset to prevent raycast inside collider")]
     public float surfaceOffset = 0.1f;
 
-    void Start()
+    public new void ActivateObject()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position, checkRadius);
 

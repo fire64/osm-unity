@@ -42,6 +42,14 @@ public class ColorByName : ScriptableObject
         return isFound;
     }
 
+    public void DeleteUnused()
+    {
+        ColorsReplaceList.RemoveAll(item => item.color == Color.white);
+#if UNITY_EDITOR
+        EditorUtility.SetDirty(this);
+#endif
+    }
+
     public void AddNewColorName(string curColorName)
     {
         ColorReplace item = new ColorReplace();

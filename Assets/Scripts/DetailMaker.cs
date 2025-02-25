@@ -14,6 +14,7 @@ class DetailMaker : InfrstructureBehaviour
     public DetailsTypes detailsTypes;
     public bool isAlwaysShowTempMarker;
     public bool isShowTempMarkerForeNotSetPrefab;
+    public bool isClearUnusedData = false;
 
     void CreateTempMarker(Detail detail)
     {
@@ -145,6 +146,11 @@ class DetailMaker : InfrstructureBehaviour
         }
 
         contentselector = FindObjectOfType<GameContentSelector>();
+
+        if(isClearUnusedData)
+        {
+            detailsTypes.DeleteUnused();
+        }
 
         foreach (var node in map.nodeslist.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Detail; }))
         {

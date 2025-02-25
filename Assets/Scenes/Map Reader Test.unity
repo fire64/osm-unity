@@ -162,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   latitude: 46.7366724
   longitude: 38.2859206
-  radiusmeters: 650
+  radiusmeters: 700
   isDebugDraw: 0
   RelativeCachePath: ../CachedTileData/
 --- !u!4 &108401118
@@ -227,8 +227,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 638748d8371038342906ebc2f4bd05f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoom: 17
-  TileService: 1
+  zoom: 16
+  TileService: 0
+  tileType: 2
+  terrainMaterial: {fileID: 2100000, guid: fa8bcf792db67ee4685005106bba5f58, type: 2}
 --- !u!114 &108401122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -260,6 +262,7 @@ MonoBehaviour:
   detailsTypes: {fileID: 11400000, guid: 2d2eaa3d8eaff4c46a8e8dac9ec8f616, type: 2}
   isAlwaysShowTempMarker: 0
   isShowTempMarkerForeNotSetPrefab: 1
+  isClearUnusedData: 0
 --- !u!114 &108401124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -549,6 +552,7 @@ MonoBehaviour:
   DisabledObjects: []
   DisabledRoofs: []
   colorByName: {fileID: 11400000, guid: fa72238b5f06ca548ae789991a472141, type: 2}
+  isClearUnusedData: 1
 --- !u!4 &727894445
 Transform:
   m_ObjectHideFlags: 0

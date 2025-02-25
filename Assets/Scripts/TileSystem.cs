@@ -16,16 +16,16 @@ class TileSystem : InfrstructureBehaviour
         Mapbox,
     }
 
-    public TileServices TileService = TileServices.OSM;
-
-    public float GetZoomScale(int zoomLevel)
+    public enum TileType
     {
-        double baseScale = 61.15;
-
-        int referenceLevel = 16;
-
-        return (float)(baseScale / Math.Pow(2, zoomLevel - referenceLevel));
+        Plane,
+        Mesh,
+        Terrain
     }
+
+    public TileServices TileService = TileServices.OSM;
+    public TileType tileType = TileType.Plane;
+    public Material terrainMaterial; // Должен быть назначен материал для Terrain
 
     public string GetTileURL(int x, int y, int z)
     {
@@ -50,7 +50,7 @@ class TileSystem : InfrstructureBehaviour
         return url;
     }
 
-    IEnumerator DownloadTile(int x, int y, int z, Vector3 tilePosition)
+    IEnumerator DownloadTile(int x, int y, int z, Vector3 tilePosition, Vector2 tileSize)
     {
         string url = GetTileURL(x, y, z);
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
@@ -62,16 +62,104 @@ class TileSystem : InfrstructureBehaviour
         }
         else
         {
-            float zoomScale = GetZoomScale(zoom);
-
             Texture2D texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            GameObject tileGO = GameObject.CreatePrimitive(PrimitiveType.Plane);
-            tileGO.name = $"Tile_{x}_{y}_{z}";
-            tileGO.transform.position = tilePosition;
-            tileGO.transform.localScale = new Vector3(zoomScale, 1, zoomScale); //TODO: Add calculating for autoresizing...
-            tileGO.GetComponent<Renderer>().material.mainTexture = texture;
-            tileGO.transform.Rotate(0, 180, 0);
+
+            GameObject tileGO = null;
+            Renderer renderer = null;
+
+            switch (tileType)
+            {
+                case TileType.Plane:
+                    tileGO = GameObject.CreatePrimitive(PrimitiveType.Plane);
+                    tileGO.transform.localScale = new Vector3(tileSize.x / 10.0f, 1, tileSize.y / 10.0f);
+                    tileGO.transform.Rotate(0, 180, 0);
+                    break;
+
+                case TileType.Mesh:
+                    tileGO = GameObject.CreatePrimitive(PrimitiveType.Quad);
+                    tileGO.transform.localScale = new Vector3(tileSize.x, tileSize.y, 1);
+                    tileGO.transform.Rotate(90, 0, 0);
+                    break;
+
+                case TileType.Terrain:
+
+                    // Create the terrain data
+                    TerrainData terrainData = new TerrainData();
+                    terrainData.GetHeight(0, 0);
+                    terrainData.heightmapResolution = 513;
+                    terrainData.size = new Vector3(tileSize.x, 600, tileSize.y);
+                    float[,] tileHeights = new float[terrainData.heightmapResolution, terrainData.heightmapResolution];
+
+                    terrainData.SetHeights(0, 0, tileHeights);
+
+                    //Create a terrain with the set terrain data
+                    tileGO = Terrain.CreateTerrainGameObject(terrainData);
+
+                    tileGO.transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+                    tileGO.transform.rotation = Quaternion.AngleAxis(90, new Vector3(1, 0, 0));
+
+                    //if Image Draw 
+                    Terrain t = tileGO.GetComponent<Terrain>();
+                    t.treeDistance = 500.0f;
+                    t.treeBillboardDistance = 1000f;
+                    t.allowAutoConnect = false;
+
+                    TerrainCollider tCollider = tileGO.GetComponent<TerrainCollider>();
+
+                    tCollider.terrainData = terrainData;
+
+                    Material newMaterial = new Material(Shader.Find("Standard"));
+                    newMaterial.mainTexture = new Texture2D(512, 512, TextureFormat.DXT5, false);
+                    newMaterial.color = new Color(1f, 1f, 1f, 1f);
+                    newMaterial.SetFloat("_Metallic", 1f);
+                    t.materialTemplate = newMaterial;
+                    t.materialTemplate.mainTexture = texture;
+
+                    // Корректировка позиции для выравнивания
+                    tilePosition -= new Vector3(terrainData.size.x * 0.5f, 0, terrainData.size.z * 0.5f);
+                    break;
+            }
+
+            if (tileGO != null)
+            {
+                tileGO.name = $"Tile_{x}_{y}_{z}";
+                tileGO.transform.position = tilePosition;
+
+                if (tileType != TileType.Terrain)
+                {
+                    renderer = tileGO.GetComponent<Renderer>();
+                    renderer.material = new Material(Shader.Find("Standard"));
+                    renderer.material.mainTexture = texture;
+                }
+            }
         }
+    }
+
+    Vector3 GetTilePosition(int x, int y, int zoom, Vector3 centr)
+    {
+        // Calculate tile center in world coordinates
+        double centerLon = MercatorProjection.tileXToLon(x + 0.5, zoom);
+        double centerLat = MercatorProjection.tileYToLat(y + 0.5, zoom);
+
+        double[] worldPos = MercatorProjection.toPixel(centerLon, centerLat);
+        Vector3 tilePosition = new Vector3((float)worldPos[0], -0.01f, (float)worldPos[1]) - centr;
+
+        return tilePosition;
+    }
+
+    Vector2 GetTileSizeInUnits(int minX, int minY, int zoom, Vector3 centr)
+    {
+        Vector3 tilePositionXmin0 = GetTilePosition(minX, minY, zoom, centr);
+        Vector3 tilePositionXmin1 = GetTilePosition(minX + 1, minY, zoom, centr);
+
+        float xDistance = Vector3.Distance(tilePositionXmin0, tilePositionXmin1);
+
+        Vector3 tilePositionYmin0 = GetTilePosition(minX, minY, zoom, centr);
+        Vector3 tilePositionYmin1 = GetTilePosition(minX, minY + 1, zoom, centr);
+
+        float YDistance = Vector3.Distance(tilePositionYmin0, tilePositionYmin1);
+
+        return new Vector2(xDistance, YDistance);
     }
 
     IEnumerator Start()
@@ -99,18 +187,16 @@ class TileSystem : InfrstructureBehaviour
         int yMin = Mathf.Min(yPreMin, yPreMax);
         int yMax = Mathf.Max(yPreMin, yPreMax);
 
+        Vector2 tileSize = GetTileSizeInUnits(xMin, yMin, zoom, map.bounds.Centre);
+
         for (int x = xMin; x <= xMax; x++)
         {
             for (int y = yMin; y <= yMax; y++)
             {
                 // Calculate tile center in world coordinates
-                double centerLon = MercatorProjection.tileXToLon(x + 0.5, zoom);
-                double centerLat = MercatorProjection.tileYToLat(y + 0.5, zoom);
+                Vector3 tilePosition = GetTilePosition( x, y, zoom, map.bounds.Centre);
 
-                double[] worldPos = MercatorProjection.toPixel(centerLon, centerLat);
-                Vector3 tilePosition = new Vector3((float)worldPos[0], -0.01f, (float)worldPos[1]) - map.bounds.Centre;
-
-                StartCoroutine(DownloadTile(x, y, zoom, tilePosition));
+                StartCoroutine(DownloadTile(x, y, zoom, tilePosition, tileSize));
             }
         }
     }

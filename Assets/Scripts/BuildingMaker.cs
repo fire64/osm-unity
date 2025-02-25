@@ -188,8 +188,8 @@ class BuildingMaker : InfrstructureBehaviour
         var height = GetHeights(geo);
         var minHeight = GetMinHeight(geo);
 
-        building.Height = height;
-        building.MinHeight = minHeight;
+        building.height = height;
+        building.min_height = minHeight;
 
         var buildingCorners = new List<Vector3>();
 

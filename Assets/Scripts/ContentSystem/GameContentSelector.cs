@@ -9,6 +9,16 @@ public class GameContentSelector : MonoBehaviour
 
     public ColorByName colorByName;
 
+    public bool isClearUnusedData = false;
+
+    void Start()
+    {
+        if (isClearUnusedData)
+        {
+            colorByName.DeleteUnused();
+        }
+    }
+
     public bool isGeoObjectDisabled(double objid)
     {
         int countobj = DisabledObjects.Length;
