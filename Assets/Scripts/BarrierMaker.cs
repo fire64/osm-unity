@@ -8,6 +8,7 @@ class BarrierMaker : InfrstructureBehaviour
     public static GameContentSelector contentselector;
     public BarriersTypes barrierTypes;
     public BarriersMaterials barrierMaterials;
+    public bool isFixHeight = true;
     private void SetProperties(BaseOsm geo, Barrier barrier)
     {
         barrier.name = "barrier " + geo.ID.ToString();
@@ -106,6 +107,11 @@ class BarrierMaker : InfrstructureBehaviour
 
         Vector3 localOrigin = GetCentre(geo);
         barrier.transform.position = localOrigin - map.bounds.Centre;
+
+        if (isFixHeight)
+        {
+            barrier.transform.position = GR.getHeightPosition(barrier.transform.position);
+        }
 
         for (int i = 0; i < count; i++)
         {

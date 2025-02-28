@@ -15,6 +15,7 @@ class DetailMaker : InfrstructureBehaviour
     public bool isAlwaysShowTempMarker;
     public bool isShowTempMarkerForeNotSetPrefab;
     public bool isClearUnusedData = false;
+    public bool isFixHeight = true;
 
     void CreateTempMarker(Detail detail)
     {
@@ -130,6 +131,11 @@ class DetailMaker : InfrstructureBehaviour
 
         Vector3 localOrigin = GetCentre(geo);
         detail.transform.position = localOrigin - map.bounds.Centre;
+
+        if (isFixHeight)
+        {
+            detail.transform.position = GR.getHeightPosition(detail.transform.position);
+        }
 
         foreach (Transform child in detail.transform)
         {

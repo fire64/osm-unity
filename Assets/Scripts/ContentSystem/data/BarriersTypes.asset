@@ -38,3 +38,13 @@ MonoBehaviour:
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5
     barrierHeight: 1
+  - barriertype: ditch
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: retaining_wall
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1

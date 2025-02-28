@@ -8,6 +8,7 @@ class WaterMaker : InfrstructureBehaviour
 {
     public Material waterMaterial;
     public static GameContentSelector contentselector;
+    public bool isFixHeight = true;
 
     private void SetProperties(BaseOsm geo, Water water)
     {
@@ -70,6 +71,11 @@ class WaterMaker : InfrstructureBehaviour
         Vector3 localOrigin = GetCentre(geo);
         water.transform.position = localOrigin - map.bounds.Centre;
 
+        if (isFixHeight)
+        {
+            water.transform.position = GR.getHeightPosition(water.transform.position);
+        }
+
         for (int i = 0; i < count; i++)
         {
             OsmNode point = map.nodes[geo.NodeIDs[i]];
@@ -86,6 +92,10 @@ class WaterMaker : InfrstructureBehaviour
         float finalWidth = 2.0f;
 
         if(geo.IsClosedPolygon)
+        {
+            GR.CreateMeshWithHeight(waterCorners, 0.0f, 0.01f, tb);
+        }
+        else if(geo.HasField("type") && geo.GetValueStringByKey("type") == "multipolygon")
         {
             GR.CreateMeshWithHeight(waterCorners, 0.0f, 0.01f, tb);
         }

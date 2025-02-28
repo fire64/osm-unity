@@ -7,7 +7,7 @@ class UndefinedDebugMaker : InfrstructureBehaviour
     public static GameContentSelector contentselector;
 
     public GameObject tempMarker;
-
+    public bool isFixHeight = true;
     private void SetProperties(BaseOsm geo, Undefined undefined)
     {
         undefined.name = "undefined " + geo.ID.ToString();
@@ -64,6 +64,11 @@ class UndefinedDebugMaker : InfrstructureBehaviour
 
         Vector3 localOrigin = GetCentre(geo);
         undefined.transform.position = localOrigin - map.bounds.Centre;
+
+        if (isFixHeight)
+        {
+            undefined.transform.position = GR.getHeightPosition(undefined.transform.position);
+        }
 
         CreateTempMarker(undefined);
     }

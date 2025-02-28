@@ -13,6 +13,18 @@ public struct Item
 
 public static class GR
 {
+    public static Vector3 getHeightPosition(Vector3 point)
+    {
+        point.y = 10000;
+        RaycastHit downHit;
+        if (Physics.Raycast(point, Vector3.down, out downHit, 10000f))
+        {
+            return downHit.point;
+        }
+
+        return new Vector3(point.x, 0, point.z);
+    }
+
     public static bool IsClockwise(List<Vector3> points)
     {
         float sum = 0;

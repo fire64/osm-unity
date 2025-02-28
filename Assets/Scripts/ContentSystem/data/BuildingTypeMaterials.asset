@@ -221,3 +221,7 @@ MonoBehaviour:
     buildingtypematerial: {fileID: 0}
   - buildingtype: storage_tank
     buildingtypematerial: {fileID: 0}
+  - buildingtype: sphinx
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: cabin
+    buildingtypematerial: {fileID: 0}

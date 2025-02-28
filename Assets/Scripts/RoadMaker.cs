@@ -11,6 +11,7 @@ class RoadMaker : InfrstructureBehaviour
 
     public RoadTypesInfo roadTypes;
     public RoadSurfacesMaterials roadSurfacesMaterials;
+    public bool isFixHeight = true;
     private void SetProperties(BaseOsm geo, Road road)
     {
         road.name = "road " + geo.ID.ToString();
@@ -130,7 +131,14 @@ class RoadMaker : InfrstructureBehaviour
         Vector3 roadlayerHeight = GetRoadHeight(road, geo.ID);
 
         Vector3 localOrigin = GetCentre(geo);
-        road.transform.position = localOrigin - map.bounds.Centre + roadlayerHeight;
+        road.transform.position = localOrigin - map.bounds.Centre;
+
+        if (isFixHeight)
+        {
+            road.transform.position = GR.getHeightPosition(road.transform.position);
+        }
+
+        road.transform.position += roadlayerHeight;
 
         for (int i = 0; i < count; i++)
         {

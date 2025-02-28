@@ -4,6 +4,7 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine.Networking;
 using System;
+using System.IO;
 
 class TileSystem : InfrstructureBehaviour
 {
@@ -14,6 +15,7 @@ class TileSystem : InfrstructureBehaviour
         OSM,
         Google_map,
         Mapbox,
+        Hightmap,
     }
 
     public enum TileType
@@ -26,6 +28,11 @@ class TileSystem : InfrstructureBehaviour
     public TileServices TileService = TileServices.OSM;
     public TileType tileType = TileType.Plane;
     public Material terrainMaterial; // Должен быть назначен материал для Terrain
+
+    public bool isUseElevation = false;
+
+    public string RelativeCachePath = "../CachedTileData/";
+    protected string CacheFolderPath;
 
     public string GetTileURL(int x, int y, int z)
     {
@@ -41,6 +48,11 @@ class TileSystem : InfrstructureBehaviour
             string tileServerURL = "https://a.tiles.mapbox.com/v4/mapbox.satellite/{0}/{1}/{2}.png?events=true&access_token=pk.eyJ1IjoiaGlnaGNsaWNrZXJzIiwiYSI6ImNrZHdveTAxZjQxOXoyenJvcjlldmpoejEifQ.0LKYqSO1cCQoVCWObvVB5w";
             url = string.Format(tileServerURL, z, x, y);
         }
+        else if (TileService == TileServices.Hightmap)
+        {
+            string tileServerURL = "https://api.mapbox.com/v4/mapbox.terrain-rgb/{0}/{1}/{2}.pngraw?access_token=pk.eyJ1Ijoib2xlb3RpZ2VyIiwiYSI6ImZ2cllZQ3cifQ.2yDE9wUcfO_BLiinccfOKg";
+            url = string.Format(tileServerURL, z, x, y);
+        }
         else
         {
             string tileServerURL = "https://a.tile.openstreetmap.org/{0}/{1}/{2}.png";
@@ -50,20 +62,64 @@ class TileSystem : InfrstructureBehaviour
         return url;
     }
 
+    /// <summary>
+    /// Decode pixel values to height values. The height will be returned in meters
+    /// </summary>
+    /// <param name="color">The color with the encoded height</param>
+    /// <returns>Height at location (meters)</returns>
+    private double MapboxHeightFromColor(Color color)
+    {
+        // Convert from 0..1 to 0..255
+        float R = color.r * 255;
+        float G = color.g * 255;
+        float B = color.b * 255;
+
+        return -10000 + ( (R * 256 * 256 + G * 256 + B) * 0.1);
+
+    }
+
     IEnumerator DownloadTile(int x, int y, int z, Vector3 tilePosition, Vector2 tileSize)
     {
-        string url = GetTileURL(x, y, z);
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
-        yield return www.SendWebRequest();
+        bool isTextureLoad = false;
 
-        if (www.result != UnityWebRequest.Result.Success)
+        string url = GetTileURL(x, y, z);
+
+        var image = "map_" + TileService.ToString() + "_" + x + "_" + y + "_" + z + ".jpg";
+
+        var imagePath = Path.Combine(CacheFolderPath, image);
+
+        Texture2D texture = new Texture2D(512, 512, TextureFormat.DXT5, false);
+
+        if (File.Exists(imagePath))
         {
-            Debug.Log(www.error);
+            using (WWW www = new WWW(imagePath))
+            {
+                www.LoadImageIntoTexture(texture);
+                isTextureLoad = true;
+            }
         }
         else
         {
-            Texture2D texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
+            yield return www.SendWebRequest();
 
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+
+                byte[] bytes = www.downloadHandler.data;
+                File.WriteAllBytes(imagePath, bytes);
+
+                isTextureLoad = true;
+            }
+        }
+
+        if(isTextureLoad)
+        {
             GameObject tileGO = null;
             Renderer renderer = null;
 
@@ -83,14 +139,100 @@ class TileSystem : InfrstructureBehaviour
 
                 case TileType.Terrain:
 
+                    const int heghsize = 512;
+                    const int heightmapResolution = heghsize + 1;
+                    const int max_height_size = 10994 + 8849;
+
                     // Create the terrain data
                     TerrainData terrainData = new TerrainData();
                     terrainData.GetHeight(0, 0);
-                    terrainData.heightmapResolution = 513;
-                    terrainData.size = new Vector3(tileSize.x, 600, tileSize.y);
+                    terrainData.heightmapResolution = heightmapResolution;
+                    terrainData.size = new Vector3(tileSize.x, max_height_size, tileSize.y);
                     float[,] tileHeights = new float[terrainData.heightmapResolution, terrainData.heightmapResolution];
 
                     terrainData.SetHeights(0, 0, tileHeights);
+
+                    if(isUseElevation)
+                    {
+                        string tileServerURL = "https://api.mapbox.com/v4/mapbox.terrain-rgb/{0}/{1}/{2}@2x.pngraw?access_token=pk.eyJ1Ijoib2xlb3RpZ2VyIiwiYSI6ImZ2cllZQ3cifQ.2yDE9wUcfO_BLiinccfOKg";
+                        var url2 = string.Format(tileServerURL, z, x, y);
+
+                        var height_image = "height_" + TileService.ToString() + "_" + x + "_" + y + "_" + z + ".png";
+
+                        var height_imagePath = Path.Combine(CacheFolderPath, height_image);
+
+                        Texture2D heightmapTexture = new Texture2D(512, 512, TextureFormat.DXT5, false);
+
+                        bool isHeightmapTextureLoad = false;
+
+                        if (File.Exists(height_imagePath))
+                        {
+                            using (WWW www = new WWW(height_imagePath))
+                            {
+                                heightmapTexture = www.texture;
+                                isHeightmapTextureLoad = true;
+                            }
+                        }
+                        else
+                        {
+                            UnityWebRequest www = UnityWebRequestTexture.GetTexture(url2);
+                            yield return www.SendWebRequest();
+
+                            if (www.result != UnityWebRequest.Result.Success)
+                            {
+                                Debug.Log(www.error);
+                            }
+                            else
+                            {
+                                heightmapTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+
+                                byte[] bytes = www.downloadHandler.data;
+                                File.WriteAllBytes(height_imagePath, bytes);
+
+                                isHeightmapTextureLoad = true;
+                            }
+                        }
+
+                        if (isHeightmapTextureLoad)
+                        {
+                            Color[] pixels = heightmapTexture.GetPixels();
+
+                            var heights = new double[heightmapResolution, heightmapResolution]; // +1 to prevent seams  
+
+                            // Convert the encoded image into the respective heights
+                            for (int xl = 0; xl < heightmapResolution; xl++)
+                            {
+                                for (int yl = 0; yl < heightmapResolution; yl++)
+                                {
+                                    int xlFix = xl;
+                                    int ylFix = yl;
+
+                                    if(xlFix == heghsize)
+                                    {
+                                        xlFix--;
+                                    }
+
+                                    if (ylFix == heghsize)
+                                    {
+                                        ylFix--;
+                                    }
+
+                                    heights[xl, yl] = MapboxHeightFromColor(pixels[xlFix + ylFix * heghsize]);
+                                }
+                            }
+
+                            for (int yl = 0; yl < heightmapResolution; yl++)
+                            {
+                                for (int xl = 0; xl < heightmapResolution; xl++)
+                                {
+                                    // Get the elevation value and scale it to the 0..1 range
+                                    tileHeights[yl, xl] = (float)((heights[xl, yl] - 0) / max_height_size);
+                                }
+                            }
+
+                            terrainData.SetHeights(0, 0, tileHeights);
+                        }
+                    }
 
                     //Create a terrain with the set terrain data
                     tileGO = Terrain.CreateTerrainGameObject(terrainData);
@@ -102,7 +244,9 @@ class TileSystem : InfrstructureBehaviour
                     Terrain t = tileGO.GetComponent<Terrain>();
                     t.treeDistance = 500.0f;
                     t.treeBillboardDistance = 1000f;
-                    t.allowAutoConnect = false;
+                    t.allowAutoConnect = true;
+                    t.heightmapMaximumLOD = 3;
+
 
                     TerrainCollider tCollider = tileGO.GetComponent<TerrainCollider>();
 
@@ -111,7 +255,8 @@ class TileSystem : InfrstructureBehaviour
                     Material newMaterial = new Material(Shader.Find("Standard"));
                     newMaterial.mainTexture = new Texture2D(512, 512, TextureFormat.DXT5, false);
                     newMaterial.color = new Color(1f, 1f, 1f, 1f);
-                    newMaterial.SetFloat("_Metallic", 1f);
+                    newMaterial.SetFloat("_Metallic", 0f);
+                    newMaterial.SetFloat("_Glossiness", 0f);
                     t.materialTemplate = newMaterial;
                     t.materialTemplate.mainTexture = texture;
 
@@ -168,6 +313,15 @@ class TileSystem : InfrstructureBehaviour
         {
             yield return null;
         }
+
+#if UNITY_ANDROID || UNITY_IPHONE
+            CacheFolderPath = Path.Combine(Application.persistentDataPath, RelativeCachePath);
+#else
+        CacheFolderPath = Path.Combine(Application.dataPath, RelativeCachePath);
+#endif
+
+        if (!Directory.Exists(CacheFolderPath))
+            Directory.CreateDirectory(CacheFolderPath);
 
         // Calculate tile coordinates based on bounds
         double minLon = map.bounds.MinLon;

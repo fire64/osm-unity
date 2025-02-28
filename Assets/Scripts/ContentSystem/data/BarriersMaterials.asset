@@ -65,3 +65,19 @@ MonoBehaviour:
     barriermaterial: {fileID: 0}
   - barriermaterialname: wall_stone
     barriermaterial: {fileID: 0}
+  - barriermaterialname: ditch
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_metal
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_railings
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_wood_stone
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_stone_stone
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: retaining_wall
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_split_rail
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_metal_stone
+    barriermaterial: {fileID: 0}

@@ -9,8 +9,8 @@ class LanduseMaker : InfrstructureBehaviour
     public bool bNotCreateNotClosedPolygon;
 
     public Material grassMaterial;
-
     public LanduseTypes landuseTypes;
+    public bool isFixHeight = true;
 
     private void SetProperties(BaseOsm geo, Landuse landuse)
     {
@@ -102,6 +102,11 @@ class LanduseMaker : InfrstructureBehaviour
 
         Vector3 localOrigin = GetCentre(geo);
         landuse.transform.position = localOrigin - map.bounds.Centre;
+
+        if (isFixHeight)
+        {
+            landuse.transform.position = GR.getHeightPosition(landuse.transform.position);
+        }
 
         for (int i = 0; i < count; i++)
         {

@@ -19,6 +19,7 @@ class BuildingMaker : InfrstructureBehaviour
     public BuildingTypeMaterials buildingTypes;
     public BuildingMaterials buildingMaterials;
     public bool bNotCreateNotClosedPolygon;
+    public bool isFixHeight = true;
 
     private float GetHeights(BaseOsm geo)
     {
@@ -199,6 +200,11 @@ class BuildingMaker : InfrstructureBehaviour
 
         Vector3 localOrigin = GetCentre(geo);
         building.transform.position = localOrigin - map.bounds.Centre;
+
+        if(isFixHeight)
+        {
+            building.transform.position = GR.getHeightPosition(building.transform.position);
+        }
 
         for (int i = 0; i < count; i++)
         {

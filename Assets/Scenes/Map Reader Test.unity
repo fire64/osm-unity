@@ -160,9 +160,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a85b096eab9582409324b760bae020b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  latitude: 46.7366724
-  longitude: 38.2859206
-  radiusmeters: 700
+  latitude: 47.706065
+  longitude: 40.205766
+  radiusmeters: 650
   isDebugDraw: 0
   RelativeCachePath: ../CachedTileData/
 --- !u!4 &108401118
@@ -195,6 +195,7 @@ MonoBehaviour:
   roadMaterial: {fileID: 2100000, guid: 4455ec24bb06afd4586a99281013b637, type: 2}
   roadTypes: {fileID: 11400000, guid: ec6da49b1d95b9344be1c2540f7cbd7b, type: 2}
   roadSurfacesMaterials: {fileID: 11400000, guid: 6f1b538e155893b4ebe43d7b990cc530, type: 2}
+  isFixHeight: 1
 --- !u!114 &108401120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,6 +216,7 @@ MonoBehaviour:
   buildingTypes: {fileID: 11400000, guid: 4a8be10b830a0be499f6a8cd952185a3, type: 2}
   buildingMaterials: {fileID: 11400000, guid: 954ea7baef9fe2b4aa0ce793cc250ec0, type: 2}
   bNotCreateNotClosedPolygon: 0
+  isFixHeight: 1
 --- !u!114 &108401121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,9 +230,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   zoom: 16
-  TileService: 0
+  TileService: 2
   tileType: 2
   terrainMaterial: {fileID: 2100000, guid: fa8bcf792db67ee4685005106bba5f58, type: 2}
+  isUseElevation: 0
+  RelativeCachePath: ../CachedTileData/
 --- !u!114 &108401122
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -263,6 +267,7 @@ MonoBehaviour:
   isAlwaysShowTempMarker: 0
   isShowTempMarkerForeNotSetPrefab: 1
   isClearUnusedData: 0
+  isFixHeight: 1
 --- !u!114 &108401124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -278,6 +283,7 @@ MonoBehaviour:
   bNotCreateNotClosedPolygon: 1
   grassMaterial: {fileID: 2100000, guid: c395a0ddb4889ce41ae31cdb53140e27, type: 2}
   landuseTypes: {fileID: 11400000, guid: 7348cebaa8e06154aa3d807aff5922bf, type: 2}
+  isFixHeight: 1
 --- !u!114 &108401125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -291,6 +297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tempMarker: {fileID: 7176526127470114266, guid: 7e9359ff4ff21084da259c26f4fab45a, type: 3}
+  isFixHeight: 1
 --- !u!114 &108401126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,6 +312,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barrierTypes: {fileID: 11400000, guid: b49782923b6a6054e8afefdb6baf6af5, type: 2}
   barrierMaterials: {fileID: 11400000, guid: 1b5fc87b995305d4f89e56652a44d2d6, type: 2}
+  isFixHeight: 1
 --- !u!114 &108401127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterMaterial: {fileID: 2100000, guid: ed3b5db7d7988584a96254393d4af29f, type: 2}
+  isFixHeight: 1
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,7 +401,7 @@ Light:
   m_BounceIntensity: 1
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
-  m_BoundingSphereOverride: {x: 4.68361e-39, y: 2, z: 0, w: 0}
+  m_BoundingSphereOverride: {x: 0, y: 1e-45, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
@@ -430,7 +439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &638740658
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -445,7 +454,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementSpeed: 10
   mouseSensitivity: 2
-  fastMovementMultiplier: 5
+  fastMovementMultiplier: 15
 --- !u!81 &638740659
 AudioListener:
   m_ObjectHideFlags: 0
@@ -486,7 +495,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 100000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -638,7 +647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4459864851310106426, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: far clip plane

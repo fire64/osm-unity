@@ -73,3 +73,9 @@ MonoBehaviour:
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: cobblestone:flattened
     roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: earth
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: ice
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: bare_rock
+    roadSurfacesMaterial: {fileID: 0}
