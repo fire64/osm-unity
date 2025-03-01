@@ -11,7 +11,7 @@ class LanduseMaker : InfrstructureBehaviour
     public Material grassMaterial;
     public LanduseTypes landuseTypes;
     public bool isFixHeight = true;
-
+    public bool isCreateColision = false;
     private void SetProperties(BaseOsm geo, Landuse landuse)
     {
         landuse.name = "landuse " + geo.ID.ToString();
@@ -62,7 +62,6 @@ class LanduseMaker : InfrstructureBehaviour
         {
             landuse.GetComponent<MeshRenderer>().material = grassMaterial;
         }
-
     }
 
     void CreateLanduse(BaseOsm geo)
@@ -96,8 +95,6 @@ class LanduseMaker : InfrstructureBehaviour
 
         var landuseCorners = new List<Vector3>();
 
-        float minx = float.MaxValue, miny = float.MaxValue, maxx = float.MinValue, maxy = float.MinValue;
-
         var count = geo.NodeIDs.Count;
 
         Vector3 localOrigin = GetCentre(geo);
@@ -114,12 +111,30 @@ class LanduseMaker : InfrstructureBehaviour
 
             Vector3 coords = point - localOrigin;
 
-            if (coords.x < minx) minx = (float)coords.x;
-            if (coords.z < miny) miny = (float)coords.z;
-            if (coords.x > maxx) maxx = (float)coords.x;
-            if (coords.z > maxy) maxy = (float)coords.z;
-
             landuseCorners.Add(coords);
+        }
+
+        var holesCorners = new List<List<Vector3>>();
+
+        var countHoles = geo.HolesNodeListsIDs.Count;
+
+        for (int i = 0; i < countHoles; i++)
+        {
+            var holeNodes = geo.HolesNodeListsIDs[i];
+
+            var countHoleContourPoints = holeNodes.Count;
+
+            // Создаем новый контур для каждого отверстия
+            var holeContour = new List<Vector3>();
+
+            for (int j = 0; j < countHoleContourPoints; j++)
+            {
+                OsmNode point = map.nodes[holeNodes[j]];
+                Vector3 coords = point - localOrigin;
+                holeContour.Add(coords);
+            }
+
+            holesCorners.Add(holeContour);
         }
 
         var mesh = landuse.GetComponent<MeshFilter>().mesh;
@@ -128,7 +143,7 @@ class LanduseMaker : InfrstructureBehaviour
 
         if(landuse.isEnableRender)
         {
-            GR.CreateMeshPlane(landuseCorners, tb);
+            GR.CreateMeshWithHeight(landuseCorners, 0.0f, 0.005f, tb, holesCorners);
         }
 
         mesh.vertices = tb.Vertices.ToArray();
@@ -140,10 +155,13 @@ class LanduseMaker : InfrstructureBehaviour
         mesh.RecalculateTangents();
         mesh.RecalculateNormals();
 
-        //Add colider 
-        landuse.transform.gameObject.AddComponent<MeshCollider>();
-        landuse.transform.GetComponent<MeshCollider>().sharedMesh = landuse.GetComponent<MeshFilter>().mesh;
-        landuse.transform.GetComponent<MeshCollider>().convex = false;
+        //Add colider
+        if(isCreateColision)
+        {
+            landuse.transform.gameObject.AddComponent<MeshCollider>();
+            landuse.transform.GetComponent<MeshCollider>().sharedMesh = landuse.GetComponent<MeshFilter>().mesh;
+            landuse.transform.GetComponent<MeshCollider>().convex = false;
+        }
     }
 
     IEnumerator Start()

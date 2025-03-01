@@ -48,3 +48,38 @@ MonoBehaviour:
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5
     barrierHeight: 1
+  - barriertype: guard_rail
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: city_wall
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: yes
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: kerb
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: log
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: bollard
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: handrail
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1

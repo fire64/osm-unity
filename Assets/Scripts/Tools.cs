@@ -3,6 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TriangleNet.Geometry;
+using TriangleNet.Meshing;
+using TriangleNet;
+using TriangleNet.Topology;
+
 
 [System.Serializable]
 public struct Item
@@ -316,48 +321,9 @@ public static class GR
         }
     }
 
-    public static void CreateMeshPlane(List<Vector3> corners, MeshData data)
+    public static void CreateMeshWithHeightOld(List<Vector3> corners, float min_height, float height, MeshData data)
     {
         if (IsClockwise(corners))
-        {
-            corners.Reverse();
-        }
-
-        // Рассчитываем границы для проекции UV
-        float minX = corners.Min(c => c.x);
-        float maxX = corners.Max(c => c.x);
-        float minZ = corners.Min(c => c.z);
-        float maxZ = corners.Max(c => c.z);
-
-        // Избегаем деления на ноль
-        if (Mathf.Approximately(maxX, minX)) maxX = minX + 1e-6f;
-        if (Mathf.Approximately(maxZ, minZ)) maxZ = minZ + 1e-6f;
-
-        // Создаем верхнюю грань
-        int topOffset = data.Vertices.Count;
-        for (int i = 0; i < corners.Count; i++)
-        {
-            data.Vertices.Add(corners[i] + new Vector3(0, 0.0001f, 0));
-            data.Normals.Add(Vector3.up); // Нормаль вверх для верхней грани
-
-            // UV аналогично нижней грани
-            float u = (corners[i].x - minX) / (maxX - minX);
-            float v = (corners[i].z - minZ) / (maxZ - minZ);
-            data.UV.Add(new Vector2(u, v));
-        }
-
-        // Триангуляция верхней грани
-        for (int i = 2; i < corners.Count; i++)
-        {
-            data.Indices.Add(topOffset + 0);
-            data.Indices.Add(topOffset + i);
-            data.Indices.Add(topOffset + i - 1);
-        }
-    }
-
-    public static void CreateMeshWithHeight(List<Vector3> corners, float min_height, float height, MeshData data)
-    {
-        if(IsClockwise(corners))
         {
             corners.Reverse();
         }
@@ -450,6 +416,168 @@ public static class GR
             data.Indices.Add(topOffset + i);
             data.Indices.Add(topOffset + i - 1);
         }
+    }
+    public static void CreateMeshWithHeight(List<Vector3> corners, float min_height, float height, MeshData data, List<List<Vector3>> holes = null)
+    {
+        if (IsClockwise(corners))
+        {
+            corners.Reverse();
+        }
+
+        // Создаем полигон для триангуляции
+        var polygon = new Polygon();
+
+        // Добавляем внешний контур
+        var exteriorContour = new Contour(corners.Select(v => new Vertex(v.x, v.z)).ToList());
+        polygon.Add(exteriorContour);
+
+        // Добавляем отверстия
+        if (holes != null && holes.Count > 0 && holes[0].Count > 0)
+        {
+            foreach (var hole in holes)
+            {
+                var holeContour = new Contour(hole.Select(v => new Vertex(v.x, v.z)).ToList());
+                polygon.Add(holeContour, true);
+            }
+        }
+
+        // Настройки триангуляции
+        var options = new ConstraintOptions { ConformingDelaunay = false };
+        var quality = new QualityOptions { MinimumAngle = 0 };
+
+        IMesh mesh;
+
+        try
+        {
+            mesh = polygon.Triangulate(options, quality);
+        }
+        catch
+        {
+            Console.WriteLine("Возникло исключение!");
+            mesh = polygon.Triangulate();
+        }
+
+
+
+        // Подготовка данных
+        var vertices2D = mesh.Vertices.ToList();
+        var triangles2D = mesh.Triangles;
+
+        // Создаем 3D вершины для верхней и нижней поверхностей
+        var upperVertices = vertices2D.Select(v => new Vector3((float)v.X, height, (float)v.Y)).ToList();
+        var lowerVertices = vertices2D.Select(v => new Vector3((float)v.X, min_height, (float)v.Y)).ToList();
+
+        // Собираем все вершины
+        var allVertices = new List<Vector3>();
+        allVertices.AddRange(upperVertices);
+        allVertices.AddRange(lowerVertices);
+
+        // Генерируем треугольники для верхней поверхности
+        var upperTriangles = triangles2D
+            .SelectMany(t => new[] { t.GetVertexID(2), t.GetVertexID(1), t.GetVertexID(0) }).ToList();
+
+        // Генерируем треугольники для нижней поверхности (инвертированный порядок)
+        var lowerTriangles = triangles2D
+            .SelectMany(t => new[] {
+                t.GetVertexID(0) + upperVertices.Count,
+                t.GetVertexID(2) + upperVertices.Count,
+                t.GetVertexID(1) + upperVertices.Count
+            }).ToList();
+
+        // Генерируем боковые грани
+        var sideTriangles = new List<int>();
+        GenerateSideFaces(corners, upperVertices.Count, vertices2D, sideTriangles);
+
+        if (holes != null && holes.Count > 0 && holes[0].Count > 0)
+        {
+            foreach (var hole in holes)
+            {
+                GenerateSideFaces(hole, upperVertices.Count, vertices2D, sideTriangles);
+            }
+        }
+
+        // Объединяем все треугольники
+        var allTriangles = new List<int>();
+        allTriangles.AddRange(upperTriangles);
+        allTriangles.AddRange(lowerTriangles);
+        allTriangles.AddRange(sideTriangles);
+
+        // Рассчитываем UV координаты
+        var uv = allVertices.Select(v => new Vector2(v.x, v.z)).ToList();
+
+        // Рассчитываем нормали
+        var normals = CalculateNormals(allVertices, allTriangles);
+
+        // Заполняем структуру данных
+        data.Vertices = allVertices;
+        data.Indices = allTriangles;
+        data.Normals = normals;
+        data.UV = uv;
+    }
+
+    private static void GenerateSideFaces(List<Vector3> contour, int vertexOffset, List<Vertex> vertices2D, List<int> triangles)
+    {
+        var vertexMap = new Dictionary<Vector2, int>();
+        for (int i = 0; i < vertices2D.Count; i++)
+        {
+            var key = new Vector2((float)vertices2D[i].X, (float)vertices2D[i].Y);
+            if (!vertexMap.ContainsKey(key))
+            {
+                vertexMap.Add(key, i);
+            }
+        }
+
+        for (int i = 0; i < contour.Count; i++)
+        {
+            var current = contour[i];
+            var next = contour[(i + 1) % contour.Count];
+
+            var currentKey = new Vector2(current.x, current.z);
+            var nextKey = new Vector2(next.x, next.z);
+
+            if (!vertexMap.TryGetValue(currentKey, out int currentIndex) ||
+                !vertexMap.TryGetValue(nextKey, out int nextIndex))
+            {
+                continue;
+            }
+
+            int currentLower = currentIndex + vertexOffset;
+            int nextLower = nextIndex + vertexOffset;
+
+            // Первый треугольник
+            triangles.Add(currentIndex);
+            triangles.Add(nextIndex);
+            triangles.Add(currentLower);
+
+            // Второй треугольник
+            triangles.Add(nextIndex);
+            triangles.Add(nextLower);
+            triangles.Add(currentLower);
+        }
+    }
+
+    private static List<Vector3> CalculateNormals(List<Vector3> vertices, List<int> triangles)
+    {
+        var normals = new Vector3[vertices.Count];
+
+        for (int i = 0; i < triangles.Count; i += 3)
+        {
+            int i0 = triangles[i];
+            int i1 = triangles[i + 1];
+            int i2 = triangles[i + 2];
+
+            Vector3 v0 = vertices[i0];
+            Vector3 v1 = vertices[i1];
+            Vector3 v2 = vertices[i2];
+
+            Vector3 normal = Vector3.Cross(v1 - v0, v2 - v0).normalized;
+
+            normals[i0] += normal;
+            normals[i1] += normal;
+            normals[i2] += normal;
+        }
+
+        return normals.Select(n => n.normalized).ToList();
     }
 
     public static Color SetOSMRoofColour(BaseOsm geo)

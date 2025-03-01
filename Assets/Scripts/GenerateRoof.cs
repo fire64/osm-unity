@@ -269,7 +269,7 @@ public class GenerateRoof : MonoBehaviour
 
 
     // Start is called before the first frame update
-    public void GenerateRoofForBuillding(GameObject building, List<Vector3> corners, float minHeight, float height, Vector2 min, Vector2 size, BaseOsm geo)
+    public void GenerateRoofForBuillding(GameObject building, List<Vector3> corners, List<List<Vector3>> holesCorners, float minHeight, float height, Vector2 min, Vector2 size, BaseOsm geo, bool isUseOldTriangulation)
     {
         var roof = new GameObject("roof");
 
@@ -302,7 +302,15 @@ public class GenerateRoof : MonoBehaviour
 
         if (roof_type == "flat") //fix
         {
-            GR.CreateMeshWithHeight(corners, height, height + roof_height, tb);
+            if(isUseOldTriangulation)
+            {
+                GR.CreateMeshWithHeightOld(corners, height, height + roof_height, tb);
+            }
+            else
+            {
+                GR.CreateMeshWithHeight(corners, height, height + roof_height, tb, holesCorners);
+            }
+
         }
         else if (roof_type == "hipped")
         {
@@ -361,8 +369,14 @@ public class GenerateRoof : MonoBehaviour
         else
         {
             //Not supported, use flat
-            GR.CreateMeshWithHeight(corners, height, height + roof_height, tb); //Fix
-//          Debug.Log("Unknown rooftype: " + roof_type);
+            if (isUseOldTriangulation)
+            {
+                GR.CreateMeshWithHeightOld(corners, height, height + roof_height, tb);
+            }
+            else
+            {
+                GR.CreateMeshWithHeight(corners, height, height + roof_height, tb, holesCorners);
+            }
         }
 
         mesh.vertices = tb.Vertices.ToArray();

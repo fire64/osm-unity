@@ -21,6 +21,8 @@ class BuildingMaker : InfrstructureBehaviour
     public bool bNotCreateNotClosedPolygon;
     public bool isFixHeight = true;
 
+    public bool isUseOldTriangulation = false;
+    public bool isCreateColision = false;
     private float GetHeights(BaseOsm geo)
     {
         var height = 0.0f;
@@ -220,11 +222,41 @@ class BuildingMaker : InfrstructureBehaviour
             buildingCorners.Add(coords);
         }
 
+        var holesCorners = new List<List<Vector3>>();
+
+        var countHoles = geo.HolesNodeListsIDs.Count;
+
+        for (int i = 0; i < countHoles; i++)
+        {
+            var holeNodes = geo.HolesNodeListsIDs[i];
+
+            var countHoleContourPoints = holeNodes.Count;
+
+            // Создаем новый контур для каждого отверстия
+            var holeContour = new List<Vector3>();
+
+            for (int j = 0; j < countHoleContourPoints; j++)
+            {
+                OsmNode point = map.nodes[holeNodes[j]];
+                Vector3 coords = point - localOrigin;
+                holeContour.Add(coords);
+            }
+
+            holesCorners.Add(holeContour);
+        }
+
         var mesh = building.GetComponent<MeshFilter>().mesh;
 
         var tb = new MeshData();
 
-        GR.CreateMeshWithHeight(buildingCorners, minHeight, height, tb);
+        if(isUseOldTriangulation)
+        {
+            GR.CreateMeshWithHeightOld(buildingCorners, minHeight, height, tb);
+        }
+        else
+        {
+            GR.CreateMeshWithHeight(buildingCorners, minHeight, height, tb, holesCorners);
+        }
 
         mesh.vertices = tb.Vertices.ToArray();
         mesh.triangles = tb.Indices.ToArray();
@@ -236,13 +268,16 @@ class BuildingMaker : InfrstructureBehaviour
         mesh.RecalculateNormals();
 
         //Add colider 
-        building.transform.gameObject.AddComponent<MeshCollider>();
-        building.transform.GetComponent<MeshCollider>().sharedMesh = building.GetComponent<MeshFilter>().mesh;
-        building.transform.GetComponent<MeshCollider>().convex = false;
+        if(isCreateColision)
+        {
+            building.transform.gameObject.AddComponent<MeshCollider>();
+            building.transform.GetComponent<MeshCollider>().sharedMesh = building.GetComponent<MeshFilter>().mesh;
+            building.transform.GetComponent<MeshCollider>().convex = false;
+        }
 
         if (!contentselector.isRoofDisabled(geo.ID))
         {
-            generateRoof.GenerateRoofForBuillding(building.gameObject, buildingCorners, minHeight, height, new Vector2(minx, miny), new Vector2(maxx - minx, maxy - miny), geo);
+            generateRoof.GenerateRoofForBuillding(building.gameObject, buildingCorners, holesCorners, minHeight, height, new Vector2(minx, miny), new Vector2(maxx - minx, maxy - miny), geo, isUseOldTriangulation);
         }
     }
 

@@ -9,6 +9,7 @@ class WaterMaker : InfrstructureBehaviour
     public Material waterMaterial;
     public static GameContentSelector contentselector;
     public bool isFixHeight = true;
+    public bool isCreateColision = false;
 
     private void SetProperties(BaseOsm geo, Water water)
     {
@@ -66,7 +67,7 @@ class WaterMaker : InfrstructureBehaviour
 
         var waterCorners = new List<Vector3>();
 
-        var count = geo.NodeIDs.Count;
+        var countContour = geo.NodeIDs.Count;
 
         Vector3 localOrigin = GetCentre(geo);
         water.transform.position = localOrigin - map.bounds.Centre;
@@ -76,13 +77,36 @@ class WaterMaker : InfrstructureBehaviour
             water.transform.position = GR.getHeightPosition(water.transform.position);
         }
 
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < countContour; i++)
         {
             OsmNode point = map.nodes[geo.NodeIDs[i]];
 
             Vector3 coords = point - localOrigin;
 
             waterCorners.Add(coords);
+        }
+
+        var holesCorners = new List<List<Vector3>>();
+
+        var countHoles = geo.HolesNodeListsIDs.Count;
+
+        for (int i = 0; i < countHoles; i++)
+        {
+            var holeNodes = geo.HolesNodeListsIDs[i];
+
+            var countHoleContourPoints = holeNodes.Count;
+
+            // Создаем новый контур для каждого отверстия
+            var holeContour = new List<Vector3>();
+
+            for (int j = 0; j < countHoleContourPoints; j++)
+            {
+                OsmNode point = map.nodes[holeNodes[j]];
+                Vector3 coords = point - localOrigin;
+                holeContour.Add(coords);
+            }
+
+            holesCorners.Add(holeContour);
         }
 
         var mesh = water.GetComponent<MeshFilter>().mesh;
@@ -93,11 +117,11 @@ class WaterMaker : InfrstructureBehaviour
 
         if(geo.IsClosedPolygon)
         {
-            GR.CreateMeshWithHeight(waterCorners, 0.0f, 0.01f, tb);
+            GR.CreateMeshWithHeight(waterCorners, 0.0f, 0.01f, tb, holesCorners);
         }
         else if(geo.HasField("type") && geo.GetValueStringByKey("type") == "multipolygon")
         {
-            GR.CreateMeshWithHeight(waterCorners, 0.0f, 0.01f, tb);
+            GR.CreateMeshWithHeight(waterCorners, 0.0f, 0.01f, tb, holesCorners);
         }
         else
         {
@@ -114,9 +138,12 @@ class WaterMaker : InfrstructureBehaviour
         mesh.RecalculateNormals();
 
         //Add colider 
-        water.transform.gameObject.AddComponent<MeshCollider>();
-        water.transform.GetComponent<MeshCollider>().sharedMesh = water.GetComponent<MeshFilter>().mesh;
-        water.transform.GetComponent<MeshCollider>().convex = false;
+        if(isCreateColision)
+        {
+            water.transform.gameObject.AddComponent<MeshCollider>();
+            water.transform.GetComponent<MeshCollider>().sharedMesh = water.GetComponent<MeshFilter>().mesh;
+            water.transform.GetComponent<MeshCollider>().convex = false;
+        }
     }
 
     IEnumerator Start()

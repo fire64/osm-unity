@@ -10,6 +10,9 @@ public class BaseOsm
     public bool Visible { get; set; }
 
     public List<ulong> NodeIDs { get; set; }
+ //   public List<ulong> HolesNodeIDs { get; set; }
+
+    public List<List<ulong>> HolesNodeListsIDs { get; set; }
 
     public bool IsClosedPolygon { get; set; }
 

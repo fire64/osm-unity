@@ -107,3 +107,5 @@ MonoBehaviour:
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: b2
     buildingmaterial: {fileID: 0}
+  - buildingmaterialname: slate
+    buildingmaterial: {fileID: 0}

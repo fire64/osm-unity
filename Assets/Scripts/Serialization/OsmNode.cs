@@ -23,6 +23,7 @@ public class OsmNode : BaseOsm
     public OsmNode(XmlNode node)
     {
         NodeIDs = new List<ulong>();
+        HolesNodeListsIDs = new List<List<ulong>>();
 
         ID = GetAttribute<ulong>("id", node.Attributes);
         Latitude = GetAttribute<float>("lat", node.Attributes);

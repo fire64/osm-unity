@@ -9,6 +9,7 @@ class BarrierMaker : InfrstructureBehaviour
     public BarriersTypes barrierTypes;
     public BarriersMaterials barrierMaterials;
     public bool isFixHeight = true;
+    public bool isCreateColision = false;
     private void SetProperties(BaseOsm geo, Barrier barrier)
     {
         barrier.name = "barrier " + geo.ID.ToString();
@@ -138,9 +139,13 @@ class BarrierMaker : InfrstructureBehaviour
         mesh.RecalculateNormals();
 
         //Add colider 
-        barrier.transform.gameObject.AddComponent<MeshCollider>();
-        barrier.transform.GetComponent<MeshCollider>().sharedMesh = barrier.GetComponent<MeshFilter>().mesh;
-        barrier.transform.GetComponent<MeshCollider>().convex = false;
+        if (isCreateColision)
+        {
+            barrier.transform.gameObject.AddComponent<MeshCollider>();
+            barrier.transform.GetComponent<MeshCollider>().sharedMesh = barrier.GetComponent<MeshFilter>().mesh;
+            barrier.transform.GetComponent<MeshCollider>().convex = false;
+        }
+
     }
     IEnumerator Start()
     {

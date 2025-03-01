@@ -963,3 +963,419 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:car_parts
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:property_management
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: highway:motorway_junction
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:fuel
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:post_box
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: emergency:no
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:vending_machine
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:glaziery
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:baby_goods
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:bicycle_parking
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: barrier:kerb
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: entrance:no
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:bicycle
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:dry_cleaning
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:medical_supply
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:bookmaker
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:e-cigarette
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: place:square
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:copyshop
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:photo_booth
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:parcel_locker
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:power_tools
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: attraction:big_wheel
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: leisure:sports_centre
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: emergency:ladder_site
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: railway:stop
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: railway:subway_entrance
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: railway:train_station_entrance
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: railway:milestone
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: barrier:turnstile
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: railway:halt
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:driving_school
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:newsagent
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: place:suburb
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:clock
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:bicycle_rental
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: railway:signal
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:photo
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:school
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: barrier:full-height_turnstile
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:ngo
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:public_service
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: man_made:beacon
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:language_school
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:ice_cream
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: man_made:surveillance
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:townhall
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:clinic
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: attraction:animal
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: barrier:sliding_beam
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:car_repair
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:garden_centre
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:money_lender
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: historic:neighbourhood
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:kindergarten
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: leisure:bleachers
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:arts_centre
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:doityourself
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:paint
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:dancing_school
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:flooring
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:feeding_place
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:tiles
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: railway:railway_crossing
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: barrier:fence
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:chemist
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: historic:city_gate
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: historic:cannon
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: disused:amenity:cafe
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:carpet
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: place:city
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: historic:suburb
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: natural:hill
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: historic:castle
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: historic:tomb
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:cinema
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:esoteric
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: place:quarter
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:tailor
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:diplomatic
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: emergency:yes
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:device_charging_station
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: man_made:street_cabinet
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:childcare
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:social_facility
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:it
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:religion
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: barrier:planter
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: man_made:ventilation_shaft
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: disused:shop:yes
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:charging_station
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:cloakroom
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: man_made:charging_station
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:security_booth
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:watches
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: playground:basketswing
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: playground:springy
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:art
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: leisure:sports_hall
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:research_institute
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: tourism:gallery
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:hairdresser_supply
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:hookah_lounge
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:dairy
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}

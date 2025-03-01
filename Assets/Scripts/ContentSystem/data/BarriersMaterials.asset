@@ -81,3 +81,25 @@ MonoBehaviour:
     barriermaterial: {fileID: 0}
   - barriermaterialname: fence_metal_stone
     barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_pole
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: guard_rail
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: city_wall
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: yes
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: kerb
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: log
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: bollard
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: handrail
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: bollard_metal
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: bollard_concrete
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_concrete
+    barriermaterial: {fileID: 0}

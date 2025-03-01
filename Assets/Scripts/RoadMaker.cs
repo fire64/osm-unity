@@ -12,6 +12,7 @@ class RoadMaker : InfrstructureBehaviour
     public RoadTypesInfo roadTypes;
     public RoadSurfacesMaterials roadSurfacesMaterials;
     public bool isFixHeight = true;
+    public bool isCreateColision = false;
     private void SetProperties(BaseOsm geo, Road road)
     {
         road.name = "road " + geo.ID.ToString();
@@ -166,10 +167,14 @@ class RoadMaker : InfrstructureBehaviour
         mesh.RecalculateTangents();
         mesh.RecalculateNormals();
 
-        //Add colider 
-        road.transform.gameObject.AddComponent<MeshCollider>();
-        road.transform.GetComponent<MeshCollider>().sharedMesh = road.GetComponent<MeshFilter>().mesh;
-        road.transform.GetComponent<MeshCollider>().convex = false;
+        //Add colider
+        if (isCreateColision)
+        {
+            road.transform.gameObject.AddComponent<MeshCollider>();
+            road.transform.GetComponent<MeshCollider>().sharedMesh = road.GetComponent<MeshFilter>().mesh;
+            road.transform.GetComponent<MeshCollider>().convex = false;
+        }
+
     }
     IEnumerator Start()
     {        

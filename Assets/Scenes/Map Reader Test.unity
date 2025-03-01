@@ -160,9 +160,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a85b096eab9582409324b760bae020b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  latitude: 47.706065
-  longitude: 40.205766
-  radiusmeters: 650
+  latitude: 55.751715
+  longitude: 37.618065
+  radiusmeters: 400
   isDebugDraw: 0
   RelativeCachePath: ../CachedTileData/
 --- !u!4 &108401118
@@ -195,7 +195,8 @@ MonoBehaviour:
   roadMaterial: {fileID: 2100000, guid: 4455ec24bb06afd4586a99281013b637, type: 2}
   roadTypes: {fileID: 11400000, guid: ec6da49b1d95b9344be1c2540f7cbd7b, type: 2}
   roadSurfacesMaterials: {fileID: 11400000, guid: 6f1b538e155893b4ebe43d7b990cc530, type: 2}
-  isFixHeight: 1
+  isFixHeight: 0
+  isCreateColision: 0
 --- !u!114 &108401120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -216,7 +217,9 @@ MonoBehaviour:
   buildingTypes: {fileID: 11400000, guid: 4a8be10b830a0be499f6a8cd952185a3, type: 2}
   buildingMaterials: {fileID: 11400000, guid: 954ea7baef9fe2b4aa0ce793cc250ec0, type: 2}
   bNotCreateNotClosedPolygon: 0
-  isFixHeight: 1
+  isFixHeight: 0
+  isUseOldTriangulation: 1
+  isCreateColision: 0
 --- !u!114 &108401121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,7 +270,7 @@ MonoBehaviour:
   isAlwaysShowTempMarker: 0
   isShowTempMarkerForeNotSetPrefab: 1
   isClearUnusedData: 0
-  isFixHeight: 1
+  isFixHeight: 0
 --- !u!114 &108401124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,7 +286,8 @@ MonoBehaviour:
   bNotCreateNotClosedPolygon: 1
   grassMaterial: {fileID: 2100000, guid: c395a0ddb4889ce41ae31cdb53140e27, type: 2}
   landuseTypes: {fileID: 11400000, guid: 7348cebaa8e06154aa3d807aff5922bf, type: 2}
-  isFixHeight: 1
+  isFixHeight: 0
+  isCreateColision: 0
 --- !u!114 &108401125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -297,7 +301,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tempMarker: {fileID: 7176526127470114266, guid: 7e9359ff4ff21084da259c26f4fab45a, type: 3}
-  isFixHeight: 1
+  isFixHeight: 0
 --- !u!114 &108401126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,7 +316,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barrierTypes: {fileID: 11400000, guid: b49782923b6a6054e8afefdb6baf6af5, type: 2}
   barrierMaterials: {fileID: 11400000, guid: 1b5fc87b995305d4f89e56652a44d2d6, type: 2}
-  isFixHeight: 1
+  isFixHeight: 0
+  isCreateColision: 0
 --- !u!114 &108401127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +331,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waterMaterial: {fileID: 2100000, guid: ed3b5db7d7988584a96254393d4af29f, type: 2}
-  isFixHeight: 1
+  isFixHeight: 0
+  isCreateColision: 0
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0

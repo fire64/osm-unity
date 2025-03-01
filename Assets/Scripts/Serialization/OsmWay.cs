@@ -7,6 +7,7 @@ public class OsmWay : BaseOsm
     public OsmWay(XmlNode node)
     {
         NodeIDs = new List<ulong>();
+        HolesNodeListsIDs = new List<List<ulong>>();
 
         ID = GetAttribute<ulong>("id", node.Attributes);
         Visible = GetAttribute<bool>("visible", node.Attributes);

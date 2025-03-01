@@ -23,6 +23,7 @@ public class OsmRelation : BaseOsm
     public OsmRelation(XmlNode node, List<OsmWay> waysset)
     {
         NodeIDs = new List<ulong>();
+        HolesNodeListsIDs = new List<List<ulong>>();
 
         ID = GetAttribute<ulong>("id", node.Attributes);
         Visible = GetAttribute<bool>("visible", node.Attributes);
@@ -49,9 +50,22 @@ public class OsmRelation : BaseOsm
                     }
                 }
             }
+            else if (type == "way" && role == "inner")  //holes
+            {
+                OsmWay curWay = GetOsmWay(refNo);
 
-            //outer
-            //inner
+                if (curWay != null)
+                {
+                    var holesNodesCur = new List<ulong>();
+
+                    foreach (ulong nodeId in curWay.NodeIDs)
+                    {
+                        holesNodesCur.Add(nodeId);
+                    }
+
+                    HolesNodeListsIDs.Add(holesNodesCur);
+                }
+            }
 
         }
 
