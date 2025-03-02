@@ -53,6 +53,8 @@ class LanduseMaker : InfrstructureBehaviour
         }
 
         landuse.isEnableRender = landuseInfo.isRenderEnable;
+        landuse.isGrassGenerate = landuseInfo.isGrassGenerate;
+        landuse.isTreesGenerate = landuseInfo.isTreesGenerate;
 
         if (landuseInfo.groundMaterial != null)
         {

@@ -103,3 +103,7 @@ MonoBehaviour:
     barriermaterial: {fileID: 0}
   - barriermaterialname: fence_concrete
     barriermaterial: {fileID: 0}
+  - barriermaterialname: entrance
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: lift_gate
+    barriermaterial: {fileID: 0}

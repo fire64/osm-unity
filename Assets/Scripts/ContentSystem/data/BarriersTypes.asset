@@ -83,3 +83,13 @@ MonoBehaviour:
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5
     barrierHeight: 1
+  - barriertype: entrance
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: lift_gate
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1

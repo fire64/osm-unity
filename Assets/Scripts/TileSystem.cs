@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine.Networking;
 using System;
 using System.IO;
+using static UnityEngine.Experimental.Rendering.RayTracingAccelerationStructure;
 
 class TileSystem : InfrstructureBehaviour
 {
@@ -33,6 +34,13 @@ class TileSystem : InfrstructureBehaviour
 
     public string RelativeCachePath = "../CachedTileData/";
     protected string CacheFolderPath;
+
+    public float height_scale = 1.0f;
+
+    public GrassSettings grassSettings;
+
+    public int m_DetailRes = 1024;
+    public int m_DetailPerPath = 16;
 
     public string GetTileURL(int x, int y, int z)
     {
@@ -75,7 +83,6 @@ class TileSystem : InfrstructureBehaviour
         float B = color.b * 255;
 
         return -10000 + ( (R * 256 * 256 + G * 256 + B) * 0.1);
-
     }
 
     IEnumerator DownloadTile(int x, int y, int z, Vector3 tilePosition, Vector2 tileSize)
@@ -152,12 +159,36 @@ class TileSystem : InfrstructureBehaviour
 
                     terrainData.SetHeights(0, 0, tileHeights);
 
-                    if(isUseElevation)
+                    terrainData.SetDetailResolution(m_DetailRes, m_DetailPerPath);
+
+                    int detailcount = grassSettings.GetCountGrass();
+
+                    DetailPrototype[] m_detailProtoTypes = new DetailPrototype[detailcount];
+
+                    for (int i = 0; i < detailcount; i++)
+                    {
+                        m_detailProtoTypes[i] = grassSettings.GetGrassById(i);
+                    }
+
+                    terrainData.detailPrototypes = m_detailProtoTypes;
+
+                    int count_treetype = grassSettings.GetCountTrees();
+
+                    TreePrototype[] m_treeProtoTypes = new TreePrototype[count_treetype];
+
+                    for (int ind = 0; ind < count_treetype; ind++)
+                    {
+                        m_treeProtoTypes[ind] = grassSettings.GetTreeById(ind);
+                    }
+
+                    terrainData.treePrototypes = m_treeProtoTypes;
+
+                    if (isUseElevation)
                     {
                         string tileServerURL = "https://api.mapbox.com/v4/mapbox.terrain-rgb/{0}/{1}/{2}@2x.pngraw?access_token=pk.eyJ1Ijoib2xlb3RpZ2VyIiwiYSI6ImZ2cllZQ3cifQ.2yDE9wUcfO_BLiinccfOKg";
                         var url2 = string.Format(tileServerURL, z, x, y);
 
-                        var height_image = "height_" + TileService.ToString() + "_" + x + "_" + y + "_" + z + ".png";
+                        var height_image = "height_" + x + "_" + y + "_" + z + ".png";
 
                         var height_imagePath = Path.Combine(CacheFolderPath, height_image);
 
@@ -226,7 +257,7 @@ class TileSystem : InfrstructureBehaviour
                                 for (int xl = 0; xl < heightmapResolution; xl++)
                                 {
                                     // Get the elevation value and scale it to the 0..1 range
-                                    tileHeights[yl, xl] = (float)((heights[xl, yl] - 0) / max_height_size);
+                                    tileHeights[yl, xl] = (float)((heights[xl, yl] - 0) / max_height_size) * height_scale;
                                 }
                             }
 
