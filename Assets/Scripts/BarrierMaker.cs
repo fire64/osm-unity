@@ -8,8 +8,8 @@ class BarrierMaker : InfrstructureBehaviour
     public static GameContentSelector contentselector;
     public BarriersTypes barrierTypes;
     public BarriersMaterials barrierMaterials;
-    public bool isFixHeight = true;
     public bool isCreateColision = false;
+    public TileSystem tileSystem;
     private void SetProperties(BaseOsm geo, Barrier barrier)
     {
         barrier.name = "barrier " + geo.ID.ToString();
@@ -44,6 +44,11 @@ class BarrierMaker : InfrstructureBehaviour
         else
         {
             barrier.height = barrierInfo.barrierHeight;
+        }
+
+        if (geo.HasField("layer"))
+        {
+            barrier.layer = geo.GetValueIntByKey("layer");
         }
 
         barrier.width = barrierInfo.barrierWidth;
@@ -109,10 +114,19 @@ class BarrierMaker : InfrstructureBehaviour
         Vector3 localOrigin = GetCentre(geo);
         barrier.transform.position = localOrigin - map.bounds.Centre;
 
-        if (isFixHeight)
+        if (tileSystem.tileType == TileSystem.TileType.Terrain)
         {
-            barrier.transform.position = GR.getHeightPosition(barrier.transform.position);
+            if (tileSystem.isUseElevation)
+            {
+                barrier.transform.position = GR.getHeightPosition(barrier.transform.position);
+            }
+            else
+            {
+                barrier.transform.position += Vector3.up * tileSystem.fake_height;
+            }
         }
+
+        barrier.transform.position += Vector3.up * (barrier.layer * BaseDataObject.layer_size);
 
         for (int i = 0; i < count; i++)
         {
@@ -156,6 +170,8 @@ class BarrierMaker : InfrstructureBehaviour
 
         contentselector = FindObjectOfType<GameContentSelector>();
 
+        tileSystem = FindObjectOfType<TileSystem>();
+
         foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Barrier; }))
         {
             way.AddField("source_type", "way");
@@ -171,5 +187,7 @@ class BarrierMaker : InfrstructureBehaviour
 
             yield return null;
         }
+
+        isFinished = true;
     }
 }

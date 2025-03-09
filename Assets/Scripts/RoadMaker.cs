@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 class RoadMaker : InfrstructureBehaviour
 {
@@ -11,8 +12,8 @@ class RoadMaker : InfrstructureBehaviour
 
     public RoadTypesInfo roadTypes;
     public RoadSurfacesMaterials roadSurfacesMaterials;
-    public bool isFixHeight = true;
     public bool isCreateColision = false;
+    public TileSystem tileSystem;
     private void SetProperties(BaseOsm geo, Road road)
     {
         road.name = "road " + geo.ID.ToString();
@@ -45,6 +46,11 @@ class RoadMaker : InfrstructureBehaviour
         else
         {
             road.lanes = 1;
+        }
+
+        if (geo.HasField("layer"))
+        {
+            road.layer = geo.GetValueIntByKey("layer");
         }
 
         var roadInfo = roadTypes.GetRoadTypeInfoByName(road.Kind);
@@ -134,12 +140,21 @@ class RoadMaker : InfrstructureBehaviour
         Vector3 localOrigin = GetCentre(geo);
         road.transform.position = localOrigin - map.bounds.Centre;
 
-        if (isFixHeight)
+        if (tileSystem.tileType == TileSystem.TileType.Terrain)
         {
-            road.transform.position = GR.getHeightPosition(road.transform.position);
+            if (tileSystem.isUseElevation)
+            {
+                road.transform.position = GR.getHeightPosition(road.transform.position);
+            }
+            else
+            {
+                road.transform.position += Vector3.up * tileSystem.fake_height;
+            }
         }
 
         road.transform.position += roadlayerHeight;
+
+        road.transform.position += Vector3.up * (road.layer * BaseDataObject.layer_size);
 
         for (int i = 0; i < count; i++)
         {
@@ -185,6 +200,8 @@ class RoadMaker : InfrstructureBehaviour
 
         contentselector = FindObjectOfType<GameContentSelector>();
 
+        tileSystem = FindObjectOfType<TileSystem>();
+
         foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Road; }))
         {
             way.AddField("source_type", "way");
@@ -198,5 +215,7 @@ class RoadMaker : InfrstructureBehaviour
             CreateRoads(relation);
             yield return null;
         }
+
+        isFinished = true;
     }         
 }

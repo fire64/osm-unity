@@ -18,6 +18,8 @@ public class GenerateRoof : MonoBehaviour
             return; // Нужно минимум 4 точки для четырехскатной крыши
         }
 
+
+
         Vector3 midpoint = Vector3.zero;
         foreach (var point in baseCorners)
         {
@@ -39,9 +41,9 @@ public class GenerateRoof : MonoBehaviour
         int[] triangles = new int[baseCorners.Count * 3];
         for (int i = 0, j = 0; i < triangles.Length; i += 3, j++)
         {
-            triangles[i] = j;
+            triangles[i + 2] = j;
             triangles[i + 1] = (j + 1) % baseCorners.Count;
-            triangles[i + 2] = baseCorners.Count; // Вершина крыши всегда последняя точка в массиве
+            triangles[i] = baseCorners.Count; // Вершина крыши всегда последняя точка в массиве
         }
 
         for (int i = 0; i < vertices.Length; i++)

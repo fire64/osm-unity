@@ -16,7 +16,11 @@ public class BaseDataObject : MonoBehaviour
 
     public string material;
 
+    public int layer = 0;
+
     public Item[] itemlist;
+
+    public static int layer_size = 4;
 
     public bool HasField(string sKey)
     {

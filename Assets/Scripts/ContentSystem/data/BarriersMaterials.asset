@@ -107,3 +107,17 @@ MonoBehaviour:
     barriermaterial: {fileID: 0}
   - barriermaterialname: lift_gate
     barriermaterial: {fileID: 0}
+  - barriermaterialname: handrail_glass
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: jersey_barrier
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: retaining_wall_stone
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_railing_metal
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_concrete_concrete
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: gate_metal
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_fence
+    barriermaterial: {fileID: 0}

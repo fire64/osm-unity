@@ -10,8 +10,8 @@ class LanduseMaker : InfrstructureBehaviour
 
     public Material grassMaterial;
     public LanduseTypes landuseTypes;
-    public bool isFixHeight = true;
     public bool isCreateColision = false;
+    public TileSystem tileSystem;
     private void SetProperties(BaseOsm geo, Landuse landuse)
     {
         landuse.name = "landuse " + geo.ID.ToString();
@@ -50,6 +50,11 @@ class LanduseMaker : InfrstructureBehaviour
         if (geo.HasField("source_type"))
         {
             landuse.Source = geo.GetValueStringByKey("source_type");
+        }
+
+        if (geo.HasField("layer"))
+        {
+            landuse.layer = geo.GetValueIntByKey("layer");
         }
 
         landuse.isEnableRender = landuseInfo.isRenderEnable;
@@ -102,10 +107,19 @@ class LanduseMaker : InfrstructureBehaviour
         Vector3 localOrigin = GetCentre(geo);
         landuse.transform.position = localOrigin - map.bounds.Centre;
 
-        if (isFixHeight)
+        if (tileSystem.tileType == TileSystem.TileType.Terrain)
         {
-            landuse.transform.position = GR.getHeightPosition(landuse.transform.position);
+            if (tileSystem.isUseElevation)
+            {
+                landuse.transform.position = GR.getHeightPosition(landuse.transform.position);
+            }
+            else
+            {
+                landuse.transform.position += Vector3.up * tileSystem.fake_height;
+            }
         }
+
+        landuse.transform.position += Vector3.up * (landuse.layer * BaseDataObject.layer_size);
 
         for (int i = 0; i < count; i++)
         {
@@ -145,7 +159,7 @@ class LanduseMaker : InfrstructureBehaviour
 
         if(landuse.isEnableRender)
         {
-            GR.CreateMeshWithHeight(landuseCorners, 0.0f, 0.005f, tb, holesCorners);
+            GR.CreateMeshWithHeight(landuseCorners, 0.0f, 0.00001f, tb, holesCorners);
         }
 
         mesh.vertices = tb.Vertices.ToArray();
@@ -164,6 +178,8 @@ class LanduseMaker : InfrstructureBehaviour
             landuse.transform.GetComponent<MeshCollider>().sharedMesh = landuse.GetComponent<MeshFilter>().mesh;
             landuse.transform.GetComponent<MeshCollider>().convex = false;
         }
+
+        landuse.Activate();
     }
 
     IEnumerator Start()
@@ -174,6 +190,8 @@ class LanduseMaker : InfrstructureBehaviour
         }
 
         contentselector = FindObjectOfType<GameContentSelector>();
+
+        tileSystem = FindObjectOfType<TileSystem>();
 
         foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Landuse && w.NodeIDs.Count > 1; }))
         {
@@ -189,5 +207,6 @@ class LanduseMaker : InfrstructureBehaviour
             yield return null;
         }
 
+        isFinished = true;
     }
 }

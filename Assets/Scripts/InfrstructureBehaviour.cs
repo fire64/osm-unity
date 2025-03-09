@@ -5,6 +5,8 @@ abstract class InfrstructureBehaviour : MonoBehaviour
 {
     protected MapReader map;
 
+    public bool isFinished = false;
+
     void Awake()
     {
         map = GetComponent<MapReader>();

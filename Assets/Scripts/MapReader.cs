@@ -35,12 +35,22 @@ public class MapReader : MonoBehaviour
     public bool isDebugDraw;
     public bool IsReady {get; private set; }
 
+    public bool isTileLoadsOnly = true;
+
     public string RelativeCachePath = "../CachedTileData/";
     protected string CacheFolderPath;
 
     public async void LoadOSMData(string url, string tilePath)
     {
-        if (File.Exists(tilePath))
+        if(isTileLoadsOnly)
+        {
+            double[] bbox = MercatorProjection.GetBoundingBox(longitude, latitude, radiusmeters);
+
+            bounds = new OsmBounds(bbox[0], bbox[1], bbox[2], bbox[3]);
+
+            IsReady = true;
+        }
+        else if (File.Exists(tilePath))
         {
             // Получаем данные
             byte[] fileData = File.ReadAllBytes(tilePath);
@@ -59,9 +69,9 @@ public class MapReader : MonoBehaviour
         }
         else
         {
-                // Создаем запрос
-                using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
-                {
+            // Создаем запрос
+            using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+            {
                     // Отправляем запрос асинхронно
                     var operation = webRequest.SendWebRequest();
 
@@ -93,8 +103,7 @@ public class MapReader : MonoBehaviour
                     GetRelations(doc.SelectNodes("osm/relation"));
 
                     IsReady = true;
-                }
-
+            }
         }
     }
 

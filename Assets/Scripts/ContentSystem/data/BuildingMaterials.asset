@@ -109,3 +109,15 @@ MonoBehaviour:
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: slate
     buildingmaterial: {fileID: 0}
+  - buildingmaterialname: tile
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: copper
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: bricl
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: brick;plaster
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: porcelain_stoneware;glass
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: brick;concrete
+    buildingmaterial: {fileID: 0}

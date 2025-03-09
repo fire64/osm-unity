@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 class UndefinedDebugMaker : InfrstructureBehaviour
 {
@@ -8,6 +10,10 @@ class UndefinedDebugMaker : InfrstructureBehaviour
 
     public GameObject tempMarker;
     public bool isFixHeight = true;
+    public bool isUseTempMaker = true;
+    public bool isUseRenders = false;
+    public bool isCreateColision = false;
+
     private void SetProperties(BaseOsm geo, Undefined undefined)
     {
         undefined.name = "undefined " + geo.ID.ToString();
@@ -18,6 +24,11 @@ class UndefinedDebugMaker : InfrstructureBehaviour
         undefined.Id = geo.ID.ToString();
 
         undefined.Kind = "undefined";
+
+        if (geo.HasField("layer"))
+        {
+            undefined.layer = geo.GetValueIntByKey("layer");
+        }
 
         if (geo.HasField("source_type"))
             undefined.Source = geo.GetValueStringByKey("source_type");
@@ -70,7 +81,90 @@ class UndefinedDebugMaker : InfrstructureBehaviour
             undefined.transform.position = GR.getHeightPosition(undefined.transform.position);
         }
 
-        CreateTempMarker(undefined);
+        undefined.transform.position += Vector3.up * (undefined.layer * BaseDataObject.layer_size);
+
+        if(isUseTempMaker)
+        {
+            CreateTempMarker(undefined);
+        }
+
+        if(isUseRenders)
+        {
+            undefined.AddComponent<MeshFilter>();
+            undefined.AddComponent<MeshRenderer>();
+
+            var undefinedCorners = new List<Vector3>();
+
+            var countContour = geo.NodeIDs.Count;
+
+            for (int i = 0; i < countContour; i++)
+            {
+                OsmNode point = map.nodes[geo.NodeIDs[i]];
+
+                Vector3 coords = point - localOrigin;
+
+                undefinedCorners.Add(coords);
+            }
+
+            var holesCorners = new List<List<Vector3>>();
+
+            var countHoles = geo.HolesNodeListsIDs.Count;
+
+            for (int i = 0; i < countHoles; i++)
+            {
+                var holeNodes = geo.HolesNodeListsIDs[i];
+
+                var countHoleContourPoints = holeNodes.Count;
+
+                // Создаем новый контур для каждого отверстия
+                var holeContour = new List<Vector3>();
+
+                for (int j = 0; j < countHoleContourPoints; j++)
+                {
+                    OsmNode point = map.nodes[holeNodes[j]];
+                    Vector3 coords = point - localOrigin;
+                    holeContour.Add(coords);
+                }
+
+                holesCorners.Add(holeContour);
+            }
+
+            var mesh = undefined.GetComponent<MeshFilter>().mesh;
+
+            var tb = new MeshData();
+
+            float finalWidth = 2.0f;
+
+            if (geo.IsClosedPolygon)
+            {
+                GR.CreateMeshWithHeight(undefinedCorners, 0.0f, 0.01f, tb, holesCorners);
+            }
+            else if (geo.HasField("type") && geo.GetValueStringByKey("type") == "multipolygon")
+            {
+                GR.CreateMeshWithHeight(undefinedCorners, 0.0f, 0.01f, tb, holesCorners);
+            }
+            else
+            {
+                GR.CreateMeshLineWithWidth(undefinedCorners, finalWidth, tb);
+            }
+
+            mesh.vertices = tb.Vertices.ToArray();
+            mesh.triangles = tb.Indices.ToArray();
+            mesh.normals = tb.Normals.ToArray();
+            mesh.SetUVs(0, tb.UV);
+
+            mesh.RecalculateBounds();
+            mesh.RecalculateTangents();
+            mesh.RecalculateNormals();
+
+            //Add colider 
+            if (isCreateColision)
+            {
+                undefined.transform.gameObject.AddComponent<MeshCollider>();
+                undefined.transform.GetComponent<MeshCollider>().sharedMesh = undefined.GetComponent<MeshFilter>().mesh;
+                undefined.transform.GetComponent<MeshCollider>().convex = false;
+            }
+        }
     }
 
     // Start is called before the first frame update
@@ -85,18 +179,26 @@ class UndefinedDebugMaker : InfrstructureBehaviour
 
         foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Undefined && w.NodeIDs.Count > 1; }))
         {
-            way.AddField("source_type", "way");
-            CreateUndefinedDebugObject(way);
+            if(way.itemlist.Length > 0)
+            {
+                way.AddField("source_type", "way");
+                CreateUndefinedDebugObject(way);
+            }
+
             yield return null;
         }
 
         foreach (var relation in map.relations.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Undefined && w.NodeIDs.Count > 1; }))
         {
-            relation.AddField("source_type", "relation");
-            CreateUndefinedDebugObject(relation);
+            if (relation.itemlist.Length > 0)
+            {
+                relation.AddField("source_type", "relation");
+                CreateUndefinedDebugObject(relation);
+            }
+
             yield return null;
         }
+
+        isFinished = true;
     }
-
-
 }

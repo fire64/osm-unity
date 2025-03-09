@@ -26,7 +26,19 @@ public class OsmBounds : BaseOsm
         float y = (float)(MercatorProjection.latToY(MaxLat) + MercatorProjection.latToY(MinLat))/2;
 
         Centre = new Vector3(x, 0, y);
+    }
 
+    public OsmBounds(double minLon, double minLat, double maxLon, double maxLat)
+    {
+        MinLat = (float)minLat;
+        MaxLat = (float)maxLat;
+        MinLon = (float)minLon;
+        MaxLon = (float)maxLon;
+
+        float x = (float)(MercatorProjection.lonToX(MaxLon) + MercatorProjection.lonToX(MinLon)) / 2;
+        float y = (float)(MercatorProjection.latToY(MaxLat) + MercatorProjection.latToY(MinLat)) / 2;
+
+        Centre = new Vector3(x, 0, y);
     }
 
 }

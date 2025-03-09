@@ -453,11 +453,9 @@ public static class GR
         }
         catch
         {
-            Console.WriteLine("Возникло исключение!");
-            mesh = polygon.Triangulate();
+            Debug.Log("Возникло исключение!");
+            return;
         }
-
-
 
         // Подготовка данных
         var vertices2D = mesh.Vertices.ToList();
@@ -650,7 +648,7 @@ public static class GR
             catch (Exception e)
             {
                 //  Block of code to handle errors
-                Debug.LogError( "Exeption:" + e.Message);
+                Debug.LogError( "Exeption:" + e.Message + " color: " + hex);
 
             }
 

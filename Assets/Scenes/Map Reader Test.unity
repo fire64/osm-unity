@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 108401125}
   - component: {fileID: 108401126}
   - component: {fileID: 108401127}
+  - component: {fileID: 108401128}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -160,10 +161,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a85b096eab9582409324b760bae020b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  latitude: 55.676872
-  longitude: 37.861166
+  latitude: 53.919787
+  longitude: 27.577375
   radiusmeters: 500
   isDebugDraw: 0
+  isTileLoadsOnly: 0
   RelativeCachePath: ../CachedTileData/
 --- !u!4 &108401118
 Transform:
@@ -192,11 +194,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 970f88746c4972f49b86801c27303764, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFinished: 0
   roadMaterial: {fileID: 2100000, guid: 4455ec24bb06afd4586a99281013b637, type: 2}
   roadTypes: {fileID: 11400000, guid: ec6da49b1d95b9344be1c2540f7cbd7b, type: 2}
   roadSurfacesMaterials: {fileID: 11400000, guid: 6f1b538e155893b4ebe43d7b990cc530, type: 2}
-  isFixHeight: 1
-  isCreateColision: 0
+  isCreateColision: 1
+  tileSystem: {fileID: 0}
 --- !u!114 &108401120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -209,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35c50e4bbf33e7648a10b9680971bb88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFinished: 0
   building_material: {fileID: 2100000, guid: 90cc4ee604aa1ff4f94242c9448de8b0, type: 2}
   bNotCreateOSMParts: 0
   MinRandHeight: 3
@@ -217,9 +221,9 @@ MonoBehaviour:
   buildingTypes: {fileID: 11400000, guid: 4a8be10b830a0be499f6a8cd952185a3, type: 2}
   buildingMaterials: {fileID: 11400000, guid: 954ea7baef9fe2b4aa0ce793cc250ec0, type: 2}
   bNotCreateNotClosedPolygon: 0
-  isFixHeight: 1
   isUseOldTriangulation: 0
-  isCreateColision: 0
+  isCreateColision: 1
+  tileSystem: {fileID: 0}
 --- !u!114 &108401121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,13 +236,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 638748d8371038342906ebc2f4bd05f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFinished: 0
   zoom: 16
   TileService: 2
   tileType: 2
   terrainMaterial: {fileID: 2100000, guid: fa8bcf792db67ee4685005106bba5f58, type: 2}
   isUseElevation: 0
   RelativeCachePath: ../CachedTileData/
-  height_scale: 5
+  height_scale: 1
+  fake_height: 0
   grassSettings: {fileID: 11400000, guid: d0a4544f8e26e64488b5549e9ffd9b1b, type: 2}
   m_DetailRes: 1024
   m_DetailPerPath: 16
@@ -269,12 +275,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d344d5376abd484baec7c739f9069ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFinished: 0
   tempMarker: {fileID: 1354046477611645516, guid: 08ea2906474b6814690e685c6df23932, type: 3}
   detailsTypes: {fileID: 11400000, guid: 2d2eaa3d8eaff4c46a8e8dac9ec8f616, type: 2}
   isAlwaysShowTempMarker: 0
-  isShowTempMarkerForeNotSetPrefab: 1
+  isShowTempMarkerForeNotSetPrefab: 0
   isClearUnusedData: 1
-  isFixHeight: 1
+  tileSystem: {fileID: 0}
 --- !u!114 &108401124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,11 +294,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef9e4c082c4c4924784290250928b3f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFinished: 0
   bNotCreateNotClosedPolygon: 1
   grassMaterial: {fileID: 2100000, guid: c395a0ddb4889ce41ae31cdb53140e27, type: 2}
   landuseTypes: {fileID: 11400000, guid: 7348cebaa8e06154aa3d807aff5922bf, type: 2}
-  isFixHeight: 1
-  isCreateColision: 0
+  isCreateColision: 1
+  tileSystem: {fileID: 0}
 --- !u!114 &108401125
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -304,8 +312,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82287a1fe8ab9cc4d9fb4884be935b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFinished: 0
   tempMarker: {fileID: 7176526127470114266, guid: 7e9359ff4ff21084da259c26f4fab45a, type: 3}
   isFixHeight: 0
+  isUseTempMaker: 0
+  isUseRenders: 1
+  isCreateColision: 0
 --- !u!114 &108401126
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,10 +330,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90fcc2d50197fdf4289b6aadf3a5c364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isFinished: 0
   barrierTypes: {fileID: 11400000, guid: b49782923b6a6054e8afefdb6baf6af5, type: 2}
   barrierMaterials: {fileID: 11400000, guid: 1b5fc87b995305d4f89e56652a44d2d6, type: 2}
-  isFixHeight: 1
-  isCreateColision: 0
+  isCreateColision: 1
+  tileSystem: {fileID: 0}
 --- !u!114 &108401127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -334,9 +347,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3864150d26f6f543ab30e00f0ec7d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waterMaterial: {fileID: 2100000, guid: ed3b5db7d7988584a96254393d4af29f, type: 2}
-  isFixHeight: 1
-  isCreateColision: 0
+  isFinished: 0
+  waterMaterial: {fileID: 2100000, guid: f59ea535bb715ca4da8afac832fd36eb, type: 2}
+  isCreateColision: 1
+  tileSystem: {fileID: 0}
+--- !u!114 &108401128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108401116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a885002e7846f9d48aa42c75c46c67f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsCreateWindows: 1
+  IsWaterDeformationSupport: 0
+  IsVegetationSupport: 0
+  mincheckSize: 15
+  maxcheckSize: 25
+  isFastGrass: 0
+  windowPrefab: {fileID: 3387784282809381206, guid: b0413f8927d87b84bb4d24b2d5b45180, type: 3}
 --- !u!1 &170076733
 GameObject:
   m_ObjectHideFlags: 0
@@ -443,9 +476,11 @@ GameObject:
   - component: {fileID: 638740660}
   - component: {fileID: 638740659}
   - component: {fileID: 638740658}
+  - component: {fileID: 638740662}
+  - component: {fileID: 638740663}
   m_Layer: 0
   m_Name: Camera
-  m_TagString: Untagged
+  m_TagString: MainCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -513,7 +548,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 3
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -533,12 +568,89 @@ Transform:
   m_GameObject: {fileID: 638740657}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5, z: 0}
+  m_LocalPosition: {x: 0, y: 10000, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &638740662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638740657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b9a305e18de0c04dbd257a21cd47087, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sharedProfile: {fileID: 11400000, guid: d432180dab85cad47ba669b08c7f8d7b, type: 2}
+  isGlobal: 1
+  blendDistance: 1000
+  weight: 1
+  priority: 0
+--- !u!114 &638740663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 638740657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 638740661}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 0
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
 --- !u!1 &727894443
 GameObject:
   m_ObjectHideFlags: 0
@@ -658,6 +770,10 @@ PrefabInstance:
     - target: {fileID: 4459864850019384750, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4459864851310106424, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 4459864851310106426, guid: 6bacecc4f3df9584198879c73a6b6c36, type: 3}
       propertyPath: far clip plane

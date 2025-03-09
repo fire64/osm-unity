@@ -34,7 +34,7 @@ class DoorPlacer : DetailBase
         }
         else
         {
-            Debug.LogWarning($"Failed to place door on {buildingCollider.name}");
+   //         Debug.LogWarning($"Failed to place door on {buildingCollider.name}");
         }
     }
 

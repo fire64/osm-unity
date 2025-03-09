@@ -8,9 +8,8 @@ class WaterMaker : InfrstructureBehaviour
 {
     public Material waterMaterial;
     public static GameContentSelector contentselector;
-    public bool isFixHeight = true;
     public bool isCreateColision = false;
-
+    public TileSystem tileSystem;
     private void SetProperties(BaseOsm geo, Water water)
     {
         water.name = "water " + geo.ID.ToString();
@@ -32,6 +31,11 @@ class WaterMaker : InfrstructureBehaviour
         }
 
         water.Kind = kind;
+
+        if (geo.HasField("layer"))
+        {
+            water.layer = geo.GetValueIntByKey("layer");
+        }
 
         if (geo.HasField("source_type"))
             water.Source = geo.GetValueStringByKey("source_type");
@@ -72,10 +76,23 @@ class WaterMaker : InfrstructureBehaviour
         Vector3 localOrigin = GetCentre(geo);
         water.transform.position = localOrigin - map.bounds.Centre;
 
-        if (isFixHeight)
+        if(tileSystem.tileType == TileSystem.TileType.Terrain)
         {
-            water.transform.position = GR.getHeightPosition(water.transform.position);
+            if(tileSystem.isUseElevation)
+            {
+                water.transform.position = GR.getHeightPosition(water.transform.position);
+            }
+            else
+            {
+                water.transform.position += Vector3.up * tileSystem.fake_height;
+            }
         }
+        else
+        {
+            water.transform.position += Vector3.up * 0.025f;
+        }
+
+        water.transform.position += Vector3.up * (water.layer * BaseDataObject.layer_size);
 
         for (int i = 0; i < countContour; i++)
         {
@@ -117,15 +134,15 @@ class WaterMaker : InfrstructureBehaviour
 
         if(geo.IsClosedPolygon)
         {
-            GR.CreateMeshWithHeight(waterCorners, 0.0f, 0.01f, tb, holesCorners);
+            GR.CreateMeshWithHeight(waterCorners, -10.0f, 0.0f, tb, holesCorners);
         }
         else if(geo.HasField("type") && geo.GetValueStringByKey("type") == "multipolygon")
         {
-            GR.CreateMeshWithHeight(waterCorners, 0.0f, 0.01f, tb, holesCorners);
+            GR.CreateMeshWithHeight(waterCorners, -10.0f, 0.0f, tb, holesCorners);
         }
         else
         {
-            GR.CreateMeshLineWithWidth(waterCorners, finalWidth, tb);
+            GR.CreateMeshLineWithWidthAndHeight(waterCorners, 0.01f, finalWidth, tb);
         }
 
         mesh.vertices = tb.Vertices.ToArray();
@@ -144,8 +161,9 @@ class WaterMaker : InfrstructureBehaviour
             water.transform.GetComponent<MeshCollider>().sharedMesh = water.GetComponent<MeshFilter>().mesh;
             water.transform.GetComponent<MeshCollider>().convex = false;
         }
-    }
 
+        water.Activate();
+    }
     IEnumerator Start()
     {
         while (!map.IsReady)
@@ -154,6 +172,8 @@ class WaterMaker : InfrstructureBehaviour
         }
 
         contentselector = FindObjectOfType<GameContentSelector>();
+
+        tileSystem = FindObjectOfType<TileSystem>();
 
         foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Water; }))
         {
@@ -170,5 +190,7 @@ class WaterMaker : InfrstructureBehaviour
 
             yield return null;
         }
+
+        isFinished = true;
     }
 }

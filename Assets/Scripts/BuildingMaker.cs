@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -19,10 +20,12 @@ class BuildingMaker : InfrstructureBehaviour
     public BuildingTypeMaterials buildingTypes;
     public BuildingMaterials buildingMaterials;
     public bool bNotCreateNotClosedPolygon;
-    public bool isFixHeight = true;
 
     public bool isUseOldTriangulation = false;
     public bool isCreateColision = false;
+
+    public TileSystem tileSystem;
+
     private float GetHeights(BaseOsm geo)
     {
         var height = 0.0f;
@@ -129,6 +132,11 @@ class BuildingMaker : InfrstructureBehaviour
             mat_by_tag = buildingMaterials.GetBuildingMaterialByName(mat_name);
         }
 
+        if (geo.HasField("layer"))
+        {
+            building.layer = geo.GetValueIntByKey("layer");
+        }
+
         if (kind == "apartments")
         {
             //TODO: Add default material for apartments buildings
@@ -203,10 +211,19 @@ class BuildingMaker : InfrstructureBehaviour
         Vector3 localOrigin = GetCentre(geo);
         building.transform.position = localOrigin - map.bounds.Centre;
 
-        if(isFixHeight)
+        if (tileSystem.tileType == TileSystem.TileType.Terrain)
         {
-            building.transform.position = GR.getHeightPosition(building.transform.position);
+            if (tileSystem.isUseElevation)
+            {
+                building.transform.position = GR.getHeightPosition(building.transform.position);
+            }
+            else
+            {
+                building.transform.position += Vector3.up * tileSystem.fake_height;
+            }
         }
+
+        building.transform.position += Vector3.up * (building.layer * BaseDataObject.layer_size);
 
         for (int i = 0; i < count; i++)
         {
@@ -275,7 +292,7 @@ class BuildingMaker : InfrstructureBehaviour
             building.transform.GetComponent<MeshCollider>().convex = false;
         }
 
-        if (!contentselector.isRoofDisabled(geo.ID))
+        if (!contentselector.isRoofDisabled(geo.ID) && !geo.HasField("man_made"))
         {
             generateRoof.GenerateRoofForBuillding(building.gameObject, buildingCorners, holesCorners, minHeight, height, new Vector2(minx, miny), new Vector2(maxx - minx, maxy - miny), geo, isUseOldTriangulation);
         }
@@ -289,6 +306,8 @@ class BuildingMaker : InfrstructureBehaviour
         }
 
         contentselector = FindObjectOfType<GameContentSelector>();
+
+        tileSystem = FindObjectOfType<TileSystem>();
 
         foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Building && w.NodeIDs.Count > 1; }))
         {
@@ -304,6 +323,7 @@ class BuildingMaker : InfrstructureBehaviour
             yield return null;
         }
 
+        isFinished = true;
     }
 
 }

@@ -15,7 +15,7 @@ class DetailMaker : InfrstructureBehaviour
     public bool isAlwaysShowTempMarker;
     public bool isShowTempMarkerForeNotSetPrefab;
     public bool isClearUnusedData = false;
-    public bool isFixHeight = true;
+    public TileSystem tileSystem;
 
     void CreateTempMarker(Detail detail)
     {
@@ -61,6 +61,11 @@ class DetailMaker : InfrstructureBehaviour
 
         detail.Description = "Undefined";
         detail.Type = "Undefined";
+
+        if (geo.HasField("layer"))
+        {
+            detail.layer = geo.GetValueIntByKey("layer");
+        }
 
         //Type parser
         CheckAndAddCategory(geo, detail, "attraction");
@@ -132,10 +137,19 @@ class DetailMaker : InfrstructureBehaviour
         Vector3 localOrigin = GetCentre(geo);
         detail.transform.position = localOrigin - map.bounds.Centre;
 
-        if (isFixHeight)
+        if (tileSystem.tileType == TileSystem.TileType.Terrain)
         {
-            detail.transform.position = GR.getHeightPosition(detail.transform.position);
+            if (tileSystem.isUseElevation)
+            {
+                detail.transform.position = GR.getHeightPosition(detail.transform.position);
+            }
+            else
+            {
+                detail.transform.position += Vector3.up * tileSystem.fake_height;
+            }
         }
+
+        detail.transform.position += Vector3.up * (detail.layer * BaseDataObject.layer_size);
 
         foreach (Transform child in detail.transform)
         {
@@ -153,7 +167,9 @@ class DetailMaker : InfrstructureBehaviour
 
         contentselector = FindObjectOfType<GameContentSelector>();
 
-        if(isClearUnusedData)
+        tileSystem = FindObjectOfType<TileSystem>();
+
+        if (isClearUnusedData)
         {
             detailsTypes.DeleteUnused();
         }
@@ -164,5 +180,7 @@ class DetailMaker : InfrstructureBehaviour
             CreateDetails(node);
             yield return null;
         }
+
+        isFinished = true;
     }
 }

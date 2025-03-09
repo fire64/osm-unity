@@ -231,3 +231,11 @@ MonoBehaviour:
     buildingtypematerial: {fileID: 0}
   - buildingtype: farm
     buildingtypematerial: {fileID: 0}
+  - buildingtype: ship
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: air_shaft
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: 2
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: fire_station
+    buildingtypematerial: {fileID: 0}

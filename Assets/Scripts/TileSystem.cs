@@ -37,6 +37,8 @@ class TileSystem : InfrstructureBehaviour
 
     public float height_scale = 1.0f;
 
+    public float fake_height;
+
     public GrassSettings grassSettings;
 
     public int m_DetailRes = 1024;
@@ -264,6 +266,22 @@ class TileSystem : InfrstructureBehaviour
                             terrainData.SetHeights(0, 0, tileHeights);
                         }
                     }
+                    else
+                    {
+                    //    float[,] tileHeights = new float[terrainData.heightmapResolution, terrainData.heightmapResolution];
+
+                        for( int xl = 0; xl < terrainData.heightmapResolution; xl++)
+                        {
+                            for (int yl = 0; yl < terrainData.heightmapResolution; yl++)
+                            {
+                                tileHeights[yl, xl] = 0.5f;
+                            }
+                        }
+
+                        terrainData.SetHeights(0, 0, tileHeights);
+
+                        fake_height = max_height_size * 0.5f;
+                    }
 
                     //Create a terrain with the set terrain data
                     tileGO = Terrain.CreateTerrainGameObject(terrainData);
@@ -384,5 +402,7 @@ class TileSystem : InfrstructureBehaviour
                 StartCoroutine(DownloadTile(x, y, zoom, tilePosition, tileSize));
             }
         }
+
+        isFinished = true;
     }
 }

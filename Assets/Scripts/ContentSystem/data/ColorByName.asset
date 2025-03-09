@@ -139,7 +139,19 @@ MonoBehaviour:
     color: {r: 0.7607843, g: 0.69803923, b: 0.5019608, a: 1}
   - colorname: white;brown;black
     color: {r: 0.47058824, g: 0.42352942, b: 0.23137255, a: 1}
-  - colorname: 8f8b8c
+  - colorname: dimgray
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: darkblue
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: darkgray
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: palegreen
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: darkseagreen
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: peachpuff
     color: {r: 1, g: 1, b: 1, a: 1}
   - colorname: white
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: hotpink
     color: {r: 1, g: 1, b: 1, a: 1}
