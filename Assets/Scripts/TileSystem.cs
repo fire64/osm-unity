@@ -32,12 +32,12 @@ class TileSystem : InfrstructureBehaviour
 
     public bool isUseElevation = false;
 
-    public string RelativeCachePath = "../CachedTileData/";
+    public string RelativeCachePath = "../CachedTileData/Images/";
     protected string CacheFolderPath;
 
     public float height_scale = 1.0f;
 
-    public float fake_height;
+    public float fake_height = 9921.5f;
 
     public GrassSettings grassSettings;
 
@@ -312,12 +312,13 @@ class TileSystem : InfrstructureBehaviour
                     // Корректировка позиции для выравнивания
                     tilePosition -= new Vector3(terrainData.size.x * 0.5f, 0, terrainData.size.z * 0.5f);
                     break;
-            }
+            } 
 
             if (tileGO != null)
             {
                 tileGO.name = $"Tile_{x}_{y}_{z}";
                 tileGO.transform.position = tilePosition;
+                tileGO.transform.position += Vector3.down * fake_height;
 
                 if (tileType != TileType.Terrain)
                 {

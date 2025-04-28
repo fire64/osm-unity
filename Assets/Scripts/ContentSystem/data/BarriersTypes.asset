@@ -23,6 +23,16 @@ MonoBehaviour:
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5
     barrierHeight: 1
+  - barriertype: guard_rail
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: kerb
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
   - barriertype: gate
     barrierDescription: 
     barrierMaterial: {fileID: 0}
@@ -38,37 +48,17 @@ MonoBehaviour:
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5
     barrierHeight: 1
-  - barriertype: ditch
-    barrierDescription: 
-    barrierMaterial: {fileID: 0}
-    barrierWidth: 0.5
-    barrierHeight: 1
   - barriertype: retaining_wall
     barrierDescription: 
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5
     barrierHeight: 1
-  - barriertype: guard_rail
+  - barriertype: jersey_barrier
     barrierDescription: 
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5
     barrierHeight: 1
-  - barriertype: city_wall
-    barrierDescription: 
-    barrierMaterial: {fileID: 0}
-    barrierWidth: 0.5
-    barrierHeight: 1
-  - barriertype: yes
-    barrierDescription: 
-    barrierMaterial: {fileID: 0}
-    barrierWidth: 0.5
-    barrierHeight: 1
-  - barriertype: kerb
-    barrierDescription: 
-    barrierMaterial: {fileID: 0}
-    barrierWidth: 0.5
-    barrierHeight: 1
-  - barriertype: log
+  - barriertype: block
     barrierDescription: 
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5
@@ -78,12 +68,17 @@ MonoBehaviour:
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5
     barrierHeight: 1
-  - barriertype: handrail
+  - barriertype: ditch
     barrierDescription: 
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5
     barrierHeight: 1
-  - barriertype: entrance
+  - barriertype: yes
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: handrail
     barrierDescription: 
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5
@@ -93,7 +88,17 @@ MonoBehaviour:
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5
     barrierHeight: 1
-  - barriertype: jersey_barrier
+  - barriertype: city_wall
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: log
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: planter
     barrierDescription: 
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5

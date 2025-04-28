@@ -9,10 +9,20 @@ using System.Text;
 using System.IO;
 using UnityEditor.Build.Content;
 using System.Net;
-
+using UnityEditor.PackageManager.Requests;
+using Unity.VisualScripting;
 
 public class MapReader : MonoBehaviour
 {
+    public enum TypeMapLoad
+    {
+        TileOnly,
+        OSMData,
+        Overpass,
+    };
+
+    public TypeMapLoad typeMapLoad;
+
     [HideInInspector]
     public Dictionary<ulong, OsmNode> nodes;
 
@@ -35,19 +45,23 @@ public class MapReader : MonoBehaviour
     public bool isDebugDraw;
     public bool IsReady {get; private set; }
 
-    public bool isTileLoadsOnly = true;
-
-    public string RelativeCachePath = "../CachedTileData/";
+    public string RelativeCachePath = "../CachedTileData/OSMData/";
     protected string CacheFolderPath;
 
-    public async void LoadOSMData(string url, string tilePath)
+    public async void LoadOSMData(string tilePath)
     {
-        if(isTileLoadsOnly)
+        double[] bbox = MercatorProjection.GetBoundingBox(longitude, latitude, radiusmeters);
+
+        String minLon = bbox[0].ToString().Replace(",", ".");
+        String minLat = bbox[1].ToString().Replace(",", ".");
+
+        String maxLon = bbox[2].ToString().Replace(",", ".");
+        String maxLat = bbox[3].ToString().Replace(",", ".");
+
+        bounds = new OsmBounds(bbox[0], bbox[1], bbox[2], bbox[3]);
+
+        if (typeMapLoad == TypeMapLoad.TileOnly)
         {
-            double[] bbox = MercatorProjection.GetBoundingBox(longitude, latitude, radiusmeters);
-
-            bounds = new OsmBounds(bbox[0], bbox[1], bbox[2], bbox[3]);
-
             IsReady = true;
         }
         else if (File.Exists(tilePath))
@@ -60,49 +74,102 @@ public class MapReader : MonoBehaviour
             XmlDocument doc = new XmlDocument();
             doc.LoadXml(result);
 
-            SetBounds(doc.SelectSingleNode("/osm/bounds"));
             GetNodes(doc.SelectNodes("/osm/node"));
             GetWays(doc.SelectNodes("osm/way"));
             GetRelations(doc.SelectNodes("osm/relation"));
 
             IsReady = true;
         }
-        else
+        else if(typeMapLoad == TypeMapLoad.OSMData)
         {
+            string dataURL = "https://www.openstreetmap.org/api/0.6/map?bbox=" + minLon + "," + minLat + "," + maxLon + "," + maxLat;
+
             // Создаем запрос
-            using (UnityWebRequest webRequest = UnityWebRequest.Get(url))
+            using (UnityWebRequest webRequest = UnityWebRequest.Get(dataURL))
             {
-                    // Отправляем запрос асинхронно
-                    var operation = webRequest.SendWebRequest();
+                // Отправляем запрос асинхронно
+                var operation = webRequest.SendWebRequest();
 
-                    // Ожидаем завершения запроса
-                    while (!operation.isDone)
-                        await Task.Yield();
+                // Ожидаем завершения запроса
+                while (!operation.isDone)
+                    await Task.Yield();
 
-                    // Проверяем на ошибки
-                    if (webRequest.result == UnityWebRequest.Result.ConnectionError ||
-                        webRequest.result == UnityWebRequest.Result.ProtocolError)
-                    {
-                        Debug.LogError($"Error: {webRequest.error}  for url: {url}");
-                        return;
-                    }
+                // Проверяем на ошибки
+                if (webRequest.result == UnityWebRequest.Result.ConnectionError ||
+                    webRequest.result == UnityWebRequest.Result.ProtocolError)
+                {
+                    Debug.LogError($"Error: {webRequest.error}  for url: {dataURL}");
+                    return;
+                }
 
-                    // Получаем данные
-                    byte[] fileData = webRequest.downloadHandler.data;
+                // Получаем данные
+                byte[] fileData = webRequest.downloadHandler.data;
 
-                    await File.WriteAllBytesAsync(tilePath, fileData);
+                await File.WriteAllBytesAsync(tilePath, fileData);
 
-                    string result = Encoding.UTF8.GetString(fileData);
+                string result = Encoding.UTF8.GetString(fileData);
 
-                    XmlDocument doc = new XmlDocument();
-                    doc.LoadXml(result);
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(result);
 
-                    SetBounds(doc.SelectSingleNode("/osm/bounds"));
-                    GetNodes(doc.SelectNodes("/osm/node"));
-                    GetWays(doc.SelectNodes("osm/way"));
-                    GetRelations(doc.SelectNodes("osm/relation"));
+                GetNodes(doc.SelectNodes("/osm/node"));
+                GetWays(doc.SelectNodes("osm/way"));
+                GetRelations(doc.SelectNodes("osm/relation"));
 
-                    IsReady = true;
+                IsReady = true;
+            }
+        }
+        else if (typeMapLoad == TypeMapLoad.Overpass)
+        {
+         //   string dataURL = "https://overpass-api.de/api/interpreter";
+
+            string dataURL = "https://maps.mail.ru/osm/tools/overpass/api/interpreter";
+
+            // Ваш Overpass QL запрос
+            //string dataString = "data=(nwr(" + minLat + "," + minLon + "," + maxLat + "," + maxLon + ");>;);out;";
+
+            String centerLan = longitude.ToString().Replace(",", ".");
+            String centerLat = latitude.ToString().Replace(",", ".");
+
+            string dataString = "data=(nwr(around:"+ (int)radiusmeters + ","+ centerLat + "," + centerLan + ");>;);out;";
+
+            // Создаем запрос
+            using (UnityWebRequest webRequest = UnityWebRequest.PostWwwForm(dataURL, ""))
+            {
+                webRequest.SetRequestHeader("Content-Type", "application/json");
+                webRequest.uploadHandler = new UploadHandlerRaw(System.Text.Encoding.UTF8.GetBytes(dataString));
+                webRequest.downloadHandler = new DownloadHandlerBuffer();
+
+                // Отправляем запрос асинхронно
+                var operation = webRequest.SendWebRequest();
+
+                // Ожидаем завершения запроса
+                while (!operation.isDone)
+                    await Task.Yield();
+
+                // Проверяем на ошибки
+                if (webRequest.result == UnityWebRequest.Result.ConnectionError ||
+                    webRequest.result == UnityWebRequest.Result.ProtocolError)
+                {
+                    Debug.LogError($"Error: {webRequest.error}  for url: {dataURL}");
+                    return;
+                }
+
+                // Получаем данные
+                byte[] fileData = webRequest.downloadHandler.data;
+
+                await File.WriteAllBytesAsync(tilePath, fileData);
+
+                string result = Encoding.UTF8.GetString(fileData);
+
+                XmlDocument doc = new XmlDocument();
+                doc.LoadXml(result);
+
+                GetNodes(doc.SelectNodes("/osm/node"));
+                GetWays(doc.SelectNodes("osm/way"));
+                GetRelations(doc.SelectNodes("osm/relation"));
+
+                IsReady = true;
             }
         }
     }
@@ -124,21 +191,11 @@ public class MapReader : MonoBehaviour
         if (!Directory.Exists(CacheFolderPath))
             Directory.CreateDirectory(CacheFolderPath);
 
-        double[] bbox = MercatorProjection.GetBoundingBox(longitude, latitude, radiusmeters);
-
-        String minLon = bbox[0].ToString().Replace(",", ".");
-        String minLat = bbox[1].ToString().Replace(",", ".");
-
-        String maxLon = bbox[2].ToString().Replace(",", ".");
-        String maxLat = bbox[3].ToString().Replace(",", ".");
-
-        string dataURL = "https://www.openstreetmap.org/api/0.6/map?bbox=" + minLon + "," + minLat + "," + maxLon + "," + maxLat;
-
         var document = "mapdata_" + longitude + "_" + latitude + "_" + radiusmeters + ".txt";
 
         var tilePath = Path.Combine(CacheFolderPath, document);
 
-        LoadOSMData(dataURL, tilePath);
+        LoadOSMData(tilePath);
     }
 
     void Update()
@@ -208,7 +265,6 @@ public class MapReader : MonoBehaviour
         }
 
     }
-
     void GetNodes(XmlNodeList xmlNodeList)
     {
         foreach (XmlNode n in xmlNodeList)

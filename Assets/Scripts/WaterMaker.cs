@@ -73,6 +73,11 @@ class WaterMaker : InfrstructureBehaviour
 
         var countContour = geo.NodeIDs.Count;
 
+        if(countContour < 3)
+        {
+            return;
+        }
+
         Vector3 localOrigin = GetCentre(geo);
         water.transform.position = localOrigin - map.bounds.Centre;
 
@@ -82,16 +87,9 @@ class WaterMaker : InfrstructureBehaviour
             {
                 water.transform.position = GR.getHeightPosition(water.transform.position);
             }
-            else
-            {
-                water.transform.position += Vector3.up * tileSystem.fake_height;
-            }
         }
-        else
-        {
-            water.transform.position += Vector3.up * 0.025f;
-        }
-
+        
+        water.transform.position += Vector3.up * 0.025f;
         water.transform.position += Vector3.up * (water.layer * BaseDataObject.layer_size);
 
         for (int i = 0; i < countContour; i++)

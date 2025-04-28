@@ -73,4 +73,12 @@ public class RoadSurfacesMaterials : ScriptableObject
 
         return null;
     }
+
+    public void DeleteUnused()
+    {
+        RoadSurfacesMaterialsList.RemoveAll(item => item.roadSurfacesMaterial == null);
+#if UNITY_EDITOR
+        EditorUtility.SetDirty(this);
+#endif
+    }
 }

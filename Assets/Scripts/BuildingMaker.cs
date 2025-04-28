@@ -217,10 +217,6 @@ class BuildingMaker : InfrstructureBehaviour
             {
                 building.transform.position = GR.getHeightPosition(building.transform.position);
             }
-            else
-            {
-                building.transform.position += Vector3.up * tileSystem.fake_height;
-            }
         }
 
         building.transform.position += Vector3.up * (building.layer * BaseDataObject.layer_size);

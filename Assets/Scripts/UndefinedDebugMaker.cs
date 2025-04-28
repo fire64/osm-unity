@@ -9,10 +9,10 @@ class UndefinedDebugMaker : InfrstructureBehaviour
     public static GameContentSelector contentselector;
 
     public GameObject tempMarker;
-    public bool isFixHeight = true;
     public bool isUseTempMaker = true;
     public bool isUseRenders = false;
     public bool isCreateColision = false;
+    public TileSystem tileSystem;
 
     private void SetProperties(BaseOsm geo, Undefined undefined)
     {
@@ -76,9 +76,12 @@ class UndefinedDebugMaker : InfrstructureBehaviour
         Vector3 localOrigin = GetCentre(geo);
         undefined.transform.position = localOrigin - map.bounds.Centre;
 
-        if (isFixHeight)
+        if (tileSystem.tileType == TileSystem.TileType.Terrain)
         {
-            undefined.transform.position = GR.getHeightPosition(undefined.transform.position);
+            if (tileSystem.isUseElevation)
+            {
+                undefined.transform.position = GR.getHeightPosition(undefined.transform.position);
+            }
         }
 
         undefined.transform.position += Vector3.up * (undefined.layer * BaseDataObject.layer_size);
@@ -176,6 +179,8 @@ class UndefinedDebugMaker : InfrstructureBehaviour
         }
 
         contentselector = FindObjectOfType<GameContentSelector>();
+
+        tileSystem = FindObjectOfType<TileSystem>();
 
         foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Undefined && w.NodeIDs.Count > 1; }))
         {

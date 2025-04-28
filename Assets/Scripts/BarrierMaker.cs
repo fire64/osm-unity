@@ -120,10 +120,6 @@ class BarrierMaker : InfrstructureBehaviour
             {
                 barrier.transform.position = GR.getHeightPosition(barrier.transform.position);
             }
-            else
-            {
-                barrier.transform.position += Vector3.up * tileSystem.fake_height;
-            }
         }
 
         barrier.transform.position += Vector3.up * (barrier.layer * BaseDataObject.layer_size);

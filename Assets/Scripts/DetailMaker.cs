@@ -93,6 +93,7 @@ class DetailMaker : InfrstructureBehaviour
         CheckAndAddCategory(geo, detail, "was:shop"); //not use, old shop
         CheckAndAddCategory(geo, detail, "tourism");
         CheckAndAddCategory(geo, detail, "leisure");
+        CheckAndAddCategory(geo, detail, "traffic_sign");
 
         var typeName = detail.Description + ":" + detail.Type;
 
@@ -142,10 +143,6 @@ class DetailMaker : InfrstructureBehaviour
             if (tileSystem.isUseElevation)
             {
                 detail.transform.position = GR.getHeightPosition(detail.transform.position);
-            }
-            else
-            {
-                detail.transform.position += Vector3.up * tileSystem.fake_height;
             }
         }
 

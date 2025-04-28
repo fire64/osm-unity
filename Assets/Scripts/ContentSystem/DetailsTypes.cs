@@ -72,6 +72,8 @@ public class DetailsTypes : ScriptableObject
 
     public DetailsTypesItem GetDetailsTypeInfoByName(string curDetailsTypeName)
     {
+        DetailsTypesReplacesList.Sort((p1, p2) => p1.detailsType.CompareTo(p2.detailsType));
+
         int countitems = DetailsTypesReplacesList.Count;
 
         for (int i = 0; i < countitems; i++)

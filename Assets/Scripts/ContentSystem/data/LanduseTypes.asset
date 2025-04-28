@@ -13,61 +13,19 @@ MonoBehaviour:
   m_Name: LanduseTypes
   m_EditorClassIdentifier: 
   LanduseTypesReplacesList:
-  - landuseType: wood
-    landuseDescription: "\u041B\u0435\u0441"
-    groundMaterial: {fileID: 2100000, guid: 672101889d5c3ce439f989cf5f5ba6ff, type: 2}
-    isGrassGenerate: 1
-    isTreesGenerate: 1
-    isRenderEnable: 1
-  - landuseType: grassland
-    landuseDescription: "\u041F\u043E\u043B\u0435"
-    groundMaterial: {fileID: 2100000, guid: 650f2cedbe2840945814ce7cb8f34f5e, type: 2}
-    isGrassGenerate: 1
-    isTreesGenerate: 0
-    isRenderEnable: 1
-  - landuseType: park
-    landuseDescription: "\u041F\u0430\u0440\u043A"
-    groundMaterial: {fileID: 2100000, guid: f5c34ae054f828f4c9cb6559298bbba7, type: 2}
-    isGrassGenerate: 1
-    isTreesGenerate: 1
-    isRenderEnable: 1
-  - landuseType: grass
-    landuseDescription: "\u0413\u0430\u0437\u043E\u043D"
-    groundMaterial: {fileID: 2100000, guid: c395a0ddb4889ce41ae31cdb53140e27, type: 2}
-    isGrassGenerate: 1
-    isTreesGenerate: 0
-    isRenderEnable: 1
-  - landuseType: mud
-    landuseDescription: "\u0411\u043E\u043B\u043E\u0442\u043E"
-    groundMaterial: {fileID: 2100000, guid: 35c5bac3dea04dd4c9b2e3e4563d90b5, type: 2}
-    isGrassGenerate: 0
-    isTreesGenerate: 0
-    isRenderEnable: 1
-  - landuseType: wetland
-    landuseDescription: "\u0411\u043E\u043B\u043E\u0442\u043E"
-    groundMaterial: {fileID: 2100000, guid: 35c5bac3dea04dd4c9b2e3e4563d90b5, type: 2}
-    isGrassGenerate: 0
-    isTreesGenerate: 0
-    isRenderEnable: 1
-  - landuseType: scrub
-    landuseDescription: "\u041A\u0443\u0441\u0442\u0430\u0440\u043D\u0438\u043A\u0438"
-    groundMaterial: {fileID: 2100000, guid: b536d4fa585c0844b8377bf434205971, type: 2}
-    isGrassGenerate: 1
-    isTreesGenerate: 0
-    isRenderEnable: 1
-  - landuseType: tree_row
-    landuseDescription: "\u0410\u043B\u043B\u0435\u044F"
-    groundMaterial: {fileID: 2100000, guid: c395a0ddb4889ce41ae31cdb53140e27, type: 2}
-    isGrassGenerate: 1
-    isTreesGenerate: 1
-    isRenderEnable: 1
-  - landuseType: earth_bank
+  - landuseType: residential
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
-  - landuseType: sand
+  - landuseType: sports_centre
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: greenhouse_horticulture
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
@@ -79,103 +37,193 @@ MonoBehaviour:
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
-  - landuseType: shingle
+  - landuseType: garages
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
-  - landuseType: bare_rock
+  - landuseType: wood
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
-    isRenderEnable: 0
-  - landuseType: shrub
-    landuseDescription: 
-    groundMaterial: {fileID: 0}
-    isGrassGenerate: 0
-    isTreesGenerate: 0
-    isRenderEnable: 0
-  - landuseType: shrubbery
-    landuseDescription: 
-    groundMaterial: {fileID: 0}
-    isGrassGenerate: 0
-    isTreesGenerate: 0
-    isRenderEnable: 0
-  - landuseType: floodplain
-    landuseDescription: 
-    groundMaterial: {fileID: 0}
-    isGrassGenerate: 0
-    isTreesGenerate: 0
-    isRenderEnable: 0
-  - landuseType: beach
-    landuseDescription: 
-    groundMaterial: {fileID: 0}
-    isGrassGenerate: 0
-    isTreesGenerate: 0
-    isRenderEnable: 0
-  - landuseType: valley
-    landuseDescription: 
-    groundMaterial: {fileID: 0}
-    isGrassGenerate: 0
-    isTreesGenerate: 0
-    isRenderEnable: 0
+    isRenderEnable: 1
   - landuseType: dog_park
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
-  - landuseType: scree
+  - landuseType: administrative
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
-  - landuseType: fell
+  - landuseType: parking
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
-  - landuseType: glacier
+  - landuseType: grass
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: farmyard
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
-  - landuseType: garden
+  - landuseType: industrial
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
-  - landuseType: cave_entrance
+  - landuseType: commercial
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
-  - landuseType: heath
+  - landuseType: construction
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
-  - landuseType: gorge
+  - landuseType: wetland
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: beach
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: scrub
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: fuel
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
-  - landuseType: cliff
+  - landuseType: playground
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
-  - landuseType: stone
+  - landuseType: grassland
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: park
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: retail
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: religious
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: grave_yard
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: fitness_station
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: meadow
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: brownfield
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: track
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: fire_boundary
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: stadium
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: police
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: school
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: kindergarten
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: resort
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: university
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: clinic
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
@@ -187,37 +235,343 @@ MonoBehaviour:
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
+  - landuseType: garden
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: fitness_centre
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: recreation_ground
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: military
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: college
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: bleachers
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: fountain
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: outdoor_seating
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: marketplace
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: shingle
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: railway
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: water_park
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: scree
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: sand
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: ferry_terminal
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: taxi
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
   - landuseType: bay
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
-  - landuseType: canyon
+  - landuseType: social_facility
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
-  - landuseType: cave
+  - landuseType: bandstand
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
-  - landuseType: slope
-    landuseDescription: 
-    groundMaterial: {fileID: 0}
-    isGrassGenerate: 0
-    isTreesGenerate: 0
-    isRenderEnable: 0
-  - landuseType: peninsula
+  - landuseType: waste_disposal
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 0
   - landuseType: beach_resort
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: bbq
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: flowerbed
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: shelter
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: bank
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: farmland
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: allotments
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: bus_station
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: shrubs
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: orchard
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: parking_space
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: fell
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: ice_rink
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: reservoir
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: sauna
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: cemetery
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: summer_camp
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: logging
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: yes
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: common
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: autodrome
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: landfill
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: education
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: hospital
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: forest
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: lounger
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: bicycle_parking
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: post_office
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: tree_row
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 1
+  - landuseType: clock
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: heath
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: bench
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: prison
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: institutional
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: sports_hall
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: mud
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: toilets
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0

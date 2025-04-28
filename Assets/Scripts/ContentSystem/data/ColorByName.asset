@@ -13,145 +13,91 @@ MonoBehaviour:
   m_Name: ColorByName
   m_EditorClassIdentifier: 
   ColorsReplaceList:
-  - colorname: lightgrey;brown
-    color: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
-  - colorname: lightgrey;beige
-    color: {r: 0.8867924, g: 0.7048327, b: 0.52287287, a: 1}
-  - colorname: lightgrey
-    color: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
   - colorname: grey
     color: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
-  - colorname: yellow;lightgrey
-    color: {r: 1, g: 1, b: 0, a: 1}
-  - colorname: lightyellow;lightgrey
-    color: {r: 1, g: 1, b: 0.8784314, a: 1}
-  - colorname: white'lightgrey;black
-    color: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 1}
-  - colorname: beige;brown
-    color: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 1}
-  - colorname: beige;yellow
-    color: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 1}
-  - colorname: beige
-    color: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 1}
-  - colorname: grey;white
-    color: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
-  - colorname: beige;pink
-    color: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 1}
-  - colorname: grey;lightblue
-    color: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
-  - colorname: lightyellow;white
-    color: {r: 1, g: 1, b: 0.8784314, a: 1}
-  - colorname: green
-    color: {r: 0, g: 1, b: 0, a: 1}
-  - colorname: orange;white
-    color: {r: 1, g: 0.64705884, b: 0, a: 1}
-  - colorname: beige;brown;black
-    color: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 1}
-  - colorname: gainsboro
-    color: {r: 0.8627451, g: 0.8627451, b: 0.8627451, a: 1}
-  - colorname: silver
-    color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
-  - colorname: orange;beige
-    color: {r: 1, g: 0.64705884, b: 0, a: 1}
-  - colorname: wheat
-    color: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
   - colorname: red
     color: {r: 1, g: 0, b: 0, a: 1}
-  - colorname: lightgreen
-    color: {r: 0.5647059, g: 0.93333334, b: 0.5647059, a: 1}
-  - colorname: khaki
-    color: {r: 0.7647059, g: 0.6901961, b: 0.5686275, a: 1}
-  - colorname: pink
-    color: {r: 1, g: 0.7529412, b: 0.79607844, a: 1}
-  - colorname: yellow
-    color: {r: 1, g: 1, b: 0, a: 1}
-  - colorname: darkgrey
-    color: {r: 0.2, g: 0.2, b: 0.2, a: 1}
+  - colorname: beige
+    color: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 1}
+  - colorname: beige;white
+    color: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 1}
+  - colorname: orange
+    color: {r: 1, g: 0.64705884, b: 0, a: 1}
   - colorname: lightyellow
     color: {r: 1, g: 1, b: 0.8784314, a: 1}
-  - colorname: black
-    color: {r: 0, g: 0, b: 0, a: 1}
+  - colorname: white;beige;brown
+    color: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 1}
+  - colorname: green
+    color: {r: 0, g: 0.5019608, b: 0, a: 1}
+  - colorname: white;blue
+    color: {r: 0.5584282, g: 0.5584282, b: 0.8396226, a: 1}
+  - colorname: sandybrown
+    color: {r: 0.95686275, g: 0.6431373, b: 0.3764706, a: 1}
+  - colorname: lightgrey
+    color: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
   - colorname: gold
     color: {r: 1, g: 0.84313726, b: 0, a: 1}
-  - colorname: darkgreen
-    color: {r: 0, g: 0.5019608, b: 0, a: 1}
-  - colorname: firebrick
-    color: {r: 0.69803923, g: 0.13333334, b: 0.20392157, a: 1}
-  - colorname: turquoise
-    color: {r: 0.101960786, g: 0.7372549, b: 0.6117647, a: 1}
-  - colorname: darkkhaki
-    color: {r: 0.7411765, g: 0.7176471, b: 0.41960785, a: 1}
-  - colorname: maroon
-    color: {r: 0.5019608, g: 0, b: 0, a: 1}
-  - colorname: lightgray
-    color: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
-  - colorname: lightcoral
-    color: {r: 0.9411765, g: 0.5019608, b: 0.5019608, a: 1}
-  - colorname: darksalmon
-    color: {r: 0.9137255, g: 0.5882353, b: 0.47843137, a: 1}
-  - colorname: seagreen
-    color: {r: 0.19607843, g: 0.8039216, b: 0.19607843, a: 1}
-  - colorname: gray
-    color: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
-  - colorname: olive
-    color: {r: 0.33333334, g: 0.41960785, b: 0.18431373, a: 1}
-  - colorname: coral
-    color: {r: 1, g: 0.7764706, b: 0.49019608, a: 1}
-  - colorname: yellow;beige;grey
-    color: {r: 1, g: 1, b: 0, a: 1}
-  - colorname: brown
-    color: {r: 0.5882353, g: 0.29411766, b: 0, a: 1}
-  - colorname: beige;coral
-    color: {r: 0.972549, g: 0.87058824, b: 0.70980394, a: 1}
-  - colorname: darkgoldenrod
-    color: {r: 0.72156864, g: 0.5254902, b: 0.043137256, a: 1}
-  - colorname: grey;green;beige
-    color: {r: 0.54509807, g: 0.5803922, b: 0.40392157, a: 1}
-  - colorname: aquamarine
-    color: {r: 0.49803922, g: 0.99215686, b: 0, a: 1}
-  - colorname: lightpink
-    color: {r: 1, g: 0.7529412, b: 0.79607844, a: 1}
-  - colorname: lightgrey;black
-    color: {r: 0.5580278, g: 0.5580278, b: 0.5660378, a: 1}
-  - colorname: sienna
-    color: {r: 0.627451, g: 0.32156864, b: 0.1764706, a: 1}
-  - colorname: motley
-    color: {r: 0.33333334, g: 0.41960785, b: 0.18431373, a: 1}
-  - colorname: orange
-    color: {r: 1, g: 0.627451, b: 0.47843137, a: 1}
+  - colorname: silver
+    color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
+  - colorname: white
+    color: {r: 1, g: 1, b: 0.99607843, a: 1}
   - colorname: blue
     color: {r: 0, g: 0, b: 1, a: 1}
-  - colorname: grey;green
-    color: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
-  - colorname: white;beige
-    color: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 1}
-  - colorname: white;green
-    color: {r: 0.69803923, g: 1, b: 0.9882353, a: 1}
+  - colorname: lightgrey;brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;beige
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;beige;black
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: yellow;lightgrey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightyellow;lightgrey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white'lightgrey;black
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: yellow
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: grey;brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: grey;white
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;brown;grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: gray
+    color: {r: 1, g: 1, b: 1, a: 1}
   - colorname: beige;grey
-    color: {r: 0.827451, g: 0.827451, b: 0.84313726, a: 1}
-  - colorname: lightgrey;lightblue
-    color: {r: 0.5294118, g: 0.80784315, b: 0.92156863, a: 1}
-  - colorname: grey;orange
-    color: {r: 1, g: 0.84313726, b: 0.74509805, a: 1}
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;black
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: beige;brown;black
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightgrey;grey;green
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;grey;brown
+    color: {r: 1, g: 1, b: 1, a: 1}
   - colorname: grey;red
-    color: {r: 1, g: 0.7529412, b: 0.5019608, a: 1}
-  - colorname: beige;red
-    color: {r: 0.7607843, g: 0.69803923, b: 0.5019608, a: 1}
-  - colorname: white;brown;black
-    color: {r: 0.47058824, g: 0.42352942, b: 0.23137255, a: 1}
-  - colorname: dimgray
     color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: darkblue
+  - colorname: beige;brown
     color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: darkgray
+  - colorname: white;red
     color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: palegreen
+  - colorname: beige;yellow
     color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: darkseagreen
+  - colorname: white;brown
     color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: peachpuff
+  - colorname: pink'white;red
     color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: white
+  - colorname: white;pink
     color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: hotpink
+  - colorname: grey;lightblue
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: lightyellow;white
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: orange;white
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: brown;gold
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white;yellow;lightblue
     color: {r: 1, g: 1, b: 1, a: 1}

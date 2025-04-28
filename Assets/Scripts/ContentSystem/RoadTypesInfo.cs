@@ -80,4 +80,12 @@ public class RoadTypesInfo : ScriptableObject
 
         return RoadTypeInfoReplacesList[lastIndex];
     }
+
+    public void DeleteUnused()
+    {
+        RoadTypeInfoReplacesList.RemoveAll(item => item.roadMaterial == null);
+#if UNITY_EDITOR
+        EditorUtility.SetDirty(this);
+#endif
+    }
 }

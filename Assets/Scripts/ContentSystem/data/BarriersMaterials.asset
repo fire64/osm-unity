@@ -15,25 +15,51 @@ MonoBehaviour:
   BarrierMaterialsList:
   - barriermaterialname: fence
     barriermaterial: {fileID: 0}
+  - barriermaterialname: wall
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_metal
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: guard_rail
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: kerb
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: wall_concrete
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: wall_concrete_concrete
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_concrete_concrete
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_concrete
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_bars_brick
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_wire_metal
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: wall_brick
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: wall_stone
+    barriermaterial: {fileID: 0}
   - barriermaterialname: fence_bars_metal
     barriermaterial: {fileID: 0}
   - barriermaterialname: fence_chain_link
     barriermaterial: {fileID: 0}
-  - barriermaterialname: fence_bars
+  - barriermaterialname: fence_corrugated_metal_brick
     barriermaterial: {fileID: 0}
   - barriermaterialname: fence_corrugated_metal_metal
     barriermaterial: {fileID: 0}
-  - barriermaterialname: wall_concrete
+  - barriermaterialname: fence_brick
     barriermaterial: {fileID: 0}
-  - barriermaterialname: wall_brick
+  - barriermaterialname: fence_corrugated_metal
     barriermaterial: {fileID: 0}
-  - barriermaterialname: wall
+  - barriermaterialname: fence_metal_corrugated_metal
     barriermaterial: {fileID: 0}
   - barriermaterialname: gate
     barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_chain_link_metal
+    barriermaterial: {fileID: 0}
   - barriermaterialname: fence_metal_metal
     barriermaterial: {fileID: 0}
-  - barriermaterialname: fence_wire_metal
+  - barriermaterialname: gate_wire_metal
     barriermaterial: {fileID: 0}
   - barriermaterialname: fence_wood
     barriermaterial: {fileID: 0}
@@ -43,81 +69,101 @@ MonoBehaviour:
     barriermaterial: {fileID: 0}
   - barriermaterialname: gate_wood
     barriermaterial: {fileID: 0}
-  - barriermaterialname: fence_chain_link_metal
+  - barriermaterialname: fence_wire
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: gate_metal
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: gate_corrugated_metal_metal
     barriermaterial: {fileID: 0}
   - barriermaterialname: hedge
     barriermaterial: {fileID: 0}
-  - barriermaterialname: fence_wire
+  - barriermaterialname: fence_railing_metal
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: wall_metal_concrete
     barriermaterial: {fileID: 0}
   - barriermaterialname: fence_railing
     barriermaterial: {fileID: 0}
   - barriermaterialname: fence_chain
     barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_bars
+    barriermaterial: {fileID: 0}
   - barriermaterialname: fence_wood_wood
     barriermaterial: {fileID: 0}
-  - barriermaterialname: gate_bars
+  - barriermaterialname: gate_chain_link_metal
     barriermaterial: {fileID: 0}
   - barriermaterialname: chain
     barriermaterial: {fileID: 0}
-  - barriermaterialname: gate_corrugated_metal_metal
-    barriermaterial: {fileID: 0}
   - barriermaterialname: gate_bars_wood
     barriermaterial: {fileID: 0}
-  - barriermaterialname: wall_stone
+  - barriermaterialname: fence_brick_brick
     barriermaterial: {fileID: 0}
-  - barriermaterialname: ditch
+  - barriermaterialname: gate_wire
     barriermaterial: {fileID: 0}
-  - barriermaterialname: fence_metal
+  - barriermaterialname: fence_barbed_wire
     barriermaterial: {fileID: 0}
-  - barriermaterialname: fence_railings
+  - barriermaterialname: gate_barbed_wire
     barriermaterial: {fileID: 0}
-  - barriermaterialname: fence_wood_stone
+  - barriermaterialname: gate_bars
     barriermaterial: {fileID: 0}
-  - barriermaterialname: fence_stone_stone
+  - barriermaterialname: fence_wire_plastic
     barriermaterial: {fileID: 0}
   - barriermaterialname: retaining_wall
     barriermaterial: {fileID: 0}
-  - barriermaterialname: fence_split_rail
-    barriermaterial: {fileID: 0}
-  - barriermaterialname: fence_metal_stone
-    barriermaterial: {fileID: 0}
-  - barriermaterialname: fence_pole
-    barriermaterial: {fileID: 0}
-  - barriermaterialname: guard_rail
-    barriermaterial: {fileID: 0}
-  - barriermaterialname: city_wall
-    barriermaterial: {fileID: 0}
-  - barriermaterialname: yes
-    barriermaterial: {fileID: 0}
-  - barriermaterialname: kerb
-    barriermaterial: {fileID: 0}
-  - barriermaterialname: log
-    barriermaterial: {fileID: 0}
-  - barriermaterialname: bollard
-    barriermaterial: {fileID: 0}
-  - barriermaterialname: handrail
-    barriermaterial: {fileID: 0}
-  - barriermaterialname: bollard_metal
-    barriermaterial: {fileID: 0}
-  - barriermaterialname: bollard_concrete
-    barriermaterial: {fileID: 0}
-  - barriermaterialname: fence_concrete
-    barriermaterial: {fileID: 0}
-  - barriermaterialname: entrance
-    barriermaterial: {fileID: 0}
-  - barriermaterialname: lift_gate
-    barriermaterial: {fileID: 0}
-  - barriermaterialname: handrail_glass
+  - barriermaterialname: fence_metal_bars
     barriermaterial: {fileID: 0}
   - barriermaterialname: jersey_barrier
     barriermaterial: {fileID: 0}
-  - barriermaterialname: retaining_wall_stone
+  - barriermaterialname: retaining_wall_concrete
     barriermaterial: {fileID: 0}
-  - barriermaterialname: fence_railing_metal
+  - barriermaterialname: fence_railing_steel
     barriermaterial: {fileID: 0}
-  - barriermaterialname: fence_concrete_concrete
+  - barriermaterialname: wall_concrete:plates
     barriermaterial: {fileID: 0}
-  - barriermaterialname: gate_metal
+  - barriermaterialname: block_concrete
     barriermaterial: {fileID: 0}
-  - barriermaterialname: fence_fence
+  - barriermaterialname: bollard
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: ditch
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_2,5
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: yes
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: handrail_metal
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: gate_brick_brick
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: wall_metal
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_metal_steel
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_wire_concrete
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: wall_wire_concrete
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: gate_corrugated_metal
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_pole_plastic
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: lift_gate
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: wall_brick_brick
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: gate_metal_corrugated_metal
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: gate_chain_link
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: guard_rail_metal
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: wall_glass
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_railing_concrete
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: city_wall
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: log
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: planter
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_pole
     barriermaterial: {fileID: 0}

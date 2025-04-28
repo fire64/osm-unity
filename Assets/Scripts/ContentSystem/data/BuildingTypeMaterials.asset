@@ -15,201 +15,73 @@ MonoBehaviour:
   BuildingTypesMaterialsList:
   - buildingtype: apartments
     buildingtypematerial: {fileID: 0}
-  - buildingtype: kindergarten
+  - buildingtype: sports_hall
     buildingtypematerial: {fileID: 0}
   - buildingtype: school
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: civic
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: service
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: public
     buildingtypematerial: {fileID: 0}
   - buildingtype: office
     buildingtypematerial: {fileID: 0}
   - buildingtype: retail
     buildingtypematerial: {fileID: 0}
-  - buildingtype: commercial
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: hospital
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: garages
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: sports_hall
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: dormitory
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: university
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: clinic
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: undefined
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: greenhouse
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: kiosk
-    buildingtypematerial: {fileID: 0}
   - buildingtype: church
     buildingtypematerial: {fileID: 0}
-  - buildingtype: roof
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: static_caravan
+  - buildingtype: public
     buildingtypematerial: {fileID: 0}
   - buildingtype: construction
     buildingtypematerial: {fileID: 0}
-  - buildingtype: college
+  - buildingtype: kindergarten
     buildingtypematerial: {fileID: 0}
-  - buildingtype: guardhouse
+  - buildingtype: industrial
     buildingtypematerial: {fileID: 0}
-  - buildingtype: parking
+  - buildingtype: university
     buildingtypematerial: {fileID: 0}
-  - buildingtype: museum
+  - buildingtype: commercial
     buildingtypematerial: {fileID: 0}
-  - buildingtype: mansion
+  - buildingtype: service
     buildingtypematerial: {fileID: 0}
-  - buildingtype: cathedral
+  - buildingtype: dormitory
     buildingtypematerial: {fileID: 0}
-  - buildingtype: gatehouse
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: stable
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: train_station
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: tower
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: chapel
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: wall
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: library
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: grandstand
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: transportation
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: presbytery
+  - buildingtype: garages
     buildingtypematerial: {fileID: 0}
   - buildingtype: house
     buildingtypematerial: {fileID: 0}
-  - buildingtype: gazebo
+  - buildingtype: hospital
     buildingtypematerial: {fileID: 0}
-  - buildingtype: government
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: shop
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: hotel
+  - buildingtype: ruins
     buildingtypematerial: {fileID: 0}
   - buildingtype: residential
     buildingtypematerial: {fileID: 0}
   - buildingtype: detached
     buildingtypematerial: {fileID: 0}
-  - buildingtype: industrial
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: terrace
+  - buildingtype: stable
     buildingtypematerial: {fileID: 0}
   - buildingtype: garage
     buildingtypematerial: {fileID: 0}
-  - buildingtype: burnt
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: ruins
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: stadium
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: palace
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: tent
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: warehouse
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: manufacture
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: carport
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: bunker
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: abandoned
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: sports_centre
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: hangar
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: sport
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: barn
-    buildingtypematerial: {fileID: 0}
   - buildingtype: shed
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: no
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: synagogue
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: toilets
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: Museum
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: store
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: historic
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: bridge
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: gate
     buildingtypematerial: {fileID: 0}
   - buildingtype: collapsed
     buildingtypematerial: {fileID: 0}
-  - buildingtype: houseboat
+  - buildingtype: roof
     buildingtypematerial: {fileID: 0}
-  - buildingtype: dovecote
+  - buildingtype: chapel
     buildingtypematerial: {fileID: 0}
-  - buildingtype: water_works
+  - buildingtype: hotel
     buildingtypematerial: {fileID: 0}
-  - buildingtype: shelter
+  - buildingtype: warehouse
     buildingtypematerial: {fileID: 0}
-  - buildingtype: quonset_hut
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: prison
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: hut
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: trailer
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: stands
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: column
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: mall
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: checkpoint
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: citywall
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: temple
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: theatre
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: container
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: sauna
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: "\u043E\u0445\u0440\u0430\u043D"
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: bank
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: monastery
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: mosque
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: police
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: castle_tower
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: cinema
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: riding_hall
-    buildingtypematerial: {fileID: 0}
-  - buildingtype: pavilion
+  - buildingtype: parking
     buildingtypematerial: {fileID: 0}
   - buildingtype: bungalow
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: college
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: storage_tank
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: terrace
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: allotment_house
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: carport
     buildingtypematerial: {fileID: 0}
   - buildingtype: boathouse
     buildingtypematerial: {fileID: 0}
@@ -217,25 +89,71 @@ MonoBehaviour:
     buildingtypematerial: {fileID: 0}
   - buildingtype: transformer_tower
     buildingtypematerial: {fileID: 0}
-  - buildingtype: allotment_house
+  - buildingtype: cathedral
     buildingtypematerial: {fileID: 0}
-  - buildingtype: storage_tank
+  - buildingtype: greenhouse
     buildingtypematerial: {fileID: 0}
-  - buildingtype: sphinx
+  - buildingtype: sports_centre
     buildingtypematerial: {fileID: 0}
-  - buildingtype: cabin
+  - buildingtype: offices
     buildingtypematerial: {fileID: 0}
-  - buildingtype: train station
+  - buildingtype: supermarket
     buildingtypematerial: {fileID: 0}
-  - buildingtype: guest_house
+  - buildingtype: kiosk
     buildingtypematerial: {fileID: 0}
-  - buildingtype: farm
+  - buildingtype: government
     buildingtypematerial: {fileID: 0}
-  - buildingtype: ship
+  - buildingtype: train_station
     buildingtypematerial: {fileID: 0}
-  - buildingtype: air_shaft
+  - buildingtype: shop
     buildingtypematerial: {fileID: 0}
-  - buildingtype: 2
+  - buildingtype: guardhouse
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: hut
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: bridge
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: museum
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: triumphal_arch
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: hangar
     buildingtypematerial: {fileID: 0}
   - buildingtype: fire_station
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: store
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: cafe
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: synagogue
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: gazebo
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: policlinic
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: pavilion
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: semidetached_house
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: religious
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: toilets
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: civic
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: static_caravan
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: presbytery
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: mosque
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: castle_tower
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: mansion
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: clinic
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: transportation
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: undefined
     buildingtypematerial: {fileID: 0}

@@ -7,6 +7,7 @@ using TriangleNet.Geometry;
 using TriangleNet.Meshing;
 using TriangleNet;
 using TriangleNet.Topology;
+using TriangleNet.Meshing.Algorithm;
 
 
 [System.Serializable]
@@ -82,7 +83,7 @@ public static class GR
             new Vector2(1, 0), new Vector2(1, 1)
         });
 
-        if(isReverse)
+        if (isReverse)
         {
             data.Indices.Add(baseIndex + 3);
             data.Indices.Add(baseIndex + 1);
@@ -215,7 +216,7 @@ public static class GR
             new Vector2(length, 0), new Vector2(length, 1)
         });
 
-        if(isReverse)
+        if (isReverse)
         {
             data.Indices.Add(baseIndex + 2);
             data.Indices.Add(baseIndex + 1);
@@ -238,6 +239,88 @@ public static class GR
     }
 
     public static void CreateMeshLineWithWidth(List<Vector3> corners, float width, MeshData data)
+    {
+        if (corners.Count < 2)
+            return;
+
+        List<Vector3> leftPoints = new List<Vector3>();
+        List<Vector3> rightPoints = new List<Vector3>();
+
+        // Генерируем точки слева и справа с учётом соседних сегментов
+        for (int i = 0; i < corners.Count; i++)
+        {
+            Vector3 dirPrev, dirNext;
+            Vector3 cross;
+
+            if (i == 0)
+            {
+                // Первая точка: используем следующий сегмент
+                dirNext = (corners[i + 1] - corners[i]).normalized;
+                cross = Vector3.Cross(dirNext, Vector3.up) * width;
+            }
+            else if (i == corners.Count - 1)
+            {
+                // Последняя точка: используем предыдущий сегмент
+                dirPrev = (corners[i] - corners[i - 1]).normalized;
+                cross = Vector3.Cross(dirPrev, Vector3.up) * width;
+            }
+            else
+            {
+                // Внутренние точки: вычисляем биссектрису направлений
+                dirPrev = (corners[i] - corners[i - 1]).normalized;
+                dirNext = (corners[i + 1] - corners[i]).normalized;
+
+                Vector3 bisectorDir = dirPrev + dirNext;
+                if (bisectorDir.magnitude < 0.001f)
+                {
+                    // Направления противоположны - используем перпендикуляр к dirPrev
+                    cross = Vector3.Cross(dirPrev, Vector3.up) * width;
+                }
+                else
+                {
+                    bisectorDir.Normalize();
+                    cross = Vector3.Cross(bisectorDir, Vector3.up) * width;
+                }
+            }
+
+            leftPoints.Add(corners[i] + cross);
+            rightPoints.Add(corners[i] - cross);
+        }
+
+        // Добавляем вершины, UV и нормали
+        for (int i = 0; i < corners.Count; i++)
+        {
+            data.Vertices.Add(leftPoints[i]);
+            data.Vertices.Add(rightPoints[i]);
+
+            // UV: растягиваем текстуру вдоль ширины
+            float uvProgress = i / (float)(corners.Count - 1);
+            data.UV.Add(new Vector2(0f, uvProgress)); // Левая точка: U=0, V=прогресс
+            data.UV.Add(new Vector2(1f, uvProgress)); // Правая точка: U=1, V=прогресс
+
+            data.Normals.Add(-Vector3.up);
+            data.Normals.Add(-Vector3.up);
+        }
+
+        // Создаём треугольники для полосы (без изменений)
+        for (int i = 0; i < corners.Count - 1; i++)
+        {
+            int leftCurrent = i * 2;
+            int rightCurrent = i * 2 + 1;
+            int leftNext = (i + 1) * 2;
+            int rightNext = (i + 1) * 2 + 1;
+
+            data.Indices.Add(leftCurrent);
+            data.Indices.Add(leftNext);
+            data.Indices.Add(rightCurrent);
+
+            data.Indices.Add(rightCurrent);
+            data.Indices.Add(leftNext);
+            data.Indices.Add(rightNext);
+        }
+    }
+
+    public static void OldCreateMeshLineWithWidth(List<Vector3> corners, float width, MeshData data)
     {
         if (corners.Count < 2)
             return;
@@ -648,7 +731,7 @@ public static class GR
             catch (Exception e)
             {
                 //  Block of code to handle errors
-                Debug.LogError( "Exeption:" + e.Message + " color: " + hex);
+                Debug.LogError("Exeption:" + e.Message + " color: " + hex);
 
             }
 

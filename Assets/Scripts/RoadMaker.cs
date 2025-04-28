@@ -29,6 +29,10 @@ class RoadMaker : InfrstructureBehaviour
         {
             kind = geo.GetValueStringByKey("highway");
         }
+        else if (geo.HasField("railway"))
+        {
+            kind = geo.GetValueStringByKey("railway");
+        }
         else
         {
             kind = "yes";
@@ -145,10 +149,6 @@ class RoadMaker : InfrstructureBehaviour
             if (tileSystem.isUseElevation)
             {
                 road.transform.position = GR.getHeightPosition(road.transform.position);
-            }
-            else
-            {
-                road.transform.position += Vector3.up * tileSystem.fake_height;
             }
         }
 

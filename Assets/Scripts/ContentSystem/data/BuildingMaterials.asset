@@ -13,111 +13,41 @@ MonoBehaviour:
   m_Name: BuildingMaterials
   m_EditorClassIdentifier: 
   BuildingMaterialsList:
-  - buildingmaterialname: brick
-    buildingmaterial: {fileID: 2100000, guid: bbacb59f238194d90bd85bcd1991cdd5, type: 2}
-  - buildingmaterialname: plaster
-    buildingmaterial: {fileID: 2100000, guid: f1f1669550866b54ba05b096ce7b888f, type: 2}
-  - buildingmaterialname: concrete
-    buildingmaterial: {fileID: 2100000, guid: c81638b3753872e499b7d86a071b6e32, type: 2}
   - buildingmaterialname: metal_plates
-    buildingmaterial: {fileID: 2100000, guid: 216892814c5f0f84e9d1991a2a9842cb, type: 2}
-  - buildingmaterialname: plastic
-    buildingmaterial: {fileID: 2100000, guid: 6584ab6983a57c4489d8108f0935b1df, type: 2}
-  - buildingmaterialname: metal
-    buildingmaterial: {fileID: 2100000, guid: 0f70b49d44353ff4aa081f0e24063649, type: 2}
-  - buildingmaterialname: glass
-    buildingmaterial: {fileID: 2100000, guid: 9236d818ce434644f8ac5b47aca88fab, type: 2}
-  - buildingmaterialname: marble
-    buildingmaterial: {fileID: 2100000, guid: 81c7ae2386b1abf40828c9c2bb29720d, type: 2}
-  - buildingmaterialname: limestone
-    buildingmaterial: {fileID: 2100000, guid: 548e436f7ac689342957b242c1b7c15d, type: 2}
-  - buildingmaterialname: granite
-    buildingmaterial: {fileID: 2100000, guid: e977959bb51eb5a478b1d1cb9e7b7be8, type: 2}
-  - buildingmaterialname: gold
-    buildingmaterial: {fileID: 2100000, guid: f71a19b199e8bc543b103fe4db97f12e, type: 2}
-  - buildingmaterialname: wood
-    buildingmaterial: {fileID: 2100000, guid: a2492083eb998cc4dbd6520bb066fd91, type: 2}
-  - buildingmaterialname: stone
-    buildingmaterial: {fileID: 2100000, guid: 65ee6b656bcd544a88d93525954af0a0, type: 2}
-  - buildingmaterialname: glass;metal
-    buildingmaterial: {fileID: 2100000, guid: 37c42c4e7a4c84044bd2bc4db207005c, type: 2}
-  - buildingmaterialname: silicate brick
-    buildingmaterial: {fileID: 2100000, guid: 3275de488e700e2469c589368e4bcc5d, type: 2}
-  - buildingmaterialname: porcelain_stoneware
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: glass;metal_plates
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: cement_block
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: tiles
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: concrete;glass
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: plsater
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: porcelain_stoneware;brick
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: cement_block;glass
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: mirror
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: 
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: stal
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: tar_paper
     buildingmaterial: {fileID: 0}
-  - buildingmaterialname: roof_tiles
+  - buildingmaterialname: brick
     buildingmaterial: {fileID: 0}
-  - buildingmaterialname: metal_plates;glass
+  - buildingmaterialname: concrete
     buildingmaterial: {fileID: 0}
-  - buildingmaterialname: grass
+  - buildingmaterialname: metal
     buildingmaterial: {fileID: 0}
-  - buildingmaterialname: other
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: grey
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: zinc
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: tar_paper;metal
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: plater
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: vinyl
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: metal_plates;porcelain_stoneware
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: brick;cement_block
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: mixed
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: brivk
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: metal_plates;brick
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: concrate
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: block
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: mdf
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: eternit
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: asphalt
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: b2
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: slate
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: tile
-    buildingmaterial: {fileID: 0}
-  - buildingmaterialname: copper
+  - buildingmaterialname: plaster
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: bricl
     buildingmaterial: {fileID: 0}
-  - buildingmaterialname: brick;plaster
+  - buildingmaterialname: slate
     buildingmaterial: {fileID: 0}
-  - buildingmaterialname: porcelain_stoneware;glass
+  - buildingmaterialname: cement_block
     buildingmaterial: {fileID: 0}
-  - buildingmaterialname: brick;concrete
+  - buildingmaterialname: wood
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: plaster;porcelain_stoneware
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: plaster'cement_block
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: plaster;glass
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: eternit
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: brick_block
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: glass
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: porcelain_stoneware
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: stone
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: plastic
     buildingmaterial: {fileID: 0}

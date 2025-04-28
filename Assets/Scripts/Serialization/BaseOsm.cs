@@ -41,11 +41,11 @@ public class BaseOsm
         {
             objectType = ObjectType.Building;
         }
-        else if (key == "man_made" && IsClosedPolygon == true)
+        else if (key == "man_made" && IsClosedPolygon == true) //use building terms (realy not buildings)
         {
             objectType = ObjectType.Building;
         }
-        else if (key == "highway")
+        else if (key == "highway" || key == "railway")
         {
             objectType = ObjectType.Road;
         }
@@ -53,27 +53,17 @@ public class BaseOsm
         {
             objectType = ObjectType.Barrier;
         }
-        else if (key == "water" || (key == "natural" && value == "water") || (key == "leisure" && value == "swimming_pool"))
+        else if (key == "water" || key == "waterway" || (key == "natural" && value == "water") || (key == "leisure" && value == "swimming_pool"))
         {
             objectType = ObjectType.Water;
-        }
-        else if (key == "leisure")
-        {
-            if (value == "park")
-            {
-                objectType = ObjectType.Landuse;
-            }
         }
         else if (key == "natural" && value != "water")
         {
             objectType = ObjectType.Landuse;
         }
-        else if (key == "landuse")
+        else if (key == "landuse" || key == "leisure" || key == "amenity" || key == "boundary" || key == "fire_boundary")
         {
-            if (value == "grass")
-            {
-                objectType = ObjectType.Landuse;
-            }
+            objectType = ObjectType.Landuse;
         }
     }
 
@@ -189,8 +179,19 @@ public class BaseOsm
     protected T GetAttribute<T>(string attrName, XmlAttributeCollection attributes)
     {
         // TODO: We are going to assume 'attrName' exists in the collection
-        
-        string strValue = attributes[attrName].Value;
+
+        string strValue = "True";
+
+        try
+        {
+            //  Block of code to try
+            strValue = attributes[attrName].Value;
+        }
+        catch (Exception e)
+        {
+            //  Block of code to handle errors
+        }
+
 
         strValue = strValue.Replace(".", ",");
 

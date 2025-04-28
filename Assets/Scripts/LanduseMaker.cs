@@ -38,6 +38,18 @@ class LanduseMaker : InfrstructureBehaviour
         {
             kind = geo.GetValueStringByKey("landuse");
         }
+        else if (geo.HasField("amenity"))
+        {
+            kind = geo.GetValueStringByKey("amenity");
+        }
+        else if (geo.HasField("boundary"))
+        {
+            kind = geo.GetValueStringByKey("boundary");
+        }
+        else if (geo.HasField("fire_boundary"))
+        {
+            kind = "fire_boundary";
+        }
         else
         {
             kind = "yes";
@@ -112,10 +124,6 @@ class LanduseMaker : InfrstructureBehaviour
             if (tileSystem.isUseElevation)
             {
                 landuse.transform.position = GR.getHeightPosition(landuse.transform.position);
-            }
-            else
-            {
-                landuse.transform.position += Vector3.up * tileSystem.fake_height;
             }
         }
 
