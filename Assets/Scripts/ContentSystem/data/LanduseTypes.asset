@@ -44,7 +44,7 @@ MonoBehaviour:
     isTreesGenerate: 0
     isRenderEnable: 0
   - landuseType: wood
-    landuseDescription: 
+    landuseDescription: 11
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0
     isTreesGenerate: 0
@@ -572,6 +572,18 @@ MonoBehaviour:
     isTreesGenerate: 0
     isRenderEnable: 0
   - landuseType: toilets
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: recycling
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+  - landuseType: driver_training
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0

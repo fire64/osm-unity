@@ -140,7 +140,7 @@ class WaterMaker : InfrstructureBehaviour
         }
         else
         {
-            GR.CreateMeshLineWithWidthAndHeight(waterCorners, 0.01f, finalWidth, tb);
+            GR.CreateMeshLineWithWidthAndHeight(waterCorners, 0.01f, 0.0f, finalWidth, tb);
         }
 
         mesh.vertices = tb.Vertices.ToArray();

@@ -25,13 +25,17 @@ class RoadMaker : InfrstructureBehaviour
 
         var kind = "";
 
-        if (geo.HasField("highway"))
+        if (geo.HasField("footway") && geo.GetValueStringByKey("footway").Equals("crossing"))
+        {
+            kind = "crossing";
+        }
+        else if (geo.HasField("highway"))
         {
             kind = geo.GetValueStringByKey("highway");
         }
         else if (geo.HasField("railway"))
         {
-            kind = geo.GetValueStringByKey("railway");
+            kind = "railway";
         }
         else
         {
@@ -92,7 +96,7 @@ class RoadMaker : InfrstructureBehaviour
 
         road.layersLevel = roadInfo.layersLevel;
 
-        road.GetComponent<MeshRenderer>().material.SetColor("_Color", GR.SetOSMColour(geo));
+ //       road.GetComponent<MeshRenderer>().material.SetColor("_Color", GR.SetOSMColour(geo)); //temporary disabe, for debug
     }
 
     Vector3 GetRoadHeight(Road road, ulong roadid)

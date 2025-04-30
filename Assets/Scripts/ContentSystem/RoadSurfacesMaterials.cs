@@ -5,7 +5,6 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "RoadSurfacesMaterials", menuName = "GeoRender/RoadSurfacesMaterials", order = 1)]
 
-
 public class RoadSurfacesMaterials : ScriptableObject
 {
     // Start is called before the first frame update

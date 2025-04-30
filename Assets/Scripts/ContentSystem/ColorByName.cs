@@ -63,19 +63,30 @@ public class ColorByName : ScriptableObject
     }
     public Color GetColorByName(string curColorName)
     {
+        if (string.IsNullOrEmpty(curColorName))
+        {
+            return Color.white;
+        }
+
+        // Разделяем строку на две части по первому вхождению ';'
+        string[] parts = curColorName.Split(new[] { ';' }, 2);
+
+        // Берем первую часть и удаляем пробелы по краям
+        string colorName = parts[0].Trim();
+
         int countitems = ColorsReplaceList.Count;
 
         for (int i = 0; i < countitems; i++)
         {
             ColorReplace item = ColorsReplaceList[i];
 
-            if (item.colorname.Equals(curColorName))
+            if (item.colorname.Equals(colorName))
             {
                 return item.color;
             }
         }
 
-        AddNewColorName(curColorName);
+        AddNewColorName(colorName);
 
         return Color.white;
     }

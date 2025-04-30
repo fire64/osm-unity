@@ -157,3 +157,7 @@ MonoBehaviour:
     buildingtypematerial: {fileID: 0}
   - buildingtype: undefined
     buildingtypematerial: {fileID: 0}
+  - buildingtype: dovecote
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: train station
+    buildingtypematerial: {fileID: 0}

@@ -51,3 +51,13 @@ MonoBehaviour:
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: plastic
     buildingmaterial: {fileID: 0}
+  - buildingmaterialname: metal_plates;glass
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: silicate brick
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: tiles
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: vinyl
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: roof_tiles
+    buildingmaterial: {fileID: 0}

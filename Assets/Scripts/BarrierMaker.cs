@@ -46,6 +46,15 @@ class BarrierMaker : InfrstructureBehaviour
             barrier.height = barrierInfo.barrierHeight;
         }
 
+        if (geo.HasField("min_height"))
+        {
+            barrier.min_height = geo.GetValueFloatByKey("min_height");
+        }
+        else
+        {
+            barrier.min_height = 0.0f;
+        }
+
         if (geo.HasField("layer"))
         {
             barrier.layer = geo.GetValueIntByKey("layer");
@@ -137,7 +146,7 @@ class BarrierMaker : InfrstructureBehaviour
 
         var tb = new MeshData();
 
-        GR.CreateMeshLineWithWidthAndHeight(barrierCorners, barrier.height, barrier.width, tb);
+        GR.CreateMeshLineWithWidthAndHeight(barrierCorners, barrier.height, barrier.min_height, barrier.width, tb);
 
         mesh.vertices = tb.Vertices.ToArray();
         mesh.triangles = tb.Indices.ToArray();

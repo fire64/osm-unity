@@ -14,15 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RoadSurfacesMaterialsList:
   - roadSurfacesMaterialName: asphalt
-    roadSurfacesMaterial: {fileID: 2100000, guid: f77d1cf65270e3540804de81ec00ce58, type: 2}
+    roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: ground
-    roadSurfacesMaterial: {fileID: 0}
+    roadSurfacesMaterial: {fileID: 2100000, guid: df9f368fceab184459e4e0962e617946, type: 2}
   - roadSurfacesMaterialName: unpaved
-    roadSurfacesMaterial: {fileID: 0}
+    roadSurfacesMaterial: {fileID: 2100000, guid: 30bfb594fd3ba7d4eac196245dd274f3, type: 2}
   - roadSurfacesMaterialName: gravel
     roadSurfacesMaterial: {fileID: 2100000, guid: 99d3775741230ed499a790263a95167d, type: 2}
   - roadSurfacesMaterialName: sand
-    roadSurfacesMaterial: {fileID: 0}
+    roadSurfacesMaterial: {fileID: 2100000, guid: e7d1bafc680019d4a967ab4070bd255b, type: 2}
   - roadSurfacesMaterialName: concrete
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: paving_stones
@@ -30,21 +30,21 @@ MonoBehaviour:
   - roadSurfacesMaterialName: paved
     roadSurfacesMaterial: {fileID: 2100000, guid: 235158f0bdaf21c48958f0c53f90ecec, type: 2}
   - roadSurfacesMaterialName: wood
-    roadSurfacesMaterial: {fileID: 0}
+    roadSurfacesMaterial: {fileID: 2100000, guid: dae66b9f3df211d458b8aba04486d61f, type: 2}
   - roadSurfacesMaterialName: tartan
-    roadSurfacesMaterial: {fileID: 0}
+    roadSurfacesMaterial: {fileID: 2100000, guid: e95840d516ce17c4d8f37bf178160574, type: 2}
   - roadSurfacesMaterialName: compacted
-    roadSurfacesMaterial: {fileID: 0}
+    roadSurfacesMaterial: {fileID: 2100000, guid: d666c481e95e3614faf5820da2fb4180, type: 2}
   - roadSurfacesMaterialName: sett
-    roadSurfacesMaterial: {fileID: 0}
+    roadSurfacesMaterial: {fileID: 2100000, guid: 8bca7e078f913444c8ddd67ed5ad48ee, type: 2}
   - roadSurfacesMaterialName: fine_gravel
-    roadSurfacesMaterial: {fileID: 0}
+    roadSurfacesMaterial: {fileID: 2100000, guid: cc2af82a91f2a864996eeb94f4d829ed, type: 2}
   - roadSurfacesMaterialName: unhewn_cobblestone
-    roadSurfacesMaterial: {fileID: 0}
+    roadSurfacesMaterial: {fileID: 2100000, guid: 2b5af82f8f425a7468d9a358242c849d, type: 2}
   - roadSurfacesMaterialName: metal
-    roadSurfacesMaterial: {fileID: 0}
+    roadSurfacesMaterial: {fileID: 2100000, guid: 08e4be55781889e43965974f3759274e, type: 2}
   - roadSurfacesMaterialName: grass
-    roadSurfacesMaterial: {fileID: 0}
+    roadSurfacesMaterial: {fileID: 2100000, guid: f0039cec9d91f95489b34732206d0f3d, type: 2}
   - roadSurfacesMaterialName: tiles
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: dirt
@@ -56,7 +56,7 @@ MonoBehaviour:
   - roadSurfacesMaterialName: rock
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: pebblestone
-    roadSurfacesMaterial: {fileID: 0}
+    roadSurfacesMaterial: {fileID: 2100000, guid: cc981715fd63cf441a5dae9e7aa8b3e1, type: 2}
   - roadSurfacesMaterialName: earth
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: concrete:lanes

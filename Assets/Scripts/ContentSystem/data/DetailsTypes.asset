@@ -426,6 +426,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: barrier:height_restrictor
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: barrier:jersey_barrier
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -527,6 +531,10 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: disused:shop:tobacco
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: disused:shop:yes
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1026,6 +1034,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: playground:roundabout
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: playground:sandpit
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -1035,6 +1047,10 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: playground:slide
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: playground:slide;climbingframe
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1164,6 +1180,10 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: railway:tram_level_crossing
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: railway:tram_stop
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1315,6 +1335,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:funeral_directors
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:furniture
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -1340,6 +1364,14 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: shop:hardware
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:houseware
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:ice_cream
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1604,6 +1636,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: traffic_sign:RU:5,19,2
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: Undefined:Undefined
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -1617,6 +1653,10 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: was:shop:newsagent
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:ticket
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}

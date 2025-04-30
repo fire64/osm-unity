@@ -161,10 +161,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a85b096eab9582409324b760bae020b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeMapLoad: 2
-  latitude: 55.73112
-  longitude: 37.828307
-  radiusmeters: 1500
+  typeMapLoad: 1
+  latitude: 55.709207
+  longitude: 37.828339
+  radiusmeters: 1000
   isDebugDraw: 0
   RelativeCachePath: ../CachedTileData/OSMData/
 --- !u!4 &108401118
@@ -222,7 +222,7 @@ MonoBehaviour:
   buildingMaterials: {fileID: 11400000, guid: 954ea7baef9fe2b4aa0ce793cc250ec0, type: 2}
   bNotCreateNotClosedPolygon: 1
   isUseOldTriangulation: 0
-  isCreateColision: 1
+  isCreateColision: 0
   tileSystem: {fileID: 0}
 --- !u!114 &108401121
 MonoBehaviour:
@@ -238,7 +238,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFinished: 0
   zoom: 18
-  TileService: 2
+  TileService: 0
   tileType: 0
   terrainMaterial: {fileID: 2100000, guid: fa8bcf792db67ee4685005106bba5f58, type: 2}
   isUseElevation: 0
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108401116}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d344d5376abd484baec7c739f9069ec, type: 3}
   m_Name: 
@@ -289,7 +289,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108401116}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef9e4c082c4c4924784290250928b3f1, type: 3}
   m_Name: 

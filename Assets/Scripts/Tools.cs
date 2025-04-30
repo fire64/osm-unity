@@ -103,7 +103,7 @@ public static class GR
         }
     }
 
-    public static void CreateMeshLineWithWidthAndHeight(List<Vector3> corners, float height, float width, MeshData data)
+    public static void CreateMeshLineWithWidthAndHeight(List<Vector3> corners, float height, float min_height, float width, MeshData data)
     {
         if (corners == null || corners.Count < 2) return;
 
@@ -174,10 +174,16 @@ public static class GR
             Vector3 el = end + leftOffsetEnd;
             Vector3 er = end + rightOffsetEnd;
 
-            Vector3 sul = sl + Vector3.up * height;
-            Vector3 sur = sr + Vector3.up * height;
-            Vector3 eul = el + Vector3.up * height;
-            Vector3 eur = er + Vector3.up * height;
+            sl.y = min_height;
+            sr.y = min_height;
+            el.y = min_height;
+            er.y = min_height;
+
+            // ¬ерхние точки с height
+            Vector3 sul = new Vector3(sl.x, height, sl.z);
+            Vector3 sur = new Vector3(sr.x, height, sr.z);
+            Vector3 eul = new Vector3(el.x, height, el.z);
+            Vector3 eur = new Vector3(er.x, height, er.z);
 
             // ƒобавление боковых граней с плавными нормал€ми
             AddSmoothQuad(data, sl, el, sul, eul, leftOffsetStart.normalized, leftOffsetEnd.normalized, true); // Ћева€ сторона
@@ -243,6 +249,17 @@ public static class GR
         if (corners.Count < 2)
             return;
 
+        // ѕредварительно вычисл€ем накопленные длины дл€ корректного UV
+        float[] cumulativeLengths = new float[corners.Count];
+        float totalLength = 0f;
+
+        for (int i = 1; i < corners.Count; i++)
+        {
+            float segmentLength = Vector3.Distance(corners[i - 1], corners[i]);
+            totalLength += segmentLength;
+            cumulativeLengths[i] = totalLength;
+        }
+
         List<Vector3> leftPoints = new List<Vector3>();
         List<Vector3> rightPoints = new List<Vector3>();
 
@@ -293,10 +310,10 @@ public static class GR
             data.Vertices.Add(leftPoints[i]);
             data.Vertices.Add(rightPoints[i]);
 
-            // UV: раст€гиваем текстуру вдоль ширины
-            float uvProgress = i / (float)(corners.Count - 1);
-            data.UV.Add(new Vector2(0f, uvProgress)); // Ћева€ точка: U=0, V=прогресс
-            data.UV.Add(new Vector2(1f, uvProgress)); // ѕрава€ точка: U=1, V=прогресс
+            // UV: V теперь основана на накопленной длине
+            float uvV = cumulativeLengths[i] / totalLength;
+            data.UV.Add(new Vector2(0f, uvV));
+            data.UV.Add(new Vector2(1f, uvV));
 
             data.Normals.Add(-Vector3.up);
             data.Normals.Add(-Vector3.up);

@@ -167,3 +167,7 @@ MonoBehaviour:
     barriermaterial: {fileID: 0}
   - barriermaterialname: fence_pole
     barriermaterial: {fileID: 0}
+  - barriermaterialname: entrance
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: handrail
+    barriermaterial: {fileID: 0}

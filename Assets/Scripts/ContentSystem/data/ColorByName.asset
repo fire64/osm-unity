@@ -25,8 +25,6 @@ MonoBehaviour:
     color: {r: 1, g: 0.64705884, b: 0, a: 1}
   - colorname: lightyellow
     color: {r: 1, g: 1, b: 0.8784314, a: 1}
-  - colorname: white;beige;brown
-    color: {r: 0.9607843, g: 0.9607843, b: 0.8627451, a: 1}
   - colorname: green
     color: {r: 0, g: 0.5019608, b: 0, a: 1}
   - colorname: white;blue
@@ -43,61 +41,17 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 0.99607843, a: 1}
   - colorname: blue
     color: {r: 0, g: 0, b: 1, a: 1}
-  - colorname: lightgrey;brown
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: lightgrey;beige
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: white;beige;black
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: yellow;lightgrey
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: lightyellow;lightgrey
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: white'lightgrey;black
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: brown
-    color: {r: 1, g: 1, b: 1, a: 1}
   - colorname: yellow
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: grey;brown
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: grey;white
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: white;brown;grey
-    color: {r: 1, g: 1, b: 1, a: 1}
+    color: {r: 1, g: 1, b: 0, a: 1}
+  - colorname: brown
+    color: {r: 0.5882353, g: 0.29411766, b: 0, a: 1}
+  - colorname: indianred
+    color: {r: 0.8039216, g: 0.36078432, b: 0.36078432, a: 1}
   - colorname: gray
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: beige;grey
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: white;black
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: beige;brown;black
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: lightgrey;grey;green
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: white;grey;brown
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: grey;red
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: beige;brown
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: white;red
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: beige;yellow
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: white;brown
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: pink'white;red
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: white;pink
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: grey;lightblue
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: lightyellow;white
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: orange;white
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: brown;gold
-    color: {r: 1, g: 1, b: 1, a: 1}
-  - colorname: white;yellow;lightblue
-    color: {r: 1, g: 1, b: 1, a: 1}
+    color: {r: 0.5019608, g: 0.5019608, b: 0.5019608, a: 1}
+  - colorname: maroon
+    color: {r: 0.5019608, g: 0, b: 0, a: 1}
+  - colorname: black
+    color: {r: 0, g: 0, b: 0, a: 1}
+  - colorname: pink
+    color: {r: 1, g: 0.7529412, b: 0.79607844, a: 1}
