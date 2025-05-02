@@ -9,6 +9,7 @@ class BarrierMaker : InfrstructureBehaviour
     public BarriersTypes barrierTypes;
     public BarriersMaterials barrierMaterials;
     public bool isCreateColision = false;
+    public int MaxNodes = 150;
     public TileSystem tileSystem;
     private void SetProperties(BaseOsm geo, Barrier barrier)
     {
@@ -107,6 +108,14 @@ class BarrierMaker : InfrstructureBehaviour
             return;
         }
 
+        var count = geo.NodeIDs.Count;
+
+        if (count > MaxNodes)
+        {
+            Debug.LogError(searchname + " haved " + count + " nodes.");
+            return;
+        }
+
         var barrier = new GameObject(searchname).AddComponent<Barrier>();
 
         barrier.AddComponent<MeshFilter>();
@@ -117,8 +126,6 @@ class BarrierMaker : InfrstructureBehaviour
         SetProperties(geo, barrier);
 
         var barrierCorners = new List<Vector3>();
-
-        var count = geo.NodeIDs.Count;
 
         Vector3 localOrigin = GetCentre(geo);
         barrier.transform.position = localOrigin - map.bounds.Centre;

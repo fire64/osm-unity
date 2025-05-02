@@ -98,7 +98,7 @@ MonoBehaviour:
     roadWidth: 3
     layersLevel: 21
   - roadtype: pedestrian
-    roadMaterial: {fileID: 2100000, guid: 0b9b4ea55457db1438a5d7ec6f73d430, type: 2}
+    roadMaterial: {fileID: 2100000, guid: db9e5459c8f50e74284dffcad8bd4de3, type: 2}
     roadWidth: 2
     layersLevel: 28
   - roadtype: crossing

@@ -171,3 +171,5 @@ MonoBehaviour:
     barriermaterial: {fileID: 0}
   - barriermaterialname: handrail
     barriermaterial: {fileID: 0}
+  - barriermaterialname: bollard_metal
+    barriermaterial: {fileID: 0}

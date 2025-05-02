@@ -55,3 +55,181 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0, a: 1}
   - colorname: pink
     color: {r: 1, g: 0.7529412, b: 0.79607844, a: 1}
+  - colorname: darkgreen
+    color: {r: 0, g: 0.39215687, b: 0, a: 1}
+  - colorname: lightgreen
+    color: {r: 0.5647059, g: 0.93333334, b: 0.5647059, a: 1}
+  - colorname: darkkhaki
+    color: {r: 0.7411765, g: 0.7176471, b: 0.41960785, a: 1}
+  - colorname: darkgrey
+    color: {r: 0.6627451, g: 0.6627451, b: 0.6627451, a: 1}
+  - colorname: lightgray
+    color: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
+  - colorname: lightcoral
+    color: {r: 0.9411765, g: 0.5019608, b: 0.5019608, a: 1}
+  - colorname: firebrick
+    color: {r: 0.69803923, g: 0.13333334, b: 0.13333334, a: 1}
+  - colorname: darksalmon
+    color: {r: 0.9137255, g: 0.5882353, b: 0.47843137, a: 1}
+  - colorname: seagreen
+    color: {r: 0.18039216, g: 0.54509807, b: 0.34117648, a: 1}
+  - colorname: gainsboro
+    color: {r: 0.8627451, g: 0.8627451, b: 0.8627451, a: 1}
+  - colorname: khaki
+    color: {r: 0.9411765, g: 0.9019608, b: 0.54901963, a: 1}
+  - colorname: rose
+    color: {r: 1, g: 0, b: 0.49803922, a: 1}
+  - colorname: lightblue
+    color: {r: 0.6784314, g: 0.84705883, b: 0.9019608, a: 1}
+  - colorname: palegreen
+    color: {r: 0.59607846, g: 0.9843137, b: 0.59607846, a: 1}
+  - colorname: tan
+    color: {r: 0.8235294, g: 0.7058824, b: 0.54901963, a: 1}
+  - colorname: peachpuff
+    color: {r: 1, g: 0.85490197, b: 0.7254902, a: 1}
+  - colorname: aqua
+    color: {r: 0, g: 1, b: 1, a: 1}
+  - colorname: darkseagreen
+    color: {r: 0.56078434, g: 0.7372549, b: 0.56078434, a: 1}
+  - colorname: wheat
+    color: {r: 0.9607843, g: 0.87058824, b: 0.7019608, a: 1}
+  - colorname: burlywood
+    color: {r: 0.87058824, g: 0.72156864, b: 0.5294118, a: 1}
+  - colorname: aquamarine
+    color: {r: 0.49803922, g: 1, b: 0.83137256, a: 1}
+  - colorname: powderblue
+    color: {r: 0.6901961, g: 0.8784314, b: 0.9019608, a: 1}
+  - colorname: peru
+    color: {r: 0.8039216, g: 0.52156866, b: 0.24705882, a: 1}
+  - colorname: lemonchiffon
+    color: {r: 1, g: 0.98039216, b: 0.8039216, a: 1}
+  - colorname: plum
+    color: {r: 0.8666667, g: 0.627451, b: 0.8666667, a: 1}
+  - colorname: reg
+    color: {r: 0.54509807, g: 0.039215688, b: 0.101960786, a: 1}
+  - colorname: navajowhite
+    color: {r: 1, g: 0.87058824, b: 0.6784314, a: 1}
+  - colorname: palegoldenrod
+    color: {r: 0.84313726, g: 0.76862746, b: 0.70980394, a: 1}
+  - colorname: light_gray
+    color: {r: 0.78039217, g: 0.77254903, b: 0.72156864, a: 1}
+  - colorname: lightcyan
+    color: {r: 0.7882353, g: 0.89411765, b: 0.7921569, a: 1}
+  - colorname: coral
+    color: {r: 1, g: 0.7764706, b: 0.49019608, a: 1}
+  - colorname: saddlebrown
+    color: {r: 0.54509807, g: 0.27058825, b: 0.07450981, a: 1}
+  - colorname: lightsalmon
+    color: {r: 1, g: 0.627451, b: 0.47843137, a: 1}
+  - colorname: goldenrod
+    color: {r: 0.85490197, g: 0.64705884, b: 0.1254902, a: 1}
+  - colorname: lightpink
+    color: {r: 1, g: 0.77254903, b: 0.77254903, a: 1}
+  - colorname: darkslategrey
+    color: {r: 0.18431373, g: 0.30980393, b: 0.30980393, a: 1}
+  - colorname: ghostwhite
+    color: {r: 0.972549, g: 0.972549, b: 1, a: 1}
+  - colorname: olive
+    color: {r: 0.24313726, g: 0.5568628, b: 0.25490198, a: 1}
+  - colorname: paleturquoise
+    color: {r: 0.6862745, g: 0.93333334, b: 0.93333334, a: 1}
+  - colorname: bisque
+    color: {r: 1, g: 0.89411765, b: 0.76862746, a: 1}
+  - colorname: rosybrown
+    color: {r: 0.78039217, g: 0.49411765, b: 0.49411765, a: 1}
+  - colorname: chocolate
+    color: {r: 0.5882353, g: 0.29411766, b: 0, a: 1}
+  - colorname: darkred
+    color: {r: 0.4, g: 0, b: 0, a: 1}
+  - colorname: olivedrab
+    color: {r: 0.24313726, g: 0.5568628, b: 0.25490198, a: 1}
+  - colorname: cyan
+    color: {r: 0, g: 1, b: 1, a: 1}
+  - colorname: dimgrey
+    color: {r: 0.4, g: 0.4, b: 0.4, a: 1}
+  - colorname: lightskyblue
+    color: {r: 0.5294118, g: 0.80784315, b: 0.92156863, a: 1}
+  - colorname: skyblue
+    color: {r: 0.5294118, g: 0.80784315, b: 0.92156863, a: 1}
+  - colorname: yellowgreen
+    color: {r: 0.19607843, g: 0.8039216, b: 0.19607843, a: 1}
+  - colorname: dimgray
+    color: {r: 0.4, g: 0.4, b: 0.4, a: 1}
+  - colorname: turquoise
+    color: {r: 0.101960786, g: 0.7372549, b: 0.6117647, a: 1}
+  - colorname: lime
+    color: {r: 0.19607843, g: 0.8039216, b: 0.19607843, a: 1}
+  - colorname: darkgoldenrod
+    color: {r: 0.6, g: 0.4, b: 0, a: 1}
+  - colorname: lightgre
+    color: {r: 0.96862745, g: 0.96862745, b: 0.96862745, a: 1}
+  - colorname: mediumseagreen
+    color: {r: 0.20392157, g: 0.78039217, b: 0.34901962, a: 1}
+  - colorname: antiquewhite
+    color: {r: 0.98039216, g: 0.9411765, b: 0.9019608, a: 1}
+  - colorname: rgey
+    color: {r: 0.2991723, g: 0.2991723, b: 0.764151, a: 1}
+  - colorname: papayawhip
+    color: {r: 1, g: 0.84313726, b: 0.74509805, a: 1}
+  - colorname: ivory
+    color: {r: 1, g: 1, b: 0.9411765, a: 1}
+  - colorname: linen
+    color: {r: 0.9137255, g: 0.8627451, b: 0.7882353, a: 1}
+  - colorname: darkturquoise
+    color: {r: 0.101960786, g: 0.11372549, b: 0.13725491, a: 1}
+  - colorname: light_green
+    color: {r: 0.5647059, g: 0.93333334, b: 0.5647059, a: 1}
+  - colorname: lihgtgrey
+    color: {r: 0.827451, g: 0.827451, b: 0.827451, a: 1}
+  - colorname: violet
+    color: {r: 0.5019608, g: 0, b: 0.5019608, a: 1}
+  - colorname: cadetblue
+    color: {r: 0.37254903, g: 0.61960787, b: 0.627451, a: 1}
+  - colorname: lightslategrey
+    color: {r: 0.46666667, g: 0.53333336, b: 0.6, a: 1}
+  - colorname: metal
+    color: {r: 0.69411767, g: 0.69411767, b: 0.69411767, a: 1}
+  - colorname: salmon
+    color: {r: 0.98039216, g: 0.5019608, b: 0.44705883, a: 1}
+  - colorname: lavender
+    color: {r: 0.78039217, g: 0.72156864, b: 0.91764706, a: 1}
+  - colorname: darkblue
+    color: {r: 0.011764706, g: 0.019607844, b: 0.35686275, a: 1}
+  - colorname: darkorange
+    color: {r: 1, g: 0.6, b: 0, a: 1}
+  - colorname: redlwhite
+    color: {r: 1, g: 0.77254903, b: 0.77254903, a: 1}
+  - colorname: moccasin
+    color: {r: 1, g: 0.89411765, b: 0.70980394, a: 1}
+  - colorname: springgreen
+    color: {r: 0, g: 1, b: 0.49803922, a: 1}
+  - colorname: lightgreeh
+    color: {r: 0.5647059, g: 0.93333334, b: 0.5647059, a: 1}
+  - colorname: concrete
+    color: {r: 0.9490196, g: 0.9490196, b: 0.9490196, a: 1}
+  - colorname: lightgoldenrodyellow
+    color: {r: 0.98039216, g: 0.98039216, b: 0.8235294, a: 1}
+  - colorname: honeydew
+    color: {r: 0.9411765, g: 1, b: 0.9411765, a: 1}
+  - colorname: whitesmoke
+    color: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+  - colorname: silverc
+    color: {r: 0.7529412, g: 0.7529412, b: 0.7529412, a: 1}
+  - colorname: azure
+    color: {r: 0.9411765, g: 1, b: 1, a: 1}
+  - colorname: seashell
+    color: {r: 1, g: 0.9607843, b: 0.93333334, a: 1}
+  - colorname: darkolivegreen
+    color: {r: 0.33333334, g: 0.41960785, b: 0.18431373, a: 1}
+  - colorname: pin
+    color: {r: 1, g: 0.7529412, b: 0.79607844, a: 1}
+  - colorname: bbrown
+    color: {r: 0.64705884, g: 0.16470589, b: 0.16470589, a: 1}
+  - colorname: peachpuf
+    color: {r: 1, g: 0.85490197, b: 0.7254902, a: 1}
+  - colorname: lavenderblush
+    color: {r: 1, g: 0.9411765, b: 0.9607843, a: 1}
+  - colorname: lightsteelblue
+    color: {r: 0.6901961, g: 0.8117647, b: 0.87058824, a: 1}
+  - colorname: cornsilk
+    color: {r: 1, g: 0.972549, b: 0.8627451, a: 1}

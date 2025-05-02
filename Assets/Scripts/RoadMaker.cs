@@ -13,6 +13,7 @@ class RoadMaker : InfrstructureBehaviour
     public RoadTypesInfo roadTypes;
     public RoadSurfacesMaterials roadSurfacesMaterials;
     public bool isCreateColision = false;
+    public int MaxNodes = 150;
     public TileSystem tileSystem;
     private void SetProperties(BaseOsm geo, Road road)
     {
@@ -130,6 +131,14 @@ class RoadMaker : InfrstructureBehaviour
             return;
         }
 
+        var count = geo.NodeIDs.Count;
+
+        if (count > MaxNodes)
+        {
+            Debug.LogError(searchname + " haved " + count + " nodes.");
+            return;
+        }
+
         var road = new GameObject(searchname).AddComponent<Road>();
 
         road.AddComponent<MeshFilter>();
@@ -140,8 +149,6 @@ class RoadMaker : InfrstructureBehaviour
         SetProperties(geo, road);
 
         var roadsCorners = new List<Vector3>();
-
-        var count = geo.NodeIDs.Count;
 
         Vector3 roadlayerHeight = GetRoadHeight(road, geo.ID);
 

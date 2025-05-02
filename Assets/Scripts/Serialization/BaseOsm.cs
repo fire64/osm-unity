@@ -9,10 +9,25 @@ public class BaseOsm
 
     public bool Visible { get; set; }
 
+    //Temporary, may be changed to membersinfo_t variant???
     public List<ulong> NodeIDs { get; set; }
- //   public List<ulong> HolesNodeIDs { get; set; }
 
     public List<List<ulong>> HolesNodeListsIDs { get; set; }
+
+    //current only for relations, leter global use...
+    public struct membersinfo_t
+    {
+        public string role;
+        public List<ulong> NodeIDs { get; set; }
+
+        public Item[] itemlist;
+
+        public bool isClosed;
+    };
+
+    public List<membersinfo_t> membersinfo { get; set; }
+    public List<membersinfo_t> outerploygons { get; set; }
+    public List<membersinfo_t> innerploygons { get; set; }
 
     public bool IsClosedPolygon { get; set; }
 

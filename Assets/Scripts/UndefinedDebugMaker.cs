@@ -12,6 +12,7 @@ class UndefinedDebugMaker : InfrstructureBehaviour
     public bool isUseTempMaker = true;
     public bool isUseRenders = false;
     public bool isCreateColision = false;
+    public int MaxNodes = 150;
     public TileSystem tileSystem;
 
     private void SetProperties(BaseOsm geo, Undefined undefined)
@@ -64,6 +65,14 @@ class UndefinedDebugMaker : InfrstructureBehaviour
 
         if (contentselector.isGeoObjectDisabled(geo.ID))
         {
+            return;
+        }
+
+        var count = geo.NodeIDs.Count;
+
+        if (count > MaxNodes)
+        {
+            Debug.LogError(searchname + " haved " + count + " nodes.");
             return;
         }
 
@@ -129,7 +138,7 @@ class UndefinedDebugMaker : InfrstructureBehaviour
                     holeContour.Add(coords);
                 }
 
-                holesCorners.Add(holeContour);
+                holesCorners.Add(holeContour); 
             }
 
             var mesh = undefined.GetComponent<MeshFilter>().mesh;
@@ -144,7 +153,7 @@ class UndefinedDebugMaker : InfrstructureBehaviour
             }
             else if (geo.HasField("type") && geo.GetValueStringByKey("type") == "multipolygon")
             {
-                GR.CreateMeshWithHeight(undefinedCorners, 0.0f, 0.01f, tb, holesCorners);
+          //      GR.CreateMeshWithHeight(undefinedCorners, 0.0f, 0.01f, tb, holesCorners);
             }
             else
             {

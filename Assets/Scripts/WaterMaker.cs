@@ -9,6 +9,7 @@ class WaterMaker : InfrstructureBehaviour
     public Material waterMaterial;
     public static GameContentSelector contentselector;
     public bool isCreateColision = false;
+    public int MaxNodes = 150;
     public TileSystem tileSystem;
     private void SetProperties(BaseOsm geo, Water water)
     {
@@ -57,6 +58,14 @@ class WaterMaker : InfrstructureBehaviour
 
         if (contentselector.isGeoObjectDisabled(geo.ID))
         {
+            return;
+        }
+
+        var count = geo.NodeIDs.Count;
+
+        if (count > MaxNodes)
+        {
+            Debug.LogError(searchname + " haved " + count + " nodes.");
             return;
         }
 

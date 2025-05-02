@@ -11,6 +11,7 @@ class LanduseMaker : InfrstructureBehaviour
     public Material grassMaterial;
     public LanduseTypes landuseTypes;
     public bool isCreateColision = false;
+    public int MaxNodes = 150;
     public TileSystem tileSystem;
     private void SetProperties(BaseOsm geo, Landuse landuse)
     {
@@ -103,6 +104,14 @@ class LanduseMaker : InfrstructureBehaviour
             return;
         }
 
+        var count = geo.NodeIDs.Count;
+
+        if (count > MaxNodes)
+        {
+            Debug.LogError(searchname + " haved " + count + " nodes.");
+            return;
+        }
+
         var landuse = new GameObject(searchname).AddComponent<Landuse>();
 
         landuse.AddComponent<MeshFilter>();
@@ -113,8 +122,6 @@ class LanduseMaker : InfrstructureBehaviour
         SetProperties(geo, landuse);
 
         var landuseCorners = new List<Vector3>();
-
-        var count = geo.NodeIDs.Count;
 
         Vector3 localOrigin = GetCentre(geo);
         landuse.transform.position = localOrigin - map.bounds.Centre;

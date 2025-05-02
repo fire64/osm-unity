@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+
 // new
 using System.Xml;
 
@@ -13,6 +14,7 @@ public class OsmWay : BaseOsm
         Visible = GetAttribute<bool>("visible", node.Attributes);
 
         XmlNodeList nds = node.SelectNodes("nd");
+
         foreach (XmlNode n in nds)
         {
             ulong refNo = GetAttribute<ulong>("ref", n.Attributes);

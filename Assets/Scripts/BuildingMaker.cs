@@ -24,6 +24,8 @@ class BuildingMaker : InfrstructureBehaviour
     public bool isUseOldTriangulation = false;
     public bool isCreateColision = false;
 
+    public int MaxNodes = 150;
+
     public TileSystem tileSystem;
 
     private float GetHeights(BaseOsm geo)
@@ -187,6 +189,14 @@ class BuildingMaker : InfrstructureBehaviour
             return;
         }
 
+        var count = geo.NodeIDs.Count;
+
+        if(count > MaxNodes)
+        {
+            Debug.LogError(searchname + " haved " + count + " nodes.");
+            return;
+        }
+
         var building = new GameObject(searchname).AddComponent<Building>();
 
         building.AddComponent<MeshFilter>();
@@ -205,8 +215,6 @@ class BuildingMaker : InfrstructureBehaviour
         var buildingCorners = new List<Vector3>();
 
         float minx = float.MaxValue, miny = float.MaxValue, maxx = float.MinValue, maxy = float.MinValue;
-
-        var count = geo.NodeIDs.Count;
 
         Vector3 localOrigin = GetCentre(geo);
         building.transform.position = localOrigin - map.bounds.Centre;
