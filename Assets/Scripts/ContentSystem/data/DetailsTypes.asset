@@ -21,6 +21,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: amenity:auction_house
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: amenity:bank
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -57,6 +61,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: amenity:bureau_de_change
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: amenity:bus_station
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -89,6 +97,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: amenity:cloakroom
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: amenity:clock
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -105,11 +117,23 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: amenity:coworking_space
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:customs
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: amenity:dancing_school
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: amenity:dentist
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:device_charging_station
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -121,10 +145,14 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
-  - detailsType: amenity:drinking_water
+  - detailsType: amenity:dovecote
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: amenity:drinking_water
+    detailsDescription: "\u0412\u043E\u0434\u043D\u0430\u044F \u043A\u043E\u043B\u043E\u043D\u043A\u0430"
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 734658109119811712, guid: 12040e95fdb4529419febb50dd5c085a, type: 3}
   - detailsType: amenity:driving_school
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -137,6 +165,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: amenity:exhibition_centre
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: amenity:fast_food
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -146,6 +178,14 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: amenity:ferry_terminal
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:fire_station
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:food_court
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -177,6 +217,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: amenity:kick-scooter_parking
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: amenity:kick-scooter_rental
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -197,11 +241,19 @@ MonoBehaviour:
     detailsDescription: "\u041B\u0435\u0436\u0430\u043A"
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 4105620786149378313, guid: b18af75766750d34295125013598c12e, type: 3}
+  - detailsType: amenity:love_hotel
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: amenity:marketplace
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: amenity:money_transfer
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:motorcycle_parking
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -241,6 +293,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: amenity:photo_booth
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: amenity:place_of_worship
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -273,10 +329,15 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
-  - detailsType: amenity:recycling
+  - detailsType: amenity:reception_desk
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: amenity:recycling
+    detailsDescription: "\u041A\u043E\u043D\u0442\u0435\u0439\u043D\u0435\u0440 \u0434\u043B\u044F
+      \u043F\u0435\u0440\u0435\u0440\u0430\u0431\u043E\u0442\u043A\u0438"
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 9002975250769281862, guid: 53e475089ce39514190b56a493feb7fc, type: 3}
   - detailsType: amenity:research_institute
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -293,6 +354,14 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: amenity:security_booth
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:sell
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: amenity:shelter
     detailsDescription: "\u0411\u0435\u0441\u0435\u0434\u043A\u0430"
     isTempMarkerEnable: 0
@@ -305,7 +374,15 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: amenity:social_centre
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: amenity:social_facility
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: amenity:stripclub
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -410,11 +487,19 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: barrier:cycle_barrier
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: barrier:debris
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: barrier:ditch
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: barrier:door
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -454,6 +539,14 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: barrier:planter
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: barrier:sally_port
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: barrier:sliding_beam
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -482,6 +575,14 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: disused:amenity:bank
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: disused:amenity:bar
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: disused:amenity:bicycle_rental
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -494,7 +595,31 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: disused:amenity:clinic
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: disused:amenity:fast_food
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: disused:amenity:fire_station
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: disused:amenity:fuel
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: disused:amenity:language_school
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: disused:amenity:pharmacy
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: disused:amenity:pub
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -503,6 +628,14 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: disused:shop:alcohol
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: disused:shop:beauty
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: disused:shop:books
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -518,7 +651,19 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: disused:shop:florist
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: disused:shop:gift
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: disused:shop:hardware
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: disused:shop:jewelry
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -526,11 +671,27 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: disused:shop:optician
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: disused:shop:pet
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: disused:shop:seafood
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: disused:shop:sewing
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: disused:shop:shoes
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: disused:shop:sports
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -672,11 +833,23 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: highway:passing_place
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: highway:platform
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: highway:rest_area
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: highway:speed_camera
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: highway:steps
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -700,6 +873,10 @@ MonoBehaviour:
     detailsDescription: "\u0421\u0432\u0435\u0442\u043E\u0444\u043E\u0440"
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 6202720184569778939, guid: e9a226bff182b0f4ba6bfc36992ec80f, type: 3}
+  - detailsType: highway:traffic_signals;crossing
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: highway:turning_circle
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -724,6 +901,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: historic:citywalls
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: historic:memorial
     detailsDescription: "\u041F\u0430\u043C\u044F\u0442\u043D\u0438\u043A"
     isTempMarkerEnable: 0
@@ -736,7 +917,19 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: historic:pillbox
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: historic:ruins
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: historic:suburb
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: historic:technical_monument
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -748,12 +941,24 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: historic:yes
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: information:board
     detailsDescription: "\u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u043E\u043D\u043D\u044B\u0439
       \u0449\u0438\u0442"
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 8712952136295563075, guid: 4c0d681094d4e6745a6bfc002a188e5b, type: 3}
+  - detailsType: information:centre
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: information:guidepost
+    detailsDescription: "\u0423\u043A\u0430\u0437\u0430\u0442\u0435\u043B\u044C"
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 1720685132990031402, guid: f4568354d969016469d0530a7dfbb4ed, type: 3}
+  - detailsType: information:history
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -765,7 +970,15 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: information:route_marker
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: information:stele
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: information:terminal
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -785,6 +998,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: leisure:bowling_alley
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: leisure:dance
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -793,6 +1010,14 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: leisure:escape_game
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: leisure:firepit
+    detailsDescription: "\u041A\u043E\u0441\u0442\u0435\u0440"
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 1090401686569213915, guid: dbf7fc2998a5a304faabeaed58216cb0, type: 3}
   - detailsType: leisure:fitness_centre
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -837,6 +1062,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: leisure:sports_hall
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: leisure:swimming_pool
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -845,10 +1074,22 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: leisure:wildlife_hide
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: man_made:address_plate
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: man_made:beacon
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: man_made:beehive
+    detailsDescription: "\u0423\u043B\u0435\u0439"
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 8810933983323564143, guid: 34d5fe07a8850aa4a8ca14ffdb9e352a, type: 3}
   - detailsType: man_made:cairn
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -866,9 +1107,13 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 8448223065470473301, guid: f71782e24022a974eb95cd720a3008fc, type: 3}
   - detailsType: man_made:crane
-    detailsDescription: 
+    detailsDescription: "\u041A\u0440\u0430\u043D"
     isTempMarkerEnable: 0
-    detailsPrefab: {fileID: 0}
+    detailsPrefab: {fileID: 4049052127946825954, guid: a6a1fed157014bd4fb27ce076a50f48c, type: 3}
+  - detailsType: man_made:cross
+    detailsDescription: "\u041A\u0440\u0435\u0441\u0442"
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 485123139614468965, guid: 559ab4bf419d79445956cbb7de63596a, type: 3}
   - detailsType: man_made:dovecote
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -877,6 +1122,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 5496176229062240014, guid: df7d2420c8fdf7344b057ccd42a68dc1, type: 3}
+  - detailsType: man_made:guard_stone
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: man_made:manhole
     detailsDescription: "\u041A\u0430\u043D\u0430\u043B\u0438\u0437\u0430\u0446\u0438\u043E\u043D\u043D\u044B\u0439
       \u043B\u044E\u043A"
@@ -890,15 +1139,35 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: man_made:obelisk
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: man_made:planter
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: man_made:quay
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: man_made:sign
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: man_made:silo
+    detailsDescription: "\u0421\u0438\u043B\u043E\u0441\u043D\u0430\u044F \u0431\u0430\u0448\u043D\u044F"
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 4370923893464587108, guid: 42f1aaf2d73d1774182e49131eb5557f, type: 3}
   - detailsType: man_made:storage_tank
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: man_made:street_cabinet
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: man_made:stupa
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -914,6 +1183,14 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: man_made:ventilation_shaft
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: man_made:video_wall
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: man_made:water_tap
     detailsDescription: "\u041A\u0440\u0430\u043D \u0441 \u0432\u043E\u0434\u043E\u0439"
     isTempMarkerEnable: 0
@@ -926,7 +1203,19 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: man_made:works
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: natural:beach
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: natural:cape
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: natural:cave_entrance
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -958,6 +1247,10 @@ MonoBehaviour:
     detailsDescription: "\u0414\u0435\u0440\u0435\u0432\u043E"
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 114418, guid: be878d9ea17907f4a8068678a5ce7908, type: 3}
+  - detailsType: noexit:no
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: noexit:yes
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -970,7 +1263,39 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: office:association
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:charity
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: office:company
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:consulting
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:customs_broker
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:diplomatic
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:educational_institution
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:employment_agency
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:energy_supplier
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1006,6 +1331,14 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: office:marketing
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:news_agency
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: office:newspaper
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -1026,6 +1359,14 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: office:publisher
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:publishing
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: office:religion
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -1035,6 +1376,18 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: office:telecommunication
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:translator
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:travel_agent
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: office:union
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1090,11 +1443,23 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: playground:basketswing
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: playground:climbing_adventure
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: playground:climbingframe
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: playground:cushion
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: playground:playhouse
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1118,11 +1483,19 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: playground:springy
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: playground:structure
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: playground:swing
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: playground:teenshelter
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1147,6 +1520,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: power:terminal
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: power:tower
     detailsDescription: "\u0411\u0430\u0448\u043D\u044F \u041B\u042D\u041F"
     isTempMarkerEnable: 0
@@ -1164,6 +1541,10 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: public_transport:stop_position
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: public_transport:ticket_office
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1200,6 +1581,18 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: railway:milestone
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: railway:owner_change
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: railway:platform
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: railway:proposed
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1255,7 +1648,15 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: railway:tram_traffic_signals
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:alcohol
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:alcohol;bakery
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1263,11 +1664,23 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:art
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:baby_goods
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:bag
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:bakery
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:bathroom_furnishing
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1295,6 +1708,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:boutique
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:butcher
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -1308,6 +1725,10 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: shop:car_repair
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:car_seats
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1359,7 +1780,19 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:craft
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:curtain
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:dairy
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:deli
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1383,6 +1816,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:electrical
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:electronics
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -1395,11 +1832,27 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:farm
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:fishing
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:flooring
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: shop:florist
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:food
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:frame
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1411,7 +1864,15 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:games
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:garden_centre
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:general
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1435,7 +1896,15 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:hookah
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:houseware
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:hvac
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1467,6 +1936,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:lottery
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:mall
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -1483,6 +1956,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:money_lender
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:motorcycle
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -1491,7 +1968,15 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:musical_instrument
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:newsagent
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:nutrition_supplements
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1511,11 +1996,19 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:party
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:pastry
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: shop:pawnbroker
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:perfumery
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1539,7 +2032,15 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:radiotechnics
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:religion
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:rental
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1548,6 +2049,10 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: shop:second_hand
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:sewing
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1583,6 +2088,10 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:tattoo
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:tea
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -1603,6 +2112,14 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:trade
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:translation
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:travel_agency
     detailsDescription: 
     isTempMarkerEnable: 0
@@ -1615,7 +2132,15 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: shop:watches
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: shop:water_filter
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: shop:weapons
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1624,6 +2149,10 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: shop:yes
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: tourism:apartment
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1660,10 +2189,19 @@ MonoBehaviour:
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
   - detailsType: tourism:information
+    detailsDescription: "\u0422\u0443\u0440\u0438\u0441\u0442\u0438\u0447\u0435\u0441\u043A\u0430\u044F
+      \u0438\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F"
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 8712952136295563075, guid: 4c0d681094d4e6745a6bfc002a188e5b, type: 3}
+  - detailsType: tourism:museum
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
-  - detailsType: tourism:museum
+  - detailsType: tourism:picnic_site
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: tourism:theme_park
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1699,12 +2237,28 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: traffic_sign:hazard
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: traffic_sign:maxspeed
     detailsDescription: "\u041E\u0433\u0440\u0430\u043D\u0438\u0447\u0435\u043D\u0438\u0435
       \u0441\u043A\u043E\u0440\u043E\u0441\u0442\u0438"
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 7917148663976972882, guid: afcc241a664de314f969c37be5c28ead, type: 3}
+  - detailsType: traffic_sign:maxspeed:advisory
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: traffic_sign:maxspeed;overtaking
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: traffic_sign:maxspeed=implicit
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: traffic_sign:no_stopping
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1712,7 +2266,39 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: traffic_sign:RU:1,23
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: traffic_sign:RU:1,35
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: traffic_sign:RU:1,5
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: traffic_sign:RU:2,3,2
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: traffic_sign:RU:3,24_40
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: traffic_sign:RU:3,27
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: traffic_sign:RU:5,14
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: traffic_sign:RU:5,19,2
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: traffic_sign:RU:7,3
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1720,11 +2306,59 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:alcohol
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:anime
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:bakery
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:beverages
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: was:shop:car_repair
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:clothes
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:computer
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:convenience
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: was:shop:dairy
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:gift
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:hardware
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:jewelry
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:mall
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:mobile_phone
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
@@ -1736,7 +2370,27 @@ MonoBehaviour:
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:outdoor
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:shoes
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:stationery
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:supermarket
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
   - detailsType: was:shop:ticket
+    detailsDescription: 
+    isTempMarkerEnable: 0
+    detailsPrefab: {fileID: 0}
+  - detailsType: was:shop:variety_store
     detailsDescription: 
     isTempMarkerEnable: 0
     detailsPrefab: {fileID: 0}

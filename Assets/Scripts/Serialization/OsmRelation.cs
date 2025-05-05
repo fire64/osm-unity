@@ -194,6 +194,11 @@ public class OsmRelation : BaseOsm
         {
             UnityEngine.Debug.LogError($"Не удалось построить outer полигон для relation {ID}");
         }
+        else if(outerWays.Count > 0 && outerploygons.Count > 1)
+        {
+            UnityEngine.Debug.LogError($"Найдено outer {outerploygons.Count} полигонов для relation {ID}");
+        }
+
         if (innerWays.Count > 0 && innerploygons.Count == 0)
         {
             UnityEngine.Debug.LogWarning($"Не удалось построить inner полигон для relation {ID}");

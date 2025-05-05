@@ -184,14 +184,14 @@ class BarrierMaker : InfrstructureBehaviour
 
         tileSystem = FindObjectOfType<TileSystem>();
 
-        foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Barrier; }))
+        foreach (var way in map.ways.FindAll((w) => { return w.IsBarrier == true; }))
         {
             way.AddField("source_type", "way");
             CreateBarriers(way);
             yield return null;
         }
 
-        foreach (var relation in map.relations.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Barrier; }))
+        foreach (var relation in map.relations.FindAll((w) => { return w.IsBarrier == true; }))
         {
             relation.AddField("source_type", "relation");
 

@@ -18,8 +18,6 @@ public class GenerateRoof : MonoBehaviour
             return; // Нужно минимум 4 точки для четырехскатной крыши
         }
 
-
-
         Vector3 midpoint = Vector3.zero;
         foreach (var point in baseCorners)
         {
@@ -287,6 +285,10 @@ public class GenerateRoof : MonoBehaviour
         {
             roof_height = geo.GetValueFloatByKey("roof:height");
         }
+        else if (geo.HasField("roof:levels"))
+        {
+            roof_height = geo.GetValueFloatByKey("roof:levels") * 3.0f;
+        }
 
         var roof_type = "flat";
 
@@ -316,7 +318,7 @@ public class GenerateRoof : MonoBehaviour
         }
         else if (roof_type == "hipped")
         {
-            if (!geo.HasField("roof:height"))
+            if (!geo.HasField("roof:height") && !geo.HasField("roof:levels"))
             {
                 roof_height = 6.0f;
             }
@@ -325,7 +327,7 @@ public class GenerateRoof : MonoBehaviour
         }
         else if (roof_type == "gabled")
         {
-            if (!geo.HasField("roof:height"))
+            if (!geo.HasField("roof:height") && !geo.HasField("roof:levels"))
             {
                 roof_height = 6.0f;
             }
@@ -334,7 +336,7 @@ public class GenerateRoof : MonoBehaviour
         }
         else if (roof_type == "gambrel")
         {
-            if (!geo.HasField("roof:height"))
+            if (!geo.HasField("roof:height") && !geo.HasField("roof:levels"))
             {
                 roof_height = 6.0f;
             }
@@ -343,7 +345,7 @@ public class GenerateRoof : MonoBehaviour
         }
         else if (roof_type == "dome") //fix
         {
-            if (!geo.HasField("roof:height"))
+            if (!geo.HasField("roof:height") && !geo.HasField("roof:levels"))
             {
                 roof_height = 1.0f;
             }
@@ -352,7 +354,7 @@ public class GenerateRoof : MonoBehaviour
         }
         else if (roof_type == "pyramidal")
         {
-            if (!geo.HasField("roof:height"))
+            if (!geo.HasField("roof:height") && !geo.HasField("roof:levels"))
             {
                 roof_height = 1.0f;
             }
@@ -361,7 +363,7 @@ public class GenerateRoof : MonoBehaviour
         }
         else if (roof_type == "onion")
         {
-            if (!geo.HasField("roof:height"))
+            if (!geo.HasField("roof:height") && !geo.HasField("roof:levels"))
             {
                 roof_height = 1.0f;
             }

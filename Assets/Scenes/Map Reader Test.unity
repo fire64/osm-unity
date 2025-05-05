@@ -161,10 +161,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a85b096eab9582409324b760bae020b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeMapLoad: 1
-  latitude: 55.709207
-  longitude: 37.828339
-  radiusmeters: 1000
+  typeMapLoad: 2
+  latitude: 55.776941
+  longitude: 37.493446
+  radiusmeters: 5000
   isDebugDraw: 0
   RelativeCachePath: ../CachedTileData/OSMData/
 --- !u!4 &108401118
@@ -199,6 +199,7 @@ MonoBehaviour:
   roadTypes: {fileID: 11400000, guid: ec6da49b1d95b9344be1c2540f7cbd7b, type: 2}
   roadSurfacesMaterials: {fileID: 11400000, guid: 6f1b538e155893b4ebe43d7b990cc530, type: 2}
   isCreateColision: 0
+  MaxNodes: 1000
   tileSystem: {fileID: 0}
 --- !u!114 &108401120
 MonoBehaviour:
@@ -213,17 +214,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isFinished: 0
-  building_material: {fileID: 2100000, guid: 90cc4ee604aa1ff4f94242c9448de8b0, type: 2}
+  building_material: {fileID: 2100000, guid: 0afce63b22a11cd4081b6919470a439e, type: 2}
   bNotCreateOSMParts: 0
   MinRandHeight: 3
   MaxRandHeight: 21
   generateRoof: {fileID: 108401122}
   buildingTypes: {fileID: 11400000, guid: 4a8be10b830a0be499f6a8cd952185a3, type: 2}
   buildingMaterials: {fileID: 11400000, guid: 954ea7baef9fe2b4aa0ce793cc250ec0, type: 2}
-  bNotCreateNotClosedPolygon: 1
+  bNotCreateNotClosedPolygon: 0
   isUseOldTriangulation: 0
   isCreateColision: 0
+  MaxNodes: 1000
   tileSystem: {fileID: 0}
+  smokeprefab: {fileID: 8656522925564163052, guid: e509867be4f82f246a95eca1ee5a2d61, type: 3}
 --- !u!114 &108401121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -238,7 +241,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isFinished: 0
   zoom: 18
-  TileService: 0
+  TileService: 2
   tileType: 0
   terrainMaterial: {fileID: 2100000, guid: fa8bcf792db67ee4685005106bba5f58, type: 2}
   isUseElevation: 0
@@ -270,7 +273,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108401116}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9d344d5376abd484baec7c739f9069ec, type: 3}
   m_Name: 
@@ -279,7 +282,7 @@ MonoBehaviour:
   tempMarker: {fileID: 1354046477611645516, guid: 08ea2906474b6814690e685c6df23932, type: 3}
   detailsTypes: {fileID: 11400000, guid: 2d2eaa3d8eaff4c46a8e8dac9ec8f616, type: 2}
   isAlwaysShowTempMarker: 0
-  isShowTempMarkerForeNotSetPrefab: 1
+  isShowTempMarkerForeNotSetPrefab: 0
   isClearUnusedData: 0
   tileSystem: {fileID: 0}
 --- !u!114 &108401124
@@ -289,7 +292,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108401116}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef9e4c082c4c4924784290250928b3f1, type: 3}
   m_Name: 
@@ -299,6 +302,7 @@ MonoBehaviour:
   grassMaterial: {fileID: 2100000, guid: c395a0ddb4889ce41ae31cdb53140e27, type: 2}
   landuseTypes: {fileID: 11400000, guid: 7348cebaa8e06154aa3d807aff5922bf, type: 2}
   isCreateColision: 0
+  MaxNodes: 1000
   tileSystem: {fileID: 0}
 --- !u!114 &108401125
 MonoBehaviour:
@@ -317,6 +321,7 @@ MonoBehaviour:
   isUseTempMaker: 0
   isUseRenders: 1
   isCreateColision: 0
+  MaxNodes: 100000
   tileSystem: {fileID: 0}
 --- !u!114 &108401126
 MonoBehaviour:
@@ -333,7 +338,8 @@ MonoBehaviour:
   isFinished: 0
   barrierTypes: {fileID: 11400000, guid: b49782923b6a6054e8afefdb6baf6af5, type: 2}
   barrierMaterials: {fileID: 11400000, guid: 1b5fc87b995305d4f89e56652a44d2d6, type: 2}
-  isCreateColision: 0
+  isCreateColision: 1
+  MaxNodes: 1000
   tileSystem: {fileID: 0}
 --- !u!114 &108401127
 MonoBehaviour:
@@ -350,6 +356,7 @@ MonoBehaviour:
   isFinished: 0
   waterMaterial: {fileID: 2100000, guid: ede4c2d507544a947b5fc72f36bd341e, type: 2}
   isCreateColision: 0
+  MaxNodes: 50000
   tileSystem: {fileID: 0}
 --- !u!114 &108401128
 MonoBehaviour:
@@ -363,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a885002e7846f9d48aa42c75c46c67f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  IsCreateWindows: 1
+  IsCreateWindows: 0
   IsWaterDeformationSupport: 1
   IsVegetationSupport: 1
   mincheckSize: 15

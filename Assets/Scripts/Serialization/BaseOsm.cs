@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Xml;
 
@@ -43,6 +44,8 @@ public class BaseOsm
         Other
     };
 
+    public bool IsBarrier { get; set; }
+
     public ObjectType objectType { get; set; }
 
     public Item[] itemlist;
@@ -64,10 +67,6 @@ public class BaseOsm
         {
             objectType = ObjectType.Road;
         }
-        else if (key == "barrier")
-        {
-            objectType = ObjectType.Barrier;
-        }
         else if (key == "water" || key == "waterway" || (key == "natural" && value == "water") || (key == "leisure" && value == "swimming_pool"))
         {
             objectType = ObjectType.Water;
@@ -79,6 +78,15 @@ public class BaseOsm
         else if (key == "landuse" || key == "leisure" || key == "amenity" || key == "boundary" || key == "fire_boundary")
         {
             objectType = ObjectType.Landuse;
+        }
+        else if (key == "barrier")
+        {
+            objectType = ObjectType.Barrier;
+        }
+
+        if (key == "barrier")
+        {
+            IsBarrier = true;
         }
     }
 
@@ -142,11 +150,19 @@ public class BaseOsm
             return vDefault;
         }
 
+        res = res.Replace(" ", "");
+        res = res.Replace("m.", "");
+        res = res.Replace("m", "");
         res = res.Replace(".", ",");
 
         float result = vDefault;
 
-        float.TryParse(res, out result);
+        bool isOk = float.TryParse(res, out result);
+
+        if (!isOk)
+        {
+            UnityEngine.Debug.LogError("Can't float parse from: \"" + res + "\"");
+        }
 
         return result;
     }

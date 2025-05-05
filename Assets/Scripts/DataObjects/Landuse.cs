@@ -10,7 +10,7 @@ public class Landuse : BaseDataObject
     public bool isEnableRender;
     public bool isGrassGenerate;
     public bool isTreesGenerate;
-
+    public bool isFlatUV;
     public void Activate()
     {
 

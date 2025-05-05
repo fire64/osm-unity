@@ -28,6 +28,8 @@ class BuildingMaker : InfrstructureBehaviour
 
     public TileSystem tileSystem;
 
+    public GameObject smokeprefab;
+
     private float GetHeights(BaseOsm geo)
     {
         var height = 0.0f;
@@ -37,6 +39,10 @@ class BuildingMaker : InfrstructureBehaviour
         if (geo.HasField("height"))
         {
             height = geo.GetValueFloatByKey("height");
+        }
+        else if (geo.HasField("building:height"))
+        {
+            height = geo.GetValueFloatByKey("building:height");
         }
         else if (geo.HasField("building:levels"))
         {
@@ -48,7 +54,23 @@ class BuildingMaker : InfrstructureBehaviour
 
             if (man_made_type == "tower")
             {
-                height = 200.0f;
+                height = 100.0f;
+            }
+            else if (man_made_type == "reservoir_covered")
+            {
+                height = 10;
+            }
+            else if(man_made_type == "chimney")
+            {
+                height = 100.0f;
+            }
+            else if (man_made_type == "silo")
+            {
+                height = 1.75f;
+            }
+            else
+            {
+                height = 1.5f;
             }
         }
         else
@@ -139,11 +161,13 @@ class BuildingMaker : InfrstructureBehaviour
             building.layer = geo.GetValueIntByKey("layer");
         }
 
-        if (kind == "apartments")
-        {
-            //TODO: Add default material for apartments buildings
-        }
-        else if (mat_by_type != null)
+
+
+   //     if (kind == "apartments")
+   //     {
+    //        //TODO: Add default material for apartments buildings
+    //    }
+    /*    else*/ if (mat_by_type != null)
         {
             building.GetComponent<MeshRenderer>().material = mat_by_type;
         }
@@ -153,14 +177,20 @@ class BuildingMaker : InfrstructureBehaviour
         }
         else if (geo.HasField("building:material") && mat_by_tag == null)
         {
-            building.GetComponent<MeshRenderer>().material = null;
+   //         building.GetComponent<MeshRenderer>().material = null;
         }
         else
         {
-            //TODO: Add default material for apartments buildings
+            //Add default material
+            building.GetComponent<MeshRenderer>().material = building_material;
         }
 
-        building.GetComponent<MeshRenderer>().material.SetColor("_Color", GR.SetOSMColour(geo));
+        UnityEngine.Color curColor = GR.SetOSMColour(geo);
+
+        if(curColor != UnityEngine.Color.white)
+        {
+            building.GetComponent<MeshRenderer>().material.SetColor("_Color", curColor);
+        }
     }
 
     void CreateBuilding(BaseOsm geo)
@@ -299,6 +329,16 @@ class BuildingMaker : InfrstructureBehaviour
         if (!contentselector.isRoofDisabled(geo.ID) && !geo.HasField("man_made"))
         {
             generateRoof.GenerateRoofForBuillding(building.gameObject, buildingCorners, holesCorners, minHeight, height, new Vector2(minx, miny), new Vector2(maxx - minx, maxy - miny), geo, isUseOldTriangulation);
+        }
+
+        //Add smoke
+        if (geo.HasField("man_made") && geo.GetValueStringByKey("man_made").Equals("chimney") )
+        {
+            var go = Instantiate(smokeprefab, building.transform.position + (Vector3.up * (building.height - 0.20f)), Quaternion.identity);
+            go.transform.localScale = new Vector3(25.0f, 25.0f, 25.0f);
+            go.transform.Rotate(new Vector3(-90, 0, 0));
+
+            go.transform.SetParent(building.transform);
         }
     }
 

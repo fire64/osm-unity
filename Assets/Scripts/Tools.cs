@@ -517,43 +517,38 @@ public static class GR
             data.Indices.Add(topOffset + i - 1);
         }
     }
-    public static void CreateMeshWithHeight(List<Vector3> corners, float min_height, float height, MeshData data, List<List<Vector3>> holes = null)
+
+    public static void CreateMeshWithHeight(List<Vector3> corners, float minHeight, float height, MeshData data,
+        List<List<Vector3>> holes = null, bool flatUV = false)
     {
         if (IsClockwise(corners))
         {
             corners.Reverse();
         }
 
-        // Создаем полигон для триангуляции
+        // Триангуляция полигона
         var polygon = new Polygon();
-
-        // Добавляем внешний контур
         var exteriorContour = new Contour(corners.Select(v => new Vertex(v.x, v.z)).ToList());
         polygon.Add(exteriorContour);
 
-        // Добавляем отверстия
-        if (holes != null && holes.Count > 0 && holes[0].Count > 0)
+        if (holes != null && holes.Count > 0)
         {
-            foreach (var hole in holes)
+            foreach (var hole in holes.Where(h => h.Count > 0))
             {
                 var holeContour = new Contour(hole.Select(v => new Vertex(v.x, v.z)).ToList());
                 polygon.Add(holeContour, true);
             }
         }
 
-        // Настройки триангуляции
-        var options = new ConstraintOptions { ConformingDelaunay = false };
-        var quality = new QualityOptions { MinimumAngle = 0 };
-
         IMesh mesh;
-
         try
         {
-            mesh = polygon.Triangulate(options, quality);
+            mesh = polygon.Triangulate(new ConstraintOptions { ConformingDelaunay = false },
+                new QualityOptions { MinimumAngle = 0 });
         }
         catch
         {
-            Debug.Log("Возникло исключение!");
+            Debug.LogError("Triangulation failed");
             return;
         }
 
@@ -561,102 +556,213 @@ public static class GR
         var vertices2D = mesh.Vertices.ToList();
         var triangles2D = mesh.Triangles;
 
-        // Создаем 3D вершины для верхней и нижней поверхностей
-        var upperVertices = vertices2D.Select(v => new Vector3((float)v.X, height, (float)v.Y)).ToList();
-        var lowerVertices = vertices2D.Select(v => new Vector3((float)v.X, min_height, (float)v.Y)).ToList();
-
-        // Собираем все вершины
+        // Разделенные наборы вершин
         var allVertices = new List<Vector3>();
-        allVertices.AddRange(upperVertices);
-        allVertices.AddRange(lowerVertices);
+        var uv = new List<Vector2>();
+        var allTriangles = new List<int>();
 
-        // Генерируем треугольники для верхней поверхности
+        // 1. Верхняя поверхность
+        var upperVertices = vertices2D.Select(v => new Vector3((float)v.X, height, (float)v.Y)).ToList();
+        allVertices.AddRange(upperVertices);
+        GenerateSurfaceUV(upperVertices, flatUV, uv);
+
+        // 2. Нижняя поверхность
+        var lowerVertices = vertices2D.Select(v => new Vector3((float)v.X, minHeight, (float)v.Y)).ToList();
+        allVertices.AddRange(lowerVertices);
+        GenerateSurfaceUV(lowerVertices, flatUV, uv);
+
+        // 3. Боковые поверхности
+        var sideVertices = new List<Vector3>();
+        var sideUV = new List<Vector2>();
+        GenerateSideVerticesAndUV(corners, holes, vertices2D, minHeight, height, sideVertices, sideUV);
+        allVertices.AddRange(sideVertices);
+        uv.AddRange(sideUV);
+
+        // Генерация треугольников
+        // Верхняя поверхность
         var upperTriangles = triangles2D
             .SelectMany(t => new[] { t.GetVertexID(2), t.GetVertexID(1), t.GetVertexID(0) }).ToList();
+        allTriangles.AddRange(upperTriangles);
 
-        // Генерируем треугольники для нижней поверхности (инвертированный порядок)
+        // Нижняя поверхность
         var lowerTriangles = triangles2D
-            .SelectMany(t => new[] {
+            .SelectMany(t => new[]
+            {
                 t.GetVertexID(0) + upperVertices.Count,
                 t.GetVertexID(2) + upperVertices.Count,
                 t.GetVertexID(1) + upperVertices.Count
             }).ToList();
-
-        // Генерируем боковые грани
-        var sideTriangles = new List<int>();
-        GenerateSideFaces(corners, upperVertices.Count, vertices2D, sideTriangles);
-
-        if (holes != null && holes.Count > 0 && holes[0].Count > 0)
-        {
-            foreach (var hole in holes)
-            {
-                GenerateSideFaces(hole, upperVertices.Count, vertices2D, sideTriangles);
-            }
-        }
-
-        // Объединяем все треугольники
-        var allTriangles = new List<int>();
-        allTriangles.AddRange(upperTriangles);
         allTriangles.AddRange(lowerTriangles);
-        allTriangles.AddRange(sideTriangles);
 
-        // Рассчитываем UV координаты
-        var uv = allVertices.Select(v => new Vector2(v.x, v.z)).ToList();
+        // Боковые поверхности
+        GenerateSideFaces(allContours: GetAllContours(corners, holes),
+            sideVerticesStart: upperVertices.Count + lowerVertices.Count,
+            triangles: allTriangles,
+            verticesPerSegment: 4);
 
-        // Рассчитываем нормали
+        // Нормали
         var normals = CalculateNormals(allVertices, allTriangles);
 
-        // Заполняем структуру данных
+        // Заполнение структуры
         data.Vertices = allVertices;
         data.Indices = allTriangles;
         data.Normals = normals;
         data.UV = uv;
     }
 
-    private static void GenerateSideFaces(List<Vector3> contour, int vertexOffset, List<Vertex> vertices2D, List<int> triangles)
+    private static List<List<Vector3>> GetAllContours(List<Vector3> mainContour, List<List<Vector3>> holes)
     {
-        var vertexMap = new Dictionary<Vector2, int>();
+        var all = new List<List<Vector3>> { mainContour };
+        if (holes != null) all.AddRange(holes.Where(h => h.Count > 0));
+        return all;
+    }
+
+    private static void GenerateSurfaceUV(List<Vector3> vertices, bool flatUV, List<Vector2> uv)
+    {
+        if (flatUV)
+        {
+            float minX = vertices.Min(v => v.x);
+            float maxX = vertices.Max(v => v.x);
+            float minZ = vertices.Min(v => v.z);
+            float maxZ = vertices.Max(v => v.z);
+            float width = maxX - minX;
+            float depth = maxZ - minZ;
+
+            width = Mathf.Abs(width) < 0.001f ? 1f : width;
+            depth = Mathf.Abs(depth) < 0.001f ? 1f : depth;
+
+            foreach (var v in vertices)
+            {
+                uv.Add(new Vector2(
+                    (v.x - minX) / width,
+                    (v.z - minZ) / depth
+                ));
+            }
+        }
+        else
+        {
+            foreach (var v in vertices)
+            {
+                uv.Add(new Vector2(v.x, v.z));
+            }
+        }
+    }
+
+    private static void GenerateSideVerticesAndUV(
+        List<Vector3> mainContour,
+        List<List<Vector3>> holes,
+        List<Vertex> vertices2D,
+        float minHeight,
+        float maxHeight,
+        List<Vector3> sideVertices,
+        List<Vector2> sideUV)
+    {
+        var vertexMap = CreateVertexMap(vertices2D);
+        var allContours = GetAllContours(mainContour, holes);
+
+        foreach (var contour in allContours)
+        {
+            if (contour.Count < 2) continue;
+
+            float totalLength = CalculateContourLength(contour);
+            if (totalLength <= 0) continue;
+
+            float accumulatedLength = 0f;
+            var segmentLengths = CalculateSegmentLengths(contour);
+
+            for (int i = 0; i < contour.Count; i++)
+            {
+                var current = contour[i];
+                var next = contour[(i + 1) % contour.Count];
+
+                // Создаем 4 новые вершины для сегмента
+                CreateSegmentVertices(
+                    current, next, maxHeight, minHeight,
+                    out Vector3 upperCurrent, out Vector3 upperNext,
+                    out Vector3 lowerCurrent, out Vector3 lowerNext);
+
+                sideVertices.Add(upperCurrent);
+                sideVertices.Add(upperNext);
+                sideVertices.Add(lowerCurrent);
+                sideVertices.Add(lowerNext);
+
+                // UV координаты
+                float uCurrent = accumulatedLength / totalLength;
+                float uNext = (accumulatedLength + segmentLengths[i]) / totalLength;
+
+                sideUV.Add(new Vector2(uCurrent, 1f)); // upperCurrent
+                sideUV.Add(new Vector2(uNext, 1f));    // upperNext
+                sideUV.Add(new Vector2(uCurrent, 0f)); // lowerCurrent
+                sideUV.Add(new Vector2(uNext, 0f));    // lowerNext
+
+                accumulatedLength += segmentLengths[i];
+            }
+        }
+    }
+
+    private static Dictionary<Vector2, int> CreateVertexMap(List<Vertex> vertices2D)
+    {
+        var map = new Dictionary<Vector2, int>();
         for (int i = 0; i < vertices2D.Count; i++)
         {
             var key = new Vector2((float)vertices2D[i].X, (float)vertices2D[i].Y);
-            if (!vertexMap.ContainsKey(key))
-            {
-                vertexMap.Add(key, i);
-            }
+            if (!map.ContainsKey(key)) map.Add(key, i);
         }
+        return map;
+    }
 
-        for (int i = 0; i < contour.Count; i++)
+    private static float CalculateContourLength(List<Vector3> contour)
+    {
+        return contour.Select((t, i) => Vector3.Distance(t, contour[(i + 1) % contour.Count])).Sum();
+    }
+
+    private static List<float> CalculateSegmentLengths(List<Vector3> contour)
+    {
+        return contour.Select((t, i) =>
+            Vector3.Distance(t, contour[(i + 1) % contour.Count])).ToList();
+    }
+
+    private static void CreateSegmentVertices(
+        Vector3 current, Vector3 next,
+        float maxY, float minY,
+        out Vector3 upperCurrent, out Vector3 upperNext,
+        out Vector3 lowerCurrent, out Vector3 lowerNext)
+    {
+        upperCurrent = new Vector3(current.x, maxY, current.z);
+        upperNext = new Vector3(next.x, maxY, next.z);
+        lowerCurrent = new Vector3(current.x, minY, current.z);
+        lowerNext = new Vector3(next.x, minY, next.z);
+    }
+
+    private static void GenerateSideFaces(List<List<Vector3>> allContours, int sideVerticesStart,
+        List<int> triangles, int verticesPerSegment)
+    {
+        int vertexOffset = sideVerticesStart;
+        foreach (var contour in allContours)
         {
-            var current = contour[i];
-            var next = contour[(i + 1) % contour.Count];
+            if (contour.Count < 2) continue;
 
-            var currentKey = new Vector2(current.x, current.z);
-            var nextKey = new Vector2(next.x, next.z);
-
-            if (!vertexMap.TryGetValue(currentKey, out int currentIndex) ||
-                !vertexMap.TryGetValue(nextKey, out int nextIndex))
+            for (int i = 0; i < contour.Count; i++)
             {
-                continue;
+                int baseIndex = vertexOffset + i * verticesPerSegment;
+
+                // Первый треугольник
+                triangles.Add(baseIndex);
+                triangles.Add(baseIndex + 1);
+                triangles.Add(baseIndex + 2);
+
+                // Второй треугольник
+                triangles.Add(baseIndex + 1);
+                triangles.Add(baseIndex + 3);
+                triangles.Add(baseIndex + 2);
             }
-
-            int currentLower = currentIndex + vertexOffset;
-            int nextLower = nextIndex + vertexOffset;
-
-            // Первый треугольник
-            triangles.Add(currentIndex);
-            triangles.Add(nextIndex);
-            triangles.Add(currentLower);
-
-            // Второй треугольник
-            triangles.Add(nextIndex);
-            triangles.Add(nextLower);
-            triangles.Add(currentLower);
+            vertexOffset += contour.Count * verticesPerSegment;
         }
     }
 
     private static List<Vector3> CalculateNormals(List<Vector3> vertices, List<int> triangles)
     {
-        var normals = new Vector3[vertices.Count];
+        Vector3[] normals = new Vector3[vertices.Count];
 
         for (int i = 0; i < triangles.Count; i += 3)
         {

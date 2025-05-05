@@ -73,6 +73,7 @@ class LanduseMaker : InfrstructureBehaviour
         landuse.isEnableRender = landuseInfo.isRenderEnable;
         landuse.isGrassGenerate = landuseInfo.isGrassGenerate;
         landuse.isTreesGenerate = landuseInfo.isTreesGenerate;
+        landuse.isFlatUV = landuseInfo.isFlatUV;
 
         if (landuseInfo.groundMaterial != null)
         {
@@ -174,7 +175,7 @@ class LanduseMaker : InfrstructureBehaviour
 
         if(landuse.isEnableRender)
         {
-            GR.CreateMeshWithHeight(landuseCorners, 0.0f, 0.00001f, tb, holesCorners);
+            GR.CreateMeshWithHeight(landuseCorners, 0.0f, 0.00001f, tb, holesCorners, landuse.isFlatUV);
         }
 
         mesh.vertices = tb.Vertices.ToArray();

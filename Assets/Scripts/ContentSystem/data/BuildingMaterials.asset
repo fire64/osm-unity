@@ -18,13 +18,13 @@ MonoBehaviour:
   - buildingmaterialname: tar_paper
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: brick
-    buildingmaterial: {fileID: 0}
+    buildingmaterial: {fileID: 2100000, guid: 3275de488e700e2469c589368e4bcc5d, type: 2}
   - buildingmaterialname: concrete
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: metal
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: plaster
-    buildingmaterial: {fileID: 0}
+    buildingmaterial: {fileID: 2100000, guid: 489657008d8e5144fbf0f046e9b6b287, type: 2}
   - buildingmaterialname: bricl
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: slate
@@ -32,7 +32,7 @@ MonoBehaviour:
   - buildingmaterialname: cement_block
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: wood
-    buildingmaterial: {fileID: 0}
+    buildingmaterial: {fileID: 2100000, guid: bc1619608c953654a87973b4db5d5468, type: 2}
   - buildingmaterialname: plaster;porcelain_stoneware
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: plaster'cement_block
@@ -44,11 +44,11 @@ MonoBehaviour:
   - buildingmaterialname: brick_block
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: glass
-    buildingmaterial: {fileID: 0}
+    buildingmaterial: {fileID: 2100000, guid: 9236d818ce434644f8ac5b47aca88fab, type: 2}
   - buildingmaterialname: porcelain_stoneware
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: stone
-    buildingmaterial: {fileID: 0}
+    buildingmaterial: {fileID: 2100000, guid: 65ee6b656bcd544a88d93525954af0a0, type: 2}
   - buildingmaterialname: plastic
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: metal_plates;glass
@@ -64,7 +64,7 @@ MonoBehaviour:
   - buildingmaterialname: marble
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: gold
-    buildingmaterial: {fileID: 0}
+    buildingmaterial: {fileID: 2100000, guid: 35de33f2b505f664eab23f90f23683a9, type: 2}
   - buildingmaterialname: granite
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: grey
@@ -72,9 +72,9 @@ MonoBehaviour:
   - buildingmaterialname: zinc
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: plaste
-    buildingmaterial: {fileID: 0}
+    buildingmaterial: {fileID: 2100000, guid: 489657008d8e5144fbf0f046e9b6b287, type: 2}
   - buildingmaterialname: plsater
-    buildingmaterial: {fileID: 0}
+    buildingmaterial: {fileID: 2100000, guid: 489657008d8e5144fbf0f046e9b6b287, type: 2}
   - buildingmaterialname: copper
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: gravel
@@ -108,4 +108,20 @@ MonoBehaviour:
   - buildingmaterialname: tile
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: gabled
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: glass;metal_plates
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: glass;tar_paper
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: stal
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: glass;concrete
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: brick;plaster
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: b2
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: concrete;glass
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: brick;glass
     buildingmaterial: {fileID: 0}

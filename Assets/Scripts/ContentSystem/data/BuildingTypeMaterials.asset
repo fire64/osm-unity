@@ -201,3 +201,43 @@ MonoBehaviour:
     buildingtypematerial: {fileID: 0}
   - buildingtype: Museum
     buildingtypematerial: {fileID: 0}
+  - buildingtype: gate
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: houseboat
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: no
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: quonset_hut
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: factory
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: abandoned
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: cabin
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: police
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: stadium
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: ship
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: castle
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: water_works
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: shelter
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: cinema
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: riding_hall
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: bunker
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: administrative
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: sport
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: prison
+    buildingtypematerial: {fileID: 0}
+  - buildingtype: depot
+    buildingtypematerial: {fileID: 0}

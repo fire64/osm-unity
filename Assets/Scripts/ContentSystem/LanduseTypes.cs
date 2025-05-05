@@ -23,6 +23,8 @@ public class LanduseTypes : ScriptableObject
         public bool isTreesGenerate;
         [SerializeField]
         public bool isRenderEnable;
+        [SerializeField]
+        public bool isFlatUV;
     }
 
     [SerializeField]
@@ -60,6 +62,7 @@ public class LanduseTypes : ScriptableObject
         item.isGrassGenerate = false;
         item.isTreesGenerate = false;
         item.isRenderEnable = false;
+        item.isFlatUV = false;
 
         LanduseTypesReplacesList.Add(item);
 

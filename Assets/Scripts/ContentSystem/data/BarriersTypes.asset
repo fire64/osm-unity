@@ -15,9 +15,9 @@ MonoBehaviour:
   BarrierTypeInfoReplacesList:
   - barriertype: fence
     barrierDescription: 
-    barrierMaterial: {fileID: 0}
-    barrierWidth: 0.5
-    barrierHeight: 1
+    barrierMaterial: {fileID: 2100000, guid: 0d0de4f7601c82b449b0713447d691ed, type: 2}
+    barrierWidth: 0.2
+    barrierHeight: 2
   - barriertype: wall
     barrierDescription: 
     barrierMaterial: {fileID: 0}
@@ -32,7 +32,7 @@ MonoBehaviour:
     barrierDescription: 
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5
-    barrierHeight: 1
+    barrierHeight: 0.2
   - barriertype: gate
     barrierDescription: 
     barrierMaterial: {fileID: 0}
@@ -52,7 +52,7 @@ MonoBehaviour:
     barrierDescription: 
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5
-    barrierHeight: 1
+    barrierHeight: 3
   - barriertype: jersey_barrier
     barrierDescription: 
     barrierMaterial: {fileID: 0}
@@ -104,6 +104,21 @@ MonoBehaviour:
     barrierWidth: 0.5
     barrierHeight: 1
   - barriertype: entrance
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: cable_barrier
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: wa
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: pipeline
     barrierDescription: 
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5

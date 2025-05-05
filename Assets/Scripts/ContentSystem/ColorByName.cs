@@ -74,6 +74,16 @@ public class ColorByName : ScriptableObject
         // Берем первую часть и удаляем пробелы по краям
         string colorName = parts[0].Trim();
 
+        // Разделяем строку на две части по первому вхождению "'"
+        parts = colorName.Split(new[] { '\'' }, 2);
+
+        colorName = parts[0].Trim();
+
+        // Разделяем строку на две части по первому вхождению ':'
+        parts = colorName.Split(new[] { ':' }, 2);
+
+        colorName = parts[0].Trim();
+
         int countitems = ColorsReplaceList.Count;
 
         for (int i = 0; i < countitems; i++)

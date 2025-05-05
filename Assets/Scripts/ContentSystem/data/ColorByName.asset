@@ -233,3 +233,21 @@ MonoBehaviour:
     color: {r: 0.6901961, g: 0.8117647, b: 0.87058824, a: 1}
   - colorname: cornsilk
     color: {r: 1, g: 0.972549, b: 0.8627451, a: 1}
+  - colorname: red brick
+    color: {r: 0.79607844, g: 0.25490198, b: 0.32941177, a: 1}
+  - colorname: fe4573
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: darkgray
+    color: {r: 0.6627451, g: 0.6627451, b: 0.6627451, a: 1}
+  - colorname: "\u0431\u0435\u043B\u044B\u0439"
+    color: {r: 1, g: 1, b: 0.99607843, a: 1}
+  - colorname: snow
+    color: {r: 1, g: 1, b: 0.99607843, a: 1}
+  - colorname: purple
+    color: {r: 0.5019608, g: 0, b: 0.5019608, a: 1}
+  - colorname: greeen
+    color: {r: 0, g: 1, b: 0, a: 1}
+  - colorname: navy
+    color: {r: 0, g: 0, b: 0.5019608, a: 1}
+  - colorname: ponk
+    color: {r: 1, g: 0.4117647, b: 0.7058824, a: 1}

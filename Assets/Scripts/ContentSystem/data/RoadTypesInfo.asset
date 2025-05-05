@@ -109,3 +109,27 @@ MonoBehaviour:
     roadMaterial: {fileID: 2100000, guid: 24fa5ddf46abaf84091169d39a84f873, type: 2}
     roadWidth: 2
     layersLevel: 20
+  - roadtype: street_lamp
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: corridor
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: proposed
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: bus_stop
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: raceway
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+  - roadtype: bridleway
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
