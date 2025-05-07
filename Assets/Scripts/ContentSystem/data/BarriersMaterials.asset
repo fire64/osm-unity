@@ -219,3 +219,37 @@ MonoBehaviour:
     barriermaterial: {fileID: 0}
   - barriermaterialname: fence_wire_steel
     barriermaterial: {fileID: 0}
+  - barriermaterialname: wall_grate
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_plate
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_grate
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_stone
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: retaining_wall_grate
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_bars_metal;brick
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_concrete_stone
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: toll_booth
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_hedge
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: delineators
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: retaining_wall_granite
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_granite
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: retaining_wall;fence
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: retaining_wall_metal
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_bars_limestone
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_fence
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_concrete_metal
+    barriermaterial: {fileID: 0}

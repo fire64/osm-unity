@@ -251,3 +251,17 @@ MonoBehaviour:
     color: {r: 0, g: 0, b: 0.5019608, a: 1}
   - colorname: ponk
     color: {r: 1, g: 0.4117647, b: 0.7058824, a: 1}
+  - colorname: sienna
+    color: {r: 0.627451, g: 0.32156864, b: 0.1764706, a: 1}
+  - colorname: cornflowerblue
+    color: {r: 0.39215687, g: 0.58431375, b: 0.92941177, a: 1}
+  - colorname: teal
+    color: {r: 0, g: 0.5019608, b: 0.5019608, a: 1}
+  - colorname: "\u0441\u0435\u0440\u044B\u0439"
+    color: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 1}
+  - colorname: forestgreen
+    color: {r: 0.13333334, g: 0.54509807, b: 0.13333334, a: 1}
+  - colorname: maaron
+    color: {r: 0.5019608, g: 0, b: 0, a: 1}
+  - colorname: brick
+    color: {r: 0.79607844, g: 0.25490198, b: 0.32941177, a: 1}

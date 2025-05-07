@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static UnityEditor.Progress;
 using static UnityEngine.UI.GridLayoutGroup;
 
 public class GenerateRoof : MonoBehaviour
@@ -269,7 +270,7 @@ public class GenerateRoof : MonoBehaviour
 
 
     // Start is called before the first frame update
-    public void GenerateRoofForBuillding(GameObject building, List<Vector3> corners, List<List<Vector3>> holesCorners, float minHeight, float height, Vector2 min, Vector2 size, BaseOsm geo, bool isUseOldTriangulation)
+    public void GenerateRoofForBuillding(Building building, List<Vector3> corners, List<List<Vector3>> holesCorners, float minHeight, float height, Vector2 min, Vector2 size, BaseOsm geo, bool isUseOldTriangulation)
     {
         var roof = new GameObject("roof");
 
@@ -279,15 +280,24 @@ public class GenerateRoof : MonoBehaviour
 
         roof.AddComponent<MeshRenderer>();
 
+        bool isRoofHeightExternalSet = false;
+
         float roof_height = 0.01f;
 
         if (geo.HasField("roof:height"))
         {
             roof_height = geo.GetValueFloatByKey("roof:height");
+            isRoofHeightExternalSet = true;
         }
         else if (geo.HasField("roof:levels"))
         {
             roof_height = geo.GetValueFloatByKey("roof:levels") * 3.0f;
+            isRoofHeightExternalSet = true;
+        }
+        else if (building.curSettings.defaultRoofHeight > 0.0f)
+        {
+            roof_height = building.curSettings.defaultRoofHeight;
+            isRoofHeightExternalSet = true;
         }
 
         var roof_type = "flat";
@@ -295,6 +305,10 @@ public class GenerateRoof : MonoBehaviour
         if (geo.HasField("roof:shape"))
         {
             roof_type = geo.GetValueStringByKey("roof:shape");
+        }
+        else
+        {
+            roof_type = building.curSettings.defaultRoofShape;
         }
 
         if (geo.HasField("roof:angle"))
@@ -318,7 +332,7 @@ public class GenerateRoof : MonoBehaviour
         }
         else if (roof_type == "hipped")
         {
-            if (!geo.HasField("roof:height") && !geo.HasField("roof:levels"))
+            if (!isRoofHeightExternalSet)
             {
                 roof_height = 6.0f;
             }
@@ -327,7 +341,7 @@ public class GenerateRoof : MonoBehaviour
         }
         else if (roof_type == "gabled")
         {
-            if (!geo.HasField("roof:height") && !geo.HasField("roof:levels"))
+            if (!isRoofHeightExternalSet)
             {
                 roof_height = 6.0f;
             }
@@ -336,7 +350,7 @@ public class GenerateRoof : MonoBehaviour
         }
         else if (roof_type == "gambrel")
         {
-            if (!geo.HasField("roof:height") && !geo.HasField("roof:levels"))
+            if (!isRoofHeightExternalSet)
             {
                 roof_height = 6.0f;
             }
@@ -345,7 +359,7 @@ public class GenerateRoof : MonoBehaviour
         }
         else if (roof_type == "dome") //fix
         {
-            if (!geo.HasField("roof:height") && !geo.HasField("roof:levels"))
+            if (!isRoofHeightExternalSet)
             {
                 roof_height = 1.0f;
             }
@@ -354,7 +368,7 @@ public class GenerateRoof : MonoBehaviour
         }
         else if (roof_type == "pyramidal")
         {
-            if (!geo.HasField("roof:height") && !geo.HasField("roof:levels"))
+            if (!isRoofHeightExternalSet)
             {
                 roof_height = 1.0f;
             }
@@ -363,7 +377,7 @@ public class GenerateRoof : MonoBehaviour
         }
         else if (roof_type == "onion")
         {
-            if (!geo.HasField("roof:height") && !geo.HasField("roof:levels"))
+            if (!isRoofHeightExternalSet)
             {
                 roof_height = 1.0f;
             }

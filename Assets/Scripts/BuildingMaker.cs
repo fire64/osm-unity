@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.XR;
 
 class BuildingMaker : InfrstructureBehaviour
 {
@@ -17,7 +18,7 @@ class BuildingMaker : InfrstructureBehaviour
 
     public static GameContentSelector contentselector;
 
-    public BuildingTypeMaterials buildingTypes;
+    public BuildingTypes buildingTypes;
     public BuildingMaterials buildingMaterials;
     public bool bNotCreateNotClosedPolygon;
 
@@ -30,7 +31,7 @@ class BuildingMaker : InfrstructureBehaviour
 
     public GameObject smokeprefab;
 
-    private float GetHeights(BaseOsm geo)
+    private float GetHeights(BaseOsm geo, Building building)
     {
         var height = 0.0f;
 
@@ -73,6 +74,10 @@ class BuildingMaker : InfrstructureBehaviour
                 height = 1.5f;
             }
         }
+        else if(building.curSettings.defaultHeight > 0.0f)
+        {
+            height = building.curSettings.defaultHeight;
+        }
         else
         {
             height = UnityEngine.Random.Range(MinRandHeight, MaxRandHeight);
@@ -99,7 +104,7 @@ class BuildingMaker : InfrstructureBehaviour
         return height;
     }
 
-    private float GetMinHeight(BaseOsm geo)
+    private float GetMinHeight(BaseOsm geo, Building building)
     {
         var min_height = 0.0f;
 
@@ -138,6 +143,8 @@ class BuildingMaker : InfrstructureBehaviour
 
         building.Kind = kind;
 
+        building.curSettings = buildingTypes.GetBuildingTypeInfoByName(building.Kind);
+
         if (geo.HasField("source_type"))
             building.Source = geo.GetValueStringByKey("source_type");
 
@@ -146,7 +153,7 @@ class BuildingMaker : InfrstructureBehaviour
 
         if (!kind.Equals("yes"))
         {
-            mat_by_type = buildingTypes.GetBuildingTypeMaterialByName(kind);
+            mat_by_type = building.curSettings.buildingMaterial;
         }
 
         if (geo.HasField("building:material"))
@@ -161,13 +168,7 @@ class BuildingMaker : InfrstructureBehaviour
             building.layer = geo.GetValueIntByKey("layer");
         }
 
-
-
-   //     if (kind == "apartments")
-   //     {
-    //        //TODO: Add default material for apartments buildings
-    //    }
-    /*    else*/ if (mat_by_type != null)
+        if (mat_by_type != null)
         {
             building.GetComponent<MeshRenderer>().material = mat_by_type;
         }
@@ -177,7 +178,7 @@ class BuildingMaker : InfrstructureBehaviour
         }
         else if (geo.HasField("building:material") && mat_by_tag == null)
         {
-   //         building.GetComponent<MeshRenderer>().material = null;
+            //not set for debug
         }
         else
         {
@@ -236,8 +237,8 @@ class BuildingMaker : InfrstructureBehaviour
 
         SetProperties(geo, building);
 
-        var height = GetHeights(geo);
-        var minHeight = GetMinHeight(geo);
+        var height = GetHeights(geo, building);
+        var minHeight = GetMinHeight(geo, building);
 
         building.height = height;
         building.min_height = minHeight;
@@ -328,7 +329,7 @@ class BuildingMaker : InfrstructureBehaviour
 
         if (!contentselector.isRoofDisabled(geo.ID) && !geo.HasField("man_made"))
         {
-            generateRoof.GenerateRoofForBuillding(building.gameObject, buildingCorners, holesCorners, minHeight, height, new Vector2(minx, miny), new Vector2(maxx - minx, maxy - miny), geo, isUseOldTriangulation);
+            generateRoof.GenerateRoofForBuillding(building, buildingCorners, holesCorners, minHeight, height, new Vector2(minx, miny), new Vector2(maxx - minx, maxy - miny), geo, isUseOldTriangulation);
         }
 
         //Add smoke

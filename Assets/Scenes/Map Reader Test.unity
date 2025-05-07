@@ -161,10 +161,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a85b096eab9582409324b760bae020b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  typeMapLoad: 2
-  latitude: 55.776941
-  longitude: 37.493446
-  radiusmeters: 5000
+  typeMapLoad: 1
+  latitude: 56.079599
+  longitude: 35.227047
+  radiusmeters: 1000
   isDebugDraw: 0
   RelativeCachePath: ../CachedTileData/OSMData/
 --- !u!4 &108401118
@@ -219,7 +219,7 @@ MonoBehaviour:
   MinRandHeight: 3
   MaxRandHeight: 21
   generateRoof: {fileID: 108401122}
-  buildingTypes: {fileID: 11400000, guid: 4a8be10b830a0be499f6a8cd952185a3, type: 2}
+  buildingTypes: {fileID: 11400000, guid: b72c695907d014640b05401caa5d7e3c, type: 2}
   buildingMaterials: {fileID: 11400000, guid: 954ea7baef9fe2b4aa0ce793cc250ec0, type: 2}
   bNotCreateNotClosedPolygon: 0
   isUseOldTriangulation: 0
@@ -282,7 +282,7 @@ MonoBehaviour:
   tempMarker: {fileID: 1354046477611645516, guid: 08ea2906474b6814690e685c6df23932, type: 3}
   detailsTypes: {fileID: 11400000, guid: 2d2eaa3d8eaff4c46a8e8dac9ec8f616, type: 2}
   isAlwaysShowTempMarker: 0
-  isShowTempMarkerForeNotSetPrefab: 0
+  isShowTempMarkerForeNotSetPrefab: 1
   isClearUnusedData: 0
   tileSystem: {fileID: 0}
 --- !u!114 &108401124
@@ -311,7 +311,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 108401116}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 82287a1fe8ab9cc4d9fb4884be935b74, type: 3}
   m_Name: 
@@ -338,7 +338,7 @@ MonoBehaviour:
   isFinished: 0
   barrierTypes: {fileID: 11400000, guid: b49782923b6a6054e8afefdb6baf6af5, type: 2}
   barrierMaterials: {fileID: 11400000, guid: 1b5fc87b995305d4f89e56652a44d2d6, type: 2}
-  isCreateColision: 1
+  isCreateColision: 0
   MaxNodes: 1000
   tileSystem: {fileID: 0}
 --- !u!114 &108401127

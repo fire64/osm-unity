@@ -125,3 +125,13 @@ MonoBehaviour:
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: brick;glass
     buildingmaterial: {fileID: 0}
+  - buildingmaterialname: titan
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: mirror
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: bricks
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: asbestos
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: steel
+    buildingmaterial: {fileID: 0}

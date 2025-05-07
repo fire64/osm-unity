@@ -71,3 +71,9 @@ MonoBehaviour:
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: rubber
     roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: stone
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: dirt/sand
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: paving_stones:30
+    roadSurfacesMaterial: {fileID: 0}

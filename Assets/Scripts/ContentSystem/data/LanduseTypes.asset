@@ -972,3 +972,59 @@ MonoBehaviour:
     isTreesGenerate: 0
     isRenderEnable: 0
     isFlatUV: 0
+  - landuseType: pedestrian_area
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: traffic_island
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: veterinary
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: civic_admin
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: public
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: village_green
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: bureau_de_change
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: cinema
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
