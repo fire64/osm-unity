@@ -133,3 +133,7 @@ MonoBehaviour:
     roadMaterial: {fileID: 0}
     roadWidth: 0
     layersLevel: 5
+  - roadtype: elevator
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0

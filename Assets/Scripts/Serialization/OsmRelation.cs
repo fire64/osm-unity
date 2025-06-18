@@ -7,7 +7,6 @@ using Unity.VisualScripting;
 public class OsmRelation : BaseOsm
 {
     List<OsmWay> ways;
-
     OsmWay GetOsmWay(ulong WayId)
     {
         foreach (var geo in ways)
@@ -171,6 +170,16 @@ public class OsmRelation : BaseOsm
             foreach (var hole in innerploygons)
             {
                 HolesNodeListsIDs.Add(hole.NodeIDs);
+            }
+        }
+
+        var otherWays = membersinfo.FindAll(w => w.role != "inner" && w.role != "outer");
+
+        if (otherWays.Count > 0)
+        {
+            foreach (var member in otherWays)
+            {
+         //       UnityEngine.Debug.Log("Realtion: " + ID + " Role: " + member.role);
             }
         }
 

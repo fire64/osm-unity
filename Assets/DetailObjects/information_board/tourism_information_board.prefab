@@ -499,6 +499,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4582305510764359956}
+  - component: {fileID: 5484752119602943481}
   m_Layer: 0
   m_Name: tourism_information_board
   m_TagString: Untagged
@@ -525,3 +526,20 @@ Transform:
   - {fileID: 391563942958469940}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5484752119602943481
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8712952136295563075}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef35e53b3646b444c8024be499625867, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  KeyName: name
+  m_Text1: {fileID: 5030349035578023025}
+  m_Text2: {fileID: 7924449531733385189}
+  m_Text3: {fileID: 0}
+  m_Text4: {fileID: 0}

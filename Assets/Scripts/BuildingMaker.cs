@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.XR;
 
 class BuildingMaker : InfrstructureBehaviour
 {
@@ -20,6 +17,7 @@ class BuildingMaker : InfrstructureBehaviour
 
     public BuildingTypes buildingTypes;
     public BuildingMaterials buildingMaterials;
+    public BuildingSeries buildingSeries;
     public bool bNotCreateNotClosedPolygon;
 
     public bool isUseOldTriangulation = false;
@@ -30,7 +28,8 @@ class BuildingMaker : InfrstructureBehaviour
     public TileSystem tileSystem;
 
     public GameObject smokeprefab;
-
+    public Material windowMaterial;
+    public float tolerance = 0.1f;
     private float GetHeights(BaseOsm geo, Building building)
     {
         var height = 0.0f;
@@ -234,6 +233,7 @@ class BuildingMaker : InfrstructureBehaviour
         building.AddComponent<MeshRenderer>();
 
         building.itemlist = geo.itemlist;
+        building.count = count;
 
         SetProperties(geo, building);
 
@@ -319,8 +319,47 @@ class BuildingMaker : InfrstructureBehaviour
         mesh.RecalculateTangents();
         mesh.RecalculateNormals();
 
+        if (geo.HasField("design:ref") /*&& count == 5*/) //ony for box
+        {
+            var series = geo.GetValueStringByKey("design:ref");
+
+            var floors = 0.0f;
+
+            if (geo.HasField("building:levels"))
+            {
+                floors = geo.GetValueFloatByKey("building:levels");
+            }
+            else if (geo.HasField("building:height"))
+            {
+                floors = geo.GetValueFloatByKey("building:height") / 3.0f;
+            }
+
+            var entrances = 0.0f;
+
+            if (geo.HasField("building:flats"))
+            {
+                var flats = geo.GetValueFloatByKey("building:flats");
+
+                entrances = flats / floors / 4.0f;
+            }
+
+            BuildingSeries.BuildingSeriesReplace curSeries = buildingSeries.GetBuildingSeriesInfo(series, (int)floors, (int)entrances);
+
+            if (curSeries.buildingmodel != null)
+            {
+/*
+                // Создаем экземпляр модели
+                GameObject buildingModel = Instantiate(
+                    curSeries.buildingmodel,
+                    building.transform.position,
+                    building.transform.rotation
+                );
+                buildingModel.name = "AlignedBuildingModel";*/
+            }
+        }
+
         //Add colider 
-        if(isCreateColision)
+        if (isCreateColision)
         {
             building.transform.gameObject.AddComponent<MeshCollider>();
             building.transform.GetComponent<MeshCollider>().sharedMesh = building.GetComponent<MeshFilter>().mesh;
@@ -340,6 +379,18 @@ class BuildingMaker : InfrstructureBehaviour
             go.transform.Rotate(new Vector3(-90, 0, 0));
 
             go.transform.SetParent(building.transform);
+        }
+
+        if(windowMaterial != null && building.curSettings.isUseWindows)
+        {
+            var WindowPlacer = new GameObject("WindowPlacer");
+            WindowPlacer.transform.position = building.transform.position;
+            WindowPlacer.transform.SetParent(building.transform);
+            WindowPlacer.transform.localScale = new Vector3(1.001f, 1f, 1.001f);
+
+            WindowPlacer.AddComponent<MeshFilter>().mesh = building.GetComponent<MeshFilter>().mesh;
+            WindowPlacer.AddComponent<MeshRenderer>().material = windowMaterial;
+            WindowPlacer.AddComponent<WindowPlacerOptimized>();
         }
     }
 

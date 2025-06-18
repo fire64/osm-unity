@@ -20,9 +20,9 @@ MonoBehaviour:
   - buildingmaterialname: brick
     buildingmaterial: {fileID: 2100000, guid: 3275de488e700e2469c589368e4bcc5d, type: 2}
   - buildingmaterialname: concrete
-    buildingmaterial: {fileID: 0}
+    buildingmaterial: {fileID: 2100000, guid: 48ca4edd30ae5e44f96d7d93c83c6606, type: 2}
   - buildingmaterialname: metal
-    buildingmaterial: {fileID: 0}
+    buildingmaterial: {fileID: 2100000, guid: 37c42c4e7a4c84044bd2bc4db207005c, type: 2}
   - buildingmaterialname: plaster
     buildingmaterial: {fileID: 2100000, guid: 489657008d8e5144fbf0f046e9b6b287, type: 2}
   - buildingmaterialname: bricl
@@ -58,7 +58,7 @@ MonoBehaviour:
   - buildingmaterialname: tiles
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: vinyl
-    buildingmaterial: {fileID: 0}
+    buildingmaterial: {fileID: 2100000, guid: fea8b39bd5eeb434dbc88350096a30d1, type: 2}
   - buildingmaterialname: roof_tiles
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: marble
@@ -134,4 +134,16 @@ MonoBehaviour:
   - buildingmaterialname: asbestos
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: steel
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: skillion
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: log
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: film
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: beige
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: silicate_brick
+    buildingmaterial: {fileID: 2100000, guid: be1fb31c7813d794ca0bb3056f583534, type: 2}
+  - buildingmaterialname: block
     buildingmaterial: {fileID: 0}

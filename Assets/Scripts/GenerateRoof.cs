@@ -1,4 +1,4 @@
-using System.Collections;
+п»їusing System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -8,41 +8,418 @@ using static UnityEngine.UI.GridLayoutGroup;
 public class GenerateRoof : MonoBehaviour
 {
     public GameObject roof_onion;
-    public GameObject roof_dome;
     public BuildingMaterials buildingMaterials;
 
-    private void CreateHippedRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, Vector2 min, Vector2 size)
+    public void CreateHippedRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, Vector2 min, Vector2 size)
     {
+        if (baseCorners == null || baseCorners.Count < 3)
+        {
+            Debug.LogError("РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ С‚РѕС‡РµРє РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РєСЂС‹С€Рё.");
+            return;
+        }
+
+        baseCorners.Reverse();
+
+        // Р’С‹С‡РёСЃР»СЏРµРј С†РµРЅС‚СЂ РѕСЃРЅРѕРІР°РЅРёСЏ РєСЂС‹С€Рё
+        Vector3 center = Vector3.zero;
+        foreach (var corner in baseCorners)
+        {
+            center += corner;
+        }
+        center /= baseCorners.Count;
+
+        // Р’С‹СЃРѕС‚Р° РІРµСЂС€РёРЅС‹ РєСЂС‹С€Рё
+        Vector3 peak = center + Vector3.up * height;
+
+        // Р”РѕР±Р°РІР»СЏРµРј РІРµСЂС€РёРЅС‹ РѕСЃРЅРѕРІР°РЅРёСЏ
+        int baseVertexCount = data.Vertices.Count;
+        foreach (var corner in baseCorners)
+        {
+            data.Vertices.Add(corner + Vector3.up * min_height); // Р’С‹СЃРѕС‚Р° РѕСЃРЅРѕРІР°РЅРёСЏ
+        }
+
+        // Р”РѕР±Р°РІР»СЏРµРј РІРµСЂС€РёРЅСѓ РєСЂС‹С€Рё
+        data.Vertices.Add(peak);
+
+        // РЎРѕР·РґР°РµРј РёРЅРґРµРєСЃС‹ РґР»СЏ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ
+        int peakIndex = baseVertexCount + baseCorners.Count; // РРЅРґРµРєСЃ РІРµСЂС€РёРЅС‹ РєСЂС‹С€Рё
+        for (int i = 0; i < baseCorners.Count; i++)
+        {
+            int nextIndex = (i + 1) % baseCorners.Count; // РРЅРґРµРєСЃ СЃР»РµРґСѓСЋС‰РµР№ РІРµСЂС€РёРЅС‹
+            // РЎРѕР·РґР°РµРј РґРІР° С‚СЂРµСѓРіРѕР»СЊРЅРёРєР° РґР»СЏ РєР°Р¶РґРѕР№ СЃС‚РѕСЂРѕРЅС‹ РєСЂС‹С€Рё
+            data.Indices.Add(baseVertexCount + i); // РћСЃРЅРѕРІР°РЅРёРµ
+            data.Indices.Add(baseVertexCount + nextIndex);
+            data.Indices.Add(peakIndex);
+
+            // РќРѕСЂРјР°Р»Рё
+            Vector3 normal = Vector3.Cross(baseCorners[nextIndex] - baseCorners[i], peak - baseCorners[i]).normalized;
+            data.Normals.Add(normal);
+            data.Normals.Add(normal);
+            data.Normals.Add(normal);
+        }
+
+        // Р”РѕР±Р°РІР»СЏРµРј UV РєРѕРѕСЂРґРёРЅР°С‚С‹ (РјРѕР¶РЅРѕ РЅР°СЃС‚СЂРѕРёС‚СЊ РїРѕ Р¶РµР»Р°РЅРёСЋ)
+        foreach (var corner in baseCorners)
+        {
+            data.UV.Add(new Vector2(corner.x, corner.z)); // РџСЂРёРјРµСЂ UV РєРѕРѕСЂРґРёРЅР°С‚
+        }
+        data.UV.Add(new Vector2(center.x, center.z)); // UV РґР»СЏ РІРµСЂС€РёРЅС‹
+    }
+
+    public void CreateGabledRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, Vector2 min, Vector2 size)
+    {
+        // РџСЂРѕРІРµСЂРєР° РЅР° РЅР°Р»РёС‡РёРµ РјРёРЅРёРјСѓРј 3 С‚РѕС‡РµРє РґР»СЏ С„РѕСЂРјРёСЂРѕРІР°РЅРёСЏ РєСЂС‹С€Рё
+        if (baseCorners.Count < 3)
+        {
+            Debug.LogError("РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ С‚РѕС‡РµРє РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РєСЂС‹С€Рё");
+            return;
+        }
+
+        baseCorners.Reverse();
+
+        // РџРѕР»СѓС‡РµРЅРёРµ С†РµРЅС‚СЂР° РѕСЃРЅРѕРІР°РЅРёСЏ
+        Vector3 center = Vector3.zero;
+        foreach (Vector3 corner in baseCorners)
+        {
+            center += corner;
+        }
+        center /= baseCorners.Count;
+
+        // РћРїСЂРµРґРµР»РµРЅРёРµ РІРµСЂС€РёРЅС‹ РєСЂС‹С€Рё
+        Vector3 roofPeak = new Vector3(center.x, height, center.z);
+
+        // Р”РѕР±Р°РІР»РµРЅРёРµ РІРµСЂС€РёРЅ РѕСЃРЅРѕРІР°РЅРёСЏ
+        foreach (Vector3 corner in baseCorners)
+        {
+            data.Vertices.Add(corner + Vector3.up * min_height);
+        }
+
+        // Р”РѕР±Р°РІР»РµРЅРёРµ РІРµСЂС€РёРЅС‹ РєСЂС‹С€Рё
+        data.Vertices.Add(roofPeak);
+
+        int baseCount = baseCorners.Count;
+
+        // РЎРѕР·РґР°РЅРёРµ РёРЅРґРµРєСЃРѕРІ РґР»СЏ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ
+        for (int i = 0; i < baseCount; i++)
+        {
+            int nextIndex = (i + 1) % baseCount; // РЎР»РµРґСѓСЋС‰РёР№ РёРЅРґРµРєСЃ (Р·Р°С†РёРєР»РёРІР°РЅРёРµ)
+
+            // РўСЂРµСѓРіРѕР»СЊРЅРёРєРё РјРµР¶РґСѓ РѕСЃРЅРѕРІР°РЅРёРµРј Рё РІРµСЂС€РёРЅРѕР№ РєСЂС‹С€Рё
+            data.Indices.Add(i);
+            data.Indices.Add(nextIndex);
+            data.Indices.Add(baseCount); // РРЅРґРµРєСЃ РІРµСЂС€РёРЅС‹ РєСЂС‹С€Рё
+        }
+
+        // РЎРѕР·РґР°РЅРёРµ РЅРѕСЂРјР°Р»РµР№
+        for (int i = 0; i < baseCount; i++)
+        {
+            int nextIndex = (i + 1) % baseCount; // РЎР»РµРґСѓСЋС‰РёР№ РёРЅРґРµРєСЃ (Р·Р°С†РёРєР»РёРІР°РЅРёРµ)
+            Vector3 normal = Vector3.Cross(
+                baseCorners[nextIndex] - baseCorners[i],
+                roofPeak - baseCorners[i]
+            ).normalized;
+
+            data.Normals.Add(normal);
+        }
+
+        // Р”РѕР±Р°РІР»РµРЅРёРµ РЅРѕСЂРјР°Р»Рё РґР»СЏ РІРµСЂС€РёРЅС‹ РєСЂС‹С€Рё
+        data.Normals.Add(Vector3.up); // РќРѕСЂРјР°Р»СЊ РґР»СЏ РІРµСЂС€РёРЅС‹ РєСЂС‹С€Рё
+
+        // Р“РµРЅРµСЂР°С†РёСЏ UV РєРѕРѕСЂРґРёРЅР°С‚ (РјРѕР¶РЅРѕ РЅР°СЃС‚СЂРѕРёС‚СЊ РїРѕ СЃРІРѕРµРјСѓ СѓСЃРјРѕС‚СЂРµРЅРёСЋ)
+        foreach (Vector3 vertex in data.Vertices)
+        {
+            data.UV.Add(new Vector2(vertex.x, vertex.z)); // РџСЂРѕСЃС‚Р°СЏ РїСЂРѕРµРєС†РёСЏ UV
+        }
+    }
+    
+    void CreateGambrelRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, Vector2 min, Vector2 siz)
+    {
+        // РџСЂРѕРІРµСЂРєР° РІС…РѕРґРЅС‹С… РґР°РЅРЅС‹С…
+        if (baseCorners == null || baseCorners.Count < 3)
+            return;
+
+        // РќР°С…РѕРґРёРј С†РµРЅС‚СЂ РѕСЃРЅРѕРІР°РЅРёСЏ
+        Vector3 center = Vector3.zero;
+        foreach (var corner in baseCorners)
+            center += corner;
+        center /= baseCorners.Count;
+
+        // РЈСЃС‚Р°РЅР°РІР»РёРІР°РµРј РІС‹СЃРѕС‚Сѓ С†РµРЅС‚СЂР°
+        Vector3 roofTop = new Vector3(center.x, height, center.z);
+
+        // РџР°СЂР°РјРµС‚СЂС‹ РґР»СЏ Р»РѕРјР°РЅРѕР№ РєСЂС‹С€Рё
+        float lowerSlopeHeight = min_height + (height - min_height) * 0.4f; // Р’С‹СЃРѕС‚Р° РїРµСЂРµРіРёР±Р° (40% РѕС‚ РѕР±С‰РµР№ РІС‹СЃРѕС‚С‹)
+        float lowerSlopeWidth = 0.7f; // РЁРёСЂРёРЅР° РЅРёР¶РЅРµРіРѕ СЃРєР°С‚Р° (70% РѕС‚ СЂР°СЃСЃС‚РѕСЏРЅРёСЏ РґРѕ С†РµРЅС‚СЂР°)
+
+        int baseVertexCount = data.Vertices.Count;
+
+        // Р”РѕР±Р°РІР»СЏРµРј РІРµСЂС€РёРЅС‹ РѕСЃРЅРѕРІР°РЅРёСЏ
+        foreach (var corner in baseCorners)
+        {
+            data.Vertices.Add(new Vector3(corner.x, min_height, corner.z));
+            data.UV.Add(new Vector2(corner.x * 0.2f, corner.z * 0.2f)); // РџСЂРѕСЃС‚Р°СЏ UV-СЂР°Р·РІРµСЂС‚РєР°
+        }
+
+        // Р”РѕР±Р°РІР»СЏРµРј РІРµСЂС€РёРЅС‹ РїРµСЂРµРіРёР±Р°
+        List<Vector3> middlePoints = new List<Vector3>();
+        for (int i = 0; i < baseCorners.Count; i++)
+        {
+            Vector3 corner = baseCorners[i];
+            Vector3 dirToCenter = (center - corner).normalized;
+            Vector3 middlePoint = corner + dirToCenter * Vector3.Distance(corner, center) * lowerSlopeWidth;
+            middlePoint.y = lowerSlopeHeight;
+
+            middlePoints.Add(middlePoint);
+            data.Vertices.Add(middlePoint);
+            data.UV.Add(new Vector2(middlePoint.x * 0.2f, middlePoint.z * 0.2f));
+        }
+
+        // Р”РѕР±Р°РІР»СЏРµРј РІРµСЂС€РёРЅСѓ РєСЂС‹С€Рё
+        data.Vertices.Add(roofTop);
+        data.UV.Add(new Vector2(roofTop.x * 0.2f, roofTop.z * 0.2f));
+        int roofTopIndex = data.Vertices.Count - 1;
+
+        // РЎРѕР·РґР°РµРј С‚СЂРµСѓРіРѕР»СЊРЅРёРєРё РґР»СЏ РЅРёР¶РЅРµР№ С‡Р°СЃС‚Рё Р»РѕРјР°РЅРѕР№ РєСЂС‹С€Рё (С‚СЂР°РїРµС†РёРё)
+        for (int i = 0; i < baseCorners.Count; i++)
+        {
+            int nextI = (i + 1) % baseCorners.Count;
+
+            // РРЅРґРµРєСЃС‹ РІРµСЂС€РёРЅ РѕСЃРЅРѕРІР°РЅРёСЏ
+            int baseIndex = baseVertexCount + i;
+            int nextBaseIndex = baseVertexCount + nextI;
+
+            // РРЅРґРµРєСЃС‹ РІРµСЂС€РёРЅ РїРµСЂРµРіРёР±Р°
+            int middleIndex = baseVertexCount + baseCorners.Count + i;
+            int nextMiddleIndex = baseVertexCount + baseCorners.Count + nextI;
+
+            // РќРёР¶РЅСЏСЏ С‡Р°СЃС‚СЊ (С‚СЂР°РїРµС†РёСЏ)
+            // РџРµСЂРІС‹Р№ С‚СЂРµСѓРіРѕР»СЊРЅРёРє С‚СЂР°РїРµС†РёРё
+            data.Indices.Add(baseIndex);
+            data.Indices.Add(middleIndex);
+            data.Indices.Add(nextBaseIndex);
+
+            // Р’С‚РѕСЂРѕР№ С‚СЂРµСѓРіРѕР»СЊРЅРёРє С‚СЂР°РїРµС†РёРё
+            data.Indices.Add(nextBaseIndex);
+            data.Indices.Add(middleIndex);
+            data.Indices.Add(nextMiddleIndex);
+
+            // Р’РµСЂС…РЅСЏСЏ С‡Р°СЃС‚СЊ (С‚СЂРµСѓРіРѕР»СЊРЅРёРє Рє РІРµСЂС€РёРЅРµ)
+            data.Indices.Add(middleIndex);
+            data.Indices.Add(roofTopIndex);
+            data.Indices.Add(nextMiddleIndex);
+        }
+
+        // Р’С‹С‡РёСЃР»СЏРµРј РЅРѕСЂРјР°Р»Рё
+        CalculateNormalsGambrelRoof(data);
+    }
+
+    // Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅР°СЏ С„СѓРЅРєС†РёСЏ РґР»СЏ РІС‹С‡РёСЃР»РµРЅРёСЏ РЅРѕСЂРјР°Р»РµР№
+    void CalculateNormalsGambrelRoof(MeshData data)
+    {
+        // РРЅРёС†РёР°Р»РёР·РёСЂСѓРµРј РЅРѕСЂРјР°Р»Рё
+        data.Normals.Clear();
+        for (int i = 0; i < data.Vertices.Count; i++)
+        {
+            data.Normals.Add(Vector3.zero);
+        }
+
+        // РџСЂРѕС…РѕРґРёРјСЃСЏ РїРѕ РІСЃРµРј С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°Рј Рё РІС‹С‡РёСЃР»СЏРµРј РёС… РІРєР»Р°Рґ РІ РЅРѕСЂРјР°Р»Рё РІРµСЂС€РёРЅ
+        for (int i = 0; i < data.Indices.Count; i += 3)
+        {
+            int indexA = data.Indices[i];
+            int indexB = data.Indices[i + 1];
+            int indexC = data.Indices[i + 2];
+
+            Vector3 pointA = data.Vertices[indexA];
+            Vector3 pointB = data.Vertices[indexB];
+            Vector3 pointC = data.Vertices[indexC];
+
+            // Р’С‹С‡РёСЃР»СЏРµРј РЅРѕСЂРјР°Р»СЊ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
+            Vector3 sideAB = pointB - pointA;
+            Vector3 sideAC = pointC - pointA;
+            Vector3 normal = Vector3.Cross(sideAB, sideAC).normalized;
+
+            // Р”РѕР±Р°РІР»СЏРµРј СЌС‚Сѓ РЅРѕСЂРјР°Р»СЊ РєРѕ РІСЃРµРј РІРµСЂС€РёРЅР°Рј С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
+            data.Normals[indexA] += normal;
+            data.Normals[indexB] += normal;
+            data.Normals[indexC] += normal;
+        }
+
+        // РќРѕСЂРјР°Р»РёР·СѓРµРј СЂРµР·СѓР»СЊС‚Р°С‚С‹
+        for (int i = 0; i < data.Normals.Count; i++)
+        {
+            data.Normals[i] = data.Normals[i].normalized;
+        }
+    }
+
+    public void CreateDomeRoof(List<Vector3> baseCorners, float minHeight, float height, MeshData data, Vector2 min, Vector2 size)
+    {
+        int numSegments = 6; // РЈРІРµР»РёС‡СЊС‚Рµ РґР»СЏ Р±РѕР»РµРµ РіР»Р°РґРєРѕРіРѕ РєСѓРїРѕР»Р°
+        int numCorners = baseCorners.Count;
+        if (numCorners < 3) return;
+
+        // Р Р°СЃСЃС‡РёС‚С‹РІР°РµРј С†РµРЅС‚СЂ РѕСЃРЅРѕРІР°РЅРёСЏ
+        Vector3 center = Vector3.zero;
+        foreach (Vector3 corner in baseCorners)
+        {
+            center += corner;
+        }
+        center /= numCorners;
+        center.y = minHeight;
+
+        // Р“РµРЅРµСЂР°С†РёСЏ РІРµСЂС€РёРЅ РєСѓРїРѕР»Р°
+        for (int i = 0; i <= numSegments; i++)
+        {
+            float t = i / (float)numSegments;
+            float currentHeight = minHeight + (height * Mathf.Sin(t * Mathf.PI * 0.5f));
+
+            for (int j = 0; j < numCorners; j++)
+            {
+                Vector3 interpolated = Vector3.Lerp(baseCorners[j] + Vector3.up * minHeight, center, t);
+                interpolated.y = currentHeight;
+                data.Vertices.Add(interpolated);
+            }
+        }
+
+        // Р”РѕР±Р°РІР»СЏРµРј РІРµСЂС€РёРЅСѓ РІ С†РµРЅС‚СЂРµ РєСѓРїРѕР»Р°
+        Vector3 topCenter = center;
+        topCenter.y = height;
+        data.Vertices.Add(topCenter);
+        int topIndex = data.Vertices.Count - 1;
+
+        // Р“РµРЅРµСЂР°С†РёСЏ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ РґР»СЏ Р±РѕРєРѕРІРѕР№ РїРѕРІРµСЂС…РЅРѕСЃС‚Рё
+        for (int i = 0; i < numSegments; i++)
+        {
+            for (int j = 0; j < numCorners; j++)
+            {
+                int nextJ = (j + 1) % numCorners;
+
+                int currentA = i * numCorners + j;
+                int currentB = i * numCorners + nextJ;
+                int nextA = (i + 1) * numCorners + j;
+                int nextB = (i + 1) * numCorners + nextJ;
+
+                // РџРµСЂРІС‹Р№ С‚СЂРµСѓРіРѕР»СЊРЅРёРє
+                data.Indices.Add(currentA);
+                data.Indices.Add(nextA);
+                data.Indices.Add(currentB);
+
+                // Р’С‚РѕСЂРѕР№ С‚СЂРµСѓРіРѕР»СЊРЅРёРє
+                data.Indices.Add(currentB);
+                data.Indices.Add(nextA);
+                data.Indices.Add(nextB);
+            }
+        }
+
+        // Р“РµРЅРµСЂР°С†РёСЏ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ РґР»СЏ РІРµСЂС…СѓС€РєРё
+        int lastRingStart = numSegments * numCorners;
+        for (int j = 0; j < numCorners; j++)
+        {
+            int nextJ = (j + 1) % numCorners;
+            data.Indices.Add(lastRingStart + j);
+            data.Indices.Add(topIndex);
+            data.Indices.Add(lastRingStart + nextJ);
+        }
+
+        // Р Р°СЃСЃС‡РёС‚С‹РІР°РµРј РЅРѕСЂРјР°Р»Рё
+        CalculateNormalsDomeRoof(data, center, topIndex);
+
+        // Р“РµРЅРµСЂР°С†РёСЏ UV-РєРѕРѕСЂРґРёРЅР°С‚
+        GenerateUVDomeRoof(data, baseCorners);
+    }
+
+    private void CalculateNormalsDomeRoof(MeshData data, Vector3 center, int topIndex)
+    {
+        for (int i = 0; i < data.Vertices.Count; i++)
+        {
+            if (i == topIndex)
+            {
+                data.Normals.Add(Vector3.up);
+            }
+            else
+            {
+                Vector3 normal = (data.Vertices[i] - center).normalized;
+                data.Normals.Add(normal);
+            }
+        }
+    }
+
+    private void GenerateUVDomeRoof(MeshData data, List<Vector3> baseCorners)
+    {
+        // Р Р°СЃСЃС‡РёС‚С‹РІР°РµРј РіСЂР°РЅРёС†С‹ РґР»СЏ UV-РїСЂРѕРµРєС†РёРё
+        float minX = float.MaxValue;
+        float maxX = float.MinValue;
+        float minZ = float.MaxValue;
+        float maxZ = float.MinValue;
+
+        foreach (Vector3 corner in baseCorners)
+        {
+            if (corner.x < minX) minX = corner.x;
+            if (corner.x > maxX) maxX = corner.x;
+            if (corner.z < minZ) minZ = corner.z;
+            if (corner.z > maxZ) maxZ = corner.z;
+        }
+
+        float width = maxX - minX;
+        float depth = maxZ - minZ;
+
+        foreach (Vector3 vertex in data.Vertices)
+        {
+            float u = width == 0 ? 0.5f : (vertex.x - minX) / width;
+            float v = depth == 0 ? 0.5f : (vertex.z - minZ) / depth;
+            data.UV.Add(new Vector2(u, v));
+        }
+    }
+    
+    private void CreatePyramidalRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, Vector2 min, Vector2 size)
+    {
+        // РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ РѕСЃРЅРѕРІР°РЅРёРµ СЃРѕСЃС‚РѕРёС‚ РјРёРЅРёРјСѓРј РёР· С‡РµС‚С‹СЂРµС… С‚РѕС‡РµРє
         if (baseCorners.Count < 4)
         {
-            Debug.Log("Недостаточно точек для построения крыши");
-            return; // Нужно минимум 4 точки для четырехскатной крыши
+            Debug.Log("РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ РІРµСЂС€РёРЅ РґР»СЏ СЃРѕР·РґР°РЅРёСЏ РїРёСЂР°РјРёРґС‹!");
+            return;
         }
 
-        Vector3 midpoint = Vector3.zero;
-        foreach (var point in baseCorners)
+        if (!GR.IsClockwise(baseCorners))
         {
-            midpoint += point; // Суммируем все точки, чтобы найти центр
+            baseCorners.Reverse();
         }
-        midpoint /= baseCorners.Count; // Находим среднюю точку
-        midpoint += Vector3.up * height; // Поднимаем среднюю точку на высоту крыши
 
+        // РљРѕР»РёС‡РµСЃС‚РІРѕ РІРµСЂС€РёРЅ = СѓРіР»С‹ РѕСЃРЅРѕРІР°РЅРёСЏ + 1 С†РµРЅС‚СЂР°Р»СЊРЅР°СЏ РІРµСЂС€РёРЅР°
         Vector3[] vertices = new Vector3[baseCorners.Count + 1];
         for (int i = 0; i < baseCorners.Count; i++)
         {
             Vector3 curpoint = baseCorners[i];
             curpoint.y = min_height;
-            vertices[i] = curpoint;
+            baseCorners[i] = curpoint;
+            vertices[i] = baseCorners[i];
+
+        }
+        // Р¦РµРЅС‚СЂР°Р»СЊРЅР°СЏ РІРµСЂС…РЅСЏСЏ С‚РѕС‡РєР° РїРёСЂР°РјРёРґС‹
+        Vector3 topCenter = Vector3.up * height;
+        vertices[baseCorners.Count] = topCenter;
+
+        // РЎРѕР·РґР°РµРј СЃРїРёСЃРѕРє С‚СЂРµСѓРіРѕР»СЊРЅРёРєРѕРІ
+        List<int> trianglesList = new List<int>();
+
+        // Р”РѕР±Р°РІР»СЏРµРј Р±РѕРєРѕРІС‹Рµ С‚СЂРµСѓРіРѕР»СЊРЅРёРєРё
+        for (int i = 0; i < baseCorners.Count; i++)
+        {
+            trianglesList.Add(baseCorners.Count); // Р’РµСЂС…РЅСЏСЏ С†РµРЅС‚СЂР°Р»СЊРЅР°СЏ С‚РѕС‡РєР°
+            trianglesList.Add(i); // РўРµРєСѓС‰Р°СЏ РІРµСЂС€РёРЅР° РѕСЃРЅРѕРІР°РЅРёСЏ
+            trianglesList.Add((i + 1) % baseCorners.Count); // РЎР»РµРґСѓСЋС‰Р°СЏ РІРµСЂС€РёРЅР° РѕСЃРЅРѕРІР°РЅРёСЏ (СЃ Р·Р°С†РёРєР»РёРІР°РЅРёРµРј)
         }
 
-        vertices[baseCorners.Count] = midpoint; // Добавляем вершину крыши
-
-        int[] triangles = new int[baseCorners.Count * 3];
-        for (int i = 0, j = 0; i < triangles.Length; i += 3, j++)
+        // Р”РѕР±Р°РІР»СЏРµРј С‚СЂРµСѓРіРѕР»СЊРЅРёРєРё РґР»СЏ РѕСЃРЅРѕРІР°РЅРёСЏ РїРёСЂР°РјРёРґС‹
+        // Р­С‚Рѕ РґРµР»Р°РµС‚СЃСЏ РїСѓС‚РµРј СЃРѕР·РґР°РЅРёСЏ С‚СЂРёР°РЅРіСѓР»СЏС†РёРё РґР»СЏ РјРЅРѕРіРѕСѓРіРѕР»СЊРЅРёРєР°,
+        // РјРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Р°Р»РіРѕСЂРёС‚Рј С‚СЂРёР°РЅРіСѓР»СЏС†РёРё (РЅР°РїСЂРёРјРµСЂ, "С‚СЂРµСѓРіРѕР»СЊРЅРёРє РІРµРЅС‚РёР»СЏС‚РѕСЂР°")
+        // Р”Р»СЏ РїСЂРѕСЃС‚РѕС‚С‹, РјС‹ РѕРіСЂР°РЅРёС‡РёРјСЃСЏ С‚СЂРёР°РЅРіСѓР»СЏС†РёРµР№ РІ С„РѕСЂРјРµ РІРµРµСЂР°, РєРѕС‚РѕСЂР°СЏ РїРѕРґС…РѕРґРёС‚ РґР»СЏ РІС‹РїСѓРєР»С‹С… РѕСЃРЅРѕРІР°РЅРёР№
+        int firstCornerIndex = 0;
+        for (int i = 1; i < baseCorners.Count - 1; i++)
         {
-            triangles[i + 2] = j;
-            triangles[i + 1] = (j + 1) % baseCorners.Count;
-            triangles[i] = baseCorners.Count; // Вершина крыши всегда последняя точка в массиве
+            trianglesList.Add(firstCornerIndex);
+            trianglesList.Add(i);
+            trianglesList.Add(i + 1);
         }
 
         for (int i = 0; i < vertices.Length; i++)
@@ -50,9 +427,9 @@ public class GenerateRoof : MonoBehaviour
             data.Vertices.Add(vertices[i]);
         }
 
-        for (int i = 0; i < triangles.Length; i++)
+        for (int i = 0; i < trianglesList.Count; i++)
         {
-            data.Indices.Add(triangles[i]);
+            data.Indices.Add(trianglesList[i]);
         }
     }
 
@@ -81,191 +458,36 @@ public class GenerateRoof : MonoBehaviour
 
         Destroy(go);
     }
-
-    private void CreatePyramidalRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, Vector2 min, Vector2 size)
+    private int ParseDirection(string value)
     {
-        // Проверяем, что основание состоит минимум из четырех точек
-        if (baseCorners.Count < 4)
+        int res;
+
+        if (int.TryParse(value, out res))
         {
-            Debug.Log("Недостаточно вершин для создания пирамиды!");
-            return;
+            return res;
         }
 
-        if (!GR.IsClockwise(baseCorners))
+        switch (value)
         {
-            baseCorners.Reverse();
+            case "N": return 0;
+            case "NNE": return 22;
+            case "NE": return 45;
+            case "ENE": return 67;
+            case "E": return 90;
+            case "ESE": return 122;
+            case "SE": return 135;
+            case "SSE": return 157;
+            case "S": return 180;
+            case "SSW": return 202;
+            case "SW": return 225;
+            case "WSW": return 247;
+            case "W": return 270;
+            case "WNW": return 292;
+            case "NW": return 315;
+            case "NNW": return 337;
         }
 
-        // Количество вершин = углы основания + 1 центральная вершина
-        Vector3[] vertices = new Vector3[baseCorners.Count + 1];
-        for (int i = 0; i < baseCorners.Count; i++)
-        {
-            Vector3 curpoint = baseCorners[i];
-            curpoint.y = min_height;
-            baseCorners[i] = curpoint;
-            vertices[i] = baseCorners[i];
-
-        }
-        // Центральная верхняя точка пирамиды
-        Vector3 topCenter = Vector3.up * height;
-        vertices[baseCorners.Count] = topCenter;
-
-        // Создаем список треугольников
-        List<int> trianglesList = new List<int>();
-
-        // Добавляем боковые треугольники
-        for (int i = 0; i < baseCorners.Count; i++)
-        {
-            trianglesList.Add(baseCorners.Count); // Верхняя центральная точка
-            trianglesList.Add(i); // Текущая вершина основания
-            trianglesList.Add((i + 1) % baseCorners.Count); // Следующая вершина основания (с зацикливанием)
-        }
-
-        // Добавляем треугольники для основания пирамиды
-        // Это делается путем создания триангуляции для многоугольника,
-        // можно использовать алгоритм триангуляции (например, "треугольник вентилятора")
-        // Для простоты, мы ограничимся триангуляцией в форме веера, которая подходит для выпуклых оснований
-        int firstCornerIndex = 0;
-        for (int i = 1; i < baseCorners.Count - 1; i++)
-        {
-            trianglesList.Add(firstCornerIndex);
-            trianglesList.Add(i);
-            trianglesList.Add(i + 1);
-        }
-
-        for (int i = 0; i < vertices.Length; i++)
-        {
-            data.Vertices.Add(vertices[i]);
-        }
-
-        for (int i = 0; i < trianglesList.Count; i++)
-        {
-            data.Indices.Add(trianglesList[i]);
-        }
-    }
-
-    private Vector3 CalculateCentroid(List<Vector3> vertices)
-    {
-        if (vertices == null || vertices.Count == 0)
-            return Vector3.zero;
-
-        Vector3 centroid = Vector3.zero;
-        foreach (var vertex in vertices)
-        {
-            centroid += vertex;
-        }
-        return centroid / vertices.Count;
-    }
-
-    private void CreateGambrelRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, Vector2 min, Vector2 size)
-    {
-        // Минимально допустимое количество вершин - 3 (треугольник)
-        if (baseCorners.Count < 3)
-        {
-            Debug.LogError("The base must contain at least 3 corners.");
-            return;
-        }
-
-        List<Vector3> vertices = new List<Vector3>();
-        List<int> triangles = new List<int>();
-
-        // 1. Определение центра масс основания
-        Vector3 center = CalculateCentroid(baseCorners);
-        center += Vector3.up * min_height; // Поднимаем центр на minHeight, делая крышу выше
-
-        // 2. Добавление вершины крыши на заданной высоте
-        Vector3 peak = center + Vector3.up * (height - min_height);
-        vertices.Add(peak); // первая вершина - пик крыши
-
-        // 3. Добавление основных вершин и формирование треугольников крыши
-        foreach (Vector3 corner in baseCorners)
-        {
-            Vector3 curpoint = corner;
-            curpoint.y = min_height;
-            vertices.Add(curpoint); // Добавляем основные вершины
-        }
-
-        for (int i = 1; i <= baseCorners.Count; i++)
-        {
-            // Создаем треугольники, соединяющие вершины основания с пиком
-            triangles.Add(0); // Пик крыши
-            triangles.Add(i);
-            triangles.Add(i % baseCorners.Count + 1);
-        }
-
-        for (int i = 0; i < vertices.Count; i++)
-        {
-            data.Vertices.Add(vertices[i]);
-        }
-
-        for (int i = 0; i < triangles.Count; i++)
-        {
-            data.Indices.Add(triangles[i]);
-        }
-    }
-
-    private void CreateGabledRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, Vector2 min, Vector2 size)
-    {
-        if (baseCorners == null || baseCorners.Count < 3)
-        {
-            Debug.LogError("Base points should form a closed figure with at least 3 points.");
-            return;
-        }
-
-        Vector3 centroid = CalculateCentroid(baseCorners);
-        centroid += Vector3.up * height; // Поднимаем центроид до высоты крыши
-
-        List<Vector3> vertices = new List<Vector3>(baseCorners) { centroid }; // Добавляем центроид как вершину
-
-        List<int> triangles = new List<int>();
-        for (int i = 0; i < baseCorners.Count; i++)
-        {
-            int nextIndex = (i + 1) % baseCorners.Count;
-            triangles.Add(i);
-            triangles.Add(nextIndex);
-            triangles.Add(vertices.Count - 1); // Центроид всегда последняя вершина
-        }
-
-        for (int i = 0; i < vertices.Count; i++)
-        {
-            Vector3 curpoint = vertices[i];
-
-            if (curpoint.y == 0.0f)
-                curpoint.y = min_height;
-
-            data.Vertices.Add(curpoint);
-        }
-
-        for (int i = 0; i < triangles.Count; i++)
-        {
-            data.Indices.Add(triangles[i]);
-        }
-    }
-
-    private void CreateDomeRoof(List<Vector3> corners, float min_height, float height, MeshData data, Vector2 min, Vector2 size)
-    {
-        GameObject go = Instantiate(roof_dome) as GameObject;
-
-        var onionRoof = go.GetComponent<MeshFilter>().mesh;
-
-        var verticesls = onionRoof.vertices;
-        var triangles = onionRoof.triangles;
-
-        for (int i = 0; i < verticesls.Length; i++)
-        {
-            var verticle = verticesls[i];
-
-            float scale_fator = (Mathf.Min(size.x, size.y) / 2) * 100;
-
-            data.Vertices.Add(new Vector3(verticle.x * scale_fator, verticle.y * scale_fator + min_height, verticle.z * scale_fator));
-        }
-
-        for (int i = 0; i < triangles.Length; i++)
-        {
-            data.Indices.Add(triangles[i]);
-        }
-
-        Destroy(go);
+        return 0;
     }
 
 
@@ -311,9 +533,35 @@ public class GenerateRoof : MonoBehaviour
             roof_type = building.curSettings.defaultRoofShape;
         }
 
+        float roofangle = 0.0f;
+
         if (geo.HasField("roof:angle"))
         {
+            roofangle = geo.GetValueFloatByKey("roof:angle");
+        }
+        else if (geo.HasField("building:roof:angle"))
+        {
+            roofangle = geo.GetValueFloatByKey("building:roof:angle");
+        }
 
+        int roof_direction = 0;
+
+        if (geo.HasField("roof:direction"))
+        {
+            var roof_direction_str = geo.GetValueStringByKey("roof:direction");
+
+            roof_direction = ParseDirection(roof_direction_str);
+        }
+
+        string roof_orientation = null;
+
+        if (geo.HasField("roof:orientation"))
+        {
+            roof_orientation = geo.GetValueStringByKey("roof:orientation");
+        }
+        else if(geo.HasField("building:roof:orientation"))
+        {
+            roof_orientation = geo.GetValueStringByKey("building:roof:orientation");
         }
 
         var tb = new MeshData();
@@ -386,6 +634,8 @@ public class GenerateRoof : MonoBehaviour
         }
         else
         {
+            Debug.Log("Try create roofs: " + roof_type);
+
             //Not supported, use flat
             if (isUseOldTriangulation)
             {

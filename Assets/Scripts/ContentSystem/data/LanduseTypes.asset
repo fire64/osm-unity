@@ -119,8 +119,8 @@ MonoBehaviour:
     isRenderEnable: 1
     isFlatUV: 0
   - landuseType: beach
-    landuseDescription: 
-    groundMaterial: {fileID: 0}
+    landuseDescription: "\u041F\u043B\u044F\u0436"
+    groundMaterial: {fileID: 2100000, guid: fa542ab47cc7bb3418c35926f8cab963, type: 2}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 1
@@ -364,8 +364,8 @@ MonoBehaviour:
     isRenderEnable: 0
     isFlatUV: 0
   - landuseType: sand
-    landuseDescription: 
-    groundMaterial: {fileID: 0}
+    landuseDescription: "\u041F\u0435\u0441\u043E\u043A"
+    groundMaterial: {fileID: 2100000, guid: fc3b1278c2f433e4c95790c289231b42, type: 2}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 1
@@ -519,7 +519,7 @@ MonoBehaviour:
     isFlatUV: 0
   - landuseType: cemetery
     landuseDescription: 
-    groundMaterial: {fileID: 0}
+    groundMaterial: {fileID: 2100000, guid: 672101889d5c3ce439f989cf5f5ba6ff, type: 2}
     isGrassGenerate: 0
     isTreesGenerate: 0
     isRenderEnable: 1
@@ -1022,6 +1022,97 @@ MonoBehaviour:
     isRenderEnable: 0
     isFlatUV: 0
   - landuseType: cinema
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: parking_entrance
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: apiary
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: concert_hall
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: reception_desk
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: bicycle_rental
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: coworking_space
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: winter_sports
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: sport
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: stone
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: forest_compartment
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: plant_nursery
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: miniature_golf
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+  - landuseType: fire_station
     landuseDescription: 
     groundMaterial: {fileID: 0}
     isGrassGenerate: 0

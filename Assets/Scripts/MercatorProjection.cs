@@ -70,6 +70,23 @@ public static class MercatorProjection
         return deg * DEG2RAD;
     }
 
+    public static Vector3 ConvertGeoToUntyCoord(double lat, double lon, Vector3 mapcentre)
+    {
+        double X = lonToX(lon);
+        double Y = latToY(lat);
+
+        Vector3 localOrigin = new Vector3((float)X, 0.0f, (float)Y);
+
+        return localOrigin - mapcentre;
+    }
+
+    public static Vector2 ConvertUntyToGeoCoord(Vector3 gamecoord, Vector3 mapcentre)
+    {
+        Vector3 gamecoord_fix = gamecoord + mapcentre;
+
+        return new Vector2((float)xToLon(gamecoord_fix.x), (float)yToLat(gamecoord_fix.z));
+    }
+
     public static double lonToTileX(double lon, int z)
     {
         return (lon + 180.0) / 360.0 * Math.Pow(2.0, z);

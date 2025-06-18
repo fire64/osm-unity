@@ -5,7 +5,6 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "BuildingMaterials", menuName = "GeoRender/BuildingMaterials", order = 1)]
 
-
 public class BuildingMaterials : ScriptableObject
 {
     // Start is called before the first frame update

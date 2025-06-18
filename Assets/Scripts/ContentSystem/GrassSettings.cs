@@ -32,10 +32,10 @@ public class GrassSettings : ScriptableObject
     }
 
     [SerializeField]
-    List<GrassSettingsInfo> GrassSettingsInfoList;
+    public List<GrassSettingsInfo> GrassSettingsInfoList;
 
     [SerializeField]
-    List<GameObject> TreesList;
+    public List<GameObject> TreesList;
 
     public int GetCountTrees()
     {

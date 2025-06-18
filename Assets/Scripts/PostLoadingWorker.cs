@@ -17,14 +17,13 @@ public class PostLoadingWorker : MonoBehaviour
     int detailHeight = 0;
     int detailWidth = 0;
 
-    public bool IsCreateWindows = true;
     public bool IsWaterDeformationSupport = true;
     public bool IsVegetationSupport = true;
     public float mincheckSize = 15f;
     public float maxcheckSize = 25f;
     public bool isFastGrass = false;
 
-    public GameObject windowPrefab;
+    TileSystem tileSystem;
 
     // Start is called before the first frame update
     IEnumerator Start()
@@ -36,26 +35,14 @@ public class PostLoadingWorker : MonoBehaviour
 
         Debug.Log("All data loaded...");
 
-        if(IsVegetationSupport)
+        tileSystem = FindObjectOfType<TileSystem>();
+
+        if (IsVegetationSupport)
         {
             CreateVegetation();
         }
 
-        if(IsCreateWindows)
-        {
-            var foundBuildingsObjects = FindObjectsOfType<Building>();
-
-            foreach (Building buildingObj in foundBuildingsObjects)
-            {
-                WindowPlacer winPlacer = buildingObj.AddComponent<WindowPlacer>();
-
-                winPlacer.windowPrefab = windowPrefab;
-
-                winPlacer.CreateWindows();
-            }
-        }
-
-        if (IsWaterDeformationSupport)
+        if (IsWaterDeformationSupport && tileSystem.tileType == TileSystem.TileType.Terrain)
         {
             var foundWaterObjects = FindObjectsOfType<Water>();
 
@@ -181,6 +168,52 @@ public class PostLoadingWorker : MonoBehaviour
     }
 
     private void CreateVegetation()
+    {
+        if (tileSystem.tileType == TileSystem.TileType.Terrain)
+        {
+            CreateVegetationTerrain();
+        }
+        else
+        {
+            CreateVegetationToMesh();
+        }
+    }
+
+    private void CreateVegetationToMesh()
+    {
+        var gameLanduses = FindObjectsByType<Landuse>(FindObjectsSortMode.None);
+
+        foreach (var curLanduse in gameLanduses)
+        {
+            if (curLanduse.isGrassGenerate)
+            {
+                CreateGrassOnMesh(curLanduse);
+            }
+
+            if ( curLanduse.isTreesGenerate )
+            {
+                CreateTreesOnMesh(curLanduse);
+            }
+        }
+    }
+
+    private void CreateTreesOnMesh(Landuse curLanduse)
+    {
+        TreePlacer treePlacer = curLanduse.AddComponent<TreePlacer>();
+
+        treePlacer.GenerateTree(curLanduse, tileSystem.grassSettings.TreesList.ToArray());
+    }
+
+    private void CreateGrassOnMesh(Landuse curLanduse)
+    {
+        var grassPlacer = new GameObject("grassplacer").AddComponent<GrassPlacer>();
+        grassPlacer.transform.position = grassPlacer.transform.position;
+        grassPlacer.transform.SetParent(curLanduse.transform, true);
+
+        grassPlacer.GenerateGrass(curLanduse, tileSystem.grassSettings.GrassSettingsInfoList.ToArray());
+    }
+
+    private void CreateVegetationTerrain()
     {
         LoadDetailsMaps();
 

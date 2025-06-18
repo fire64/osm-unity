@@ -73,9 +73,10 @@ class DetailMaker : InfrstructureBehaviour
         CheckAndAddCategory(geo, detail, "disused:amenity");
         CheckAndAddCategory(geo, detail, "disused:shop");
         CheckAndAddCategory(geo, detail, "playground");
-
+        CheckAndAddCategory(geo, detail, "cemetery");
         CheckAndAddCategory(geo, detail, "natural");
         CheckAndAddCategory(geo, detail, "man_made");
+        CheckAndAddCategory(geo, detail, "memorial");
         CheckAndAddCategory(geo, detail, "historic");
         CheckAndAddCategory(geo, detail, "power");
         CheckAndAddCategory(geo, detail, "emergency");

@@ -811,6 +811,11 @@ public static class GR
             return hexToColor(geo.GetValueStringByKey("building:color"));
         }
 
+        if (geo.HasField("building:facade:colour"))
+        {
+            return hexToColor(geo.GetValueStringByKey("building:facade:colour"));
+        }
+
         if (geo.HasField("color"))
         {
             return hexToColor(geo.GetValueStringByKey("color"));
