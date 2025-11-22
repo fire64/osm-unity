@@ -15,7 +15,7 @@ class DoorPlacer : DetailBase
 
         foreach (Collider col in colliders)
         {
-            if (col.GetComponent<Building>() != null && col != GetComponent<Collider>())
+            if (col.GetComponent<Building>() != null && col != GetComponent<Collider>() && !col.GetComponent<Building>().isModelSet)
             {
                 PlaceDoorOnBuilding(col);
             }
@@ -55,9 +55,101 @@ class DoorPlacer : DetailBase
         }
 
         // Fallback: используем ближайшую точку границ
-        point = targetCollider.ClosestPoint(transform.position);
+ //     point = targetCollider.ClosestPoint(transform.position);
+        point = GetClosestPointOnCollider(targetCollider, transform.position);
         normal = (transform.position - point).normalized;
         return false;
+    }
+
+    private Vector3 GetClosestPointOnCollider(Collider collider, Vector3 point)
+    {
+        // Для примитивных коллайдеров используем встроенный метод
+        if (collider is BoxCollider || collider is SphereCollider || collider is CapsuleCollider)
+        {
+            return collider.ClosestPoint(point);
+        }
+
+        // Для MeshCollider проверяем выпуклость
+        if (collider is MeshCollider meshCollider)
+        {
+            if (meshCollider.convex)
+            {
+                return collider.ClosestPoint(point);
+            }
+            else
+            {
+                // Для невыпуклых мешей используем альтернативный метод
+                return GetClosestPointOnNonConvexMesh(meshCollider, point);
+            }
+        }
+
+        // Для других типов коллайдеров (TerrainCollider и т.д.) используем альтернативный метод
+        return GetClosestPointFallback(collider, point);
+    }
+
+    private Vector3 GetClosestPointFallback(Collider collider, Vector3 point)
+    {
+        // Используем несколько лучей в разных направлениях для поиска ближайшей точки
+        Vector3[] directions = {
+            Vector3.forward, Vector3.back, Vector3.left, Vector3.right,
+            Vector3.up, Vector3.down,
+            new Vector3(1, 1, 1).normalized, new Vector3(-1, 1, 1).normalized,
+            new Vector3(1, -1, 1).normalized, new Vector3(-1, -1, 1).normalized
+        };
+
+        Vector3 closestPoint = collider.bounds.ClosestPoint(point);
+        float minDistance = Vector3.Distance(point, closestPoint);
+
+        foreach (Vector3 direction in directions)
+        {
+            RaycastHit hit;
+            if (Physics.Raycast(point, direction, out hit, 100f))
+            {
+                if (hit.collider == collider)
+                {
+                    float distance = Vector3.Distance(point, hit.point);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        closestPoint = hit.point;
+                    }
+                }
+            }
+
+            // Также проверяем в противоположном направлении
+            if (Physics.Raycast(point, -direction, out hit, 100f))
+            {
+                if (hit.collider == collider)
+                {
+                    float distance = Vector3.Distance(point, hit.point);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        closestPoint = hit.point;
+                    }
+                }
+            }
+        }
+
+        return closestPoint;
+    }
+
+    private Vector3 GetClosestPointOnNonConvexMesh(MeshCollider meshCollider, Vector3 point)
+    {
+        // Альтернативный метод для невыпуклых мешей - используем Raycast
+        Vector3 directionToCollider = meshCollider.bounds.center - point;
+        RaycastHit hit;
+
+        if (Physics.Raycast(point, directionToCollider.normalized, out hit, 100f))
+        {
+            if (hit.collider == meshCollider)
+            {
+                return hit.point;
+            }
+        }
+
+        // Если Raycast не сработал, используем ближайшую точку на bounding box
+        return meshCollider.bounds.ClosestPoint(point);
     }
 
     bool CastWithOffset(Vector3 origin, Vector3 direction, Collider target, out Vector3 point, out Vector3 normal)

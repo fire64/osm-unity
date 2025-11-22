@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 244022573092670474}
+  - component: {fileID: 8649749717831262665}
   m_Layer: 0
   m_Name: crosswalk
   m_TagString: Untagged
@@ -32,6 +33,23 @@ Transform:
   - {fileID: 7711996990379958788}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8649749717831262665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3760463774767258089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d435412c7c588a429316a32a102a82e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roadMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  destroyOriginal: 1
+  origGameObject: {fileID: 6727777234258251799}
 --- !u!1001 &3000405705971184860
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95,6 +113,11 @@ PrefabInstance:
       addedObject: {fileID: 3869477777946644010}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea4a3e3ba7c6d694d84c84b4e28c9b6f, type: 3}
+--- !u!1 &6727777234258251799 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8430255440781894859, guid: ea4a3e3ba7c6d694d84c84b4e28c9b6f, type: 3}
+  m_PrefabInstance: {fileID: 3000405705971184860}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7711996990379958788 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4802263753046169304, guid: ea4a3e3ba7c6d694d84c84b4e28c9b6f, type: 3}

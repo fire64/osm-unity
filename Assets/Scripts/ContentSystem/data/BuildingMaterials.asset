@@ -30,7 +30,7 @@ MonoBehaviour:
   - buildingmaterialname: slate
     buildingmaterial: {fileID: 0}
   - buildingmaterialname: cement_block
-    buildingmaterial: {fileID: 0}
+    buildingmaterial: {fileID: 2100000, guid: aa7a74585afb67540bc769d303b8324f, type: 2}
   - buildingmaterialname: wood
     buildingmaterial: {fileID: 2100000, guid: bc1619608c953654a87973b4db5d5468, type: 2}
   - buildingmaterialname: plaster;porcelain_stoneware
@@ -146,4 +146,32 @@ MonoBehaviour:
   - buildingmaterialname: silicate_brick
     buildingmaterial: {fileID: 2100000, guid: be1fb31c7813d794ca0bb3056f583534, type: 2}
   - buildingmaterialname: block
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: iron
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: grass
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: earth
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: porcelgain_stoneware
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: meta
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: masonry
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: glass;plaster
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: tar
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: porcelain_stoneware;metal
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: brickplaster
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: mixed
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: metal_sheet
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: metal sheet
+    buildingmaterial: {fileID: 0}
+  - buildingmaterialname: asphalt
     buildingmaterial: {fileID: 0}

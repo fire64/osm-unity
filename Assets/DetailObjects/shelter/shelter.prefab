@@ -50,15 +50,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -6509837753212568165, guid: 99abbf483d497d440b0dd529b76d7fa1, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.02
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: -6509837753212568165, guid: 99abbf483d497d440b0dd529b76d7fa1, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.02
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: -6509837753212568165, guid: 99abbf483d497d440b0dd529b76d7fa1, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.02
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: -6509837753212568165, guid: 99abbf483d497d440b0dd529b76d7fa1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -74,7 +74,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 99abbf483d497d440b0dd529b76d7fa1, type: 3}
       propertyPath: m_Name
-      value: 10073_Gazebo_V2_L3
+      value: shelter
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

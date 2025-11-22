@@ -11,7 +11,6 @@ public class OsmWay : BaseOsm
         HolesNodeListsIDs = new List<List<ulong>>();
 
         ID = GetAttribute<ulong>("id", node.Attributes);
-        Visible = GetAttribute<bool>("visible", node.Attributes);
 
         XmlNodeList nds = node.SelectNodes("nd");
 
@@ -35,6 +34,8 @@ public class OsmWay : BaseOsm
 
         objectType = ObjectType.Undefined;
 
+        bool isBuilding = false;
+
         foreach (XmlNode t in tags)
         {
             string key = GetAttribute<string>("k", t.Attributes);
@@ -44,7 +45,17 @@ public class OsmWay : BaseOsm
 
             DetectObjectType(t);
 
+            if (objectType == ObjectType.Building)
+            {
+                isBuilding = true;
+            }
+
             i++;
+        }
+
+        if (isBuilding)
+        {
+            objectType = ObjectType.Building;
         }
 
     }

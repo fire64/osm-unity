@@ -519,7 +519,7 @@ public static class GR
     }
 
     public static void CreateMeshWithHeight(List<Vector3> corners, float minHeight, float height, MeshData data,
-        List<List<Vector3>> holes = null, bool flatUV = false)
+        List<List<Vector3>> holes = null, bool flatUV = false, bool reverseUV = false)
     {
         if (IsClockwise(corners))
         {
@@ -564,17 +564,17 @@ public static class GR
         // 1. Верхняя поверхность
         var upperVertices = vertices2D.Select(v => new Vector3((float)v.X, height, (float)v.Y)).ToList();
         allVertices.AddRange(upperVertices);
-        GenerateSurfaceUV(upperVertices, flatUV, uv);
+        GenerateSurfaceUV(upperVertices, flatUV, reverseUV, uv);
 
         // 2. Нижняя поверхность
         var lowerVertices = vertices2D.Select(v => new Vector3((float)v.X, minHeight, (float)v.Y)).ToList();
         allVertices.AddRange(lowerVertices);
-        GenerateSurfaceUV(lowerVertices, flatUV, uv);
+        GenerateSurfaceUV(lowerVertices, flatUV, reverseUV, uv);
 
         // 3. Боковые поверхности
         var sideVertices = new List<Vector3>();
         var sideUV = new List<Vector2>();
-        GenerateSideVerticesAndUV(corners, holes, vertices2D, minHeight, height, sideVertices, sideUV);
+        GenerateSideVerticesAndUV(corners, holes, vertices2D, minHeight, height, sideVertices, sideUV, reverseUV);
         allVertices.AddRange(sideVertices);
         uv.AddRange(sideUV);
 
@@ -617,7 +617,7 @@ public static class GR
         return all;
     }
 
-    private static void GenerateSurfaceUV(List<Vector3> vertices, bool flatUV, List<Vector2> uv)
+    private static void GenerateSurfaceUV(List<Vector3> vertices, bool flatUV, bool reverseUV, List<Vector2> uv)
     {
         if (flatUV)
         {
@@ -633,17 +633,35 @@ public static class GR
 
             foreach (var v in vertices)
             {
-                uv.Add(new Vector2(
-                    (v.x - minX) / width,
-                    (v.z - minZ) / depth
-                ));
+                if(reverseUV)
+                {
+                    uv.Add(new Vector2(
+                        (v.z - minX) / width,
+                        (v.x - minZ) / depth
+                    ));
+                }
+                else
+                {
+                    uv.Add(new Vector2(
+                        (v.x - minX) / width,
+                        (v.z - minZ) / depth
+                    ));
+                }
             }
         }
         else
         {
             foreach (var v in vertices)
             {
-                uv.Add(new Vector2(v.x, v.z));
+                if(reverseUV)
+                {
+                    uv.Add(new Vector2(v.z, v.x));
+                }
+                else
+                {
+                    uv.Add(new Vector2(v.x, v.z));
+                }
+
             }
         }
     }
@@ -655,7 +673,8 @@ public static class GR
         float minHeight,
         float maxHeight,
         List<Vector3> sideVertices,
-        List<Vector2> sideUV)
+        List<Vector2> sideUV,
+        bool reverseUV)
     {
         var vertexMap = CreateVertexMap(vertices2D);
         var allContours = GetAllContours(mainContour, holes);
@@ -690,10 +709,22 @@ public static class GR
                 float uCurrent = accumulatedLength / totalLength;
                 float uNext = (accumulatedLength + segmentLengths[i]) / totalLength;
 
-                sideUV.Add(new Vector2(uCurrent, 1f)); // upperCurrent
-                sideUV.Add(new Vector2(uNext, 1f));    // upperNext
-                sideUV.Add(new Vector2(uCurrent, 0f)); // lowerCurrent
-                sideUV.Add(new Vector2(uNext, 0f));    // lowerNext
+                if (reverseUV)
+                {
+                    sideUV.Add(new Vector2(uNext, 1f)); // upperCurrent
+                    sideUV.Add(new Vector2(uCurrent, 1f));    // upperNext
+                    sideUV.Add(new Vector2(uNext, 0f)); // lowerCurrent
+                    sideUV.Add(new Vector2(uCurrent, 0f));    // lowerNext
+                }
+                else
+                {
+                    sideUV.Add(new Vector2(uCurrent, 1f)); // upperCurrent
+                    sideUV.Add(new Vector2(uNext, 1f));    // upperNext
+                    sideUV.Add(new Vector2(uCurrent, 0f)); // lowerCurrent
+                    sideUV.Add(new Vector2(uNext, 0f));    // lowerNext
+                }
+
+
 
                 accumulatedLength += segmentLengths[i];
             }

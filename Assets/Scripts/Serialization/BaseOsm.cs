@@ -3,12 +3,19 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Xml;
+using Unity.VisualScripting;
+using UnityEngine.Rendering.LookDev;
+
+public enum OSMTypes
+{
+    Node,
+    Way,
+    Relation
+}
 
 public class BaseOsm
 {
     public ulong ID { get; set; }
-
-    public bool Visible { get; set; }
 
     //Temporary, may be changed to membersinfo_t variant???
     public List<ulong> NodeIDs { get; set; }
@@ -36,7 +43,9 @@ public class BaseOsm
     {
         Undefined = 0,
         Building,
+        ManMade,
         Road,
+        Route,
         Landuse,
         Water,
         Barrier,
@@ -59,11 +68,11 @@ public class BaseOsm
         {
             objectType = ObjectType.Building;
         }
-        else if (key == "man_made" && IsClosedPolygon == true) //use building terms (realy not buildings)
+        else if (key == "man_made")
         {
-            objectType = ObjectType.Building;
+            objectType = ObjectType.ManMade;
         }
-        else if (key == "highway" || key == "railway")
+        else if (key == "highway" || key == "railway" || key == "area:highway")
         {
             objectType = ObjectType.Road;
         }
@@ -78,6 +87,10 @@ public class BaseOsm
         else if (key == "landuse" || key == "leisure" || key == "amenity" || key == "boundary" || key == "fire_boundary")
         {
             objectType = ObjectType.Landuse;
+        }
+        else if (key == "route")
+        {
+            objectType = ObjectType.Route;
         }
         else if (key == "barrier")
         {
@@ -141,6 +154,19 @@ public class BaseOsm
         return null;
     }
 
+    public string GetValueStringByKey(string sKey, string sDefault)
+    {
+        foreach (Item item in itemlist)
+        {
+            if (item.key == sKey)
+            {
+                return item.value;
+            }
+        }
+
+        return sDefault;
+    }
+
     public float GetValueFloatByKey(string sKey, float vDefault = 0.0f)
     {
         string res = GetValueStringByKey(sKey);
@@ -161,7 +187,7 @@ public class BaseOsm
 
         if (!isOk)
         {
-            UnityEngine.Debug.LogError("Can't float parse from: \"" + res + "\"");
+       //     UnityEngine.Debug.LogError("Can't float parse from: \"" + res + "\"");
         }
 
         return result;
@@ -187,18 +213,28 @@ public class BaseOsm
 
     public int GetValueIntByKey(string sKey, int vDefault = 0)
     {
-        string res = GetValueStringByKey(sKey);
-
-        if (res == null)
-        {
+        if (!HasField(sKey))
             return vDefault;
+
+        string value = GetValueStringByKey(sKey);
+
+        if (int.TryParse(value, out int result))
+        {
+            return result;
         }
 
-        int result = vDefault;
-
-        int.TryParse(res, out result);
-
-        return result;
+        // ƒополнительна€ обработка дл€ текстовых значений
+        switch (value.ToLower())
+        {
+            case "yes":
+            case "true":
+                return 1;
+            case "no":
+            case "false":
+                return 0;
+            default:
+                return vDefault;
+        }
     }
 
     /** 
@@ -221,8 +257,8 @@ public class BaseOsm
         catch (Exception e)
         {
             //  Block of code to handle errors
+            UnityEngine.Debug.Log("Error parsing atr: " + attrName + " error: " + e.Message);
         }
-
 
         strValue = strValue.Replace(".", ",");
 

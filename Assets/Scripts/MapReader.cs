@@ -4,13 +4,8 @@ using System.Xml;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.Threading.Tasks;
-using UnityEngine.TextCore.Text;
 using System.Text;
 using System.IO;
-using UnityEditor.Build.Content;
-using System.Net;
-using UnityEditor.PackageManager.Requests;
-using Unity.VisualScripting;
 
 public class MapReader : MonoBehaviour
 {
@@ -21,7 +16,30 @@ public class MapReader : MonoBehaviour
         Overpass,
     };
 
+    [SerializeField]
+    public LocationData LocationData;
+
+    [SerializeField]
     public TypeMapLoad typeMapLoad;
+
+    [SerializeField]
+    public double latitude;
+
+    [SerializeField]
+    public double longitude;
+
+    [SerializeField]
+    public float radiusmeters;
+
+    [SerializeField]
+    public bool isDebugDraw;
+
+    [SerializeField]
+    public bool IsReady {get; private set; }
+
+    [SerializeField]
+    public string RelativeCachePath = "../CachedTileData/OSMData/";
+    protected string CacheFolderPath;
 
     [HideInInspector]
     public Dictionary<ulong, OsmNode> nodes;
@@ -37,16 +55,6 @@ public class MapReader : MonoBehaviour
 
     [HideInInspector]
     public OsmBounds bounds;
-
-    public double latitude;
-    public double longitude;
-    public float radiusmeters;
-
-    public bool isDebugDraw;
-    public bool IsReady {get; private set; }
-
-    public string RelativeCachePath = "../CachedTileData/OSMData/";
-    protected string CacheFolderPath;
 
     public async void LoadOSMData(string tilePath)
     {
@@ -182,6 +190,13 @@ public class MapReader : MonoBehaviour
         relations = new List<OsmRelation>();
         nodeslist = new List<OsmNode>();
 
+        if(LocationData != null)
+        {
+            latitude = LocationData.latitude;
+            longitude = LocationData.longitude;
+            radiusmeters = LocationData.radiusmeters;
+        }
+
 #if UNITY_ANDROID || UNITY_IPHONE
             CacheFolderPath = Path.Combine(Application.persistentDataPath, RelativeCachePath);
 #else
@@ -205,44 +220,37 @@ public class MapReader : MonoBehaviour
 
         foreach ( OsmWay w in ways)
         {
-            if (w.Visible)
+            Color c = Color.cyan; // cyan for buildings
+            if (!w.IsClosedPolygon) c = Color.red; // red for roads
+
+            for (int i =1; i < w.NodeIDs.Count; i++)
             {
-                Color c = Color.cyan; // cyan for buildings
-                if (!w.IsClosedPolygon) c = Color.red; // red for roads
+                OsmNode p1 = nodes[w.NodeIDs[i - 1 ]];
+                OsmNode p2 = nodes[w.NodeIDs[i]];
 
-                for (int i =1; i < w.NodeIDs.Count; i++)
-                {
-                    OsmNode p1 = nodes[w.NodeIDs[i - 1 ]];
-                    OsmNode p2 = nodes[w.NodeIDs[i]];
+                Vector3 v1 = p1 - bounds.Centre;
+                Vector3 v2 = p2 - bounds.Centre;
 
-                    Vector3 v1 = p1 - bounds.Centre;
-                    Vector3 v2 = p2 - bounds.Centre;
-
-                    Debug.DrawLine(v1, v2, c);
-                }
-
+                Debug.DrawLine(v1, v2, c);
             }
         }
 
         foreach (OsmRelation r in relations)
         {
-            if (r.Visible)
+            Color c = Color.yellow; // yellow for buildings
+            if (!r.IsClosedPolygon) c = Color.magenta; // magenta for roads
+
+            for (int i = 1; i < r.NodeIDs.Count; i++)
             {
-                Color c = Color.yellow; // yellow for buildings
-                if (!r.IsClosedPolygon) c = Color.magenta; // magenta for roads
+                OsmNode p1 = nodes[r.NodeIDs[i - 1]];
+                OsmNode p2 = nodes[r.NodeIDs[i]];
 
-                for (int i = 1; i < r.NodeIDs.Count; i++)
-                {
-                    OsmNode p1 = nodes[r.NodeIDs[i - 1]];
-                    OsmNode p2 = nodes[r.NodeIDs[i]];
+                Vector3 v1 = p1 - bounds.Centre;
+                Vector3 v2 = p2 - bounds.Centre;
 
-                    Vector3 v1 = p1 - bounds.Centre;
-                    Vector3 v2 = p2 - bounds.Centre;
-
-                    Debug.DrawLine(v1, v2, c);
-                }
-
+                Debug.DrawLine(v1, v2, c);
             }
+
         }
     }
 

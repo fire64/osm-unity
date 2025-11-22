@@ -134,4 +134,11 @@ MonoBehaviour:
     m_RenderMode: 0
     m_UsePrototypeMesh: 0
   TreesList:
-  - {fileID: 114418, guid: be878d9ea17907f4a8068678a5ce7908, type: 3}
+  - {fileID: 8185793832496569501, guid: b705299bf721f4a4083e5c4f318c85f7, type: 3}
+  - {fileID: 8185793832496569501, guid: 609df25574ee7404da5687aa8948eb2d, type: 3}
+  - {fileID: 8185793832496569501, guid: d289eea73b9410848b0b877f1076a27b, type: 3}
+  - {fileID: 8185793832496569501, guid: 02e5b605b92bdf5458f2d187bfb0f60a, type: 3}
+  - {fileID: 8185793832496569501, guid: 792408f9ce579c64d988399cc6f8d36d, type: 3}
+  - {fileID: 8185793832496569501, guid: 6f544b3904ee31b45841cdb0fb1f9c15, type: 3}
+  - {fileID: 8185793832496569501, guid: e068dda4a5bb1b040b4492d6d560ba31, type: 3}
+  - {fileID: 8185793832496569501, guid: 886e7c2dac95cff449facd13d0775147, type: 3}

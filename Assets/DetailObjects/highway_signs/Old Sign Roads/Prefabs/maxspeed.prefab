@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6808140030791406024}
+  - component: {fileID: -8238525631390523658}
+  - component: {fileID: -1647096762944146591}
   m_Layer: 0
   m_Name: maxspeed
   m_TagString: Untagged
@@ -32,6 +34,39 @@ Transform:
   - {fileID: 1764335249155546883}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-8238525631390523658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7917148663976972882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d435412c7c588a429316a32a102a82e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roadMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  destroyOriginal: 1
+  origGameObject: {fileID: 3325754767938628880}
+--- !u!114 &-1647096762944146591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7917148663976972882}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91886369ab3d63f4ead3f9b063446d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sideOrientation: 0
+  roadMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1001 &4587914845634118657
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -160,6 +195,11 @@ PrefabInstance:
 --- !u!4 &1764335249155546883 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4802263753046169304, guid: ea4a3e3ba7c6d694d84c84b4e28c9b6f, type: 3}
+  m_PrefabInstance: {fileID: 6546330600088848859}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3325754767938628880 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8430255440781894859, guid: ea4a3e3ba7c6d694d84c84b4e28c9b6f, type: 3}
   m_PrefabInstance: {fileID: 6546330600088848859}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6667728488436753285

@@ -4,10 +4,21 @@ using System.Linq;
 using System.Xml;
 using Unity.VisualScripting;
 
+[System.Serializable]
+public struct memberdata_t
+{
+    public OSMTypes type;
+    public ulong GeoId;
+    public string Role;
+};
+
 public class OsmRelation : BaseOsm
 {
-    List<OsmWay> ways;
-    OsmWay GetOsmWay(ulong WayId)
+    public List<memberdata_t> memberslist;
+
+    public List<OsmWay> ways;
+
+    public OsmWay GetOsmWay(ulong WayId)
     {
         foreach (var geo in ways)
         {
@@ -108,12 +119,12 @@ public class OsmRelation : BaseOsm
         HolesNodeListsIDs = new List<List<ulong>>();
         membersinfo = new List<membersinfo_t>();
 
+        memberslist = new List<memberdata_t>();
+
         outerploygons = new List<membersinfo_t>();
         innerploygons = new List<membersinfo_t>();
 
         ID = GetAttribute<ulong>("id", node.Attributes);
-        Visible = GetAttribute<bool>("visible", node.Attributes);
-
         ways = waysset;
 
         XmlNodeList members = node.SelectNodes("member");
@@ -123,6 +134,32 @@ public class OsmRelation : BaseOsm
             string type = GetAttribute<string>("type", member.Attributes);
             ulong refNo = GetAttribute<ulong>("ref", member.Attributes);
             string role = GetAttribute<string>("role", member.Attributes);
+
+            OSMTypes osmtype = OSMTypes.Node;
+
+            if (type == "node")
+            {
+                osmtype = OSMTypes.Node;
+            }
+            else if(type == "way")
+            {
+                osmtype = OSMTypes.Way;
+            }
+            else if (type == "relation")
+            {
+                osmtype = OSMTypes.Relation;
+            }
+            else
+            {
+                UnityEngine.Debug.Log("Detect unsupported member type: <" + type + "> in relation: " + ID);
+            }
+
+            memberdata_t memberitem = new memberdata_t();
+            memberitem.GeoId = refNo;
+            memberitem.Role = role;
+            memberitem.type = osmtype;
+
+            memberslist.Add(memberitem);
 
             if (type == "way") //current only way, nodes and relations add leter
             {
@@ -137,7 +174,7 @@ public class OsmRelation : BaseOsm
                     datamember.NodeIDs.AddRange(curWay.NodeIDs);
                     datamember.itemlist = curWay.itemlist;
 
-                    if( curWay.NodeIDs[0] == curWay.NodeIDs[curWay.NodeIDs.Count - 1] )
+                    if (curWay.NodeIDs[0] == curWay.NodeIDs[curWay.NodeIDs.Count - 1])
                     {
                         datamember.isClosed = true;
                     }
@@ -179,7 +216,7 @@ public class OsmRelation : BaseOsm
         {
             foreach (var member in otherWays)
             {
-         //       UnityEngine.Debug.Log("Realtion: " + ID + " Role: " + member.role);
+//                UnityEngine.Debug.Log("Realtion: " + ID + " Role: " + member.role);
             }
         }
 
@@ -189,13 +226,26 @@ public class OsmRelation : BaseOsm
         int j = 0;
         objectType = ObjectType.Undefined;
 
+        bool isBuilding = false;
+
         foreach (XmlNode t in tags)
         {
             string key = GetAttribute<string>("k", t.Attributes);
             itemlist[j].key = key;
             itemlist[j].value = GetAttribute<string>("v", t.Attributes);
             DetectObjectType(t);
+
+            if( objectType == ObjectType.Building )
+            {
+                isBuilding = true;
+            }
+
             j++;
+        }
+
+        if(isBuilding)
+        {
+            objectType = ObjectType.Building;
         }
 
         // В конец конструктора добавьте:

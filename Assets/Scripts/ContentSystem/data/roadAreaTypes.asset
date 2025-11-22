@@ -1,0 +1,215 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 807c9d559fac5904588f126541b74689, type: 3}
+  m_Name: roadAreaTypes
+  m_EditorClassIdentifier: 
+  RoadTypeInfoReplacesList:
+  - roadtype: tertiary
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 3.5
+    layersLevel: 24
+    typeUsage: 1
+  - roadtype: trunk
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 3.5
+    layersLevel: 27
+    typeUsage: 1
+  - roadtype: primary_link
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 3.5
+    layersLevel: 21
+    typeUsage: 1
+  - roadtype: primary
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 3.5
+    layersLevel: 26
+    typeUsage: 1
+  - roadtype: secondary
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 3.5
+    layersLevel: 25
+    typeUsage: 1
+  - roadtype: motorway
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 3.5
+    layersLevel: 28
+    typeUsage: 1
+  - roadtype: residential
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 3.5
+    layersLevel: 13
+    typeUsage: 1
+  - roadtype: trunk_link
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 3.5
+    layersLevel: 22
+    typeUsage: 1
+  - roadtype: secondary_link
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 3.5
+    layersLevel: 20
+    typeUsage: 1
+  - roadtype: unclassified
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 3.5
+    layersLevel: 18
+    typeUsage: 8
+  - roadtype: path
+    roadMaterial: {fileID: 2100000, guid: bb2b4f1c34fa7de41b2c12df5c0a8da4, type: 2}
+    roadWidth: 1
+    layersLevel: 1
+    typeUsage: 0
+  - roadtype: living_street
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 3.5
+    layersLevel: 12
+    typeUsage: 8
+  - roadtype: service
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 3.5
+    layersLevel: 11
+    typeUsage: 1
+  - roadtype: tertiary_link
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 3.5
+    layersLevel: 19
+    typeUsage: 1
+  - roadtype: footway
+    roadMaterial: {fileID: 2100000, guid: bb2b4f1c34fa7de41b2c12df5c0a8da4, type: 2}
+    roadWidth: 1
+    layersLevel: 2
+    typeUsage: 0
+  - roadtype: cycleway
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 1
+    layersLevel: 3
+    typeUsage: 0
+  - roadtype: steps
+    roadMaterial: {fileID: 2100000, guid: bb2b4f1c34fa7de41b2c12df5c0a8da4, type: 2}
+    roadWidth: 1
+    layersLevel: 4
+    typeUsage: 0
+  - roadtype: construction
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 2
+    layersLevel: 16
+    typeUsage: 8
+  - roadtype: platform
+    roadMaterial: {fileID: 2100000, guid: 0b9b4ea55457db1438a5d7ec6f73d430, type: 2}
+    roadWidth: 2
+    layersLevel: 8
+    typeUsage: 0
+  - roadtype: track
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 3.5
+    layersLevel: 7
+    typeUsage: 1
+  - roadtype: motorway_link
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 3.5
+    layersLevel: 23
+    typeUsage: 1
+  - roadtype: pedestrian
+    roadMaterial: {fileID: 2100000, guid: bb2b4f1c34fa7de41b2c12df5c0a8da4, type: 2}
+    roadWidth: 2
+    layersLevel: 10
+    typeUsage: 0
+  - roadtype: crossing
+    roadMaterial: {fileID: 2100000, guid: 6ad1c93b102b2c84689d79a21213a2de, type: 2}
+    roadWidth: 2
+    layersLevel: 30
+    typeUsage: 0
+  - roadtype: railway
+    roadMaterial: {fileID: 2100000, guid: 7a78cbf57dffdaa4d9b382c966babdd5, type: 2}
+    roadWidth: 2
+    layersLevel: 29
+    typeUsage: 2
+  - roadtype: street_lamp
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 17
+    typeUsage: 0
+  - roadtype: corridor
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 9
+    typeUsage: 0
+  - roadtype: proposed
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 15
+    typeUsage: 0
+  - roadtype: bus_stop
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 14
+    typeUsage: 0
+  - roadtype: raceway
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 0
+    layersLevel: 6
+    typeUsage: 0
+  - roadtype: bridleway
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 0
+    layersLevel: 5
+    typeUsage: 0
+  - roadtype: elevator
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+    typeUsage: 0
+  - roadtype: yes
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+    typeUsage: 0
+  - roadtype: traffic_island
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+    typeUsage: 1
+  - roadtype: services
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 0
+    layersLevel: 0
+    typeUsage: 1
+  - roadtype: link
+    roadMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+    roadWidth: 0
+    layersLevel: 0
+    typeUsage: 1
+  - roadtype: prohibited
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+    typeUsage: 1
+  - roadtype: tram
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+    typeUsage: 1
+  - roadtype: emergency
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+    typeUsage: 1
+  - roadtype: bus_bay
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+    typeUsage: 1
+  - roadtype: sidewalk
+    roadMaterial: {fileID: 0}
+    roadWidth: 0
+    layersLevel: 0
+    typeUsage: 1

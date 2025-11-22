@@ -20,6 +20,8 @@ public class BaseDataObject : MonoBehaviour
 
     public Item[] itemlist;
 
+    public List<Vector3> coordpoints; //list global copordinates
+
     public static int layer_size = 4;
 
     public bool HasField(string sKey)

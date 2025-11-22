@@ -796,3 +796,498 @@ MonoBehaviour:
     isUseRoofs: 1
     defaultRoofShape: flat
     defaultRoofHeight: 0
+  - buildingtype: boat
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: fuel
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: tiles
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: dovecote
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: museum
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: gatehouse
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: fire_station
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: bungalow
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: allotment_house
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: boathouse
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: use
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: transformer_tower
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: stands
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: security_booth
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: theatre
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: undefined
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: depot
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: store
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: ventilation_kiosk
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: hut
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: no
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: tent
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: outbuilding
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: mosque
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: synagogue
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: policlinic
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: mall
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: water_tower
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: arts_centre
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: monastery
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: mansion
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: presbytery
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: barn
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: silo
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: stage
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: police
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: castle_tower
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: circus
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: ship
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: air_shaft
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: religious
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: garbage_shed
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: castle
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: bath
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: veranda
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: workshop
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: sphinx
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: arch
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: basilica
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: water_dispenser
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: amphitheatre
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: portal
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: military
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: burnt
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: yes;apartments
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0

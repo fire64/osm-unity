@@ -46,7 +46,7 @@ public class BuildingSeries : ScriptableObject
 
     public BuildingSeriesReplace GetBuildingSeriesInfo(string curseries, int curfloors, int curentrances)
     {
-        string curpredstavlenie = curseries + "_" + curfloors + "_" + curentrances;
+        string curpredstavlenie = curseries + "_filter_floors_" + curfloors + "_entrances_" + curentrances;
 
         BuildingSeriesReplaceList.Sort((p1, p2) => p1.predstavlenie.CompareTo(p2.predstavlenie));
 

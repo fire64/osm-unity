@@ -9,6 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 889743313321507165}
+  - component: {fileID: 9213400990505751249}
+  - component: {fileID: 8652214393130861536}
   m_Layer: 0
   m_Name: stop
   m_TagString: Untagged
@@ -32,6 +34,39 @@ Transform:
   - {fileID: 3473529704602929395}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9213400990505751249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5805514500920864456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d435412c7c588a429316a32a102a82e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roadMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  destroyOriginal: 1
+  origGameObject: {fileID: 463638782654479072}
+--- !u!114 &8652214393130861536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5805514500920864456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91886369ab3d63f4ead3f9b063446d07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sideOrientation: 0
+  roadMask:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!1001 &4357164800825024430
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -219,6 +254,11 @@ PrefabInstance:
       addedObject: {fileID: 3752221391554495633}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea4a3e3ba7c6d694d84c84b4e28c9b6f, type: 3}
+--- !u!1 &463638782654479072 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8430255440781894859, guid: ea4a3e3ba7c6d694d84c84b4e28c9b6f, type: 3}
+  m_PrefabInstance: {fileID: 8255491382457474603}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3473529704602929395 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4802263753046169304, guid: ea4a3e3ba7c6d694d84c84b4e28c9b6f, type: 3}

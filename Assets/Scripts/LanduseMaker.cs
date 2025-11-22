@@ -13,6 +13,8 @@ class LanduseMaker : InfrstructureBehaviour
     public bool isCreateColision = false;
     public int MaxNodes = 150;
     public TileSystem tileSystem;
+
+    private int m_countProcessing = 0;
     private void SetProperties(BaseOsm geo, Landuse landuse)
     {
         landuse.name = "landuse " + geo.ID.ToString();
@@ -56,6 +58,16 @@ class LanduseMaker : InfrstructureBehaviour
             kind = "yes";
         }
 
+        if(geo.HasField("garden:style"))
+        {
+            var garden_style = geo.GetValueStringByKey("garden:style");
+
+            if(garden_style == "flower_garden")
+            {
+                kind = "flowerbed";
+            }
+        }
+
         landuse.Kind = kind;
 
         var landuseInfo = landuseTypes.GetLanduseTypeInfoByName(landuse.Kind);
@@ -74,6 +86,8 @@ class LanduseMaker : InfrstructureBehaviour
         landuse.isGrassGenerate = landuseInfo.isGrassGenerate;
         landuse.isTreesGenerate = landuseInfo.isTreesGenerate;
         landuse.isFlatUV = landuseInfo.isFlatUV;
+        landuse.fHeightLayer = landuseInfo.fHeightLayer;
+        landuse.grassTypes = landuseInfo.grassTypes;
 
         if (landuseInfo.groundMaterial != null)
         {
@@ -88,6 +102,8 @@ class LanduseMaker : InfrstructureBehaviour
     void CreateLanduse(BaseOsm geo)
     {
         var searchname = "landuse " + geo.ID.ToString();
+
+        m_countProcessing++;
 
         //Check for duplicates in case of loading multiple locations
         if (GameObject.Find(searchname))
@@ -195,6 +211,7 @@ class LanduseMaker : InfrstructureBehaviour
             landuse.transform.GetComponent<MeshCollider>().convex = false;
         }
 
+        landuse.transform.position += Vector3.up * landuse.fHeightLayer;
         landuse.Activate();
     }
 
@@ -224,5 +241,10 @@ class LanduseMaker : InfrstructureBehaviour
         }
 
         isFinished = true;
+    }
+
+    public int GetCountProcessing()
+    {
+        return m_countProcessing;
     }
 }

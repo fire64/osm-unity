@@ -19,6 +19,8 @@ public class RoadTypesInfo : ScriptableObject
         public float roadWidth;
         [SerializeField]
         public int layersLevel; //for sorting...
+        [SerializeField]
+        public RoadUsageType typeUsage; //for sorting...
     }
 
     [SerializeField]
@@ -52,6 +54,8 @@ public class RoadTypesInfo : ScriptableObject
         item.roadtype = curRoadTypeName;
         item.roadMaterial = null;
         item.roadWidth = 0.0f; //not use default 2.0f for for these, is not checked
+        item.layersLevel = 0;
+        item.typeUsage = RoadUsageType.Automotive;
 
         RoadTypeInfoReplacesList.Add(item);
 

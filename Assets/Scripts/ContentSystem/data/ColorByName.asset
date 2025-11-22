@@ -271,3 +271,23 @@ MonoBehaviour:
     color: {r: 0.8862745, g: 0.44705883, b: 0.35686275, a: 1}
   - colorname: graphite
     color: {r: 0.21960784, g: 0.21960784, b: 0.21960784, a: 1}
+  - colorname: porcelain_stoneware
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: orange,red,grey
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: white,red
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: whitel
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: light_brown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: darkbrown
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: ral 7016
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: sand
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: motley
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: dark_grey
+    color: {r: 1, g: 1, b: 1, a: 1}

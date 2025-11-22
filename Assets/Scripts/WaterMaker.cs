@@ -11,6 +11,9 @@ class WaterMaker : InfrstructureBehaviour
     public bool isCreateColision = false;
     public int MaxNodes = 150;
     public TileSystem tileSystem;
+
+    private int m_countProcessing = 0;
+
     private void SetProperties(BaseOsm geo, Water water)
     {
         water.name = "water " + geo.ID.ToString();
@@ -41,6 +44,19 @@ class WaterMaker : InfrstructureBehaviour
         if (geo.HasField("source_type"))
             water.Source = geo.GetValueStringByKey("source_type");
 
+        float waterwidth = 0f;
+
+        if (geo.HasField("width"))
+        {
+            waterwidth = geo.GetValueFloatByKey("width");
+        }
+        else
+        {
+            waterwidth = 2.0f;
+        }
+
+        water.width = waterwidth;
+
         water.GetComponent<MeshRenderer>().material = waterMaterial;
 
 //      water.GetComponent<MeshRenderer>().material.SetColor("_Color", GR.SetOSMColour(geo)); //Not used color for water ))
@@ -50,14 +66,18 @@ class WaterMaker : InfrstructureBehaviour
     {
         var searchname = "water " + geo.ID.ToString();
 
+        m_countProcessing++;
+
         //Check for duplicates in case of loading multiple locations
         if (GameObject.Find(searchname))
         {
+            Debug.LogError(searchname + " already found...");
             return;
         }
 
         if (contentselector.isGeoObjectDisabled(geo.ID))
         {
+            Debug.LogError(searchname + " disabled.");
             return;
         }
 
@@ -82,8 +102,9 @@ class WaterMaker : InfrstructureBehaviour
 
         var countContour = geo.NodeIDs.Count;
 
-        if(countContour < 3)
+        if(countContour < 2)
         {
+            Debug.LogError(searchname + " haved " + countContour + " contours.");
             return;
         }
 
@@ -137,8 +158,6 @@ class WaterMaker : InfrstructureBehaviour
 
         var tb = new MeshData();
 
-        float finalWidth = 2.0f;
-
         if(geo.IsClosedPolygon)
         {
             GR.CreateMeshWithHeight(waterCorners, -10.0f, 0.0f, tb, holesCorners);
@@ -149,7 +168,7 @@ class WaterMaker : InfrstructureBehaviour
         }
         else
         {
-            GR.CreateMeshLineWithWidthAndHeight(waterCorners, 0.01f, 0.0f, finalWidth, tb);
+            GR.CreateMeshLineWithWidthAndHeight(waterCorners, 0.01f, 0.0f, water.width, tb);
         }
 
         mesh.vertices = tb.Vertices.ToArray();
@@ -182,14 +201,14 @@ class WaterMaker : InfrstructureBehaviour
 
         tileSystem = FindObjectOfType<TileSystem>();
 
-        foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Water; }))
+        foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Water && w.NodeIDs.Count > 1; }))
         {
             way.AddField("source_type", "way");
             CreateWaterss(way);
             yield return null;
         }
 
-        foreach (var relation in map.relations.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Water; }))
+        foreach (var relation in map.relations.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Water && w.NodeIDs.Count > 1; }))
         {
             relation.AddField("source_type", "relation");
 
@@ -199,5 +218,10 @@ class WaterMaker : InfrstructureBehaviour
         }
 
         isFinished = true;
+    }
+
+    public int GetCountProcessing()
+    {
+        return m_countProcessing;
     }
 }

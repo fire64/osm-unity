@@ -1,14 +1,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public class WindowLevel
+// Добавим структуру для хранения данных окон
+public struct WindowData
 {
-    public float yPosition;
-    public float windowWidth = 1f;
-    public float windowHeight = 1f;
-    public float spacing = 0.5f;
-    public float margin = 0.2f;
+    public Vector3 position;
+    public Vector3 normal;
+    public Vector3 right;
+    public Vector3 up;
+    public bool isLit;
 }
 
 public class WindowPlacerOptimized : MonoBehaviour
@@ -17,11 +17,14 @@ public class WindowPlacerOptimized : MonoBehaviour
     public float windowHeight = 1f;
     public float windowSpacing = 2.0f;
     public float margin = 0.5f;
+    public float windowDepthOffset = 0.01f; // Новый параметр
 
     private List<Vector3> combinedVertices = new List<Vector3>();
-    private List<int> combinedTriangles = new List<int>();
     private List<Vector2> combinedUvs = new List<Vector2>();
     private List<Vector3> combinedNormals = new List<Vector3>();
+
+    public Material matLit;
+    public Material matDark;
 
     void Start()
     {
@@ -29,11 +32,16 @@ public class WindowPlacerOptimized : MonoBehaviour
         MeshFilter meshFilter = GetComponent<MeshFilter>() ?? gameObject.AddComponent<MeshFilter>();
         MeshRenderer meshRenderer = GetComponent<MeshRenderer>() ?? gameObject.AddComponent<MeshRenderer>();
 
-        // Устанавливаем материал по умолчанию, если его нет
-        if (meshRenderer.material == null)
+        // Устанавливаем материалы по умолчанию, если их нет
+        if (meshRenderer.sharedMaterials == null || meshRenderer.sharedMaterials.Length == 0)
         {
-            meshRenderer.material = new Material(Shader.Find("Standard"));
-            meshRenderer.material.SetColor("_Color", Color.red);
+            if (matLit == null) matLit = new Material(Shader.Find("Standard"));
+            if (matDark == null) matDark = new Material(Shader.Find("Standard"));
+
+            matLit.SetColor("_Color", Color.yellow); // Пример
+            matDark.SetColor("_Color", Color.black);
+
+            meshRenderer.sharedMaterials = new Material[] { matLit, matDark };
         }
 
         CreateWindows();
@@ -42,69 +50,126 @@ public class WindowPlacerOptimized : MonoBehaviour
     public void CreateWindows()
     {
         Mesh mesh = GetComponent<MeshFilter>().mesh;
-        Dictionary<Vector3, List<Vector3>> walls = new Dictionary<Vector3, List<Vector3>>();
+        Dictionary<Vector3, List<List<Vector3>>> groupedWalls = new Dictionary<Vector3, List<List<Vector3>>>();
 
-        // Группируем вершины по нормалям (стены)
+        // Группируем вершины по нормалям, но разбиваем на отдельные "поверхности"
         for (int i = 0; i < mesh.triangles.Length; i += 3)
         {
             Vector3 normal = GetFaceNormal(mesh, i);
             Vector3 key = normal.normalized.Round(5);
 
-            if (!walls.ContainsKey(key))
-                walls[key] = new List<Vector3>();
+            if (!groupedWalls.ContainsKey(key))
+                groupedWalls[key] = new List<List<Vector3>>();
 
-            walls[key].Add(mesh.vertices[mesh.triangles[i]]);
-            walls[key].Add(mesh.vertices[mesh.triangles[i + 1]]);
-            walls[key].Add(mesh.vertices[mesh.triangles[i + 2]]);
+            Vector3 v1 = mesh.vertices[mesh.triangles[i]];
+            Vector3 v2 = mesh.vertices[mesh.triangles[i + 1]];
+            Vector3 v3 = mesh.vertices[mesh.triangles[i + 2]];
+
+            // Проверяем, к какой группе вершин принадлежит этот треугольник
+            List<Vector3> targetGroup = null;
+            foreach (var group in groupedWalls[key])
+            {
+                if (IsConnectedToGroup(new List<Vector3> { v1, v2, v3 }, group))
+                {
+                    targetGroup = group;
+                    break;
+                }
+            }
+
+            if (targetGroup != null)
+            {
+                targetGroup.AddRange(new List<Vector3> { v1, v2, v3 });
+            }
+            else
+            {
+                groupedWalls[key].Add(new List<Vector3> { v1, v2, v3 });
+            }
         }
 
-        // Очищаем списки для нового расчета
-        combinedVertices.Clear();
-        combinedTriangles.Clear();
-        combinedUvs.Clear();
-        combinedNormals.Clear();
+        // Собираем окна
+        List<WindowData> allWindows = new List<WindowData>();
 
-        // Для каждой стены
-        foreach (var wall in walls)
+        // Обрабатываем каждую стену
+        foreach (var normalGroup in groupedWalls)
         {
-            Vector3 normal = wall.Key;
-            List<Vector3> vertices = wall.Value;
-
-            // Вычисляем границы стены
-            Bounds bounds = new Bounds(vertices[0], Vector3.zero);
-            foreach (Vector3 v in vertices)
-                bounds.Encapsulate(v);
-
-            // Вычисляем ориентацию стены
-            Vector3 right = Vector3.Cross(normal, Vector3.up).normalized;
-            Vector3 up = Vector3.Cross(normal, right).normalized;
-
-            // Создаем сетку окон
-            Vector2Int grid = CalculateGrid(bounds.size, right, up);
-
-            for (int x = 0; x < grid.x; x++)
+            foreach (var vertices in normalGroup.Value)
             {
-                for (int y = 0; y < grid.y; y++)
+                // Вычисляем границы стены
+                Bounds bounds = new Bounds(vertices[0], Vector3.zero);
+                foreach (Vector3 v in vertices)
+                    bounds.Encapsulate(v);
+
+                // Вычисляем ориентацию стены
+                Vector3 normal = normalGroup.Key;
+                Vector3 right = Vector3.Cross(normal, Vector3.up).normalized;
+                Vector3 up = Vector3.Cross(normal, right).normalized;
+
+                // Создаем сетку окон
+                Vector2Int grid = CalculateGrid(bounds.size, right, up);
+
+                for (int x = 0; x < grid.x; x++)
                 {
-                    Vector3 position = CalculateWindowPosition(
-                        bounds.center, right, up,
-                        bounds.size,
-                        x, y, grid
-                    );
+                    for (int y = 0; y < grid.y; y++)
+                    {
+                        Vector3 position = CalculateWindowPosition(
+                            bounds.center, right, up,
+                            bounds.size,
+                            x, y, grid
+                        );
 
-                    if (position == Vector3.zero) continue;
+                        if (position == Vector3.zero) continue;
 
-                    AddWindowToMesh(position, normal, right, up);
+                        // Случайно выбираем, светится окно или нет
+                        bool isLit = Random.value > 0.7f; // 30% окон светятся
+
+                        allWindows.Add(new WindowData
+                        {
+                            position = position,
+                            normal = normal,
+                            right = right,
+                            up = up,
+                            isLit = isLit
+                        });
+                    }
                 }
             }
         }
 
-        // Создаем общий меш
+        // Теперь разделим окна на 2 группы: светящиеся и темные
+        List<WindowData> litWindows = allWindows.FindAll(w => w.isLit);
+        List<WindowData> darkWindows = allWindows.FindAll(w => !w.isLit);
+
+        // Очищаем списки для нового расчета
+        combinedVertices.Clear();
+        combinedUvs.Clear();
+        combinedNormals.Clear();
+
+        List<int> litTriangles = new List<int>();
+        List<int> darkTriangles = new List<int>();
+
+        // Добавляем светящиеся окна
+        foreach (var window in litWindows)
+        {
+            AddWindowToMesh(window.position, window.normal, window.right, window.up, litTriangles);
+        }
+
+        // Добавляем темные окна
+        foreach (var window in darkWindows)
+        {
+            AddWindowToMesh(window.position, window.normal, window.right, window.up, darkTriangles);
+        }
+
+        // Создаем общий меш с 2 submeshes
         Mesh combinedMesh = new Mesh();
         combinedMesh.vertices = combinedVertices.ToArray();
-        combinedMesh.triangles = combinedTriangles.ToArray();
         combinedMesh.uv = combinedUvs.ToArray();
         combinedMesh.SetNormals(combinedNormals);
+
+        // Устанавливаем submeshes
+        combinedMesh.subMeshCount = 2;
+        combinedMesh.SetTriangles(litTriangles, 0);
+        combinedMesh.SetTriangles(darkTriangles, 1);
+
         combinedMesh.RecalculateTangents();
         combinedMesh.Optimize();
 
@@ -112,16 +177,33 @@ public class WindowPlacerOptimized : MonoBehaviour
         GetComponent<MeshFilter>().mesh = combinedMesh;
     }
 
-    void AddWindowToMesh(Vector3 position, Vector3 normal, Vector3 right, Vector3 up)
+    bool IsConnectedToGroup(List<Vector3> triangle, List<Vector3> group)
     {
+        float threshold = 0.1f; // Порог близости
+        foreach (var v in triangle)
+        {
+            foreach (var gv in group)
+            {
+                if (Vector3.Distance(v, gv) < threshold)
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    void AddWindowToMesh(Vector3 position, Vector3 normal, Vector3 right, Vector3 up, List<int> triangles)
+    {
+        // Сдвигаем позицию окна вдоль нормали наружу
+        Vector3 offsetPosition = position + normal * windowDepthOffset;
+
         // Вычисляем вершины окна
         Vector3 halfRight = right * windowWidth / 2;
         Vector3 halfUp = up * windowHeight / 2;
 
-        Vector3 v0 = position - halfRight - halfUp;
-        Vector3 v1 = position + halfRight - halfUp;
-        Vector3 v2 = position + halfRight + halfUp;
-        Vector3 v3 = position - halfRight + halfUp;
+        Vector3 v0 = offsetPosition - halfRight - halfUp;
+        Vector3 v1 = offsetPosition + halfRight - halfUp;
+        Vector3 v2 = offsetPosition + halfRight + halfUp;
+        Vector3 v3 = offsetPosition - halfRight + halfUp;
 
         // Добавляем вершины
         int startIndex = combinedVertices.Count;
@@ -131,13 +213,13 @@ public class WindowPlacerOptimized : MonoBehaviour
         combinedVertices.Add(v3);
 
         // Добавляем треугольники
-        combinedTriangles.Add(startIndex);
-        combinedTriangles.Add(startIndex + 1);
-        combinedTriangles.Add(startIndex + 2);
+        triangles.Add(startIndex);
+        triangles.Add(startIndex + 1);
+        triangles.Add(startIndex + 2);
 
-        combinedTriangles.Add(startIndex);
-        combinedTriangles.Add(startIndex + 2);
-        combinedTriangles.Add(startIndex + 3);
+        triangles.Add(startIndex);
+        triangles.Add(startIndex + 2);
+        triangles.Add(startIndex + 3);
 
         // Добавляем UVs
         combinedUvs.Add(new Vector2(0, 0));

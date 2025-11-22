@@ -11,6 +11,8 @@ class BarrierMaker : InfrstructureBehaviour
     public bool isCreateColision = false;
     public int MaxNodes = 150;
     public TileSystem tileSystem;
+
+    private int m_countProcessing = 0;
     private void SetProperties(BaseOsm geo, Barrier barrier)
     {
         barrier.name = "barrier " + geo.ID.ToString();
@@ -96,6 +98,8 @@ class BarrierMaker : InfrstructureBehaviour
     void CreateBarriers(BaseOsm geo)
     {
         var searchname = "barrier " + geo.ID.ToString();
+
+        m_countProcessing++;
 
         //Check for duplicates in case of loading multiple locations
         if (GameObject.Find(searchname))
@@ -201,5 +205,10 @@ class BarrierMaker : InfrstructureBehaviour
         }
 
         isFinished = true;
+    }
+
+    public int GetCountProcessing()
+    {
+        return m_countProcessing;
     }
 }

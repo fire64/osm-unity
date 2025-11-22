@@ -24,7 +24,7 @@ MonoBehaviour:
   - barriermaterialname: kerb
     barriermaterial: {fileID: 0}
   - barriermaterialname: wall_concrete
-    barriermaterial: {fileID: 0}
+    barriermaterial: {fileID: 2100000, guid: 58341cc03b709334e93be3f23e059f2a, type: 2}
   - barriermaterialname: wall_concrete_concrete
     barriermaterial: {fileID: 0}
   - barriermaterialname: fence_concrete_concrete
@@ -36,7 +36,7 @@ MonoBehaviour:
   - barriermaterialname: fence_wire_metal
     barriermaterial: {fileID: 0}
   - barriermaterialname: wall_brick
-    barriermaterial: {fileID: 0}
+    barriermaterial: {fileID: 2100000, guid: 3f8db3323825da844a665aa589142e42, type: 2}
   - barriermaterialname: wall_stone
     barriermaterial: {fileID: 0}
   - barriermaterialname: fence_bars_metal
@@ -298,4 +298,52 @@ MonoBehaviour:
   - barriermaterialname: gate_metal_bars
     barriermaterial: {fileID: 0}
   - barriermaterialname: wall_plastic
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_steel
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: guard_rail_steel
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: cable_barrier_metal
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_corrugated_metal_steel
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_bars_steel
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_metal_bars_steel
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_handrail
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_metal_concrete
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_krest
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_post_and_rail
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_cement_block
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: jersey_barrier_concrete
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: jersey_barrier_plastic
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: platform_doors
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: retaining_wall_stone
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_soundproof screen
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: sally_port
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: wall_reinforced_concrete
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_paling
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: dug-in_tyres
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: guard_rail_wood
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: f
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_wood_stone
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_yes
     barriermaterial: {fileID: 0}

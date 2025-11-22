@@ -81,3 +81,15 @@ MonoBehaviour:
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: wood;ground
     roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: wooden_chips
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: bare_rock
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: rubber_mats
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: grate
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: plastic
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: wood_plank
+    roadSurfacesMaterial: {fileID: 0}

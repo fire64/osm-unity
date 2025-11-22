@@ -12,7 +12,7 @@ public class TextSetter : MonoBehaviour
     public TMP_Text m_Text3;
     public TMP_Text m_Text4;
 
-    public new void ActivateObject()
+    public void ActivateObject()
     {
         Detail detailinfo = transform.parent.GetComponent<Detail>();
 

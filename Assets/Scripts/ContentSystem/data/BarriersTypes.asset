@@ -34,13 +34,13 @@ MonoBehaviour:
     barrierWidth: 0.5
     barrierHeight: 0.2
   - barriertype: gate
-    barrierDescription: 
-    barrierMaterial: {fileID: 0}
+    barrierDescription: "\u0412\u043E\u0440\u043E\u0442\u0430"
+    barrierMaterial: {fileID: 2100000, guid: 67bff3561865058468af1aab6d776d4c, type: 2}
     barrierWidth: 0.5
-    barrierHeight: 1
+    barrierHeight: 2
   - barriertype: hedge
-    barrierDescription: 
-    barrierMaterial: {fileID: 0}
+    barrierDescription: "\u0417\u0435\u043B\u0435\u043D\u0430\u044F\u044B \u0438\u0437\u0433\u043E\u0440\u043E\u0434\u044C"
+    barrierMaterial: {fileID: 2100000, guid: 6834f8c01c40221498c88b982df03bfb, type: 2}
     barrierWidth: 0.5
     barrierHeight: 1
   - barriertype: chain
@@ -154,6 +154,26 @@ MonoBehaviour:
     barrierWidth: 0.5
     barrierHeight: 1
   - barriertype: construction
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: platform_doors
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: sally_port
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: dug-in_tyres
+    barrierDescription: 
+    barrierMaterial: {fileID: 0}
+    barrierWidth: 0.5
+    barrierHeight: 1
+  - barriertype: f
     barrierDescription: 
     barrierMaterial: {fileID: 0}
     barrierWidth: 0.5

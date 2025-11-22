@@ -19,9 +19,15 @@ public class PostLoadingWorker : MonoBehaviour
 
     public bool IsWaterDeformationSupport = true;
     public bool IsVegetationSupport = true;
+
+    public bool isPlaceGrass = false;
+    public bool isPlaceTrees = false;
+
+
     public float mincheckSize = 15f;
     public float maxcheckSize = 25f;
     public bool isFastGrass = false;
+
 
     TileSystem tileSystem;
 
@@ -185,12 +191,12 @@ public class PostLoadingWorker : MonoBehaviour
 
         foreach (var curLanduse in gameLanduses)
         {
-            if (curLanduse.isGrassGenerate)
+            if (curLanduse.isGrassGenerate && isPlaceGrass)
             {
                 CreateGrassOnMesh(curLanduse);
             }
 
-            if ( curLanduse.isTreesGenerate )
+            if ( curLanduse.isTreesGenerate && isPlaceTrees)
             {
                 CreateTreesOnMesh(curLanduse);
             }

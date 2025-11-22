@@ -101,9 +101,16 @@ class TileSystem : InfrstructureBehaviour
 
         if (File.Exists(imagePath))
         {
-            using (WWW www = new WWW(imagePath))
+            UnityWebRequest www = UnityWebRequestTexture.GetTexture(imagePath);
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
             {
-                www.LoadImageIntoTexture(texture);
+                Debug.Log(www.error);
+            }
+            else
+            {
+                texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
                 isTextureLoad = true;
             }
         }
@@ -200,9 +207,16 @@ class TileSystem : InfrstructureBehaviour
 
                         if (File.Exists(height_imagePath))
                         {
-                            using (WWW www = new WWW(height_imagePath))
+                            UnityWebRequest www = UnityWebRequestTexture.GetTexture(height_imagePath);
+                            yield return www.SendWebRequest();
+
+                            if (www.result != UnityWebRequest.Result.Success)
                             {
-                                heightmapTexture = www.texture;
+                                Debug.Log(www.error);
+                            }
+                            else
+                            {
+                                heightmapTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
                                 isHeightmapTextureLoad = true;
                             }
                         }

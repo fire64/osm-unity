@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static OthersMaker;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
 class UndefinedDebugMaker : InfrstructureBehaviour
@@ -14,6 +15,8 @@ class UndefinedDebugMaker : InfrstructureBehaviour
     public bool isCreateColision = false;
     public int MaxNodes = 150;
     public TileSystem tileSystem;
+
+    private int m_countProcessing = 0;
 
     private void SetProperties(BaseOsm geo, Undefined undefined)
     {
@@ -57,6 +60,8 @@ class UndefinedDebugMaker : InfrstructureBehaviour
     {
         var searchname = "undefined " + geo.ID.ToString();
 
+        m_countProcessing++;
+
         //Check for duplicates in case of loading multiple locations
         if (GameObject.Find(searchname))
         {
@@ -64,6 +69,16 @@ class UndefinedDebugMaker : InfrstructureBehaviour
         }
 
         if (contentselector.isGeoObjectDisabled(geo.ID))
+        {
+            return;
+        }
+
+        if (geo.HasField("place"))
+        {
+            return;
+        }
+
+        if (geo.HasField("power") && geo.GetValueStringByKey("power").Equals("line"))
         {
             return;
         }
@@ -214,5 +229,10 @@ class UndefinedDebugMaker : InfrstructureBehaviour
         }
 
         isFinished = true;
+    }
+
+    public int GetCountProcessing()
+    {
+        return m_countProcessing;
     }
 }

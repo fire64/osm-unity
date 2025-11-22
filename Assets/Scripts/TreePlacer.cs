@@ -7,7 +7,7 @@ public class TreePlacer : MonoBehaviour
     [Header("Main Settings")]
     public Collider groundCollider;
     public GameObject[] treePrefabs;
-    [Range(0.1f, 10f)] public float treeDensity = 0.5f; // Trees per 100 sq units
+    [Range(0.1f, 10f)] public float treeDensity = 0.1f; // Trees per 100 sq units
     [Range(0f, 60f)] public float maxSlopeAngle = 45f;
 //  public LayerMask groundLayer;
 
@@ -18,7 +18,7 @@ public class TreePlacer : MonoBehaviour
     public float maxHeight = 200f;
 
     [Header("Optimization")]
-    public int maxTreesPerFrame = 50;
+    public int maxTreesPerFrame = 20;
     public int maxAttemptsFactor = 10;
 
     private Bounds meshBounds;

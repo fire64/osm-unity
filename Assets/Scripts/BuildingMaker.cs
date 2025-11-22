@@ -1,3 +1,4 @@
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -28,13 +29,15 @@ class BuildingMaker : InfrstructureBehaviour
     public TileSystem tileSystem;
 
     public GameObject smokeprefab;
-    public Material windowMaterial;
+    public Material windowMaterialLit;
+    public Material windowMaterialDark;
     public float tolerance = 0.1f;
+
+    private int m_countProcessing = 0;
+
     private float GetHeights(BaseOsm geo, Building building)
     {
-        var height = 0.0f;
-
-        var min_height = 0.0f;
+        float height;
 
         if (geo.HasField("height"))
         {
@@ -43,6 +46,14 @@ class BuildingMaker : InfrstructureBehaviour
         else if (geo.HasField("building:height"))
         {
             height = geo.GetValueFloatByKey("building:height");
+        }
+        else if (geo.HasField("building:max_level"))
+        {
+            height = geo.GetValueFloatByKey("building:max_level") * 3.0f;
+        }
+        else if (geo.HasField("max_level"))
+        {
+            height = geo.GetValueFloatByKey("max_level") * 3.0f;
         }
         else if (geo.HasField("building:levels"))
         {
@@ -73,6 +84,14 @@ class BuildingMaker : InfrstructureBehaviour
                 height = 1.5f;
             }
         }
+        else if (geo.HasField("pipeline") && geo.GetValueStringByKey("pipeline") == "substation")
+        {
+            height = 2.0f;
+        }
+        else if (geo.HasField("power") && geo.GetValueStringByKey("power") == "substation")
+        {
+            height = 2.0f;
+        }
         else if(building.curSettings.defaultHeight > 0.0f)
         {
             height = building.curSettings.defaultHeight;
@@ -91,19 +110,10 @@ class BuildingMaker : InfrstructureBehaviour
             height = 0.1f;
         }
 
-        if (geo.HasField("min_height"))
-        {
-            min_height = geo.GetValueFloatByKey("min_height");
-        }
-        else if (geo.HasField("building:min_level"))
-        {
-            min_height = geo.GetValueFloatByKey("building:min_level") * 3.0f;
-        }
-
         return height;
     }
 
-    private float GetMinHeight(BaseOsm geo, Building building)
+    private float GetMinHeight(BaseOsm geo)
     {
         var min_height = 0.0f;
 
@@ -114,6 +124,10 @@ class BuildingMaker : InfrstructureBehaviour
         else if (geo.HasField("building:min_level"))
         {
             min_height = geo.GetValueFloatByKey("building:min_level") * 3.0f;
+        }
+        else if (geo.HasField("min_level"))
+        {
+            min_height = geo.GetValueFloatByKey("min_level") * 3.0f;
         }
 
         //Level correction
@@ -129,7 +143,7 @@ class BuildingMaker : InfrstructureBehaviour
 		
         building.Id = geo.ID.ToString();
 
-        var kind = "";
+        string kind;
 
         if (geo.HasField("building"))
         {
@@ -195,6 +209,8 @@ class BuildingMaker : InfrstructureBehaviour
 
     void CreateBuilding(BaseOsm geo)
     {
+        m_countProcessing++;
+
         var searchname = "building " + geo.ID.ToString();
 
         //Check for duplicates in case of loading multiple locations
@@ -238,7 +254,7 @@ class BuildingMaker : InfrstructureBehaviour
         SetProperties(geo, building);
 
         var height = GetHeights(geo, building);
-        var minHeight = GetMinHeight(geo, building);
+        var minHeight = GetMinHeight(geo);
 
         building.height = height;
         building.min_height = minHeight;
@@ -284,7 +300,7 @@ class BuildingMaker : InfrstructureBehaviour
 
             var countHoleContourPoints = holeNodes.Count;
 
-            // ������� ����� ������ ��� ������� ���������
+            // Создаем новый контур для каждого отверстия
             var holeContour = new List<Vector3>();
 
             for (int j = 0; j < countHoleContourPoints; j++)
@@ -345,16 +361,30 @@ class BuildingMaker : InfrstructureBehaviour
 
             BuildingSeries.BuildingSeriesReplace curSeries = buildingSeries.GetBuildingSeriesInfo(series, (int)floors, (int)entrances);
 
+            string curpredstavlenie = series + "_filter_floors_" + (int)floors + "_entrances_" + (int)entrances;
+
+            building.series_filter = curpredstavlenie;
+
             if (curSeries.buildingmodel != null)
             {
-/*
-                // ������� ��������� ������
-                GameObject buildingModel = Instantiate(
+                // 0. Спавним модель
+                GameObject model = Instantiate(
                     curSeries.buildingmodel,
-                    building.transform.position,
-                    building.transform.rotation
+                    Vector3.zero,
+                    Quaternion.identity
                 );
-                buildingModel.name = "AlignedBuildingModel";*/
+                model.name = "AlignedBuildingModel";
+
+                // 1) Центрируем pivot (создаёт MeshRoot)
+                MeshFilter mf = MeshAlignTools.CenterPivot_CreateMeshRoot(model);
+
+                // 2) Выравниваем (теперь AlignMesh трансформирует root Model, НЕ MeshRoot)
+                MeshAlignTools.AlignMesh(model.transform, mf, building.GetComponent<MeshFilter>());
+
+                // 3) Добавляем в иерархию — БОЛЬШЕ НЕ НАДО ставить localPosition = zero
+                model.transform.SetParent(building.transform, true);
+
+                building.isModelSet = true;
             }
         }
 
@@ -366,9 +396,26 @@ class BuildingMaker : InfrstructureBehaviour
             building.transform.GetComponent<MeshCollider>().convex = false;
         }
 
-        if (!contentselector.isRoofDisabled(geo.ID) && !geo.HasField("man_made"))
+        bool isGenerateRoof = true;
+
+        if( isGenerateRoof )
         {
-            generateRoof.GenerateRoofForBuillding(building, buildingCorners, holesCorners, minHeight, height, new Vector2(minx, miny), new Vector2(maxx - minx, maxy - miny), geo, isUseOldTriangulation);
+            if( contentselector.isRoofDisabled(geo.ID) || building.isModelSet)
+            {
+                isGenerateRoof = false;
+            }
+            else if(geo.HasField("man_made"))
+            {
+                if(!geo.HasField("roof:shape") && !geo.HasField("roof:colour") && !geo.HasField("roof:height") )
+                {
+                    isGenerateRoof = false;
+                }
+            }
+        }
+
+        if (isGenerateRoof)
+        {
+            generateRoof.GenerateRoofForObject(building, buildingCorners, holesCorners, minHeight, height, new Vector2(minx, miny), new Vector2(maxx - minx, maxy - miny), geo, isUseOldTriangulation);
         }
 
         //Add smoke
@@ -381,7 +428,18 @@ class BuildingMaker : InfrstructureBehaviour
             go.transform.SetParent(building.transform);
         }
 
-        if(windowMaterial != null && building.curSettings.isUseWindows)
+        if (geo.HasField("man_made"))
+        {
+            var man_made_type = geo.GetValueStringByKey("man_made");
+
+            if (man_made_type == "bridge")
+            {
+                building.transform.position = new Vector3(building.transform.position.x, building.transform.position.y - building.height, building.transform.position.z);
+            }
+        }
+
+
+        if (windowMaterialLit != null && windowMaterialDark != null && building.curSettings.isUseWindows && !geo.HasField("man_made") && !building.isModelSet)
         {
             var WindowPlacer = new GameObject("WindowPlacer");
             WindowPlacer.transform.position = building.transform.position;
@@ -389,13 +447,18 @@ class BuildingMaker : InfrstructureBehaviour
             WindowPlacer.transform.localScale = new Vector3(1.001f, 1f, 1.001f);
 
             WindowPlacer.AddComponent<MeshFilter>().mesh = building.GetComponent<MeshFilter>().mesh;
-            WindowPlacer.AddComponent<MeshRenderer>().material = windowMaterial;
+            WindowPlacer.AddComponent<MeshRenderer>().sharedMaterials = new Material[] { windowMaterialLit, windowMaterialDark };
             WindowPlacer.AddComponent<WindowPlacerOptimized>();
+        }
+
+        if(building.isModelSet)
+        {
+            building.GetComponent<MeshRenderer>().enabled = false;
         }
     }
 
     IEnumerator Start()
-    {        
+    {
         while (!map.IsReady)
         {
             yield return null;
@@ -422,4 +485,8 @@ class BuildingMaker : InfrstructureBehaviour
         isFinished = true;
     }
 
+    public int GetCountProcessing()
+    {
+        return m_countProcessing;
+    }
 }

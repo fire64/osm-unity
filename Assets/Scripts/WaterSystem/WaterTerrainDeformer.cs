@@ -145,7 +145,8 @@ public class WaterTerrainDeformer : MonoBehaviour
         }
 
         terrainData.SetHeightsDelayLOD(0, 0, heights);
-        terrain.ApplyDelayedHeightmapModification();
+        terrainData.SyncHeightmap();
+//        terrain.ApplyDelayedHeightmapModification();
     }
 
     bool IsPointUnderWater(Vector2 point, List<Vector2[]> triangles)

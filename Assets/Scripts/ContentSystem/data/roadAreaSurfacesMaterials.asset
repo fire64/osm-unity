@@ -1,0 +1,93 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e0c12af559ddf56489dbfd14a0633919, type: 3}
+  m_Name: roadAreaSurfacesMaterials
+  m_EditorClassIdentifier: 
+  RoadSurfacesMaterialsList:
+  - roadSurfacesMaterialName: asphalt
+    roadSurfacesMaterial: {fileID: 2100000, guid: a7a7d6905773a594b8a3ecb41f646441, type: 2}
+  - roadSurfacesMaterialName: ground
+    roadSurfacesMaterial: {fileID: 2100000, guid: c06b4a236b53ae846ad93db68cc9d0ae, type: 2}
+  - roadSurfacesMaterialName: unpaved
+    roadSurfacesMaterial: {fileID: 2100000, guid: f108a47739a98cf4dad0f73b15c393bc, type: 2}
+  - roadSurfacesMaterialName: gravel
+    roadSurfacesMaterial: {fileID: 2100000, guid: ad6d22ea8faac6b40ba31d8da9d25bab, type: 2}
+  - roadSurfacesMaterialName: sand
+    roadSurfacesMaterial: {fileID: 2100000, guid: e4e8cb4e0e320ed47a7f9ae81ce4e3e2, type: 2}
+  - roadSurfacesMaterialName: concrete
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: paving_stones
+    roadSurfacesMaterial: {fileID: 2100000, guid: 0f5edc15c013d394d9e6b5f0e6c475ac, type: 2}
+  - roadSurfacesMaterialName: paved
+    roadSurfacesMaterial: {fileID: 2100000, guid: 035f78aac7ccb044e8b60327eb329900, type: 2}
+  - roadSurfacesMaterialName: wood
+    roadSurfacesMaterial: {fileID: 2100000, guid: cec38dd81afaeaf47aed74a6397dea33, type: 2}
+  - roadSurfacesMaterialName: tartan
+    roadSurfacesMaterial: {fileID: 2100000, guid: 0e9b9ee6cffa1be4a848bcf2ca780052, type: 2}
+  - roadSurfacesMaterialName: compacted
+    roadSurfacesMaterial: {fileID: 2100000, guid: c59c18b40cd853e418fd3cde1de2b1aa, type: 2}
+  - roadSurfacesMaterialName: sett
+    roadSurfacesMaterial: {fileID: 2100000, guid: fc3ce14a40543f4468ef8bf67ebcb4f0, type: 2}
+  - roadSurfacesMaterialName: fine_gravel
+    roadSurfacesMaterial: {fileID: 2100000, guid: 55149fcc32a5ce04ca2c70bffbd362cb, type: 2}
+  - roadSurfacesMaterialName: unhewn_cobblestone
+    roadSurfacesMaterial: {fileID: 2100000, guid: 435a3ec97bd0f924681baefb81f392a7, type: 2}
+  - roadSurfacesMaterialName: metal
+    roadSurfacesMaterial: {fileID: 2100000, guid: 3f654d4ecdb00ee4d97c0c33745693ad, type: 2}
+  - roadSurfacesMaterialName: grass
+    roadSurfacesMaterial: {fileID: 2100000, guid: 503754c72ee02a243b83a7d459684bc6, type: 2}
+  - roadSurfacesMaterialName: tiles
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: dirt
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: cobblestone
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: mud
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: rock
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: pebblestone
+    roadSurfacesMaterial: {fileID: 2100000, guid: bdd18cde89fd46b45bd5437d83fbf56c, type: 2}
+  - roadSurfacesMaterialName: earth
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: concrete:lanes
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: concrete:plates
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: woodchips
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: cobblestone:flattened
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: grass_paver
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: rubber
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: stone
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: dirt/sand
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: paving_stones:30
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: bricks
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: wood;ground
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: wooden_chips
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: bare_rock
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: rubber_mats
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: grate
+    roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: plastic
+    roadSurfacesMaterial: {fileID: 0}

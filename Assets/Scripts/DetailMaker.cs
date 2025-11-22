@@ -15,11 +15,27 @@ class DetailMaker : InfrstructureBehaviour
     public bool isAlwaysShowTempMarker;
     public bool isShowTempMarkerForeNotSetPrefab;
     public bool isClearUnusedData = false;
+    public bool isDebugNotSet = true;
     public TileSystem tileSystem;
+
+    private int m_countProcessing = 0;
+
+    // Новый массив для исключения ключей
+    public string[] excludeKeysForTextMarkers = Array.Empty<string>();
 
     void CreateTempMarker(Detail detail)
     {
+        // Проверка на исключение ключа
+        if (excludeKeysForTextMarkers != null &&
+            Array.Exists(excludeKeysForTextMarkers, key => key == detail.Description))
+        {
+            return;
+        }
+
         string Text = detail.Description + ": " + detail.Type;
+
+        if(isDebugNotSet)
+            Debug.LogWarning( "Not set detail: " + Text);
 
         var go = Instantiate(tempMarker, detail.transform.position, Quaternion.identity);
 
@@ -67,8 +83,16 @@ class DetailMaker : InfrstructureBehaviour
             detail.layer = geo.GetValueIntByKey("layer");
         }
 
+        if (geo.HasField("direction"))
+        {
+            float direction = geo.GetValueFloatByKey("direction");
+
+            detail.transform.Rotate(0, direction, 0);
+        }
+
         //Type parser
         CheckAndAddCategory(geo, detail, "attraction");
+        CheckAndAddCategory(geo, detail, "advertising");
         CheckAndAddCategory(geo, detail, "information");
         CheckAndAddCategory(geo, detail, "disused:amenity");
         CheckAndAddCategory(geo, detail, "disused:shop");
@@ -77,7 +101,6 @@ class DetailMaker : InfrstructureBehaviour
         CheckAndAddCategory(geo, detail, "natural");
         CheckAndAddCategory(geo, detail, "man_made");
         CheckAndAddCategory(geo, detail, "memorial");
-        CheckAndAddCategory(geo, detail, "historic");
         CheckAndAddCategory(geo, detail, "power");
         CheckAndAddCategory(geo, detail, "emergency");
         CheckAndAddCategory(geo, detail, "amenity");
@@ -92,9 +115,13 @@ class DetailMaker : InfrstructureBehaviour
         CheckAndAddCategory(geo, detail, "noexit");
         CheckAndAddCategory(geo, detail, "entrance");
         CheckAndAddCategory(geo, detail, "was:shop"); //not use, old shop
+        CheckAndAddCategory(geo, detail, "artwork_type");
+        CheckAndAddCategory(geo, detail, "historic");
         CheckAndAddCategory(geo, detail, "tourism");
         CheckAndAddCategory(geo, detail, "leisure");
         CheckAndAddCategory(geo, detail, "traffic_sign");
+        CheckAndAddCategory(geo, detail, "xmas:feature");
+        CheckAndAddCategory(geo, detail, "xmas:feature");
 
         var typeName = detail.Description + ":" + detail.Type;
 
@@ -117,6 +144,13 @@ class DetailMaker : InfrstructureBehaviour
 
     void CreateDetails(OsmNode geo)
     {
+        m_countProcessing++;
+
+        if (geo.HasField("public_transport"))
+        {
+            return;
+        }
+
         var searchname = "detail " + geo.ID.ToString();
 
         //Check for duplicates in case of loading multiple locations
@@ -180,5 +214,10 @@ class DetailMaker : InfrstructureBehaviour
         }
 
         isFinished = true;
+    }
+
+    public int GetCountProcessing()
+    {
+        return m_countProcessing;
     }
 }

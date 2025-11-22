@@ -25,6 +25,10 @@ public class LanduseTypes : ScriptableObject
         public bool isRenderEnable;
         [SerializeField]
         public bool isFlatUV;
+        [SerializeField]
+        public float fHeightLayer;
+        [SerializeField]
+        public List<GrassType> grassTypes;
     }
 
     [SerializeField]
@@ -63,7 +67,7 @@ public class LanduseTypes : ScriptableObject
         item.isTreesGenerate = false;
         item.isRenderEnable = false;
         item.isFlatUV = false;
-
+        item.fHeightLayer = 0.0f;
         LanduseTypesReplacesList.Add(item);
 
 #if UNITY_EDITOR

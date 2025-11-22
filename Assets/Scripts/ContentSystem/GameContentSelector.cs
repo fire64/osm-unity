@@ -11,6 +11,14 @@ public class GameContentSelector : MonoBehaviour
 
     public bool isClearUnusedData = false;
 
+    [Header("Road marking materials")]
+    public Material solidLineMaterial;
+    public Material dashedLineMaterial;
+    public Material doubleSolidMaterial;
+    public Material doubleDashedMaterial;
+    public Material zigZagMaterial;
+    public Material dottedLineMaterial;
+
     void Start()
     {
         if (isClearUnusedData)

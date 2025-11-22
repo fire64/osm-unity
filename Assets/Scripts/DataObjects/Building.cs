@@ -7,7 +7,8 @@ public class Building : BaseDataObject
 {
     public BuildingTypeItem curSettings;
     public int count;
-    public OBB obb;
+    public bool isModelSet;
+    public string series_filter;
 
     // Draws a wireframe box around the selected object,
     // indicating world space bounding volume.
