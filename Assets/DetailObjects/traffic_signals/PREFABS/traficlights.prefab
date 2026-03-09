@@ -1,0 +1,125 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1552881643756132639
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 3be65cfadc275304cb2c0dda2298e900, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -144.62096
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3be65cfadc275304cb2c0dda2298e900, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.6847553
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3be65cfadc275304cb2c0dda2298e900, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 290.0376
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3be65cfadc275304cb2c0dda2298e900, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3be65cfadc275304cb2c0dda2298e900, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3be65cfadc275304cb2c0dda2298e900, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3be65cfadc275304cb2c0dda2298e900, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3be65cfadc275304cb2c0dda2298e900, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3be65cfadc275304cb2c0dda2298e900, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 3be65cfadc275304cb2c0dda2298e900, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3be65cfadc275304cb2c0dda2298e900, type: 3}
+      propertyPath: m_Name
+      value: traficlights
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8164078558771037576, guid: 3be65cfadc275304cb2c0dda2298e900, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5310544298155183616}
+    - targetCorrespondingSourceObject: {fileID: 8164078558771037576, guid: 3be65cfadc275304cb2c0dda2298e900, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3496256515111521011}
+  m_SourcePrefab: {fileID: 100100000, guid: 3be65cfadc275304cb2c0dda2298e900, type: 3}
+--- !u!1 &7259894481818836119 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 3be65cfadc275304cb2c0dda2298e900, type: 3}
+  m_PrefabInstance: {fileID: 1552881643756132639}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5310544298155183616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7259894481818836119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5261e7e2903a7f4db68aa681602d9a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carRedIndex: 5
+  carYellowIndex: 4
+  carGreenIndex: 3
+  pedestrianTopIndex: 1
+  pedestrianBottomIndex: 2
+  carRedColor: {r: 1, g: 0, b: 0, a: 1}
+  carYellowColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  carGreenColor: {r: 0, g: 1, b: 0, a: 1}
+  pedestrianOnColor: {r: 1, g: 1, b: 1, a: 1}
+  offColor: {r: 0, g: 0, b: 0, a: 1}
+  useEmission: 1
+  emissionIntensity: 2
+  dynamicEmission: 1
+  maxEmissionIntensity: 3
+  currentState:
+    carRed: 0
+    carYellow: 0
+    carGreen: 0
+    pedestrianTop: 0
+    pedestrianBottom: 0
+--- !u!114 &3496256515111521011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7259894481818836119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 234c6d8fac9acbd49ae62448ebd48d3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redDuration: 5
+  yellowDuration: 2
+  greenDuration: 5
+  pedestrianWalkDuration: 4
+  pedestrianBlinkDuration: 3
+  blinkInterval: 0.5
+  useEmissionEffects: 1
+  warningEmissionIntensity: 3
+  transitionEmissionPulse: 0.3
+  trafficLight: {fileID: 5310544298155183616}
+  autoStart: 1

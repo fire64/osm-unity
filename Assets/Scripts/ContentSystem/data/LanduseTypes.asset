@@ -1691,3 +1691,30 @@ MonoBehaviour:
     isFlatUV: 0
     fHeightLayer: 0
     grassTypes: []
+  - landuseType: toll_zone
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+    fHeightLayer: 0
+    grassTypes: []
+  - landuseType: glacier
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+    fHeightLayer: 0
+    grassTypes: []
+  - landuseType: national_park
+    landuseDescription: 
+    groundMaterial: {fileID: 0}
+    isGrassGenerate: 0
+    isTreesGenerate: 0
+    isRenderEnable: 0
+    isFlatUV: 0
+    fHeightLayer: 0
+    grassTypes: []

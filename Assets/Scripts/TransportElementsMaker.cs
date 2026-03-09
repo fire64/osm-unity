@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static GR;
 
 class TransportElementsMaker : InfrstructureBehaviour
 {
@@ -15,33 +16,116 @@ class TransportElementsMaker : InfrstructureBehaviour
 
     private int m_countProcessing = 0;
 
-    // Start is called before the first frame update
+    // —писок дл€ отслеживани€ уже обработанных ID
+    private HashSet<ulong> processedIDs = new HashSet<ulong>();
+
+    // ============================================
+    // ќѕ“»ћ»«ј÷»я: batchSize дл€ пакетной обработки
+    // ============================================
+    [Header("Optimization Settings")]
+    [Tooltip(" оличество transport элементов обрабатываемых за один кадр")]
+    public int batchSize = 20;
+
+    // ============================================
+    // ќѕ“»ћ»«ј÷»я:  эширование ссылок
+    // ============================================
+    private Vector3 cachedWorldOrigin;
+    private bool cachedIsUseElevation;
+    private bool isTerrainType;
+
     IEnumerator Start()
     {
-        while (!map.IsReady)
+        // ∆дем готовности MapReader
+        while (MapReader.Instance == null || !MapReader.Instance.IsReady)
         {
             yield return null;
         }
 
         contentselector = FindObjectOfType<GameContentSelector>();
-
         tileSystem = FindObjectOfType<TileSystem>();
 
+        // ќѕ“»ћ»«ј÷»я:  эшируем ссылки один раз при старте
+        cachedWorldOrigin = MapReader.Instance.WorldOrigin;
+
+        // ќѕ“»ћ»«ј÷»я:  эшируем настройки terrain
+        isTerrainType = tileSystem != null && tileSystem.tileType == TileSystem.TileType.Terrain;
+        cachedIsUseElevation = isTerrainType && tileSystem.isUseElevation;
+
+        // ќѕ“»ћ»«ј÷»я: ѕредварительное выделение пам€ти дл€ списков
         platforms = new List<TransportPlatform>();
         stoppositions = new List<TransportStopPosition>();
 
-        foreach (var node in map.nodeslist.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Detail; }))
+        // 1. ѕодписываемс€ на новые событи€
+        MapReader.Instance.OnNodeLoaded += OnNodeLoaded;
+
+        float starttime = Time.time;
+
+        // ============================================
+        // ќѕ“»ћ»«ј÷»я: ѕакетна€ обработка объектов
+        // ============================================
+        int processedInBatch = 0;
+
+        // 2. ќбрабатываем уже загруженные данные
+        var nodesList = MapReader.Instance.nodeslist;
+        if (nodesList != null)
         {
-            node.AddField("source_type", "node");
-            CreateTransportElement(node);
-            yield return null;
+            int nodesCount = nodesList.Count;
+            for (int i = 0; i < nodesCount; i++)
+            {
+                var node = nodesList[i];
+                if (node.objectType == BaseOsm.ObjectType.Detail)
+                {
+                    node.AddField("source_type", "node");
+                    CreateTransportElement(node);
+
+                    processedInBatch++;
+                    if (processedInBatch >= batchSize)
+                    {
+                        processedInBatch = 0;
+                        yield return null; // ѕауза только после обработки batchSize объектов
+                    }
+                }
+            }
         }
+
+        float endtime = Time.time;
+
+        Debug.Log("Transport elements create at: " + (endtime - starttime) + " | Total: " + m_countProcessing);
 
         isFinished = true;
     }
 
+    // ќбработчик событий
+    private void OnNodeLoaded(OsmNode node)
+    {
+        // ‘ильтраци€: обрабатываем только детали
+        if (node.objectType != BaseOsm.ObjectType.Detail) return;
+
+        // «апускаем создание (метод сам проверит дубликаты)
+        StartCoroutine(ProcessTransportCoroutine(node));
+    }
+
+    private IEnumerator ProcessTransportCoroutine(OsmNode node)
+    {
+        node.AddField("source_type", "node");
+        CreateTransportElement(node);
+        yield return null;
+    }
+
+    private void OnDestroy()
+    {
+        if (MapReader.Instance != null)
+        {
+            MapReader.Instance.OnNodeLoaded -= OnNodeLoaded;
+        }
+    }
+
     private void CreateTransportElement(OsmNode geo)
     {
+        // «ащита от дублей
+        if (processedIDs.Contains(geo.ID)) return;
+        processedIDs.Add(geo.ID);
+
         if (!geo.HasField("public_transport"))
         {
             return;
@@ -53,22 +137,17 @@ class TransportElementsMaker : InfrstructureBehaviour
 
         var searchname = obj_type + " " + geo.ID.ToString();
 
-        //Check for duplicates in case of loading multiple locations
-        if (GameObject.Find(searchname))
+        // ќѕ“»ћ»«ј÷»я: Ѕезопасна€ проверка contentselector
+        if (contentselector != null && contentselector.isGeoObjectDisabled(geo.ID))
         {
             return;
         }
 
-        if (contentselector.isGeoObjectDisabled(geo.ID))
-        {
-            return;
-        }
-
-        if(obj_type.Equals("stop_position"))
+        if (obj_type.Equals("stop_position"))
         {
             CreateStopPosition(geo, searchname);
         }
-        else if(obj_type.Equals("platform"))
+        else if (obj_type.Equals("platform"))
         {
             CreatePlatform(geo, searchname);
         }
@@ -113,16 +192,11 @@ class TransportElementsMaker : InfrstructureBehaviour
 
         SetProperties(geo, platform);
 
-        Vector3 localOrigin = GetCentre(geo);
-        platform.transform.position = localOrigin - map.bounds.Centre;
+        // ќѕ“»ћ»«ј÷»я: OsmNode - это одна точка, приводим к Vector3 напр€мую
+        Vector3 nodeWorldPos = (Vector3)geo;
 
-        if (tileSystem.tileType == TileSystem.TileType.Terrain)
-        {
-            if (tileSystem.isUseElevation)
-            {
-                platform.transform.position = GR.getHeightPosition(platform.transform.position);
-            }
-        }
+        // ќѕ“»ћ»«ј÷»я: »спользуем кэшированный WorldOrigin
+        platform.transform.position = nodeWorldPos - cachedWorldOrigin;
 
         var transport_platform = Instantiate(platformPrefab, platform.transform.position, Quaternion.identity);
 
@@ -133,6 +207,12 @@ class TransportElementsMaker : InfrstructureBehaviour
         foreach (Transform child in platform.transform)
         {
             child.SendMessage("ActivateObject", null, SendMessageOptions.DontRequireReceiver);
+        }
+
+        // ќѕ“»ћ»«ј÷»я: »спользуем кэшированные настройки terrain
+        if (cachedIsUseElevation)
+        {
+            StartCoroutine(SpawnInHeight(platform.gameObject, AlgorithmHeightSorting.AverageHeight));
         }
 
         platforms.Add(platform);
@@ -146,18 +226,19 @@ class TransportElementsMaker : InfrstructureBehaviour
 
         SetProperties(geo, stopposition);
 
-        Vector3 localOrigin = GetCentre(geo);
-        stopposition.transform.position = localOrigin - map.bounds.Centre;
+        // ќѕ“»ћ»«ј÷»я: OsmNode - это одна точка, приводим к Vector3 напр€мую
+        Vector3 nodeWorldPos = (Vector3)geo;
 
-        if (tileSystem.tileType == TileSystem.TileType.Terrain)
-        {
-            if (tileSystem.isUseElevation)
-            {
-                stopposition.transform.position = GR.getHeightPosition(stopposition.transform.position);
-            }
-        }
+        // ќѕ“»ћ»«ј÷»я: »спользуем кэшированный WorldOrigin
+        stopposition.transform.position = nodeWorldPos - cachedWorldOrigin;
 
         stopposition.transform.position += Vector3.up * (stopposition.layer * BaseDataObject.layer_size);
+
+        // ќѕ“»ћ»«ј÷»я: »спользуем кэшированные настройки terrain
+        if (cachedIsUseElevation)
+        {
+            StartCoroutine(SpawnInHeight(stopposition.gameObject, AlgorithmHeightSorting.AverageHeight));
+        }
 
         foreach (Transform child in stopposition.transform)
         {

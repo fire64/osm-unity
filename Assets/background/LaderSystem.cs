@@ -37,6 +37,8 @@ public class LaderSystem : MonoBehaviour
     public int countLanduse = 0;
     public int countDetails = 0;
 
+    float starttime = 0;
+
     private void OnEnable()
     {
         CompleteLoadingBroadCast.OnAllModulesLoaded += HandleAllModulesLoaded;
@@ -53,13 +55,17 @@ public class LaderSystem : MonoBehaviour
 
     private void HandleAllModulesLoaded()
     {
+        float endtime = Time.time;
+
+        Debug.Log("All modules loaded at: " + (endtime - starttime));
+
         transform.gameObject.SetActive(false);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        starttime = Time.time;
     }
 
     void GetCounts()

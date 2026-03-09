@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(MapReader))]
-abstract class InfrstructureBehaviour : MonoBehaviour
+public class InfrstructureBehaviour : MonoBehaviour
 {
     protected MapReader map;
 

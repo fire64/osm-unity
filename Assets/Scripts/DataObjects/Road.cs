@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -558,5 +559,33 @@ public class Road : BaseDataObject
                 }
             }
         }
+    }
+
+    // ===============================================================
+    //  ВОССТАНАВЛИВАЕМ ФУНКЦИЮ: длина полосы (количество точек)
+    // ===============================================================
+    public int GetLaneLength(int laneIndex)
+    {
+        List<Vector3> points = GetLaneCenterPoints(laneIndex);
+        return points != null ? points.Count : 0;
+    }
+
+    // ===============================================================
+    //  ВОССТАНАВЛИВАЕМ ФУНКЦИЮ: направление движения в точке
+    // ===============================================================
+    /// <summary>
+    /// Возвращает нормализованное направление движения по полосе в указанном waypoint.
+    /// Аналогично AICarController ожидает направление "с точки laneIndex/waypointIndex в следующую точку".
+    /// </summary>
+    public Vector3 GetForwardDirection(int laneIndex, int pointIndex)
+    {
+        List<Vector3> points = GetLaneCenterPoints(laneIndex);
+        if (points == null || points.Count < 2) return transform.forward;
+
+        // Защита от выхода за границы
+        int next = Mathf.Min(pointIndex + 1, points.Count - 1);
+        int prev = Mathf.Max(0, next - 1);
+
+        return (points[next] - points[prev]).normalized;
     }
 }

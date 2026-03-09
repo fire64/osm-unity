@@ -347,3 +347,15 @@ MonoBehaviour:
     barriermaterial: {fileID: 0}
   - barriermaterialname: fence_yes
     barriermaterial: {fileID: 0}
+  - barriermaterialname: bollard_plastic
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: retaining_wall_wire_brick
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: fence_railing_glass
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: bollard_steel
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: gate_steel
+    barriermaterial: {fileID: 0}
+  - barriermaterialname: retaining_wall_granitedouble_check
+    barriermaterial: {fileID: 0}

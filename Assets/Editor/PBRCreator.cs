@@ -116,7 +116,7 @@ public class PBRCreator : EditorWindow
         string materialName = Path.GetFileNameWithoutExtension(path);
 
         // Создаем новый PBR материал или используем существующий
-        Material pbrMaterial = new Material(Shader.Find("Standard"));
+        Material pbrMaterial = new Material(Shader.Find("HDRP/Lit"));
         pbrMaterial.CopyPropertiesFromMaterial(selectedMaterial);
         pbrMaterial.name = materialName + "_PBR";
 

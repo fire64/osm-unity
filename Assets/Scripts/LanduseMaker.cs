@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static GR;
 
 class LanduseMaker : InfrstructureBehaviour
 {
@@ -15,6 +16,27 @@ class LanduseMaker : InfrstructureBehaviour
     public TileSystem tileSystem;
 
     private int m_countProcessing = 0;
+    // —писок дл€ отслеживани€ уже обработанных ID
+    private HashSet<ulong> processedIDs = new HashSet<ulong>();
+
+    // ============================================
+    // ќѕ“»ћ»«ј÷»я: batchSize дл€ пакетной обработки
+    // ============================================
+    [Header("Optimization Settings")]
+    [Tooltip(" оличество landuse объектов обрабатываемых за один кадр")]
+    public int batchSize = 10;
+
+    // ============================================
+    // ќѕ“»ћ»«ј÷»я: Object Pooling дл€ MeshData
+    // ============================================
+    private Stack<MeshData> meshDataPool = new Stack<MeshData>();
+
+    // ============================================
+    // ќѕ“»ћ»«ј÷»я:  эширование ссылок
+    // ============================================
+    private Dictionary<ulong, OsmNode> cachedNodes;
+    private Vector3 cachedWorldOrigin;
+
     private void SetProperties(BaseOsm geo, Landuse landuse)
     {
         landuse.name = "landuse " + geo.ID.ToString();
@@ -58,11 +80,11 @@ class LanduseMaker : InfrstructureBehaviour
             kind = "yes";
         }
 
-        if(geo.HasField("garden:style"))
+        if (geo.HasField("garden:style"))
         {
             var garden_style = geo.GetValueStringByKey("garden:style");
 
-            if(garden_style == "flower_garden")
+            if (garden_style == "flower_garden")
             {
                 kind = "flowerbed";
             }
@@ -89,29 +111,72 @@ class LanduseMaker : InfrstructureBehaviour
         landuse.fHeightLayer = landuseInfo.fHeightLayer;
         landuse.grassTypes = landuseInfo.grassTypes;
 
+        // ќѕ“»ћ»«ј÷»я:  эшируем MeshRenderer
+        var meshRenderer = landuse.GetComponent<MeshRenderer>();
+
         if (landuseInfo.groundMaterial != null)
         {
-            landuse.GetComponent<MeshRenderer>().material = landuseInfo.groundMaterial;
+            meshRenderer.material = landuseInfo.groundMaterial;
         }
         else
         {
-            landuse.GetComponent<MeshRenderer>().material = grassMaterial;
+            meshRenderer.material = grassMaterial;
         }
+    }
+
+    // ============================================
+    // ќѕ“»ћ»«ј÷»я: Object Pooling дл€ MeshData
+    // ============================================
+    private MeshData GetMeshData()
+    {
+        if (meshDataPool.Count > 0)
+        {
+            var md = meshDataPool.Pop();
+            md.Clear();
+            return md;
+        }
+        return new MeshData();
+    }
+
+    private void ReturnMeshData(MeshData md)
+    {
+        if (md != null)
+        {
+            meshDataPool.Push(md);
+        }
+    }
+
+    // ¬спомогательный метод дл€ безопасного получени€ центра
+    private Vector3 GetCentre(BaseOsm geo)
+    {
+        Vector3 total = Vector3.zero;
+        int count = 0;
+
+        // ќѕ“»ћ»«ј÷»я: »спользуем кэшированную ссылку на nodes
+        var nodes = cachedNodes ?? MapReader.Instance.nodes;
+
+        foreach (var id in geo.NodeIDs)
+        {
+            if (nodes.TryGetValue(id, out OsmNode node))
+            {
+                total += (Vector3)node;
+                count++;
+            }
+        }
+        return count > 0 ? total / count : Vector3.zero;
     }
 
     void CreateLanduse(BaseOsm geo)
     {
+        // «ащита от дублей
+        if (processedIDs.Contains(geo.ID)) return;
+        processedIDs.Add(geo.ID);
+
         var searchname = "landuse " + geo.ID.ToString();
 
         m_countProcessing++;
 
-        //Check for duplicates in case of loading multiple locations
-        if (GameObject.Find(searchname))
-        {
-            return;
-        }
-
-        if (contentselector.isGeoObjectDisabled(geo.ID))
+        if (contentselector != null && contentselector.isGeoObjectDisabled(geo.ID))
         {
             return;
         }
@@ -138,28 +203,27 @@ class LanduseMaker : InfrstructureBehaviour
 
         SetProperties(geo, landuse);
 
-        var landuseCorners = new List<Vector3>();
+        // ќѕ“»ћ»«ј÷»я: ѕредварительное выделение пам€ти дл€ списка
+        var landuseCorners = new List<Vector3>(count);
 
         Vector3 localOrigin = GetCentre(geo);
-        landuse.transform.position = localOrigin - map.bounds.Centre;
 
-        if (tileSystem.tileType == TileSystem.TileType.Terrain)
-        {
-            if (tileSystem.isUseElevation)
-            {
-                landuse.transform.position = GR.getHeightPosition(landuse.transform.position);
-            }
-        }
+        // »«ћ≈Ќ≈Ќ»≈: »спользуем кэшированный WorldOrigin
+        landuse.transform.position = localOrigin - cachedWorldOrigin;
 
         landuse.transform.position += Vector3.up * (landuse.layer * BaseDataObject.layer_size);
 
+        // ќѕ“»ћ»«ј÷»я: »спользуем кэшированную ссылку на nodes
+        var nodes = cachedNodes ?? MapReader.Instance.nodes;
+
         for (int i = 0; i < count; i++)
         {
-            OsmNode point = map.nodes[geo.NodeIDs[i]];
-
-            Vector3 coords = point - localOrigin;
-
-            landuseCorners.Add(coords);
+            // »«ћ≈Ќ≈Ќ»≈: Ѕезопасный доступ к нодам
+            if (nodes.TryGetValue(geo.NodeIDs[i], out OsmNode point))
+            {
+                Vector3 coords = point - localOrigin;
+                landuseCorners.Add(coords);
+            }
         }
 
         var holesCorners = new List<List<Vector3>>();
@@ -169,27 +233,27 @@ class LanduseMaker : InfrstructureBehaviour
         for (int i = 0; i < countHoles; i++)
         {
             var holeNodes = geo.HolesNodeListsIDs[i];
-
             var countHoleContourPoints = holeNodes.Count;
-
-            // —оздаем новый контур дл€ каждого отверсти€
-            var holeContour = new List<Vector3>();
+            // ќѕ“»ћ»«ј÷»я: ѕредварительное выделение пам€ти
+            var holeContour = new List<Vector3>(countHoleContourPoints);
 
             for (int j = 0; j < countHoleContourPoints; j++)
             {
-                OsmNode point = map.nodes[holeNodes[j]];
-                Vector3 coords = point - localOrigin;
-                holeContour.Add(coords);
+                if (nodes.TryGetValue(holeNodes[j], out OsmNode point))
+                {
+                    Vector3 coords = point - localOrigin;
+                    holeContour.Add(coords);
+                }
             }
-
             holesCorners.Add(holeContour);
         }
 
         var mesh = landuse.GetComponent<MeshFilter>().mesh;
 
-        var tb = new MeshData();
+        // ќѕ“»ћ»«ј÷»я: »спользуем пул дл€ MeshData
+        var tb = GetMeshData();
 
-        if(landuse.isEnableRender)
+        if (landuse.isEnableRender)
         {
             GR.CreateMeshWithHeight(landuseCorners, 0.0f, 0.00001f, tb, holesCorners, landuse.isFlatUV);
         }
@@ -203,8 +267,10 @@ class LanduseMaker : InfrstructureBehaviour
         mesh.RecalculateTangents();
         mesh.RecalculateNormals();
 
-        //Add colider
-        if(isCreateColision)
+        // ќѕ“»ћ»«ј÷»я: ¬озвращаем MeshData в пул
+        ReturnMeshData(tb);
+
+        if (isCreateColision)
         {
             landuse.transform.gameObject.AddComponent<MeshCollider>();
             landuse.transform.GetComponent<MeshCollider>().sharedMesh = landuse.GetComponent<MeshFilter>().mesh;
@@ -212,35 +278,125 @@ class LanduseMaker : InfrstructureBehaviour
         }
 
         landuse.transform.position += Vector3.up * landuse.fHeightLayer;
+
+        //  орректировка под Terrain
+        if (tileSystem != null && tileSystem.tileType == TileSystem.TileType.Terrain)
+        {
+            if (tileSystem.isUseElevation)
+            {
+                var settings = new TessellationSettings
+                {
+                    maxEdgeLength = 0.001f,
+                    heightSensitivity = 0.001f,
+                    maxVertexCount = 50000,
+                    heightfix = 0.1f
+                };
+                StartCoroutine(AdjustMeshToTerrainCorutine(landuse.gameObject, settings));
+            }
+        }
+
         landuse.Activate();
     }
 
     IEnumerator Start()
     {
-        while (!map.IsReady)
+        // ∆дем готовности MapReader
+        while (MapReader.Instance == null || !MapReader.Instance.IsReady)
         {
             yield return null;
         }
 
         contentselector = FindObjectOfType<GameContentSelector>();
-
         tileSystem = FindObjectOfType<TileSystem>();
 
-        foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Landuse && w.NodeIDs.Count > 1; }))
+        // ќѕ“»ћ»«ј÷»я:  эшируем ссылки один раз при старте
+        cachedNodes = MapReader.Instance.nodes;
+        cachedWorldOrigin = MapReader.Instance.WorldOrigin;
+
+        // 1. ѕодписываемс€ на новые событи€
+        MapReader.Instance.OnWayLoaded += OnGeoObjectLoaded;
+        MapReader.Instance.OnRelationLoaded += OnGeoObjectLoaded;
+
+        float starttime = Time.time;
+
+        // ============================================
+        // ќѕ“»ћ»«ј÷»я: ѕакетна€ обработка объектов
+        // ============================================
+        int processedInBatch = 0;
+
+        // 2. ќбрабатываем уже загруженные данные
+        var ways = MapReader.Instance.ways;
+        if (ways != null)
         {
-            way.AddField("source_type", "way");
-            CreateLanduse(way);
-            yield return null;
+            foreach (var way in ways)
+            {
+                if (way.objectType == BaseOsm.ObjectType.Landuse && way.NodeIDs.Count > 1)
+                {
+                    way.AddField("source_type", "way");
+                    CreateLanduse(way);
+
+                    processedInBatch++;
+                    if (processedInBatch >= batchSize)
+                    {
+                        processedInBatch = 0;
+                        yield return null; // ѕауза только после обработки batchSize объектов
+                    }
+                }
+            }
         }
 
-        foreach (var relation in map.relations.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Landuse && w.NodeIDs.Count > 1; }))
+        var relations = MapReader.Instance.relations;
+        if (relations != null)
         {
-            relation.AddField("source_type", "relation");
-            CreateLanduse(relation);
-            yield return null;
+            foreach (var relation in relations)
+            {
+                if (relation.objectType == BaseOsm.ObjectType.Landuse && relation.NodeIDs.Count > 1)
+                {
+                    relation.AddField("source_type", "relation");
+                    CreateLanduse(relation);
+
+                    processedInBatch++;
+                    if (processedInBatch >= batchSize)
+                    {
+                        processedInBatch = 0;
+                        yield return null;
+                    }
+                }
+            }
         }
+
+        float endtime = Time.time;
+
+        Debug.Log("Landuses create at: " + (endtime - starttime) + " | Total: " + m_countProcessing);
 
         isFinished = true;
+    }
+
+    // ќбработчик событий
+    private void OnGeoObjectLoaded(BaseOsm geo)
+    {
+        // ‘ильтраци€: обрабатываем только Landuse
+        if (geo.objectType != BaseOsm.ObjectType.Landuse) return;
+
+        // ѕроверка количества нод
+        if (geo.NodeIDs.Count <= 1) return;
+
+        StartCoroutine(ProcessLanduseCoroutine(geo));
+    }
+
+    private IEnumerator ProcessLanduseCoroutine(BaseOsm geo)
+    {
+        CreateLanduse(geo);
+        yield return null;
+    }
+
+    private void OnDestroy()
+    {
+        if (MapReader.Instance != null)
+        {
+            MapReader.Instance.OnWayLoaded -= OnGeoObjectLoaded;
+            MapReader.Instance.OnRelationLoaded -= OnGeoObjectLoaded;
+        }
     }
 
     public int GetCountProcessing()

@@ -176,7 +176,7 @@ public class GrassGenerator : MonoBehaviour
         Shader grassShader = Shader.Find("Custom/Grass");
         if (grassShader == null)
         {
-            grassShader = Shader.Find("Standard");
+            grassShader = Shader.Find("HDRP/Lit");
         }
 
         Material newMaterial = new Material(grassShader);

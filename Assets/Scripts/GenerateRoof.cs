@@ -1,20 +1,33 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using TriangleNet.Geometry;
 using UnityEngine;
-using static UnityEditor.Progress;
-using static UnityEngine.UI.GridLayoutGroup;
 
 public class GenerateRoof : MonoBehaviour
 {
     public GameObject roof_onion;
     public BuildingMaterials buildingMaterials;
 
-    // Вычисляет кратчайшее расстояние от точки p до отрезка (v, w) в плоскости XZ
+    // ============================================
+    // ОПТИМИЗАЦИЯ: Кэшированные данные
+    // ============================================
+    private Dictionary<string, int> directionCache = new Dictionary<string, int>(16)
+    {
+        {"N", 0}, {"NNE", 22}, {"NE", 45}, {"ENE", 67},
+        {"E", 90}, {"ESE", 122}, {"SE", 135}, {"SSE", 157},
+        {"S", 180}, {"SSW", 202}, {"SW", 225}, {"WSW", 247},
+        {"W", 270}, {"WNW", 292}, {"NW", 315}, {"NNW", 337}
+    };
+
+    // Предварительно выделенные списки для частых операций
+    private List<Vector3> tempCorners = new List<Vector3>(16);
+    private List<Vector3> innerCorners = new List<Vector3>(16);
+
+    // Кэш материалов крыш
+    private Dictionary<string, Material> roofMaterialCache = new Dictionary<string, Material>();
+
     private float DistanceFromPointToLineSegment(Vector3 p, Vector3 v, Vector3 w)
     {
-        // Работаем в 2D (X, Z)
         Vector2 p2 = new Vector2(p.x, p.z);
         Vector2 v2 = new Vector2(v.x, v.z);
         Vector2 w2 = new Vector2(w.x, w.z);
@@ -29,325 +42,462 @@ public class GenerateRoof : MonoBehaviour
         return Vector2.Distance(p2, projection);
     }
 
-    public void CreateHippedRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, Vector2 min, Vector2 size, float angle)
+    private void GetRoofRidgeAxis(List<Vector3> corners, int directionAngle, string orientation, out Vector3 ridgeDir, out float perpWidth)
     {
-        if (baseCorners == null || baseCorners.Count < 3)
+        float minX = float.MaxValue, maxX = float.MinValue;
+        float minZ = float.MaxValue, maxZ = float.MinValue;
+
+        int cornerCount = corners.Count;
+        for (int i = 0; i < cornerCount; i++)
         {
-            Debug.LogError("Недостаточно точек для создания крыши.");
-            return;
+            var c = corners[i];
+            if (c.x < minX) minX = c.x;
+            if (c.x > maxX) maxX = c.x;
+            if (c.z < minZ) minZ = c.z;
+            if (c.z > maxZ) maxZ = c.z;
         }
 
-        // Обратите внимание: в оригинале Reverse вызывался всегда, 
-        // лучше проверять нормаль или порядок, но оставим как в оригинале для совместимости
-        baseCorners.Reverse();
+        float sizeX = maxX - minX;
+        float sizeZ = maxZ - minZ;
 
-        // 1. Вычисляем центр основания крыши
-        Vector3 center = Vector3.zero;
-        foreach (var corner in baseCorners)
+        bool ridgeIsX = true;
+
+        if (directionAngle >= 0)
         {
-            center += corner;
+            float normalized = directionAngle % 180;
+            ridgeIsX = !(normalized > 45 && normalized < 135);
         }
-        center /= baseCorners.Count;
-
-        // 2. Расчет высоты вершины
-        float roofRise;
-
-        if (angle > 0)
+        else if (!string.IsNullOrEmpty(orientation))
         {
-            // Если угол задан, игнорируем переданный height и считаем его математически.
-
-            // Находим минимальное расстояние от центра до любого края (стены)
-            float minDistanceToEdge = float.MaxValue;
-            for (int i = 0; i < baseCorners.Count; i++)
-            {
-                Vector3 p1 = baseCorners[i];
-                Vector3 p2 = baseCorners[(i + 1) % baseCorners.Count];
-
-                float dist = DistanceFromPointToLineSegment(center, p1, p2);
-                if (dist < minDistanceToEdge) minDistanceToEdge = dist;
-            }
-
-            // Защита от некорректной геометрии
-            if (minDistanceToEdge < 0.01f) minDistanceToEdge = 0.5f;
-
-            // Ограничиваем угол, чтобы крыша не ушла в бесконечность
-            float clampedAngle = Mathf.Clamp(angle, 5f, 85f);
-
-            // h = d * tan(alpha)
-            roofRise = minDistanceToEdge * Mathf.Tan(clampedAngle * Mathf.Deg2Rad);
+            bool isLongX = sizeX > sizeZ;
+            ridgeIsX = orientation == "along" ? isLongX : !isLongX;
         }
         else
         {
-            // Если угол не задан, используем фиксированную высоту
-            roofRise = height - min_height;
+            ridgeIsX = sizeX > sizeZ;
         }
 
-        // Высота вершины крыши
-        Vector3 peak = center;
-        peak.y = min_height + roofRise;
-
-        // Добавляем вершины основания
-        int baseVertexCount = data.Vertices.Count;
-        foreach (var corner in baseCorners)
+        if (ridgeIsX)
         {
-            data.Vertices.Add(corner + Vector3.up * min_height); // Высота основания
+            ridgeDir = Vector3.right;
+            perpWidth = sizeZ;
         }
-
-        // Добавляем вершину крыши
-        data.Vertices.Add(peak);
-
-        // Создаем индексы для треугольников
-        int peakIndex = baseVertexCount + baseCorners.Count; // Индекс вершины крыши
-        for (int i = 0; i < baseCorners.Count; i++)
+        else
         {
-            int nextIndex = (i + 1) % baseCorners.Count; // Индекс следующей вершины
-
-            // Создаем треугольник для каждой стороны крыши
-            data.Indices.Add(baseVertexCount + i); // Основание текущее
-            data.Indices.Add(baseVertexCount + nextIndex); // Основание следующее
-            data.Indices.Add(peakIndex); // Пик
-
-            // Нормали
-            // Важно: нормаль рассчитывается для наклонной поверхности
-            Vector3 v1 = baseCorners[nextIndex] - baseCorners[i];
-            Vector3 v2 = peak - baseCorners[i];
-            Vector3 normal = Vector3.Cross(v1, v2).normalized;
-
-            // В текущей реализации (flat shading) нормали добавляются на каждую вершину треугольника заново?
-            // В оригинальном коде выше добавлялись нормали. Если мы используем shared vertices (общие вершины),
-            // то нормали будут сглажены, что для low-poly крыш может выглядеть странно.
-            // Но следуя стилю вашего кода (добавление в список Normals):
-
-            // ВАЖНО: В оригинальном коде вы добавляли вершины, а потом 3 нормали. 
-            // Но вершины добавлялись циклом выше (baseCorners.Count штук).
-            // Тут есть логическая нестыковка в оригинале: количество нормалей должно совпадать с количеством вершин.
-            // Если вершины общие (shared), нормали должны усредняться. 
-            // Если вершины уникальные (для flat shading), их нужно дублировать.
-
-            // Оставим упрощенный вариант добавления нормалей "потом", но лучше использовать RecalculateNormals.
+            ridgeDir = Vector3.forward;
+            perpWidth = sizeX;
         }
-
-        // Чтобы исправить освещение, лучше всего пересчитать нормали в конце:
-        // (Требует метода RecalculateNormals, который я давал в предыдущих ответах)
-        // Если его нет, можно добавить простые нормали вверх, Unity пересчитает если mesh.RecalculateNormals() вызывается снаружи.
-
-        // Для совместимости с вашим стилем кода - простой расчет "плоских" нормалей для уже добавленных вершин затруднителен 
-        // без дублирования вершин. Поэтому рекомендую вызвать RecalculateNormals(data, baseVertexCount) в конце.
     }
 
-    public void CreateGabledRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, Vector2 min, Vector2 size)
+    public void CreateHippedRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, float angle, int directionAngle, string orientation)
     {
-        // Проверка на наличие минимум 3 точек для формирования крыши
-        if (baseCorners.Count < 3)
-        {
-            Debug.LogError("Недостаточно точек для создания крыши");
-            return;
-        }
-
+        if (baseCorners.Count < 3) return;
         baseCorners.Reverse();
 
-        // Получение центра основания
+        Vector3 ridgeDir;
+        float perpWidth;
+        GetRoofRidgeAxis(baseCorners, directionAngle, orientation, out ridgeDir, out perpWidth);
+
+        float roofRise;
+        if (angle > 0)
+        {
+            float run = perpWidth / 2.0f;
+            float clampedAngle = Mathf.Clamp(angle, 5f, 85f);
+            roofRise = run * Mathf.Tan(clampedAngle * Mathf.Deg2Rad);
+        }
+        else
+        {
+            roofRise = height - min_height;
+        }
+        float peakY = min_height + roofRise;
+
         Vector3 center = Vector3.zero;
-        foreach (Vector3 corner in baseCorners)
-        {
-            center += corner;
-        }
-        center /= baseCorners.Count;
+        int cornerCount = baseCorners.Count;
+        for (int i = 0; i < cornerCount; i++) center += baseCorners[i];
+        center /= cornerCount;
 
-        // Определение вершины крыши
-        Vector3 roofPeak = new Vector3(center.x, height, center.z);
-
-        // Добавление вершин основания
-        foreach (Vector3 corner in baseCorners)
+        float minP = float.MaxValue, maxP = float.MinValue;
+        for (int i = 0; i < cornerCount; i++)
         {
-            data.Vertices.Add(corner + Vector3.up * min_height);
+            float p = Vector3.Dot(baseCorners[i] - center, ridgeDir);
+            if (p < minP) minP = p;
+            if (p > maxP) maxP = p;
         }
 
-        // Добавление вершины крыши
-        data.Vertices.Add(roofPeak);
+        float lengthAlongRidge = maxP - minP;
+        float ridgeLength = Mathf.Max(0, lengthAlongRidge - perpWidth);
 
-        int baseCount = baseCorners.Count;
+        Vector3 ridgeStart = center - (ridgeDir * (ridgeLength * 0.5f));
+        Vector3 ridgeEnd = center + (ridgeDir * (ridgeLength * 0.5f));
 
-        // Создание индексов для треугольников
-        for (int i = 0; i < baseCount; i++)
+        ridgeStart.y = peakY;
+        ridgeEnd.y = peakY;
+
+        int baseOffset = data.Vertices.Count;
+
+        for (int i = 0; i < cornerCount; i++)
+            data.Vertices.Add(baseCorners[i] + Vector3.up * min_height);
+
+        int ridgeStartIndex = data.Vertices.Count;
+        data.Vertices.Add(ridgeStart);
+        int ridgeEndIndex = data.Vertices.Count;
+        data.Vertices.Add(ridgeEnd);
+
+        for (int i = 0; i < cornerCount; i++)
         {
-            int nextIndex = (i + 1) % baseCount; // Следующий индекс (зацикливание)
+            int next = (i + 1) % cornerCount;
 
-            // Треугольники между основанием и вершиной крыши
-            data.Indices.Add(i);
-            data.Indices.Add(nextIndex);
-            data.Indices.Add(baseCount); // Индекс вершины крыши
+            Vector3 v1 = baseCorners[i];
+            Vector3 v2 = baseCorners[next];
+
+            float p1 = Vector3.Dot(v1 - center, ridgeDir);
+            float p2 = Vector3.Dot(v2 - center, ridgeDir);
+
+            int idxRidge1 = (p1 < 0) ? ridgeStartIndex : ridgeEndIndex;
+            int idxRidge2 = (p2 < 0) ? ridgeStartIndex : ridgeEndIndex;
+
+            if (ridgeLength <= 0.01f) { idxRidge1 = ridgeStartIndex; idxRidge2 = ridgeStartIndex; }
+
+            int idxBase1 = baseOffset + i;
+            int idxBase2 = baseOffset + next;
+
+            if (idxRidge1 == idxRidge2)
+            {
+                data.Indices.Add(idxBase1);
+                data.Indices.Add(idxBase2);
+                data.Indices.Add(idxRidge1);
+            }
+            else
+            {
+                data.Indices.Add(idxBase1);
+                data.Indices.Add(idxBase2);
+                data.Indices.Add(idxRidge2);
+
+                data.Indices.Add(idxBase1);
+                data.Indices.Add(idxRidge2);
+                data.Indices.Add(idxRidge1);
+            }
+
+            data.UV.Add(new Vector2(v1.x, v1.z));
         }
 
-        // Создание нормалей
-        for (int i = 0; i < baseCount; i++)
-        {
-            int nextIndex = (i + 1) % baseCount; // Следующий индекс (зацикливание)
-            Vector3 normal = Vector3.Cross(
-                baseCorners[nextIndex] - baseCorners[i],
-                roofPeak - baseCorners[i]
-            ).normalized;
+        RecalculateNormals(data, baseOffset);
+    }
 
+    /// <summary>
+    /// Создаёт двускатную (gabled) крышу с правильными нормалями НАРУЖУ
+    /// </summary>
+    public void CreateGabledRoof(List<Vector3> baseCorners, float baseheight, float roofheight, MeshData data, float angle, int directionAngle, string orientation)
+    {
+        if (baseCorners == null || baseCorners.Count < 3) return;
+
+        // 1. Очистка и подготовка точек (убираем дубликат последней точки, если контур замкнут)
+        List<Vector3> points = new List<Vector3>(baseCorners);
+        if (Vector3.Distance(points[0], points[points.Count - 1]) < 0.001f)
+        {
+            points.RemoveAt(points.Count - 1);
+        }
+
+        // Приводим контур к направлению по часовой стрелке (CW) для корректных нормалей
+        if (!IsClockwise(points))
+        {
+            points.Reverse();
+        }
+
+        // 2. Ищем самую длинную грань, чтобы определить направление конька крыши
+        Vector3 longestEdgeDir = Vector3.forward;
+        float maxLength = 0;
+        for (int i = 0; i < points.Count; i++)
+        {
+            Vector3 p1 = points[i];
+            Vector3 p2 = points[(i + 1) % points.Count];
+            float len = Vector2.Distance(new Vector2(p1.x, p1.z), new Vector2(p2.x, p2.z));
+            if (len > maxLength)
+            {
+                maxLength = len;
+                longestEdgeDir = new Vector3(p2.x - p1.x, 0, p2.z - p1.z).normalized;
+            }
+        }
+
+        // Ось ската крыши (перпендикулярно коньку)
+        Vector3 roofSlopeAxis = new Vector3(longestEdgeDir.z, 0, -longestEdgeDir.x);
+
+        // 3. Находим границы здания вдоль оси ската
+        float minSlope = float.MaxValue;
+        float maxSlope = float.MinValue;
+        foreach (var p in points)
+        {
+            float proj = Vector3.Dot(p, roofSlopeAxis);
+            if (proj < minSlope) minSlope = proj;
+            if (proj > maxSlope) maxSlope = proj;
+        }
+
+        float ridgeCenter = (minSlope + maxSlope) * 0.5f;
+        float halfWidth = (maxSlope - minSlope) * 0.5f;
+        if (halfWidth < 0.001f) halfWidth = 0.001f; // Защита от деления на ноль
+
+        // Локальная функция для расчета высоты крыши в любой точке XZ
+        float GetRoofHeight(Vector3 p)
+        {
+            float proj = Vector3.Dot(p, roofSlopeAxis);
+            float distFromRidge = Mathf.Abs(proj - ridgeCenter);
+            return baseheight + roofheight * (1f - distFromRidge / halfWidth);
+        }
+
+        // 4. Разделение крыши на левый и правый скаты и построение стен (фронтонов)
+        List<Vector3> leftPoly = new List<Vector3>();
+        List<Vector3> rightPoly = new List<Vector3>();
+
+        for (int i = 0; i < points.Count; i++)
+        {
+            Vector3 A = points[i];
+            Vector3 B = points[(i + 1) % points.Count];
+
+            float projA = Vector3.Dot(A, roofSlopeAxis) - ridgeCenter;
+            float projB = Vector3.Dot(B, roofSlopeAxis) - ridgeCenter;
+
+            // Распределяем точки по скатам
+            if (projA <= 0.001f) leftPoly.Add(A);
+            if (projA >= -0.001f) rightPoly.Add(A);
+
+            // Если грань пересекает центральный конек, ее нужно разрезать
+            if (projA * projB < 0)
+            {
+                float t = Mathf.Abs(projA) / (Mathf.Abs(projA) + Mathf.Abs(projB));
+                Vector3 intersection = Vector3.Lerp(A, B, t);
+
+                leftPoly.Add(intersection);
+                rightPoly.Add(intersection);
+
+                // Создаем стены для обеих половин разрезанной грани
+                AddWall(A, intersection, data, baseheight, GetRoofHeight(A), GetRoofHeight(intersection));
+                AddWall(intersection, B, data, baseheight, GetRoofHeight(intersection), GetRoofHeight(B));
+            }
+            else
+            {
+                // Создаем цельную стену
+                AddWall(A, B, data, baseheight, GetRoofHeight(A), GetRoofHeight(B));
+            }
+        }
+
+        // 5. Создаем верхние поверхности (скаты) крыши
+        AddRoofCap(leftPoly, data, GetRoofHeight);
+        AddRoofCap(rightPoly, data, GetRoofHeight);
+    }
+
+    // --- Вспомогательные методы ---
+
+    private void AddWall(Vector3 p1, Vector3 p2, MeshData data, float bottomH, float topH1, float topH2)
+    {
+        if (Vector3.Distance(p1, p2) < 0.001f) return;
+
+        int start = data.Vertices.Count;
+
+        Vector3 v0 = new Vector3(p1.x, bottomH, p1.z); // Нижняя левая
+        Vector3 v1 = new Vector3(p1.x, topH1, p1.z);   // Верхняя левая
+        Vector3 v2 = new Vector3(p2.x, topH2, p2.z);   // Верхняя правая
+        Vector3 v3 = new Vector3(p2.x, bottomH, p2.z); // Нижняя правая
+
+        data.Vertices.AddRange(new[] { v0, v1, v2, v3 });
+
+        float len = Vector3.Distance(p1, p2);
+        data.UV.AddRange(new[] {
+            new Vector2(0, 0), new Vector2(0, topH1 - bottomH),
+            new Vector2(len, topH2 - bottomH), new Vector2(len, 0)
+        });
+
+        Vector3 normal = Vector3.Cross(v1 - v0, v2 - v0).normalized;
+        for (int i = 0; i < 4; i++) data.Normals.Add(normal);
+
+        data.Indices.AddRange(new[] { start, start + 1, start + 2, start, start + 2, start + 3 });
+    }
+
+    private void AddRoofCap(List<Vector3> poly2D, MeshData data, System.Func<Vector3, float> heightFunc)
+    {
+        if (poly2D.Count < 3) return;
+
+        // Создаем 3D полигон с учетом высоты
+        List<Vector3> poly3D = new List<Vector3>();
+        foreach (var p in poly2D)
+        {
+            poly3D.Add(new Vector3(p.x, heightFunc(p), p.z));
+        }
+
+        // Триангуляция
+        List<int> tris = TriangulateEarClipping(poly2D);
+        if (tris.Count == 0) return;
+
+        int start = data.Vertices.Count;
+
+        // Вычисляем нормаль по первому треугольнику
+        Vector3 normal = Vector3.Cross(poly3D[tris[1]] - poly3D[tris[0]], poly3D[tris[2]] - poly3D[tris[0]]).normalized;
+        if (normal.y < 0) normal = -normal; // Нормаль крыши всегда смотрит преимущественно вверх
+
+        foreach (var p in poly3D)
+        {
+            data.Vertices.Add(p);
             data.Normals.Add(normal);
+            data.UV.Add(new Vector2(p.x, p.z));
         }
 
-        // Добавление нормали для вершины крыши
-        data.Normals.Add(Vector3.up); // Нормаль для вершины крыши
-
-        // Генерация UV координат (можно настроить по своему усмотрению)
-        foreach (Vector3 vertex in data.Vertices)
+        foreach (var t in tris)
         {
-            data.UV.Add(new Vector2(vertex.x, vertex.z)); // Простая проекция UV
+            data.Indices.Add(start + t);
         }
     }
-    
-    void CreateGambrelRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, Vector2 min, Vector2 siz)
-    {
-        // Проверка входных данных
-        if (baseCorners == null || baseCorners.Count < 3)
-            return;
 
-        // Находим центр основания
+    // Простая триангуляция (Ear Clipping) для сложных невыпуклых форм
+    private List<int> TriangulateEarClipping(List<Vector3> poly)
+    {
+        List<int> indices = new List<int>();
+        int n = poly.Count;
+        if (n < 3) return indices;
+
+        List<int> V = new List<int>();
+        for (int i = 0; i < n; i++) V.Add(i);
+
+        int maxIterations = 2 * n;
+        while (V.Count > 2 && maxIterations-- > 0)
+        {
+            for (int i = 0; i < V.Count; i++)
+            {
+                int prev = V[(i - 1 + V.Count) % V.Count];
+                int curr = V[i];
+                int next = V[(i + 1) % V.Count];
+
+                Vector2 a = new Vector2(poly[prev].x, poly[prev].z);
+                Vector2 b = new Vector2(poly[curr].x, poly[curr].z);
+                Vector2 c = new Vector2(poly[next].x, poly[next].z);
+
+                // Если угол вогнутый (Cross > 0 для направления по часовой стрелке) - пропускаем
+                if ((b.x - a.x) * (c.y - a.y) - (b.y - a.y) * (c.x - a.x) > 0.001f) continue;
+
+                // Проверка: нет ли других точек внутри этого треугольника
+                bool isEar = true;
+                for (int j = 0; j < V.Count; j++)
+                {
+                    int pIdx = V[j];
+                    if (pIdx == prev || pIdx == curr || pIdx == next) continue;
+                    if (IsPointInTriangle(new Vector2(poly[pIdx].x, poly[pIdx].z), a, b, c))
+                    {
+                        isEar = false;
+                        break;
+                    }
+                }
+
+                if (isEar)
+                {
+                    indices.AddRange(new[] { prev, curr, next });
+                    V.RemoveAt(i);
+                    break;
+                }
+            }
+        }
+        return indices;
+    }
+
+    private bool IsPointInTriangle(Vector2 p, Vector2 a, Vector2 b, Vector2 c)
+    {
+        float Cross(Vector2 v1, Vector2 v2) => v1.x * v2.y - v1.y * v2.x;
+        bool b1 = Cross(b - a, p - a) < 0.0f;
+        bool b2 = Cross(c - b, p - b) < 0.0f;
+        bool b3 = Cross(a - c, p - c) < 0.0f;
+        return ((b1 == b2) && (b2 == b3));
+    }
+
+    private bool IsClockwise(List<Vector3> poly)
+    {
+        float sum = 0;
+        for (int i = 0; i < poly.Count; i++)
+        {
+            Vector3 a = poly[i];
+            Vector3 b = poly[(i + 1) % poly.Count];
+            sum += (b.x - a.x) * (b.z + a.z);
+        }
+        return sum > 0;
+    }
+
+    void CreateGambrelRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, int directionAngle, string orientation)
+    {
+        if (baseCorners == null || baseCorners.Count < 3) return;
+
+        Vector3 ridgeDir;
+        float perpWidth;
+        GetRoofRidgeAxis(baseCorners, directionAngle, orientation, out ridgeDir, out perpWidth);
+
         Vector3 center = Vector3.zero;
-        foreach (var corner in baseCorners)
-            center += corner;
-        center /= baseCorners.Count;
+        int cornerCount = baseCorners.Count;
+        for (int i = 0; i < cornerCount; i++) center += baseCorners[i];
+        center /= cornerCount;
 
-        // Устанавливаем высоту центра
-        Vector3 roofTop = new Vector3(center.x, height, center.z);
+        float totalH = height - min_height;
+        float midH = min_height + (totalH * 0.6f);
+        float topH = height;
 
-        // Параметры для ломаной крыши
-        float lowerSlopeHeight = min_height + (height - min_height) * 0.4f; // Высота перегиба (40% от общей высоты)
-        float lowerSlopeWidth = 0.7f; // Ширина нижнего ската (70% от расстояния до центра)
+        int baseOffset = data.Vertices.Count;
 
-        int baseVertexCount = data.Vertices.Count;
-
-        // Добавляем вершины основания
-        foreach (var corner in baseCorners)
+        for (int i = 0; i < cornerCount; i++)
         {
-            data.Vertices.Add(new Vector3(corner.x, min_height, corner.z));
-            data.UV.Add(new Vector2(corner.x * 0.2f, corner.z * 0.2f)); // Простая UV-развертка
+            Vector3 baseP = baseCorners[i];
+
+            Vector3 toP = baseP - center;
+            float proj = Vector3.Dot(toP, ridgeDir);
+            Vector3 centerOnAxis = center + (ridgeDir * proj);
+
+            Vector3 vecOut = baseP - centerOnAxis;
+
+            Vector3 midP = centerOnAxis + (vecOut * 0.7f);
+            midP.y = midH;
+
+            Vector3 topP = centerOnAxis;
+            topP.y = topH;
+
+            data.Vertices.Add(new Vector3(baseP.x, min_height, baseP.z));
+            data.Vertices.Add(midP);
+            data.Vertices.Add(topP);
+
+            data.UV.Add(new Vector2(baseP.x, baseP.z));
+            data.UV.Add(new Vector2(midP.x, midP.z));
+            data.UV.Add(new Vector2(topP.x, topP.z));
         }
 
-        // Добавляем вершины перегиба
-        List<Vector3> middlePoints = new List<Vector3>();
-        for (int i = 0; i < baseCorners.Count; i++)
+        for (int i = 0; i < cornerCount; i++)
         {
-            Vector3 corner = baseCorners[i];
-            Vector3 dirToCenter = (center - corner).normalized;
-            Vector3 middlePoint = corner + dirToCenter * Vector3.Distance(corner, center) * lowerSlopeWidth;
-            middlePoint.y = lowerSlopeHeight;
+            int next = (i + 1) % cornerCount;
 
-            middlePoints.Add(middlePoint);
-            data.Vertices.Add(middlePoint);
-            data.UV.Add(new Vector2(middlePoint.x * 0.2f, middlePoint.z * 0.2f));
+            int currentStrip = baseOffset + (i * 3);
+            int nextStrip = baseOffset + (next * 3);
+
+            int b1 = currentStrip, m1 = currentStrip + 1, t1 = currentStrip + 2;
+            int b2 = nextStrip, m2 = nextStrip + 1, t2 = nextStrip + 2;
+
+            data.Indices.Add(b1); data.Indices.Add(m1); data.Indices.Add(b2);
+            data.Indices.Add(b2); data.Indices.Add(m1); data.Indices.Add(m2);
+
+            data.Indices.Add(m1); data.Indices.Add(t1); data.Indices.Add(m2);
+            data.Indices.Add(m2); data.Indices.Add(t1); data.Indices.Add(t2);
         }
 
-        // Добавляем вершину крыши
-        data.Vertices.Add(roofTop);
-        data.UV.Add(new Vector2(roofTop.x * 0.2f, roofTop.z * 0.2f));
-        int roofTopIndex = data.Vertices.Count - 1;
-
-        // Создаем треугольники для нижней части ломаной крыши (трапеции)
-        for (int i = 0; i < baseCorners.Count; i++)
-        {
-            int nextI = (i + 1) % baseCorners.Count;
-
-            // Индексы вершин основания
-            int baseIndex = baseVertexCount + i;
-            int nextBaseIndex = baseVertexCount + nextI;
-
-            // Индексы вершин перегиба
-            int middleIndex = baseVertexCount + baseCorners.Count + i;
-            int nextMiddleIndex = baseVertexCount + baseCorners.Count + nextI;
-
-            // Нижняя часть (трапеция)
-            // Первый треугольник трапеции
-            data.Indices.Add(baseIndex);
-            data.Indices.Add(middleIndex);
-            data.Indices.Add(nextBaseIndex);
-
-            // Второй треугольник трапеции
-            data.Indices.Add(nextBaseIndex);
-            data.Indices.Add(middleIndex);
-            data.Indices.Add(nextMiddleIndex);
-
-            // Верхняя часть (треугольник к вершине)
-            data.Indices.Add(middleIndex);
-            data.Indices.Add(roofTopIndex);
-            data.Indices.Add(nextMiddleIndex);
-        }
-
-        // Вычисляем нормали
-        CalculateNormalsGambrelRoof(data);
-    }
-
-    // Вспомогательная функция для вычисления нормалей
-    void CalculateNormalsGambrelRoof(MeshData data)
-    {
-        // Инициализируем нормали
-        data.Normals.Clear();
-        for (int i = 0; i < data.Vertices.Count; i++)
-        {
-            data.Normals.Add(Vector3.zero);
-        }
-
-        // Проходимся по всем треугольникам и вычисляем их вклад в нормали вершин
-        for (int i = 0; i < data.Indices.Count; i += 3)
-        {
-            int indexA = data.Indices[i];
-            int indexB = data.Indices[i + 1];
-            int indexC = data.Indices[i + 2];
-
-            Vector3 pointA = data.Vertices[indexA];
-            Vector3 pointB = data.Vertices[indexB];
-            Vector3 pointC = data.Vertices[indexC];
-
-            // Вычисляем нормаль треугольника
-            Vector3 sideAB = pointB - pointA;
-            Vector3 sideAC = pointC - pointA;
-            Vector3 normal = Vector3.Cross(sideAB, sideAC).normalized;
-
-            // Добавляем эту нормаль ко всем вершинам треугольника
-            data.Normals[indexA] += normal;
-            data.Normals[indexB] += normal;
-            data.Normals[indexC] += normal;
-        }
-
-        // Нормализуем результаты
-        for (int i = 0; i < data.Normals.Count; i++)
-        {
-            data.Normals[i] = data.Normals[i].normalized;
-        }
+        RecalculateNormals(data, baseOffset);
     }
 
     public void CreateDomeRoof(List<Vector3> baseCorners, float minHeight, float height, MeshData data, Vector2 min, Vector2 size)
     {
-        int numSegments = 6; // Увеличьте для более гладкого купола
+        const int numSegments = 6;
         int numCorners = baseCorners.Count;
         if (numCorners < 3) return;
 
-        // Рассчитываем центр основания
         Vector3 center = Vector3.zero;
-        foreach (Vector3 corner in baseCorners)
-        {
-            center += corner;
-        }
+        for (int i = 0; i < numCorners; i++) center += baseCorners[i];
         center /= numCorners;
         center.y = minHeight;
 
-        // --- FIX START: Вычисляем чистую высоту самого купола ---
         float domeHeight = height - minHeight;
-        // --- FIX END ---
 
-        // Генерация вершин купола
         for (int i = 0; i <= numSegments; i++)
         {
             float t = i / (float)numSegments;
-
-            // --- FIX START: Используем domeHeight вместо height ---
             float currentHeight = minHeight + (domeHeight * Mathf.Sin(t * Mathf.PI * 0.5f));
-            // --- FIX END ---
 
             for (int j = 0; j < numCorners; j++)
             {
@@ -357,13 +507,11 @@ public class GenerateRoof : MonoBehaviour
             }
         }
 
-        // Добавляем вершину в центре купола
         Vector3 topCenter = center;
         topCenter.y = height;
         data.Vertices.Add(topCenter);
         int topIndex = data.Vertices.Count - 1;
 
-        // Генерация треугольников для боковой поверхности
         for (int i = 0; i < numSegments; i++)
         {
             for (int j = 0; j < numCorners; j++)
@@ -375,19 +523,16 @@ public class GenerateRoof : MonoBehaviour
                 int nextA = (i + 1) * numCorners + j;
                 int nextB = (i + 1) * numCorners + nextJ;
 
-                // Первый треугольник
                 data.Indices.Add(currentA);
                 data.Indices.Add(nextA);
                 data.Indices.Add(currentB);
 
-                // Второй треугольник
                 data.Indices.Add(currentB);
                 data.Indices.Add(nextA);
                 data.Indices.Add(nextB);
             }
         }
 
-        // Генерация треугольников для верхушки
         int lastRingStart = numSegments * numCorners;
         for (int j = 0; j < numCorners; j++)
         {
@@ -397,16 +542,14 @@ public class GenerateRoof : MonoBehaviour
             data.Indices.Add(lastRingStart + nextJ);
         }
 
-        // Рассчитываем нормали
         CalculateNormalsDomeRoof(data, center, topIndex);
-
-        // Генерация UV-координат
         GenerateUVDomeRoof(data, baseCorners);
     }
 
     private void CalculateNormalsDomeRoof(MeshData data, Vector3 center, int topIndex)
     {
-        for (int i = 0; i < data.Vertices.Count; i++)
+        int vertexCount = data.Vertices.Count;
+        for (int i = data.Normals.Count; i < vertexCount; i++)
         {
             if (i == topIndex)
             {
@@ -422,14 +565,13 @@ public class GenerateRoof : MonoBehaviour
 
     private void GenerateUVDomeRoof(MeshData data, List<Vector3> baseCorners)
     {
-        // Рассчитываем границы для UV-проекции
-        float minX = float.MaxValue;
-        float maxX = float.MinValue;
-        float minZ = float.MaxValue;
-        float maxZ = float.MinValue;
+        float minX = float.MaxValue, maxX = float.MinValue;
+        float minZ = float.MaxValue, maxZ = float.MinValue;
 
-        foreach (Vector3 corner in baseCorners)
+        int cornerCount = baseCorners.Count;
+        for (int i = 0; i < cornerCount; i++)
         {
+            Vector3 corner = baseCorners[i];
             if (corner.x < minX) minX = corner.x;
             if (corner.x > maxX) maxX = corner.x;
             if (corner.z < minZ) minZ = corner.z;
@@ -439,17 +581,18 @@ public class GenerateRoof : MonoBehaviour
         float width = maxX - minX;
         float depth = maxZ - minZ;
 
-        foreach (Vector3 vertex in data.Vertices)
+        int vertexCount = data.Vertices.Count;
+        for (int i = data.UV.Count; i < vertexCount; i++)
         {
+            Vector3 vertex = data.Vertices[i];
             float u = width == 0 ? 0.5f : (vertex.x - minX) / width;
             float v = depth == 0 ? 0.5f : (vertex.z - minZ) / depth;
             data.UV.Add(new Vector2(u, v));
         }
     }
-    
+
     private void CreatePyramidalRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, Vector2 min, Vector2 size)
     {
-        // Проверяем, что основание состоит минимум из четырех точек
         if (baseCorners.Count < 4)
         {
             Debug.Log("Недостаточно вершин для создания пирамиды!");
@@ -461,51 +604,31 @@ public class GenerateRoof : MonoBehaviour
             baseCorners.Reverse();
         }
 
-        // Количество вершин = углы основания + 1 центральная вершина
-        Vector3[] vertices = new Vector3[baseCorners.Count + 1];
-        for (int i = 0; i < baseCorners.Count; i++)
+        int cornerCount = baseCorners.Count;
+        for (int i = 0; i < cornerCount; i++)
         {
-            Vector3 curpoint = baseCorners[i];
-            curpoint.y = min_height;
-            baseCorners[i] = curpoint;
-            vertices[i] = baseCorners[i];
-
+            Vector3 v = baseCorners[i];
+            v.y = min_height;
+            baseCorners[i] = v;
+            data.Vertices.Add(v);
         }
-        // Центральная верхняя точка пирамиды
+
         Vector3 topCenter = Vector3.up * height;
-        vertices[baseCorners.Count] = topCenter;
+        data.Vertices.Add(topCenter);
 
-        // Создаем список треугольников
-        List<int> trianglesList = new List<int>();
-
-        // Добавляем боковые треугольники
-        for (int i = 0; i < baseCorners.Count; i++)
+        for (int i = 0; i < cornerCount; i++)
         {
-            trianglesList.Add(baseCorners.Count); // Верхняя центральная точка
-            trianglesList.Add(i); // Текущая вершина основания
-            trianglesList.Add((i + 1) % baseCorners.Count); // Следующая вершина основания (с зацикливанием)
+            data.Indices.Add(cornerCount);
+            data.Indices.Add(i);
+            data.Indices.Add((i + 1) % cornerCount);
         }
 
-        // Добавляем треугольники для основания пирамиды
-        // Это делается путем создания триангуляции для многоугольника,
-        // можно использовать алгоритм триангуляции (например, "треугольник вентилятора")
-        // Для простоты, мы ограничимся триангуляцией в форме веера, которая подходит для выпуклых оснований
         int firstCornerIndex = 0;
-        for (int i = 1; i < baseCorners.Count - 1; i++)
+        for (int i = 1; i < cornerCount - 1; i++)
         {
-            trianglesList.Add(firstCornerIndex);
-            trianglesList.Add(i);
-            trianglesList.Add(i + 1);
-        }
-
-        for (int i = 0; i < vertices.Length; i++)
-        {
-            data.Vertices.Add(vertices[i]);
-        }
-
-        for (int i = 0; i < trianglesList.Count; i++)
-        {
-            data.Indices.Add(trianglesList[i]);
+            data.Indices.Add(firstCornerIndex);
+            data.Indices.Add(i);
+            data.Indices.Add(i + 1);
         }
     }
 
@@ -518,12 +641,11 @@ public class GenerateRoof : MonoBehaviour
         var verticesls = onionRoof.vertices;
         var triangles = onionRoof.triangles;
 
+        float scale_fator = (Mathf.Min(size.x, size.y) / 2) * 100;
+
         for (int i = 0; i < verticesls.Length; i++)
         {
             var verticle = verticesls[i];
-
-            float scale_fator = (Mathf.Min(size.x, size.y) / 2) * 100;
-
             data.Vertices.Add(new Vector3(verticle.x * scale_fator, (verticle.y * scale_fator) + min_height, verticle.z * scale_fator));
         }
 
@@ -534,33 +656,17 @@ public class GenerateRoof : MonoBehaviour
 
         Destroy(go);
     }
+
     private int ParseDirection(string value)
     {
-        int res;
-
-        if (int.TryParse(value, out res))
+        if (int.TryParse(value, out int res))
         {
             return res;
         }
 
-        switch (value)
+        if (directionCache.TryGetValue(value, out int cached))
         {
-            case "N": return 0;
-            case "NNE": return 22;
-            case "NE": return 45;
-            case "ENE": return 67;
-            case "E": return 90;
-            case "ESE": return 122;
-            case "SE": return 135;
-            case "SSE": return 157;
-            case "S": return 180;
-            case "SSW": return 202;
-            case "SW": return 225;
-            case "WSW": return 247;
-            case "W": return 270;
-            case "WNW": return 292;
-            case "NW": return 315;
-            case "NNW": return 337;
+            return cached;
         }
 
         return 0;
@@ -568,25 +674,24 @@ public class GenerateRoof : MonoBehaviour
 
     private void RecalculateNormals(MeshData data, int startIndex)
     {
-        // Сброс нормалей для новых вершин
-        for (int i = startIndex; i < data.Vertices.Count; i++)
+        int vertexCount = data.Vertices.Count;
+
+        for (int i = startIndex; i < vertexCount; i++)
         {
             if (i < data.Normals.Count) data.Normals[i] = Vector3.zero;
             else data.Normals.Add(Vector3.zero);
         }
 
-        // Накапливаем нормали от треугольников
-        for (int i = 0; i < data.Indices.Count; i += 3)
+        int indexCount = data.Indices.Count;
+        for (int i = 0; i < indexCount; i += 3)
         {
             int i1 = data.Indices[i];
             int i2 = data.Indices[i + 1];
             int i3 = data.Indices[i + 2];
 
-            // Обрабатываем только треугольники, затрагивающие измененную часть меша
             if (i1 >= startIndex || i2 >= startIndex || i3 >= startIndex)
             {
-                // Безопасная проверка границ массива
-                if (i1 < data.Vertices.Count && i2 < data.Vertices.Count && i3 < data.Vertices.Count)
+                if (i1 < vertexCount && i2 < vertexCount && i3 < vertexCount)
                 {
                     Vector3 v1 = data.Vertices[i1];
                     Vector3 v2 = data.Vertices[i2];
@@ -601,19 +706,18 @@ public class GenerateRoof : MonoBehaviour
             }
         }
 
-        // Нормализация результата
-        for (int i = startIndex; i < data.Vertices.Count; i++)
+        for (int i = startIndex; i < vertexCount; i++)
         {
             if (i < data.Normals.Count)
                 data.Normals[i] = data.Normals[i].normalized;
         }
     }
 
-    // Проверка, находится ли точка внутри полигона (Ray-casting algorithm)
     private bool IsPointInPolygon(Vector2 point, List<Vector3> polygon)
     {
         bool inside = false;
-        for (int i = 0, j = polygon.Count - 1; i < polygon.Count; j = i++)
+        int polygonCount = polygon.Count;
+        for (int i = 0, j = polygonCount - 1; i < polygonCount; j = i++)
         {
             if (((polygon[i].z > point.y) != (polygon[j].z > point.y)) &&
                 (point.x < (polygon[j].x - polygon[i].x) * (point.y - polygon[i].z) / (polygon[j].z - polygon[i].z) + polygon[i].x))
@@ -624,24 +728,15 @@ public class GenerateRoof : MonoBehaviour
         return inside;
     }
 
-    // --- Вспомогательная функция расчета высоты бочки в точке ---
     private float GetBarrelHeightAtPoint(Vector3 point, float minX, float maxX, float minZ, float maxZ, float roofHeight, bool tubeAlongZ)
     {
-        float widthX = maxX - minX;
-        float depthZ = maxZ - minZ;
-
-        // Радиус и центр зависят от ориентации бочки
-        float radius = tubeAlongZ ? widthX / 2.0f : depthZ / 2.0f;
+        float radius = tubeAlongZ ? (maxX - minX) / 2.0f : (maxZ - minZ) / 2.0f;
         float centerCoord = tubeAlongZ ? (minX + maxX) / 2.0f : (minZ + maxZ) / 2.0f;
 
         float currentPos = tubeAlongZ ? point.x : point.z;
         float distFromCenter = currentPos - centerCoord;
 
-        // Нормализация (-1..1)
-        float normalizedDist = distFromCenter / radius;
-        normalizedDist = Mathf.Clamp(normalizedDist, -1f, 1f);
-
-        // Формула окружности: sqrt(1 - x^2)
+        float normalizedDist = Mathf.Clamp(distFromCenter / radius, -1f, 1f);
         float curveFactor = Mathf.Sqrt(1.0f - (normalizedDist * normalizedDist));
 
         return roofHeight * curveFactor;
@@ -651,12 +746,13 @@ public class GenerateRoof : MonoBehaviour
     {
         if (baseCorners.Count < 3) return;
 
-        // 1. Анализ границ (Bounding Box)
         float minX = float.MaxValue, maxX = float.MinValue;
         float minZ = float.MaxValue, maxZ = float.MinValue;
 
-        foreach (var c in baseCorners)
+        int cornerCount = baseCorners.Count;
+        for (int i = 0; i < cornerCount; i++)
         {
+            var c = baseCorners[i];
             if (c.x < minX) minX = c.x;
             if (c.x > maxX) maxX = c.x;
             if (c.z < minZ) minZ = c.z;
@@ -666,25 +762,25 @@ public class GenerateRoof : MonoBehaviour
         float widthX = maxX - minX;
         float depthZ = maxZ - minZ;
 
-        // Определяем направление (вдоль длинной стороны)
         bool tubeAlongZ = depthZ > widthX;
         float roofH = height - min_height;
 
         int startIndex = data.Vertices.Count;
-
-        // --- ЧАСТЬ 1: ВЕРХНЯЯ ПОВЕРХНОСТЬ (КРЫША) ---
 
         var polygon = new Polygon();
         polygon.Add(new Contour(baseCorners.Select(v => new Vertex(v.x, v.z)).ToList()));
 
         if (holes != null)
         {
-            foreach (var hole in holes)
+            int holesCount = holes.Count;
+            for (int h = 0; h < holesCount; h++)
+            {
+                var hole = holes[h];
                 if (hole.Count > 2) polygon.Add(new Contour(hole.Select(v => new Vertex(v.x, v.z)).ToList()), true);
+            }
         }
 
-        // Добавляем точки Штейнера для гладкости поверхности
-        float step = 0.5f; // Шаг сетки
+        float step = 0.5f;
         if (Mathf.Max(widthX, depthZ) / step > 60) step = Mathf.Max(widthX, depthZ) / 60.0f;
 
         for (float x = minX + step; x < maxX; x += step)
@@ -693,11 +789,7 @@ public class GenerateRoof : MonoBehaviour
             {
                 if (IsPointInPolygon(new Vector2(x, z), baseCorners))
                 {
-                    // Простая проверка на дырки (можно улучшить)
-                    bool inHole = false;
-                    // ... (ваша логика проверки дырок здесь, если нужна)
-
-                    if (!inHole) polygon.Add(new Vertex(x, z));
+                    polygon.Add(new Vertex(x, z));
                 }
             }
         }
@@ -709,7 +801,6 @@ public class GenerateRoof : MonoBehaviour
             float x = (float)v.X;
             float z = (float)v.Y;
 
-            // Вычисляем высоту свода
             float h = GetBarrelHeightAtPoint(new Vector3(x, 0, z), minX, maxX, minZ, maxZ, roofH, tubeAlongZ);
 
             data.Vertices.Add(new Vector3(x, min_height + h, z));
@@ -723,27 +814,19 @@ public class GenerateRoof : MonoBehaviour
             data.Indices.Add(startIndex + t.GetVertexID(0));
         }
 
-        // --- ЧАСТЬ 2: БОКОВЫЕ СТЕНКИ (ФРОНТОНЫ) ---
-        // Нам нужно пройти по периметру и создать стены.
-        // На прямых участках стена будет прямоугольной, на торцах - арочной.
-
         var allContours = new List<List<Vector3>> { baseCorners };
         if (holes != null) allContours.AddRange(holes);
 
         foreach (var contour in allContours)
         {
-            for (int i = 0; i < contour.Count; i++)
+            int contourCount = contour.Count;
+            for (int i = 0; i < contourCount; i++)
             {
                 Vector3 start = contour[i];
-                Vector3 end = contour[(i + 1) % contour.Count];
+                Vector3 end = contour[(i + 1) % contourCount];
 
                 float dist = Vector3.Distance(start, end);
-
-                // Сколько сегментов нужно для этой стены?
-                // Если стена идет поперек бочки, её нужно сильно дробить, чтобы получилась арка.
-                // Если стена идет вдоль бочки, дробить не обязательно, но для сетки полезно.
-                int segments = Mathf.CeilToInt(dist / 0.5f); // Каждые 0.5 метра
-                if (segments < 1) segments = 1;
+                int segments = Mathf.Max(1, Mathf.CeilToInt(dist / 0.5f));
 
                 for (int s = 0; s < segments; s++)
                 {
@@ -753,32 +836,21 @@ public class GenerateRoof : MonoBehaviour
                     Vector3 p1 = Vector3.Lerp(start, end, t1);
                     Vector3 p2 = Vector3.Lerp(start, end, t2);
 
-                    // Высота в начале и конце микро-сегмента
                     float h1 = GetBarrelHeightAtPoint(p1, minX, maxX, minZ, maxZ, roofH, tubeAlongZ);
                     float h2 = GetBarrelHeightAtPoint(p2, minX, maxX, minZ, maxZ, roofH, tubeAlongZ);
 
-                    // 4 вершины для квада (стены)
-                    // Bottom Left, Top Left, Bottom Right, Top Right
-                    Vector3 vBL = new Vector3(p1.x, min_height, p1.z);
-                    Vector3 vTL = new Vector3(p1.x, min_height + h1, p1.z);
-                    Vector3 vBR = new Vector3(p2.x, min_height, p2.z);
-                    Vector3 vTR = new Vector3(p2.x, min_height + h2, p2.z);
-
                     int vIndex = data.Vertices.Count;
 
-                    data.Vertices.Add(vBL);
-                    data.Vertices.Add(vTL);
-                    data.Vertices.Add(vBR);
-                    data.Vertices.Add(vTR);
+                    data.Vertices.Add(new Vector3(p1.x, min_height, p1.z));
+                    data.Vertices.Add(new Vector3(p1.x, min_height + h1, p1.z));
+                    data.Vertices.Add(new Vector3(p2.x, min_height, p2.z));
+                    data.Vertices.Add(new Vector3(p2.x, min_height + h2, p2.z));
 
-                    // UV для стен
                     data.UV.Add(new Vector2(0, 0));
                     data.UV.Add(new Vector2(0, 1));
                     data.UV.Add(new Vector2(1, 0));
                     data.UV.Add(new Vector2(1, 1));
 
-                    // Треугольники (Winding order - зависит от порядка точек в контуре, обычно Clockwise)
-                    // Если стены смотрят внутрь, поменяйте порядок индексов
                     data.Indices.Add(vIndex);
                     data.Indices.Add(vIndex + 1);
                     data.Indices.Add(vIndex + 2);
@@ -793,273 +865,21 @@ public class GenerateRoof : MonoBehaviour
         RecalculateNormals(data, startIndex);
     }
 
-    private void CreateQuadrupleSaltboxRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, int directionAngle, Vector2 size)
-    {
-        if (baseCorners.Count < 4) return;
-        if (!GR.IsClockwise(baseCorners)) baseCorners.Reverse();
-
-        // 1. Calculate Base Center
-        Vector3 center = Vector3.zero;
-        foreach (var c in baseCorners) center += c;
-        center /= baseCorners.Count;
-
-        // 2. Calculate Offset Peak
-        // Shift peak 50% of the way towards the edge in the roof_direction
-        float offsetMagnitude = (Mathf.Min(size.x, size.y) * 0.5f);
-        float rad = directionAngle * Mathf.Deg2Rad;
-        Vector3 offsetDir = new Vector3(Mathf.Sin(rad), 0, Mathf.Cos(rad));
-
-        Vector3 peak = center + (offsetDir * offsetMagnitude);
-        peak.y = height; // Absolute height
-
-        // 3. Build Geometry (Fan style like Pyramidal)
-        int baseIndex = data.Vertices.Count;
-
-        // Add base vertices
-        for (int i = 0; i < baseCorners.Count; i++)
-        {
-            Vector3 v = baseCorners[i];
-            v.y = min_height;
-            data.Vertices.Add(v);
-            // Simple UV mapping
-            data.UV.Add(new Vector2(v.x, v.z));
-        }
-
-        // Add Peak
-        data.Vertices.Add(peak);
-        data.UV.Add(new Vector2(peak.x, peak.z));
-        int peakIndex = baseIndex + baseCorners.Count;
-
-        // Triangulate sides
-        for (int i = 0; i < baseCorners.Count; i++)
-        {
-            int next = (i + 1) % baseCorners.Count;
-
-            data.Indices.Add(baseIndex + i);
-            data.Indices.Add(baseIndex + next);
-            data.Indices.Add(peakIndex);
-
-            // Calculate Normal
-            Vector3 v1 = baseCorners[i];
-            Vector3 v2 = baseCorners[next];
-            Vector3 normal = Vector3.Cross(v2 - v1, peak - v1).normalized;
-
-            data.Normals.Add(normal);
-            if (i == 0) data.Normals.Add(normal); // Add extra for loop closure if needed, or just rely on Recalculate
-        }
-
-        // Add Normals for the remaining vertices including peak (simplified)
-        for (int k = data.Normals.Count; k < data.Vertices.Count; k++) data.Normals.Add(Vector3.up);
-
-        // Better Normal Recalculation for the smooth shading group
-        RecalculateNormals(data, baseIndex);
-    }
-
-    private void CreateSaltboxRoof(List<Vector3> baseCorners, List<List<Vector3>> holes, float min_height, float height, MeshData data, int directionAngle, Vector2 size)
-    {
-        if (baseCorners.Count < 3) return;
-
-        // 1. Определяем вектор направления (Front)
-        // Saltbox: Front = Короткий крутой скат. Back = Длинный пологий скат.
-        float rad = directionAngle * Mathf.Deg2Rad;
-        Vector2 dir = new Vector2(Mathf.Sin(rad), Mathf.Cos(rad));
-
-        // 2. Анализ границ (проекция на вектор направления)
-        float minProj = float.MaxValue;
-        float maxProj = float.MinValue;
-
-        // Также нужны bounds для генерации сетки
-        float minX = float.MaxValue, maxX = float.MinValue;
-        float minZ = float.MaxValue, maxZ = float.MinValue;
-
-        foreach (var c in baseCorners)
-        {
-            // Проекция для Saltbox логики
-            float p = Vector2.Dot(new Vector2(c.x, c.z), dir);
-            if (p < minProj) minProj = p;
-            if (p > maxProj) maxProj = p;
-
-            // Границы для генерации сетки
-            if (c.x < minX) minX = c.x;
-            if (c.x > maxX) maxX = c.x;
-            if (c.z < minZ) minZ = c.z;
-            if (c.z > maxZ) maxZ = c.z;
-        }
-
-        float length = maxProj - minProj;
-        if (length < 0.01f) length = 1f;
-
-        // 3. Позиция конька (Ridge)
-        // Смещаем конек к передней части (maxProj). 
-        // Коэффициент 0.35 означает, что конек будет на расстоянии 35% от лицевого фасада.
-        // (Short side = 35%, Long side = 65%)
-        float ridgeOffsetFactor = 0.35f;
-        float ridgePos = maxProj - (length * ridgeOffsetFactor);
-
-        // 4. Генерация плотной сетки (Tessellation)
-        // Используем логику из Round Roof для создания внутренней геометрии
-        var polygon = new TriangleNet.Geometry.Polygon();
-        polygon.Add(new TriangleNet.Geometry.Contour(baseCorners.Select(v => new TriangleNet.Geometry.Vertex(v.x, v.z)).ToList()));
-
-        if (holes != null)
-        {
-            foreach (var hole in holes)
-                if (hole.Count > 2) polygon.Add(new TriangleNet.Geometry.Contour(hole.Select(v => new TriangleNet.Geometry.Vertex(v.x, v.z)).ToList()), true);
-        }
-
-        // Шаг сетки. Должен быть достаточно мелким, чтобы конек выглядел ровным.
-        float step = 0.5f;
-        if (Mathf.Max(maxX - minX, maxZ - minZ) / step > 60) step = Mathf.Max(maxX - minX, maxZ - minZ) / 60.0f;
-
-        for (float x = minX + step; x < maxX; x += step)
-        {
-            for (float z = minZ + step; z < maxZ; z += step)
-            {
-                if (IsPointInPolygon(new Vector2(x, z), baseCorners))
-                {
-                    // Простая проверка на дырки
-                    bool inHole = false;
-                    if (holes != null)
-                    {
-                        foreach (var h in holes)
-                            if (IsPointInPolygon(new Vector2(x, z), h)) { inHole = true; break; }
-                    }
-                    if (!inHole) polygon.Add(new TriangleNet.Geometry.Vertex(x, z));
-                }
-            }
-        }
-
-        var mesh = polygon.Triangulate();
-        int startIndex = data.Vertices.Count;
-
-        // 5. Формирование высоты вершин
-        foreach (var v in mesh.Vertices)
-        {
-            float vx = (float)v.X;
-            float vz = (float)v.Y;
-
-            // Проецируем точку на ось направления
-            float currentProj = Vector2.Dot(new Vector2(vx, vz), dir);
-            float distToRidge = currentProj - ridgePos;
-
-            float factor = 0f;
-
-            if (distToRidge > 0)
-            {
-                // Мы на "Короткой" стороне (Front)
-                // distToRidge изменяется от 0 до (maxProj - ridgePos)
-                float frontLen = maxProj - ridgePos;
-                factor = distToRidge / frontLen; // 0 = конек, 1 = край стены
-            }
-            else
-            {
-                // Мы на "Длинной" стороне (Back)
-                // distToRidge изменяется от -(ridgePos - minProj) до 0
-                float backLen = ridgePos - minProj;
-                factor = Mathf.Abs(distToRidge) / backLen; // 0 = конек, 1 = край стены
-            }
-
-            // Линейная интерполяция высоты:
-            // factor 0 -> height (конек)
-            // factor 1 -> min_height (карниз)
-            float y = Mathf.Lerp(height, min_height, factor);
-
-            data.Vertices.Add(new Vector3(vx, y, vz));
-
-            // UV: Простое наложение сверху или развертка по скатам
-            data.UV.Add(new Vector2(vx, vz));
-        }
-
-        // Добавление треугольников
-        foreach (var t in mesh.Triangles)
-        {
-            data.Indices.Add(startIndex + t.GetVertexID(2));
-            data.Indices.Add(startIndex + t.GetVertexID(1));
-            data.Indices.Add(startIndex + t.GetVertexID(0));
-        }
-
-        // 6. Создание боковых фронтонов (Gables)
-        // Аналогично Round Roof, нам нужно закрыть боковины, так как стандартные стены 
-        // поднимаются только до min_height.
-        CreateGableWallsForProceduralRoof(baseCorners, holes, min_height, height, dir, ridgePos, maxProj, minProj, data);
-
-        // 7. Пересчет нормалей
-        RecalculateNormals(data, startIndex);
-    }
-
-    private void CreateGableWallsForProceduralRoof(List<Vector3> corners, List<List<Vector3>> holes, float min_height, float peak_height, Vector2 dir, float ridgePos, float maxProj, float minProj, MeshData data)
-    {
-        var allContours = new List<List<Vector3>> { corners };
-        if (holes != null) allContours.AddRange(holes);
-
-        foreach (var contour in allContours)
-        {
-            for (int i = 0; i < contour.Count; i++)
-            {
-                Vector3 start = contour[i];
-                Vector3 end = contour[(i + 1) % contour.Count];
-
-                // Разбиваем длинные стены на сегменты для точности
-                float wallLen = Vector3.Distance(start, end);
-                int segments = Mathf.CeilToInt(wallLen / 0.5f);
-                if (segments < 1) segments = 1;
-
-                for (int s = 0; s < segments; s++)
-                {
-                    float t1 = (float)s / segments;
-                    float t2 = (float)(s + 1) / segments;
-                    Vector3 p1 = Vector3.Lerp(start, end, t1);
-                    Vector3 p2 = Vector3.Lerp(start, end, t2);
-
-                    // Локальная функция высоты Saltbox
-                    float GetH(Vector3 p)
-                    {
-                        float proj = Vector2.Dot(new Vector2(p.x, p.z), dir);
-                        float dist = proj - ridgePos;
-                        float f = (dist > 0) ? (dist / (maxProj - ridgePos)) : (Mathf.Abs(dist) / (ridgePos - minProj));
-                        return Mathf.Lerp(peak_height, min_height, f);
-                    }
-
-                    float h1 = GetH(p1);
-                    float h2 = GetH(p2);
-
-                    // Генерируем квад
-                    int vIdx = data.Vertices.Count;
-                    data.Vertices.Add(new Vector3(p1.x, min_height, p1.z));      // BL
-                    data.Vertices.Add(new Vector3(p1.x, h1, p1.z));              // TL
-                    data.Vertices.Add(new Vector3(p2.x, min_height, p2.z));      // BR
-                    data.Vertices.Add(new Vector3(p2.x, h2, p2.z));              // TR
-
-                    data.UV.Add(new Vector2(0, 0)); data.UV.Add(new Vector2(0, 1));
-                    data.UV.Add(new Vector2(1, 0)); data.UV.Add(new Vector2(1, 1));
-
-                    data.Indices.Add(vIdx); data.Indices.Add(vIdx + 1); data.Indices.Add(vIdx + 2);
-                    data.Indices.Add(vIdx + 2); data.Indices.Add(vIdx + 1); data.Indices.Add(vIdx + 3);
-                }
-            }
-        }
-    }
-
-    // Revised Skillion Implementation to be paste-ready
     private void CreateSkillionRoofActual(List<Vector3> corners, List<List<Vector3>> holes, float min_height, float height, MeshData data, int directionAngle, float angle)
     {
-        // 1. Создаем плоскую "коробку" с минимальной толщиной.
-        // Мы используем небольшое смещение (0.1f), чтобы легко отличить верхние вершины от нижних.
         int startIndex = data.Vertices.Count;
         GR.CreateMeshWithHeight(corners, min_height, min_height + 0.1f, data, holes, true);
 
-        // 2. Вычисляем вектор направления ската
-        // В Unity/Геометрии: 0 градусов = Север (Z+), 90 = Восток (X+)
         float rad = directionAngle * Mathf.Deg2Rad;
         Vector2 dir = new Vector2(Mathf.Sin(rad), Mathf.Cos(rad));
 
-        // 3. Находим границы здания вдоль вектора направления (проекция)
         float minProj = float.MaxValue;
         float maxProj = float.MinValue;
 
-        foreach (var c in corners)
+        int cornerCount = corners.Count;
+        for (int i = 0; i < cornerCount; i++)
         {
-            float proj = Vector2.Dot(new Vector2(c.x, c.z), dir);
+            float proj = Vector2.Dot(new Vector2(corners[i].x, corners[i].z), dir);
             if (proj < minProj) minProj = proj;
             if (proj > maxProj) maxProj = proj;
         }
@@ -1067,39 +887,27 @@ public class GenerateRoof : MonoBehaviour
         float length = maxProj - minProj;
         if (length < 0.01f) length = 1f;
 
-        // 4. Определяем перепад высот (Rise)
         float roofRise;
 
         if (angle > 0)
         {
-            // Если задан угол, вычисляем высоту через тангенс: h = L * tan(angle)
-            // Ограничиваем угол до 85 градусов, чтобы не получить бесконечную стену
             float clampedAngle = Mathf.Clamp(angle, 0f, 85f);
             roofRise = length * Mathf.Tan(clampedAngle * Mathf.Deg2Rad);
         }
         else
         {
-            // Если угол не задан, используем фиксированную высоту из параметров
             roofRise = height - min_height;
         }
 
-        // 5. Применяем наклон к верхним вершинам
-        for (int i = startIndex; i < data.Vertices.Count; i++)
+        int vertexCount = data.Vertices.Count;
+        for (int i = startIndex; i < vertexCount; i++)
         {
             Vector3 v = data.Vertices[i];
 
-            // Модифицируем только верхние вершины (те, что выше основания)
             if (v.y > min_height + 0.05f)
             {
                 float proj = Vector2.Dot(new Vector2(v.x, v.z), dir);
-
-                // Нормализованная позиция от 0 (начало) до 1 (конец вектора)
                 float factor = (proj - minProj) / length;
-
-                // Логика Skillion:
-                // roof_direction указывает "вниз" (куда течет вода).
-                // Значит, чем больше factor (ближе к направлению), тем ниже крыша.
-                // factor 0 = самая высокая точка, factor 1 = самая низкая (min_height).
 
                 v.y = min_height + (roofRise * (1.0f - factor));
 
@@ -1107,11 +915,137 @@ public class GenerateRoof : MonoBehaviour
             }
         }
 
-        // 6. Пересчитываем нормали для корректного освещения наклонной поверхности
         RecalculateNormals(data, startIndex);
     }
 
-    // Start is called before the first frame update
+    private void CreateMansardRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, int directionAngle, string orientation)
+    {
+        if (baseCorners.Count < 3) return;
+
+        float minX = float.MaxValue, maxX = float.MinValue;
+        float minZ = float.MaxValue, maxZ = float.MinValue;
+        Vector3 center = Vector3.zero;
+
+        int cornerCount = baseCorners.Count;
+        for (int i = 0; i < cornerCount; i++)
+        {
+            var c = baseCorners[i];
+            if (c.x < minX) minX = c.x;
+            if (c.x > maxX) maxX = c.x;
+            if (c.z < minZ) minZ = c.z;
+            if (c.z > maxZ) maxZ = c.z;
+            center += c;
+        }
+        center /= cornerCount;
+
+        float sizeX = maxX - minX;
+        float sizeZ = maxZ - minZ;
+        float minDimension = Mathf.Min(sizeX, sizeZ);
+
+        float totalRoofHeight = height - min_height;
+        float breakHeightLocal = totalRoofHeight * 0.65f;
+        float breakHeight = min_height + breakHeightLocal;
+
+        float insetAmount = 2.0f;
+        if (insetAmount * 2 >= minDimension) insetAmount = minDimension * 0.2f;
+
+        innerCorners.Clear();
+        for (int i = 0; i < cornerCount; i++)
+        {
+            Vector3 current = baseCorners[i];
+            Vector3 dirToCenter = (center - current).normalized;
+            Vector3 innerPoint = current + (dirToCenter * insetAmount);
+            innerCorners.Add(innerPoint);
+        }
+
+        int baseVertOffset = data.Vertices.Count;
+
+        for (int i = 0; i < cornerCount; i++)
+        {
+            int next = (i + 1) % cornerCount;
+
+            Vector3 b1 = baseCorners[i];
+            Vector3 b2 = baseCorners[next];
+            Vector3 t1 = innerCorners[i];
+            Vector3 t2 = innerCorners[next];
+
+            Vector3 t1_h = new Vector3(t1.x, breakHeight, t1.z);
+            Vector3 t2_h = new Vector3(t2.x, breakHeight, t2.z);
+
+            Vector3 b1_h = new Vector3(b1.x, min_height, b1.z);
+            Vector3 b2_h = new Vector3(b2.x, min_height, b2.z);
+
+            data.Vertices.Add(b1_h);
+            data.Vertices.Add(t1_h);
+            data.Vertices.Add(b2_h);
+            data.Vertices.Add(t2_h);
+
+            data.UV.Add(new Vector2(b1.x, b1.z));
+            data.UV.Add(new Vector2(t1.x, t1.z));
+            data.UV.Add(new Vector2(b2.x, b2.z));
+            data.UV.Add(new Vector2(t2.x, t2.z));
+
+            int currentIdx = baseVertOffset + (i * 4);
+
+            data.Indices.Add(currentIdx);
+            data.Indices.Add(currentIdx + 1);
+            data.Indices.Add(currentIdx + 2);
+
+            data.Indices.Add(currentIdx + 2);
+            data.Indices.Add(currentIdx + 1);
+            data.Indices.Add(currentIdx + 3);
+
+            Vector3 normal = Vector3.Cross(t1_h - b1_h, b2_h - b1_h).normalized;
+            data.Normals.Add(normal);
+            data.Normals.Add(normal);
+            data.Normals.Add(normal);
+            data.Normals.Add(normal);
+        }
+
+        tempCorners.Clear();
+        tempCorners.AddRange(innerCorners);
+
+        CreateHippedRoof(tempCorners, breakHeight, height, data, 0f, directionAngle, orientation);
+    }
+
+    private void CreateConeRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data)
+    {
+        if (baseCorners.Count < 3) return;
+
+        baseCorners.Reverse();
+
+        Vector3 center = Vector3.zero;
+        int cornerCount = baseCorners.Count;
+        for (int i = 0; i < cornerCount; i++) center += baseCorners[i];
+        center /= cornerCount;
+
+        Vector3 peak = new Vector3(center.x, height, center.z);
+
+        int baseOffset = data.Vertices.Count;
+
+        for (int i = 0; i < cornerCount; i++)
+        {
+            Vector3 v = baseCorners[i];
+            data.Vertices.Add(new Vector3(v.x, min_height, v.z));
+            data.UV.Add(new Vector2(v.x, v.z));
+        }
+
+        data.Vertices.Add(peak);
+        data.UV.Add(new Vector2(peak.x, peak.z));
+        int peakIndex = baseOffset + cornerCount;
+
+        for (int i = 0; i < cornerCount; i++)
+        {
+            int next = (i + 1) % cornerCount;
+
+            data.Indices.Add(baseOffset + i);
+            data.Indices.Add(baseOffset + next);
+            data.Indices.Add(peakIndex);
+        }
+
+        RecalculateNormals(data, baseOffset);
+    }
+
     public void GenerateRoofForObject(BaseDataObject dataobj, List<Vector3> corners, List<List<Vector3>> holesCorners, float minHeight, float height, Vector2 min, Vector2 size, BaseOsm geo, bool isUseOldTriangulation)
     {
         var roof = new GameObject("roof");
@@ -1120,7 +1054,7 @@ public class GenerateRoof : MonoBehaviour
 
         var mesh = roof.AddComponent<MeshFilter>().mesh;
 
-        roof.AddComponent<MeshRenderer>();
+        var meshRenderer = roof.AddComponent<MeshRenderer>();
 
         bool isRoofHeightExternalSet = false;
 
@@ -1160,7 +1094,6 @@ public class GenerateRoof : MonoBehaviour
         if (geo.HasField("roof:direction"))
         {
             var roof_direction_str = geo.GetValueStringByKey("roof:direction");
-
             roof_direction = ParseDirection(roof_direction_str);
         }
 
@@ -1170,99 +1103,55 @@ public class GenerateRoof : MonoBehaviour
         {
             roof_orientation = geo.GetValueStringByKey("roof:orientation");
         }
-        else if(geo.HasField("building:roof:orientation"))
+        else if (geo.HasField("building:roof:orientation"))
         {
             roof_orientation = geo.GetValueStringByKey("building:roof:orientation");
         }
 
         var tb = new MeshData();
 
-        if (roof_type == "flat") //fix
+        if (roof_type == "flat")
         {
-            if(isUseOldTriangulation)
-            {
-                GR.CreateMeshWithHeightOld(corners, height, height + roof_height, tb);
-            }
-            else
-            {
-                GR.CreateMeshWithHeight(corners, height, height + roof_height, tb, holesCorners);
-            }
-
+            GR.CreateMeshWithHeight(corners, height, height + roof_height, tb, holesCorners);
         }
         else if (roof_type == "hipped")
         {
-            if (!isRoofHeightExternalSet)
-            {
-                roof_height = 6.0f;
-            }
-
-            CreateHippedRoof(corners, height, height + roof_height, tb, min, size, roofangle);
+            if (!isRoofHeightExternalSet) roof_height = 6.0f;
+            CreateHippedRoof(corners, height, height + roof_height, tb, roofangle, roof_direction, roof_orientation);
         }
         else if (roof_type == "gabled")
         {
-            if (!isRoofHeightExternalSet)
-            {
-                roof_height = 6.0f;
-            }
-
-            CreateGabledRoof(corners, height, height + roof_height, tb, min, size);
+            if (!isRoofHeightExternalSet) roof_height = 6.0f;
+            CreateGabledRoof(corners, height, height + roof_height, tb, roofangle, roof_direction, roof_orientation);
         }
         else if (roof_type == "gambrel")
         {
-            if (!isRoofHeightExternalSet)
-            {
-                roof_height = 6.0f;
-            }
-
-            CreateGambrelRoof(corners, height, height + roof_height, tb, min, size);
+            if (!isRoofHeightExternalSet) roof_height = 6.0f;
+            CreateGambrelRoof(corners, height, height + roof_height, tb, roof_direction, roof_orientation);
         }
-        else if (roof_type == "dome") //fix
+        else if (roof_type == "dome")
         {
-            if (!isRoofHeightExternalSet)
-            {
-                roof_height = Mathf.Min(size.x, size.y) / 2.0f;
-            }
-
+            if (!isRoofHeightExternalSet) roof_height = Mathf.Min(size.x, size.y) / 2.0f;
             CreateDomeRoof(corners, height, height + roof_height, tb, min, size);
         }
         else if (roof_type == "pyramidal")
         {
-            if (!isRoofHeightExternalSet)
-            {
-                roof_height = 3.0f;
-            }
-
+            if (!isRoofHeightExternalSet) roof_height = 3.0f;
             CreatePyramidalRoof(corners, height, height + roof_height, tb, min, size);
         }
         else if (roof_type == "onion")
         {
-            if (!isRoofHeightExternalSet)
-            {
-                roof_height = 1.0f;
-            }
-
+            if (!isRoofHeightExternalSet) roof_height = 1.0f;
             CreateOnionRoof(corners, height, height + roof_height, tb, min, size);
         }
-        // --- NEW TYPES ADDED BELOW ---
         else if (roof_type == "skillion")
         {
-            // Если высота не задана явно в тегах, ставим дефолтное значение.
-            // Если задан roofangle, это значение будет пересчитано внутри функции.
             if (!isRoofHeightExternalSet) roof_height = 3.0f;
-
             CreateSkillionRoofActual(corners, holesCorners, height, height + roof_height, tb, roof_direction, roofangle);
         }
         else if (roof_type == "round")
         {
-            // Для круглой крыши высота по умолчанию часто равна половине ширины, 
-            // но если не задана, берем 3.0м для безопасности.
-            if (!isRoofHeightExternalSet)
-            {
-                // Попытка рассчитать идеальную полусферу на основе геометрии
-                // Но для стабильности пока оставим фикс. значение или используем логику ниже.
-                roof_height = 3.0f;
-            }
-
+            if (!isRoofHeightExternalSet) roof_height = 3.0f;
             CreateRoundRoofActual(corners, holesCorners, height, height + roof_height, tb);
         }
         else if (roof_type == "quadruple_saltbox")
@@ -1272,25 +1161,27 @@ public class GenerateRoof : MonoBehaviour
         }
         else if (roof_type == "saltbox")
         {
-            // Saltbox обычно выше стандартной крыши из-за крутого ската
             if (!isRoofHeightExternalSet) roof_height = 4.5f;
-
-            // Используем roof_direction для ориентации короткого ската
             CreateSaltboxRoof(corners, holesCorners, height, height + roof_height, tb, roof_direction, size);
+        }
+        else if (roof_type == "mansard")
+        {
+            if (!isRoofHeightExternalSet) roof_height = 4.0f;
+            CreateMansardRoof(corners, height, height + roof_height, tb, roof_direction, roof_orientation);
+        }
+        else if (roof_type == "cone")
+        {
+            if (!isRoofHeightExternalSet)
+            {
+                float radius = Mathf.Min(size.x, size.y) / 2.0f;
+                roof_height = radius > 0.1f ? radius : 3.0f;
+            }
+            CreateConeRoof(corners, minHeight, minHeight + roof_height, tb);
         }
         else
         {
             Debug.Log("Try create roofs: " + roof_type);
-
-            //Not supported, use flat
-            if (isUseOldTriangulation)
-            {
-                GR.CreateMeshWithHeightOld(corners, height, height + roof_height, tb);
-            }
-            else
-            {
-                GR.CreateMeshWithHeight(corners, height, height + roof_height, tb, holesCorners);
-            }
+            GR.CreateMeshWithHeight(corners, height, height + roof_height, tb, holesCorners);
         }
 
         mesh.vertices = tb.Vertices.ToArray();
@@ -1302,16 +1193,226 @@ public class GenerateRoof : MonoBehaviour
         if (geo.HasField("roof:material"))
         {
             var mat_name = geo.GetValueStringByKey("roof:material");
-
             var mat_by_tag = buildingMaterials.GetBuildingMaterialByName(mat_name);
 
-            if(mat_by_tag != null)
+            if (mat_by_tag != null)
             {
-                roof.GetComponent<MeshRenderer>().material = mat_by_tag;
+                meshRenderer.material = mat_by_tag;
             }
         }
 
-        roof.GetComponent<MeshRenderer>().material.SetColor("_Color", GR.SetOSMRoofColour(geo));
+        Color rouf_color = GR.SetOSMRoofColour(geo);
+
+        meshRenderer.material.SetColor("_Color", rouf_color);
+        meshRenderer.material.SetColor("_BaseColor", rouf_color);
+
+        //Very bad hack ((
+        meshRenderer.material.EnableKeyword("_DOUBLESIDED_ON");
+        meshRenderer.material.SetFloat("_CullMode", 0f);
+
     }
 
+    private void CreateQuadrupleSaltboxRoof(List<Vector3> baseCorners, float min_height, float height, MeshData data, int directionAngle, Vector2 size)
+    {
+        if (baseCorners.Count < 4) return;
+        if (!GR.IsClockwise(baseCorners)) baseCorners.Reverse();
+
+        Vector3 center = Vector3.zero;
+        int cornerCount = baseCorners.Count;
+        for (int i = 0; i < cornerCount; i++) center += baseCorners[i];
+        center /= cornerCount;
+
+        float offsetMagnitude = (Mathf.Min(size.x, size.y) * 0.5f);
+        float rad = directionAngle * Mathf.Deg2Rad;
+        Vector3 offsetDir = new Vector3(Mathf.Sin(rad), 0, Mathf.Cos(rad));
+
+        Vector3 peak = center + (offsetDir * offsetMagnitude);
+        peak.y = height;
+
+        int baseIndex = data.Vertices.Count;
+
+        for (int i = 0; i < cornerCount; i++)
+        {
+            Vector3 v = baseCorners[i];
+            v.y = min_height;
+            data.Vertices.Add(v);
+            data.UV.Add(new Vector2(v.x, v.z));
+        }
+
+        data.Vertices.Add(peak);
+        data.UV.Add(new Vector2(peak.x, peak.z));
+        int peakIndex = baseIndex + cornerCount;
+
+        for (int i = 0; i < cornerCount; i++)
+        {
+            int next = (i + 1) % cornerCount;
+
+            data.Indices.Add(baseIndex + i);
+            data.Indices.Add(baseIndex + next);
+            data.Indices.Add(peakIndex);
+        }
+
+        RecalculateNormals(data, baseIndex);
+    }
+
+    private void CreateSaltboxRoof(List<Vector3> baseCorners, List<List<Vector3>> holes, float min_height, float height, MeshData data, int directionAngle, Vector2 size)
+    {
+        if (baseCorners.Count < 3) return;
+
+        float rad = directionAngle * Mathf.Deg2Rad;
+        Vector2 dir = new Vector2(Mathf.Sin(rad), Mathf.Cos(rad));
+
+        float minProj = float.MaxValue;
+        float maxProj = float.MinValue;
+
+        float minX = float.MaxValue, maxX = float.MinValue;
+        float minZ = float.MaxValue, maxZ = float.MinValue;
+
+        int cornerCount = baseCorners.Count;
+        for (int i = 0; i < cornerCount; i++)
+        {
+            var c = baseCorners[i];
+            float p = Vector2.Dot(new Vector2(c.x, c.z), dir);
+            if (p < minProj) minProj = p;
+            if (p > maxProj) maxProj = p;
+
+            if (c.x < minX) minX = c.x;
+            if (c.x > maxX) maxX = c.x;
+            if (c.z < minZ) minZ = c.z;
+            if (c.z > maxZ) maxZ = c.z;
+        }
+
+        float length = maxProj - minProj;
+        if (length < 0.01f) length = 1f;
+
+        float ridgeOffsetFactor = 0.35f;
+        float ridgePos = maxProj - (length * ridgeOffsetFactor);
+
+        var polygon = new TriangleNet.Geometry.Polygon();
+        polygon.Add(new TriangleNet.Geometry.Contour(baseCorners.Select(v => new TriangleNet.Geometry.Vertex(v.x, v.z)).ToList()));
+
+        if (holes != null)
+        {
+            int holesCount = holes.Count;
+            for (int h = 0; h < holesCount; h++)
+            {
+                var hole = holes[h];
+                if (hole.Count > 2) polygon.Add(new TriangleNet.Geometry.Contour(hole.Select(v => new TriangleNet.Geometry.Vertex(v.x, v.z)).ToList()), true);
+            }
+        }
+
+        float step = 0.5f;
+        if (Mathf.Max(maxX - minX, maxZ - minZ) / step > 60) step = Mathf.Max(maxX - minX, maxZ - minZ) / 60.0f;
+
+        for (float x = minX + step; x < maxX; x += step)
+        {
+            for (float z = minZ + step; z < maxZ; z += step)
+            {
+                if (IsPointInPolygon(new Vector2(x, z), baseCorners))
+                {
+                    bool inHole = false;
+                    if (holes != null)
+                    {
+                        int holesCount = holes.Count;
+                        for (int h = 0; h < holesCount; h++)
+                        {
+                            if (IsPointInPolygon(new Vector2(x, z), holes[h])) { inHole = true; break; }
+                        }
+                    }
+                    if (!inHole) polygon.Add(new TriangleNet.Geometry.Vertex(x, z));
+                }
+            }
+        }
+
+        var mesh = polygon.Triangulate();
+        int startIndex = data.Vertices.Count;
+
+        foreach (var v in mesh.Vertices)
+        {
+            float vx = (float)v.X;
+            float vz = (float)v.Y;
+
+            float currentProj = Vector2.Dot(new Vector2(vx, vz), dir);
+            float distToRidge = currentProj - ridgePos;
+
+            float factor = 0f;
+
+            if (distToRidge > 0)
+            {
+                float frontLen = maxProj - ridgePos;
+                factor = distToRidge / frontLen;
+            }
+            else
+            {
+                float backLen = ridgePos - minProj;
+                factor = Mathf.Abs(distToRidge) / backLen;
+            }
+
+            float y = Mathf.Lerp(height, min_height, factor);
+
+            data.Vertices.Add(new Vector3(vx, y, vz));
+            data.UV.Add(new Vector2(vx, vz));
+        }
+
+        foreach (var t in mesh.Triangles)
+        {
+            data.Indices.Add(startIndex + t.GetVertexID(2));
+            data.Indices.Add(startIndex + t.GetVertexID(1));
+            data.Indices.Add(startIndex + t.GetVertexID(0));
+        }
+
+        CreateGableWallsForProceduralRoof(baseCorners, holes, min_height, height, dir, ridgePos, maxProj, minProj, data);
+
+        RecalculateNormals(data, startIndex);
+    }
+
+    private void CreateGableWallsForProceduralRoof(List<Vector3> corners, List<List<Vector3>> holes, float min_height, float peak_height, Vector2 dir, float ridgePos, float maxProj, float minProj, MeshData data)
+    {
+        var allContours = new List<List<Vector3>> { corners };
+        if (holes != null) allContours.AddRange(holes);
+
+        foreach (var contour in allContours)
+        {
+            int contourCount = contour.Count;
+            for (int i = 0; i < contourCount; i++)
+            {
+                Vector3 start = contour[i];
+                Vector3 end = contour[(i + 1) % contourCount];
+
+                float wallLen = Vector3.Distance(start, end);
+                int segments = Mathf.Max(1, Mathf.CeilToInt(wallLen / 0.5f));
+
+                for (int s = 0; s < segments; s++)
+                {
+                    float t1 = (float)s / segments;
+                    float t2 = (float)(s + 1) / segments;
+                    Vector3 p1 = Vector3.Lerp(start, end, t1);
+                    Vector3 p2 = Vector3.Lerp(start, end, t2);
+
+                    float GetH(Vector3 p)
+                    {
+                        float proj = Vector2.Dot(new Vector2(p.x, p.z), dir);
+                        float dist = proj - ridgePos;
+                        float f = (dist > 0) ? (dist / (maxProj - ridgePos)) : (Mathf.Abs(dist) / (ridgePos - minProj));
+                        return Mathf.Lerp(peak_height, min_height, f);
+                    }
+
+                    float h1 = GetH(p1);
+                    float h2 = GetH(p2);
+
+                    int vIdx = data.Vertices.Count;
+                    data.Vertices.Add(new Vector3(p1.x, min_height, p1.z));
+                    data.Vertices.Add(new Vector3(p1.x, h1, p1.z));
+                    data.Vertices.Add(new Vector3(p2.x, min_height, p2.z));
+                    data.Vertices.Add(new Vector3(p2.x, h2, p2.z));
+
+                    data.UV.Add(new Vector2(0, 0)); data.UV.Add(new Vector2(0, 1));
+                    data.UV.Add(new Vector2(1, 0)); data.UV.Add(new Vector2(1, 1));
+
+                    data.Indices.Add(vIdx); data.Indices.Add(vIdx + 1); data.Indices.Add(vIdx + 2);
+                    data.Indices.Add(vIdx + 2); data.Indices.Add(vIdx + 1); data.Indices.Add(vIdx + 3);
+                }
+            }
+        }
+    }
 }

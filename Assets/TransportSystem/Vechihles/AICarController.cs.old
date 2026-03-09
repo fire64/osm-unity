@@ -1,0 +1,365 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class AICarController : MonoBehaviour
+{
+    [Header("Navigation")]
+    public Road currentRoad;
+    public int waypointIndex;
+    public int laneIndex;
+    public bool isLaneForward;
+
+    [Header("Physics & Movement")]
+    public float maxSpeed = 15.0f;          // Максимальная скорость (м/с)
+    public float acceleration = 5.0f;       // Ускорение
+    public float brakingPower = 10.0f;      // Сила торможения
+    public float steerSpeed = 5.0f;         // Скорость поворота колес
+    public float arrivalThreshold = 1.5f;   // Дистанция переключения точки
+
+    [Header("Sensors (ACC)")]
+    public float sensorLength = 10.0f;      // Дальность зрения
+    public float sideSensorLength = 5.0f;   // Боковые сенсоры
+    public float sensorAngle = 20.0f;       // Угол боковых сенсоров
+    public LayerMask obstacleMask;          // Маски препятствий (машины, стены)
+    public LayerMask pedestrianMask;        // Маска пешеходов
+
+    [Header("Safety Settings")]
+    public float emergencyBrakingMultiplier = 3.0f; // Во сколько раз сильнее тормозить при опасности
+    public float minSafeDistance = 2.0f; // Критическая дистанция
+
+    [Header("Visuals")]
+    public Transform[] frontWheels;         // Ссылки на меши передних колес (для вращения)
+
+    // Внутренние переменные
+    private float currentSpeed = 0.0f;
+    private float targetSpeed = 0.0f;
+    private bool isMoving = false;
+    private Rigidbody rb;
+
+    // Состояние
+    private bool blockedByTraffic = false;
+    private bool blockedByPedestrian = false;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+        if (rb == null)
+        {
+            rb = gameObject.AddComponent<Rigidbody>();
+            rb.useGravity = true;
+            rb.isKinematic = true; // Используем кинематику для стабильности трафика, но с инерцией в коде
+        }
+
+        // Случайная скорость для разнообразия потока
+        maxSpeed = Random.Range(maxSpeed * 0.9f, maxSpeed * 1.1f);
+
+        if (currentRoad != null)
+        {
+            ResetAI(currentRoad, waypointIndex, laneIndex);
+        }
+    }
+
+    void Update()
+    {
+        if (!isMoving || currentRoad == null) return;
+
+        SensorsLogic();
+        MovementLogic();
+        SteeringVisuals();
+    }
+
+    void SensorsLogic()
+    {
+        blockedByTraffic = false;
+        blockedByPedestrian = false;
+
+        // Важно: Динамическая длина сенсора!
+        // Чем выше скорость, тем дальше мы должны смотреть.
+        // currentSpeed * 1.5f — эмпирический коэффициент, можно подстроить.
+        float dynamicSensorLength = Mathf.Max(sensorLength, currentSpeed * 1.5f);
+
+        float obstacleDistance = dynamicSensorLength;
+
+        Vector3 sensorStart = transform.position + Vector3.up * 0.5f + transform.forward * 1.5f;
+
+        // 1. Проверка трафика (Raycast)
+        RaycastHit hit;
+        if (Physics.Raycast(sensorStart, transform.forward, out hit, dynamicSensorLength, obstacleMask))
+        {
+            if (hit.collider.gameObject != gameObject && !hit.collider.GetComponent<Road>())
+            {
+                blockedByTraffic = true;
+                obstacleDistance = hit.distance;
+            }
+        }
+
+        // 2. Проверка пешеходов (SphereCast)
+        if (Physics.SphereCast(sensorStart, 1.0f, transform.forward, out hit, sideSensorLength, pedestrianMask))
+        {
+            blockedByPedestrian = true;
+            // Пешеход приоритетнее, если он ближе
+            obstacleDistance = Mathf.Min(obstacleDistance, hit.distance);
+        }
+
+        // --- ЛОГИКА ТОРМОЖЕНИЯ ---
+
+        if (blockedByTraffic || blockedByPedestrian)
+        {
+            // 1. ЖЕСТКАЯ ОСТАНОВКА (Hard Stop)
+            // Если мы вплотную к препятствию (< 1.5м), останавливаемся мгновенно,
+            // иначе машина по инерции въедет в модельку.
+            if (obstacleDistance < 1.5f)
+            {
+                targetSpeed = 0;
+                currentSpeed = 0; // Принудительный сброс текущей скорости
+                return;
+            }
+
+            // 2. ЭКСТРЕННОЕ ТОРМОЖЕНИЕ
+            // Если препятствие ближе критической дистанции, целевая скорость 0
+            if (obstacleDistance < minSafeDistance)
+            {
+                targetSpeed = 0;
+            }
+            else
+            {
+                // 3. ПЛАВНОЕ СНИЖЕНИЕ
+                // Рассчитываем коэффициент торможения.
+                // Чем ближе к minSafeDistance, тем меньше скорость.
+                float factor = (obstacleDistance - minSafeDistance) / (dynamicSensorLength - minSafeDistance);
+                targetSpeed = maxSpeed * Mathf.Clamp01(factor);
+            }
+        }
+        else
+        {
+            targetSpeed = maxSpeed;
+        }
+    }
+
+    void MovementLogic()
+    {
+        // 1. Получаем целевую точку
+        Vector3 targetPoint = GetTargetPoint();
+        targetPoint.y = transform.position.y; // Игнорируем перепад высот для руления
+
+        // 2. Поворот (Steering)
+        Vector3 directionToTarget = (targetPoint - transform.position).normalized;
+        if (directionToTarget != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+            // Плавный поворот
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, steerSpeed * 10f * Time.deltaTime);
+        }
+
+        // 3. Скорость (Acceleration/Braking)
+        // Логика скорости
+        if (currentSpeed < targetSpeed)
+        {
+            // Разгон
+            currentSpeed += acceleration * Time.deltaTime;
+        }
+        else if (currentSpeed > targetSpeed)
+        {
+            // Торможение
+            // Если целевая скорость 0 (препятствие), используем экстренный множитель
+            float currentBrakingPower = brakingPower;
+
+            if (targetSpeed < 0.1f) // Если цель - полная остановка
+            {
+                currentBrakingPower *= emergencyBrakingMultiplier;
+            }
+
+            currentSpeed -= currentBrakingPower * Time.deltaTime;
+        }
+
+        currentSpeed = Mathf.Max(0, currentSpeed);
+
+        // 4. Применение движения
+        transform.Translate(Vector3.forward * currentSpeed * Time.deltaTime);
+
+        // 5. Проверка прибытия к точке
+        if (Vector3.Distance(transform.position, targetPoint) < arrivalThreshold)
+        {
+            AdvanceWaypoint();
+        }
+    }
+
+    // Визуальный поворот колес
+    void SteeringVisuals()
+    {
+        if (frontWheels == null || frontWheels.Length == 0) return;
+
+        Vector3 targetPoint = GetTargetPoint();
+        Vector3 relativePos = transform.InverseTransformPoint(targetPoint);
+        float steeringAngle = Mathf.Atan2(relativePos.x, relativePos.z) * Mathf.Rad2Deg;
+        steeringAngle = Mathf.Clamp(steeringAngle, -45, 45);
+
+        foreach (var wheel in frontWheels)
+        {
+            // Сохраняем локальное вращение колеса по X (вращение при езде) и применяем Y (поворот)
+            // Тут упрощено, в идеале нужно разделять меш колеса и суппорт
+            Vector3 currentEuler = wheel.localEulerAngles;
+            // Вращение колес при езде
+            float rotationAmount = currentSpeed * Time.deltaTime * 100f;
+            wheel.localRotation = Quaternion.Euler(currentEuler.x + rotationAmount, steeringAngle, 0);
+        }
+    }
+
+    Vector3 GetTargetPoint()
+    {
+        if (currentRoad == null) return transform.position;
+        return currentRoad.GetCenterPointByIdAndLane(laneIndex, waypointIndex);
+    }
+
+    void AdvanceWaypoint()
+    {
+        int nextIndex = isLaneForward ? waypointIndex + 1 : waypointIndex - 1;
+        int limit = currentRoad.GetLaneCenterPoints(laneIndex).Count;
+
+        // Проверка конца дороги
+        if ((isLaneForward && nextIndex >= limit) || (!isLaneForward && nextIndex < 0))
+        {
+            if (!TryFindNextRoad())
+            {
+                // Если дороги нет и это конец - удаляем машину
+                RemoveCar();
+            }
+        }
+        else
+        {
+            waypointIndex = nextIndex;
+        }
+    }
+
+    bool TryFindNextRoad()
+    {
+        // Ищем следующую дорогу с помощью SphereCast вниз-вперед, чтобы найти стык
+        // Чуть поднимаем точку поиска и стреляем вниз в предполагаемой следующей позиции
+        Vector3 searchPos = transform.position + transform.forward * 3.0f + Vector3.up * 2.0f;
+        RaycastHit[] hits = Physics.SphereCastAll(searchPos, 2.0f, Vector3.down, 10.0f, LayerMask.GetMask("Roads"));
+
+        foreach (var hit in hits)
+        {
+            Road nextRoad = hit.collider.GetComponent<Road>();
+            // Ищем дорогу, которая не является текущей и подходит для авто
+            if (nextRoad != null && nextRoad != currentRoad && nextRoad.isCanUseAutomobile())
+            {
+                // Нашли дорогу, теперь нужно найти ближайшую полосу и точку входа
+                int newLane;
+                int newPoint;
+                Vector3 p;
+                float d;
+
+                if (nextRoad.FindNearestLane(transform.position + transform.forward * 2.0f, out newLane, out newPoint, out p, out d))
+                {
+                    // Переключаемся на новую дорогу
+                    currentRoad = nextRoad;
+                    laneIndex = newLane;
+
+                    // Определяем направление движения на новой дороге
+                    // Сравниваем направление вектора машины и направление полосы
+                    Vector3 laneDir = nextRoad.GetForwardDirection(newLane, 0); // Вспомогательный метод в Road
+                    float dot = Vector3.Dot(transform.forward, laneDir);
+
+                    isLaneForward = nextRoad.isLineForward(newLane);
+
+                    // Если мы заезжаем "против шерсти" по индексам, нужно корректировать
+                    // Здесь упрощенная логика: ищем ближайшую точку (начало или конец)
+                    int count = nextRoad.GetLaneCenterPoints(newLane).Count;
+                    float distToStart = Vector3.Distance(transform.position, nextRoad.GetCenterPointByIdAndLane(newLane, 0));
+                    float distToEnd = Vector3.Distance(transform.position, nextRoad.GetCenterPointByIdAndLane(newLane, count - 1));
+
+                    if (distToStart < distToEnd)
+                    {
+                        waypointIndex = 0; // Начинаем с начала
+                    }
+                    else
+                    {
+                        waypointIndex = count - 1; // Начинаем с конца
+                    }
+
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void ResetAI(Road road, int pointIndex, int lane)
+    {
+        currentRoad = road;
+        waypointIndex = pointIndex;
+        laneIndex = lane;
+        isLaneForward = road.isLineForward(lane);
+        isMoving = true;
+        currentSpeed = maxSpeed * 0.5f; // Стартуем не с нуля
+
+        // Мгновенная установка позиции и поворота при респавне
+        Vector3 pos = GetTargetPoint();
+        transform.position = pos;
+
+        // Смотрим на следующую точку
+        int nextIdx = isLaneForward ? waypointIndex + 1 : waypointIndex - 1;
+        // Безопасная проверка границ
+        var points = road.GetLaneCenterPoints(lane);
+        if (nextIdx >= 0 && nextIdx < points.Count)
+        {
+            Vector3 nextPos = points[nextIdx];
+            transform.LookAt(nextPos);
+        }
+    }
+
+    void RemoveCar()
+    {
+        TrafficSpawner spawner = FindObjectOfType<TrafficSpawner>();
+        if (spawner) spawner.ReturnVehicleToPool(gameObject);
+        else gameObject.SetActive(false);
+    }
+
+    // Gizmos для отладки сенсоров
+    void OnDrawGizmos()
+    {
+        // Рисуем путь к текущей цели
+        if (currentRoad != null)
+        {
+            Gizmos.color = Color.cyan;
+            Vector3 target = GetTargetPoint();
+            Gizmos.DrawLine(transform.position, target);
+            Gizmos.DrawWireSphere(target, 0.5f);
+        }
+
+        // --- Визуализация Сенсоров ---
+        Vector3 sensorStart = transform.position + Vector3.up * 0.5f + transform.forward * 1.5f;
+
+        // 1. Центральный сенсор (для машин)
+        // Вычисляем динамическую длину сенсора (см. логику ниже)
+        float effectiveSensorLength = Mathf.Max(sensorLength, currentSpeed * 1.5f); // Динамическая длина
+
+        bool isHitCentral = Physics.Raycast(sensorStart, transform.forward, out RaycastHit hitCentral, effectiveSensorLength, obstacleMask);
+
+        if (isHitCentral)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(sensorStart, hitCentral.point);
+            Gizmos.DrawSphere(hitCentral.point, 0.2f); // Точка удара
+        }
+        else
+        {
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(sensorStart, sensorStart + transform.forward * effectiveSensorLength);
+        }
+
+        // 2. Сенсор пешеходов (SphereCast)
+        // Рисуем "объем" сенсора
+        bool isHitSide = Physics.SphereCast(sensorStart, 1.0f, transform.forward, out RaycastHit hitSide, sideSensorLength, pedestrianMask);
+
+        Gizmos.color = isHitSide ? new Color(1, 0, 1, 0.5f) : new Color(1, 1, 0, 0.2f); // Пурпурный при ударе, желтый при покое
+
+        Vector3 endPoint = isHitSide ? hitSide.point : (sensorStart + transform.forward * sideSensorLength);
+
+        // Рисуем сферу в конце луча (упрощенная визуализация SphereCast)
+        Gizmos.DrawWireSphere(endPoint, 1.0f);
+        Gizmos.DrawLine(sensorStart, endPoint);
+    }
+}

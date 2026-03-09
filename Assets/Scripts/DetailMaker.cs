@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Threading;
 using Unity.VisualScripting;
 using UnityEngine;
+using static GR;
 
 class DetailMaker : InfrstructureBehaviour
 {
@@ -19,23 +20,41 @@ class DetailMaker : InfrstructureBehaviour
     public TileSystem tileSystem;
 
     private int m_countProcessing = 0;
+    // —писок дл€ отслеживани€ уже обработанных ID
+    private HashSet<ulong> processedIDs = new HashSet<ulong>();
 
     // Ќовый массив дл€ исключени€ ключей
     public string[] excludeKeysForTextMarkers = Array.Empty<string>();
 
+    // ============================================
+    // ќѕ“»ћ»«ј÷»я: batchSize дл€ пакетной обработки
+    // ============================================
+    [Header("Optimization Settings")]
+    [Tooltip(" оличество detail объектов обрабатываемых за один кадр")]
+    public int batchSize = 20;
+
+    // ============================================
+    // ќѕ“»ћ»«ј÷»я:  эширование ссылок
+    // ============================================
+    private Vector3 cachedWorldOrigin;
+
+    // ============================================
+    // ќѕ“»ћ»«ј÷»я:  эширование HashSet дл€ исключений
+    // ============================================
+    private HashSet<string> excludeKeysSet;
+
     void CreateTempMarker(Detail detail)
     {
-        // ѕроверка на исключение ключа
-        if (excludeKeysForTextMarkers != null &&
-            Array.Exists(excludeKeysForTextMarkers, key => key == detail.Description))
+        // ќѕ“»ћ»«ј÷»я: »спользуем HashSet вместо Array.Exists
+        if (excludeKeysSet != null && excludeKeysSet.Contains(detail.Description))
         {
             return;
         }
 
         string Text = detail.Description + ": " + detail.Type;
 
-        if(isDebugNotSet)
-            Debug.LogWarning( "Not set detail: " + Text);
+        if (isDebugNotSet)
+            Debug.LogWarning("Not set detail: " + Text);
 
         var go = Instantiate(tempMarker, detail.transform.position, Quaternion.identity);
 
@@ -46,8 +65,6 @@ class DetailMaker : InfrstructureBehaviour
 
     void CreateDetailPrefab(Detail detail, GameObject detailPrefab)
     {
-        string Text = detail.Description + ": " + detail.Type;
-
         var go = Instantiate(detailPrefab, detail.transform.position, Quaternion.identity);
 
         go.transform.SetParent(detail.transform);
@@ -121,13 +138,13 @@ class DetailMaker : InfrstructureBehaviour
         CheckAndAddCategory(geo, detail, "leisure");
         CheckAndAddCategory(geo, detail, "traffic_sign");
         CheckAndAddCategory(geo, detail, "xmas:feature");
-        CheckAndAddCategory(geo, detail, "xmas:feature");
 
         var typeName = detail.Description + ":" + detail.Type;
 
+        // ќѕ“»ћ»«ј÷»я: »спользуем оптимизированный метод поиска
         var detailsInfo = detailsTypes.GetDetailsTypeInfoByName(typeName);
 
-        if(detailsInfo.isTempMarkerEnable || isAlwaysShowTempMarker)
+        if (detailsInfo.isTempMarkerEnable || isAlwaysShowTempMarker)
         {
             CreateTempMarker(detail);
         }
@@ -136,7 +153,7 @@ class DetailMaker : InfrstructureBehaviour
         {
             CreateDetailPrefab(detail, detailsInfo.detailsPrefab);
         }
-        else if(isShowTempMarkerForeNotSetPrefab)
+        else if (isShowTempMarkerForeNotSetPrefab)
         {
             CreateTempMarker(detail);
         }
@@ -144,8 +161,13 @@ class DetailMaker : InfrstructureBehaviour
 
     void CreateDetails(OsmNode geo)
     {
+        // «ащита от дублей
+        if (processedIDs.Contains(geo.ID)) return;
+        processedIDs.Add(geo.ID);
+
         m_countProcessing++;
 
+        // ѕропускаем остановки транспорта (как в оригинале)
         if (geo.HasField("public_transport"))
         {
             return;
@@ -153,13 +175,7 @@ class DetailMaker : InfrstructureBehaviour
 
         var searchname = "detail " + geo.ID.ToString();
 
-        //Check for duplicates in case of loading multiple locations
-        if (GameObject.Find(searchname))
-        {
-            return;
-        }
-
-        if (contentselector.isGeoObjectDisabled(geo.ID))
+        if (contentselector != null && contentselector.isGeoObjectDisabled(geo.ID))
         {
             return;
         }
@@ -170,18 +186,23 @@ class DetailMaker : InfrstructureBehaviour
 
         SetProperties(geo, detail);
 
-        Vector3 localOrigin = GetCentre(geo);
-        detail.transform.position = localOrigin - map.bounds.Centre;
+        // »«ћ≈Ќ≈Ќ»≈: ¬ычисл€ем позицию
+        // OsmNode имеет не€вное приведение к Vector3 (X, 0, Y в координатах ћеркатора)
+        Vector3 nodeWorldPos = (Vector3)geo;
 
-        if (tileSystem.tileType == TileSystem.TileType.Terrain)
+        // ќѕ“»ћ»«ј÷»я: »спользуем кэшированный WorldOrigin
+        detail.transform.position = nodeWorldPos - cachedWorldOrigin;
+
+        detail.transform.position += Vector3.up * (detail.layer * BaseDataObject.layer_size);
+
+        //  орректировка под Terrain
+        if (tileSystem != null && tileSystem.tileType == TileSystem.TileType.Terrain)
         {
             if (tileSystem.isUseElevation)
             {
-                detail.transform.position = GR.getHeightPosition(detail.transform.position);
+                StartCoroutine(SpawnInHeight(detail.gameObject, AlgorithmHeightSorting.CenterHeight));
             }
         }
-
-        detail.transform.position += Vector3.up * (detail.layer * BaseDataObject.layer_size);
 
         foreach (Transform child in detail.transform)
         {
@@ -189,31 +210,100 @@ class DetailMaker : InfrstructureBehaviour
         }
     }
 
-    // Start is called before the first frame update
     IEnumerator Start()
     {
-        while (!map.IsReady)
+        // ∆дем готовности MapReader
+        while (MapReader.Instance == null || !MapReader.Instance.IsReady)
         {
             yield return null;
         }
 
         contentselector = FindObjectOfType<GameContentSelector>();
-
         tileSystem = FindObjectOfType<TileSystem>();
+
+        // ќѕ“»ћ»«ј÷»я:  эшируем WorldOrigin один раз при старте
+        cachedWorldOrigin = MapReader.Instance.WorldOrigin;
+
+        // ќѕ“»ћ»«ј÷»я: —оздаем HashSet дл€ быстрого поиска исключений
+        if (excludeKeysForTextMarkers != null && excludeKeysForTextMarkers.Length > 0)
+        {
+            excludeKeysSet = new HashSet<string>(excludeKeysForTextMarkers);
+        }
+
+        // ќѕ“»ћ»«ј÷»я: »нициализируем словарь типов деталей
+        if (detailsTypes != null)
+        {
+  //          detailsTypes.InitializeCache();
+        }
 
         if (isClearUnusedData)
         {
             detailsTypes.DeleteUnused();
         }
 
-        foreach (var node in map.nodeslist.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Detail; }))
+        // 1. ѕодписываемс€ на новые событи€
+        MapReader.Instance.OnNodeLoaded += OnNodeLoaded;
+
+        float starttime = Time.time;
+
+        // ============================================
+        // ќѕ“»ћ»«ј÷»я: ѕакетна€ обработка объектов
+        // ============================================
+        int processedInBatch = 0;
+
+        // 2. ќбрабатываем уже загруженные данные
+        var nodesList = MapReader.Instance.nodeslist;
+        if (nodesList != null)
         {
-            node.AddField("source_type", "node");
-            CreateDetails(node);
-            yield return null;
+            int nodesCount = nodesList.Count;
+            for (int i = 0; i < nodesCount; i++)
+            {
+                var node = nodesList[i];
+                if (node.objectType == BaseOsm.ObjectType.Detail)
+                {
+                    node.AddField("source_type", "node");
+                    CreateDetails(node);
+
+                    processedInBatch++;
+                    if (processedInBatch >= batchSize)
+                    {
+                        processedInBatch = 0;
+                        yield return null; // ѕауза только после обработки batchSize объектов
+                    }
+                }
+            }
         }
 
+        float endtime = Time.time;
+
+        Debug.Log("Details create at: " + (endtime - starttime) + " | Total: " + m_countProcessing);
+
         isFinished = true;
+    }
+
+    // ќбработчик событий
+    private void OnNodeLoaded(OsmNode node)
+    {
+        // ‘ильтраци€: обрабатываем только детали
+        if (node.objectType != BaseOsm.ObjectType.Detail) return;
+
+        // «апускаем создание (метод сам проверит дубликаты)
+        StartCoroutine(ProcessDetailCoroutine(node));
+    }
+
+    private IEnumerator ProcessDetailCoroutine(OsmNode node)
+    {
+        node.AddField("source_type", "node");
+        CreateDetails(node);
+        yield return null;
+    }
+
+    private void OnDestroy()
+    {
+        if (MapReader.Instance != null)
+        {
+            MapReader.Instance.OnNodeLoaded -= OnNodeLoaded;
+        }
     }
 
     public int GetCountProcessing()

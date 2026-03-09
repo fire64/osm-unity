@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
-using UnityEngine.Rendering.PostProcessing;
+//using UnityEngine.Rendering.PostProcessing;
 
 [System.Serializable]
 public class EmissiveMaterial
@@ -14,7 +14,7 @@ public class EmissiveMaterial
 
 public class DayNightAtmospheric : MonoBehaviour
 {
-    public PostProcessVolume postProcessVolume;
+/*    public PostProcessVolume postProcessVolume;
     public ColorGrading colorGrading;
     public Bloom bloom;
 
@@ -108,5 +108,5 @@ public class DayNightAtmospheric : MonoBehaviour
                 bloom.intensity.value = 0.5f;
             }
         }
-    }
+    }*/
 }

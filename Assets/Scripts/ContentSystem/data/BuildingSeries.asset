@@ -13,1497 +13,1831 @@ MonoBehaviour:
   m_Name: BuildingSeries
   m_EditorClassIdentifier: 
   BuildingSeriesReplaceList:
-  - predstavlenie: 1-225-109_filter_floors_2_entrances_0
-    series: 1-225-109
+  - predstavlenie: "et_0_pod_0_83-\u041D\u0427"
+    series: "83-\u041D\u0427"
+    floors: 0
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_0_pod_0_II-14-31
+    series: II-14-31
+    floors: 0
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_0_pod_0_II-14-33
+    series: II-14-33
+    floors: 0
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_0_pod_0_\u041F46\u041C-2/9;\u041F46\u041C-21/9;\u041F46\u041C-22\u043B/9"
+    series: "\u041F46\u041C-2/9;\u041F46\u041C-21/9;\u041F46\u041C-22\u043B/9"
+    floors: 0
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_0_pod_0_\u041F46\u041C-2/9;\u041F46\u041C-22\u043B/9;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-2/9;\u041F46\u041C-22\u043B/9;\u041F46\u041C-4/9"
+    floors: 0
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_0_pod_-2147483648_II-18-01/\u041C\u0418 \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0411\xBB"
+    series: "II-18-01/\u041C\u0418 \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0411\xBB"
+    floors: 0
+    entrances: -2147483648
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_1_pod_0_\u041C\u042E"
+    series: "\u041C\u042E"
+    floors: 1
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_10_pod_0_83-\u041D\u0427"
+    series: "83-\u041D\u0427"
+    floors: 10
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_10_pod_0_II-68
+    series: II-68
+    floors: 10
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_10_pod_0_\u0421\u041C-6"
+    series: "\u0421\u041C-6"
+    floors: 10
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_10_pod_2_\u041F44-1/16 \u0442\u0438\u043F 1"
+    series: "\u041F44-1/16 \u0442\u0438\u043F 1"
+    floors: 10
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_10_pod_3_\u041F44-1/16 \u0442\u0438\u043F 1"
+    series: "\u041F44-1/16 \u0442\u0438\u043F 1"
+    floors: 10
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_10_pod_3_\u041F44-1/16 \u0442\u0438\u043F 1;\u041F44-4/16
+      \u0442\u0438\u043F 2"
+    series: "\u041F44-1/16 \u0442\u0438\u043F 1;\u041F44-4/16 \u0442\u0438\u043F
+      2"
+    floors: 10
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_10_pod_3_\u041F\u04344-1/10\u041D1"
+    series: "\u041F\u04344-1/10\u041D1"
+    floors: 10
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_10_pod_4_\u0421\u041C-6"
+    series: "\u0421\u041C-6"
+    floors: 10
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_12_pod_1_124-124-4
+    series: 124-124-4
+    floors: 12
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_12_pod_1_II-18-01/12
+    series: II-18-01/12
+    floors: 12
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_12_pod_1_II-18-21/12
+    series: II-18-21/12
+    floors: 12
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_12_pod_1_II-18-31/12
+    series: II-18-31/12
+    floors: 12
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_1_II-18-31/12\u0410"
+    series: "II-18-31/12\u0410"
+    floors: 12
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_1_II-67 \u041C\u043E\u0441\u043A\u0432\u043E\u0440\u0435\u0446\u043A\u0430\u044F"
+    series: "II-67 \u041C\u043E\u0441\u043A\u0432\u043E\u0440\u0435\u0446\u043A\u0430\u044F"
+    floors: 12
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_1_\u041F46-2/12\u0412"
+    series: "\u041F46-2/12\u0412"
+    floors: 12
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_11_\u041F46/12"
+    series: "\u041F46/12"
+    floors: 12
+    entrances: 11
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_11_\u041F46-3/12"
+    series: "\u041F46-3/12"
+    floors: 12
+    entrances: 11
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_12_pod_2_II-18-01/12
+    series: II-18-01/12
+    floors: 12
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_2_II-57-03/12\u041C\u0410"
+    series: "II-57-03/12\u041C\u0410"
+    floors: 12
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_2_II-57-03/12\u042E\u0410"
+    series: "II-57-03/12\u042E\u0410"
+    floors: 12
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_2_\u041F44-1/16 \u0442\u0438\u043F 1"
+    series: "\u041F44-1/16 \u0442\u0438\u043F 1"
+    floors: 12
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_2_\u041F44\u0422-1/17 \u0442\u0438\u043F 1"
+    series: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1"
+    floors: 12
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_2_\u041F46-3/12"
+    series: "\u041F46-3/12"
+    floors: 12
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_2_\u041F55-25/12;\u041F55-26/12"
+    series: "\u041F55-25/12;\u041F55-26/12"
+    floors: 12
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_3_II-68-03/12\u042E"
+    series: "II-68-03/12\u042E"
+    floors: 12
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_3_\u041F31/12"
+    series: "\u041F31/12"
+    floors: 12
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_3_\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17
+      \u0442\u0438\u043F 2"
+    series: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17 \u0442\u0438\u043F
+      2"
+    floors: 12
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_3_\u041F47/12"
+    series: "\u041F47/12"
+    floors: 12
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_3_\u041F\u04344-1/12;\u041F\u04344-5/12"
+    series: "\u041F\u04344-1/12;\u041F\u04344-5/12"
+    floors: 12
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_3_\u041F\u04344-1/12\u041D1"
+    series: "\u041F\u04344-1/12\u041D1"
+    floors: 12
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_4_II-57-05/12\u042E\u0410"
+    series: "II-57-05/12\u042E\u0410"
+    floors: 12
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_4_\u041F\u04344-1/12\u041D1;\u041F\u04344-5/12\u041D1"
+    series: "\u041F\u04344-1/12\u041D1;\u041F\u04344-5/12\u041D1"
+    floors: 12
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_5_\u041F46/12"
+    series: "\u041F46/12"
+    floors: 12
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_8_II-68-02/12\u041A"
+    series: "II-68-02/12\u041A"
+    floors: 12
+    entrances: 8
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_12_pod_8_\u041F30-3/12;\u041F30-5/12"
+    series: "\u041F30-3/12;\u041F30-5/12"
+    floors: 12
+    entrances: 8
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_13_pod_5_II-57;\u0418-286"
+    series: "II-57;\u0418-286"
+    floors: 13
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_0_\u0411\u0430\u0448\u043D\u044F \u0412\u0443\u043B\u044B\u0445\u0430"
+    series: "\u0411\u0430\u0448\u043D\u044F \u0412\u0443\u043B\u044B\u0445\u0430"
+    floors: 14
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_0_\u0418-209\u0410"
+    series: "\u0418-209\u0410"
+    floors: 14
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_1_II-68-01/16\u042E-2/78"
+    series: "II-68-01/16\u042E-2/78"
+    floors: 14
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_1_\u0411\u0430\u0448\u043D\u044F \u0412\u0443\u043B\u044B\u0445\u0430"
+    series: "\u0411\u0430\u0448\u043D\u044F \u0412\u0443\u043B\u044B\u0445\u0430"
+    floors: 14
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_1_\u0418-209"
+    series: "\u0418-209"
+    floors: 14
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_1_\u0418-209\u0410"
+    series: "\u0418-209\u0410"
+    floors: 14
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_1_\u041A\u041E\u041F\u042D-2000;\u041A\u0422\u0416\u0421-1;\u041A\u0422\u0416\u0421-1\u0443\u043A"
+    series: "\u041A\u041E\u041F\u042D-2000;\u041A\u0422\u0416\u0421-1;\u041A\u0422\u0416\u0421-1\u0443\u043A"
+    floors: 14
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_1_\u041F30-4/12"
+    series: "\u041F30-4/12"
+    floors: 14
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_1_\u041F44-1/16 \u0442\u0438\u043F 1"
+    series: "\u041F44-1/16 \u0442\u0438\u043F 1"
+    floors: 14
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_1_\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17
+      \u0442\u0438\u043F 3"
+    series: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17 \u0442\u0438\u043F
+      3"
+    floors: 14
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_1_\u041F46-2/12\u0412"
+    series: "\u041F46-2/12\u0412"
+    floors: 14
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_1_\u041F55-25/12"
+    series: "\u041F55-25/12"
+    floors: 14
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_2_\u041F30-3/12"
+    series: "\u041F30-3/12"
+    floors: 14
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_2_\u041F3-2/16"
+    series: "\u041F3-2/16"
+    floors: 14
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_2_\u041F44-1/16 \u0442\u0438\u043F 1"
+    series: "\u041F44-1/16 \u0442\u0438\u043F 1"
+    floors: 14
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_2_\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17
+      \u0442\u0438\u043F 2"
+    series: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17 \u0442\u0438\u043F
+      2"
+    floors: 14
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_3_\u041F44-1/16 \u0442\u0438\u043F 1;\u041F44-4/16
+      \u0442\u0438\u043F 4"
+    series: "\u041F44-1/16 \u0442\u0438\u043F 1;\u041F44-4/16 \u0442\u0438\u043F
+      4"
+    floors: 14
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_3_\u041F55-21/12;\u041F55-26/12"
+    series: "\u041F55-21/12;\u041F55-26/12"
+    floors: 14
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_4_\u041F30"
+    series: "\u041F30"
+    floors: 14
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_4_\u041F44-1/16 \u0442\u0438\u043F 1;\u041F44-4/16
+      \u0442\u0438\u043F 2;\u041F44-4/16 \u0442\u0438\u043F 4"
+    series: "\u041F44-1/16 \u0442\u0438\u043F 1;\u041F44-4/16 \u0442\u0438\u043F
+      2;\u041F44-4/16 \u0442\u0438\u043F 4"
+    floors: 14
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_4_\u041F44-1/16 \u0442\u0438\u043F 1;\u041F44-4/16
+      \u0442\u0438\u043F 2;\u041F44-4/16 \u0442\u0438\u043F 5"
+    series: "\u041F44-1/16 \u0442\u0438\u043F 1;\u041F44-4/16 \u0442\u0438\u043F
+      2;\u041F44-4/16 \u0442\u0438\u043F 5"
+    floors: 14
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_4_\u041F46\u041C-22\u043F\u0440/9\u0418"
+    series: "\u041F46\u041C-22\u043F\u0440/9\u0418"
+    floors: 14
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_5_\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17
+      \u0442\u0438\u043F 2;\u041F44\u0422-4/17 \u0442\u0438\u043F 5"
+    series: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17 \u0442\u0438\u043F
+      2;\u041F44\u0422-4/17 \u0442\u0438\u043F 5"
+    floors: 14
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_5_\u041F55-21/12;\u041F55-24/12;\u041F55-26/12"
+    series: "\u041F55-21/12;\u041F55-24/12;\u041F55-26/12"
+    floors: 14
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_6_\u0418\u041F46\u0421"
+    series: "\u0418\u041F46\u0421"
+    floors: 14
+    entrances: 6
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_6_\u041F44-1/16 \u0442\u0438\u043F 1;\u041F44-4/16
+      \u0442\u0438\u043F 2"
+    series: "\u041F44-1/16 \u0442\u0438\u043F 1;\u041F44-4/16 \u0442\u0438\u043F
+      2"
+    floors: 14
+    entrances: 6
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_14_pod_6_\u041F44-1/16 \u0442\u0438\u043F 1;\u041F44-4/16
+      \u0442\u0438\u043F 3"
+    series: "\u041F44-1/16 \u0442\u0438\u043F 1;\u041F44-4/16 \u0442\u0438\u043F
+      3"
+    floors: 14
+    entrances: 6
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_15_pod_1_1-511-3/\u041C"
+    series: "1-511-3/\u041C"
+    floors: 15
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_15_pod_1_\u0411\u0430\u0448\u043D\u044F \u0412\u0443\u043B\u044B\u0445\u0430"
+    series: "\u0411\u0430\u0448\u043D\u044F \u0412\u0443\u043B\u044B\u0445\u0430"
+    floors: 15
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_15_pod_3_\u041F44\u0422-1/14\u041C \u0442\u0438\u043F 1;\u041F44\u0422-4/14\u041C
+      \u0442\u0438\u043F 4"
+    series: "\u041F44\u0422-1/14\u041C \u0442\u0438\u043F 1;\u041F44\u0422-4/14\u041C
+      \u0442\u0438\u043F 4"
+    floors: 15
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_15_pod_3_\u041F44\u0422-1/14\u041C \u0442\u0438\u043F 1;\u041F44\u0422-4/14\u041C
+      \u0442\u0438\u043F 5"
+    series: "\u041F44\u0422-1/14\u041C \u0442\u0438\u043F 1;\u041F44\u0422-4/14\u041C
+      \u0442\u0438\u043F 5"
+    floors: 15
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_0_\u0423\u043D\u0438\u0444\u0438\u0446\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0439
+      \u043A\u0430\u0440\u043A\u0430\u0441"
+    series: "\u0423\u043D\u0438\u0444\u0438\u0446\u0438\u0440\u043E\u0432\u0430\u043D\u043D\u044B\u0439
+      \u043A\u0430\u0440\u043A\u0430\u0441"
+    floors: 16
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_1_II-68-01/16\u042E"
+    series: "II-68-01/16\u042E"
+    floors: 16
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_1_II-68-01/16\u042E-2/78"
+    series: "II-68-01/16\u042E-2/78"
+    floors: 16
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_1_II-68-03/12\u042E"
+    series: "II-68-03/12\u042E"
+    floors: 16
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_1_\u0418-522\u0410"
+    series: "\u0418-522\u0410"
+    floors: 16
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_1_\u041F42/16"
+    series: "\u041F42/16"
+    floors: 16
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_1_\u041F43/16"
+    series: "\u041F43/16"
+    floors: 16
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_2_\u041F3-2/16"
+    series: "\u041F3-2/16"
+    floors: 16
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_2_\u041F3\u041C-1/16"
+    series: "\u041F3\u041C-1/16"
+    floors: 16
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_3_II-68-02/16\u041C"
+    series: "II-68-02/16\u041C"
+    floors: 16
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_3_\u0418-522\u0410"
+    series: "\u0418-522\u0410"
+    floors: 16
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_3_\u041F3-1/16;\u041F3-2/16"
+    series: "\u041F3-1/16;\u041F3-2/16"
+    floors: 16
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_3_\u041F44-1/16 \u0442\u0438\u043F 1"
+    series: "\u041F44-1/16 \u0442\u0438\u043F 1"
+    floors: 16
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_6_\u0418\u041F46\u0421"
+    series: "\u0418\u041F46\u0421"
+    floors: 16
+    entrances: 6
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_7_\u041F3-2/16"
+    series: "\u041F3-2/16"
+    floors: 16
+    entrances: 7
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_16_pod_9_\u041F3-2/16"
+    series: "\u041F3-2/16"
+    floors: 16
+    entrances: 9
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_1_\u041F3-2/16"
+    series: "\u041F3-2/16"
+    floors: 17
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_1_\u041F3\u041C-3/17"
+    series: "\u041F3\u041C-3/17"
+    floors: 17
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_1_\u041F44-1/17 \u0442\u0438\u043F 1"
+    series: "\u041F44-1/17 \u0442\u0438\u043F 1"
+    floors: 17
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_1_\u041F44\u0422-1/17 \u0442\u0438\u043F 1"
+    series: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1"
+    floors: 17
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_2_\u041F3-2/16"
+    series: "\u041F3-2/16"
+    floors: 17
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_2_\u041F3\u041C-4/17"
+    series: "\u041F3\u041C-4/17"
+    floors: 17
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_2_\u041F44-1/17 \u0442\u0438\u043F 1"
+    series: "\u041F44-1/17 \u0442\u0438\u043F 1"
+    floors: 17
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_2_\u041F44-1/17 \u0442\u0438\u043F 1;\u041F44-4/17
+      \u0442\u0438\u043F 2"
+    series: "\u041F44-1/17 \u0442\u0438\u043F 1;\u041F44-4/17 \u0442\u0438\u043F
+      2"
+    floors: 17
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_2_\u041F44-1/17 \u0442\u0438\u043F 1;\u041F44-4/17
+      \u0442\u0438\u043F 3"
+    series: "\u041F44-1/17 \u0442\u0438\u043F 1;\u041F44-4/17 \u0442\u0438\u043F
+      3"
+    floors: 17
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_2_\u041F44\u0422-1/17 \u0442\u0438\u043F 1"
+    series: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1"
+    floors: 17
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_2_\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17
+      \u0442\u0438\u043F 2"
+    series: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17 \u0442\u0438\u043F
+      2"
+    floors: 17
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_3_\u041F3-2/16"
+    series: "\u041F3-2/16"
+    floors: 17
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_3_\u041F44-1/17 \u0442\u0438\u043F 1;\u041F44-4/17
+      \u0442\u0438\u043F 2"
+    series: "\u041F44-1/17 \u0442\u0438\u043F 1;\u041F44-4/17 \u0442\u0438\u043F
+      2"
+    floors: 17
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_3_\u041F44-1/17 \u0442\u0438\u043F 1;\u041F44-4/17
+      \u0442\u0438\u043F 4"
+    series: "\u041F44-1/17 \u0442\u0438\u043F 1;\u041F44-4/17 \u0442\u0438\u043F
+      4"
+    floors: 17
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_3_\u041F44\u0422-1/17 \u0442\u0438\u043F 1"
+    series: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1"
+    floors: 17
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_3_\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17
+      \u0442\u0438\u043F 2"
+    series: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17 \u0442\u0438\u043F
+      2"
+    floors: 17
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_3_\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17
+      \u0442\u0438\u043F 3"
+    series: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17 \u0442\u0438\u043F
+      3"
+    floors: 17
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_3_\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17
+      \u0442\u0438\u043F 4"
+    series: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17 \u0442\u0438\u043F
+      4"
+    floors: 17
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_4_\u041F44-1/17 \u0442\u0438\u043F 1;\u041F44-4/17
+      \u0442\u0438\u043F 2"
+    series: "\u041F44-1/17 \u0442\u0438\u043F 1;\u041F44-4/17 \u0442\u0438\u043F
+      2"
+    floors: 17
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_4_\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17
+      \u0442\u0438\u043F 3"
+    series: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17 \u0442\u0438\u043F
+      3"
+    floors: 17
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_17_pod_6_\u041F44-1/17 \u0442\u0438\u043F 1"
+    series: "\u041F44-1/17 \u0442\u0438\u043F 1"
+    floors: 17
+    entrances: 6
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_19_pod_2_1\u041C\u0433-601/\u0416"
+    series: "1\u041C\u0433-601/\u0416"
+    floors: 19
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_2_pod_0_11 (\u0421\u043E\u044E\u0437\u0442\u0440\u0430\u043D\u0441\u043F\u0440\u043E\u0435\u043A\u0442)"
+    series: "11 (\u0421\u043E\u044E\u0437\u0442\u0440\u0430\u043D\u0441\u043F\u0440\u043E\u0435\u043A\u0442)"
     floors: 2
     entrances: 0
     buildingmodel: {fileID: 0}
-  - predstavlenie: 1-235-1_filter_floors_3_entrances_1
-    series: 1-235-1
-    floors: 3
+  - predstavlenie: et_2_pod_0_1-207-7
+    series: 1-207-7
+    floors: 2
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_2_pod_0_17 (\u0421\u043E\u044E\u0437\u0442\u0440\u0430\u043D\u0441\u043F\u0440\u043E\u0435\u043A\u0442)"
+    series: "17 (\u0421\u043E\u044E\u0437\u0442\u0440\u0430\u043D\u0441\u043F\u0440\u043E\u0435\u043A\u0442)"
+    floors: 2
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_2_pod_0_VI-44
+    series: VI-44
+    floors: 2
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_2_pod_1_1-102-12
+    series: 1-102-12
+    floors: 2
     entrances: 1
     buildingmodel: {fileID: 0}
-  - predstavlenie: "1-410 (\u043E\u0431\u0449\u0435\u0436\u0438\u0442\u0438\u044F);\u0422\u0438\u043F
-      I_filter_floors_5_entrances_0"
+  - predstavlenie: et_2_pod_1_1-211-2
+    series: 1-211-2
+    floors: 2
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_2_pod_2_1-211-3
+    series: 1-211-3
+    floors: 2
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_22_pod_1_II-68-01/22-83
+    series: II-68-01/22-83
+    floors: 22
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_22_pod_1_\u041A\u041E\u041F\u042D-80;\u041A\u0422\u0416\u0421-2;\u041A\u0422\u0416\u0421-5"
+    series: "\u041A\u041E\u041F\u042D-80;\u041A\u0422\u0416\u0421-2;\u041A\u0422\u0416\u0421-5"
+    floors: 22
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_22_pod_1_\u041A\u041E\u041F\u042D-85;\u041A\u0422\u0416\u0421-1;\u041A\u0422\u0416\u0421-2"
+    series: "\u041A\u041E\u041F\u042D-85;\u041A\u0422\u0416\u0421-1;\u041A\u0422\u0416\u0421-2"
+    floors: 22
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_22_pod_1_\u041A\u041E\u041F\u042D-85;\u041A\u0422\u0416\u0421-2;\u041A\u0422\u0416\u0421-5"
+    series: "\u041A\u041E\u041F\u042D-85;\u041A\u0422\u0416\u0421-2;\u041A\u0422\u0416\u0421-5"
+    floors: 22
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_22_pod_2_\u041A\u041E\u041F\u042D-85;\u041A\u0422\u0416\u0421-1;\u041A\u0422\u0416\u0421-2;\u041A\u0422\u0416\u0421-5"
+    series: "\u041A\u041E\u041F\u042D-85;\u041A\u0422\u0416\u0421-1;\u041A\u0422\u0416\u0421-2;\u041A\u0422\u0416\u0421-5"
+    floors: 22
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_22_pod_2_\u041F\u04343-02/22;\u041F\u04343-03/22"
+    series: "\u041F\u04343-02/22;\u041F\u04343-03/22"
+    floors: 22
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_22_pod_3_\u041A\u041E\u041F\u042D-2000;\u041A\u0422\u0416\u0421-1;\u041A\u0422\u0416\u0421-5"
+    series: "\u041A\u041E\u041F\u042D-2000;\u041A\u0422\u0416\u0421-1;\u041A\u0422\u0416\u0421-5"
+    floors: 22
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_22_pod_3_\u041A\u041E\u041F\u042D-2000;\u041A\u0422\u0416\u0421-1\u0443\u043A;\u041A\u0422\u0416\u0421-2"
+    series: "\u041A\u041E\u041F\u042D-2000;\u041A\u0422\u0416\u0421-1\u0443\u043A;\u041A\u0422\u0416\u0421-2"
+    floors: 22
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_22_pod_3_\u041A\u041E\u041F\u042D-2000;\u041A\u0422\u0416\u0421-1\u0443\u043A;\u041A\u0422\u0416\u0421-5"
+    series: "\u041A\u041E\u041F\u042D-2000;\u041A\u0422\u0416\u0421-1\u0443\u043A;\u041A\u0422\u0416\u0421-5"
+    floors: 22
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_22_pod_3_\u041A\u041E\u041F\u042D-85;\u041A\u0422\u0416\u0421-1;\u041A\u0422\u0416\u0421-2;\u041A\u0422\u0416\u0421-5"
+    series: "\u041A\u041E\u041F\u042D-85;\u041A\u0422\u0416\u0421-1;\u041A\u0422\u0416\u0421-2;\u041A\u0422\u0416\u0421-5"
+    floors: 22
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_22_pod_3_\u041A\u041E\u041F\u042D-85;\u041A\u0422\u0416\u0421-1;\u041A\u0422\u0416\u0421-2;\u041A\u0422\u0416\u0421-9"
+    series: "\u041A\u041E\u041F\u042D-85;\u041A\u0422\u0416\u0421-1;\u041A\u0422\u0416\u0421-2;\u041A\u0422\u0416\u0421-9"
+    floors: 22
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_25_pod_1_\u0418-521\u0410"
+    series: "\u0418-521\u0410"
+    floors: 25
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_3_pod_0_2\u041C\u0413-04-3"
+    series: "2\u041C\u0413-04-3"
+    floors: 3
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_3_pod_0_2\u041C\u0433-04-3(2\u041C\u0413-04-3)"
+    series: "2\u041C\u0433-04-3(2\u041C\u0413-04-3)"
+    floors: 3
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_3_pod_0_65-426/I
+    series: 65-426/I
+    floors: 3
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_3_pod_0_V-76
+    series: V-76
+    floors: 3
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_3_pod_3_1-447\u0421-1"
+    series: "1-447\u0421-1"
+    floors: 3
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_4_pod_0_II-68-01/16\u042E-2/78"
+    series: "II-68-01/16\u042E-2/78"
+    floors: 4
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_4_pod_0_V-92
+    series: V-92
+    floors: 4
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_4_pod_1_1-447\u0421-2"
+    series: "1-447\u0421-2"
+    floors: 4
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_4_pod_1_II-14-31
+    series: II-14-31
+    floors: 4
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_4_pod_1_\u041C\u0433-1"
+    series: "\u041C\u0433-1"
+    floors: 4
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_4_pod_1_\u041C\u0433-2"
+    series: "\u041C\u0433-2"
+    floors: 4
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_4_pod_2_1-447\u0421-7"
+    series: "1-447\u0421-7"
+    floors: 4
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_4_pod_2_II-14
+    series: II-14
+    floors: 4
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_4_pod_2_II-14-33
+    series: II-14-33
+    floors: 4
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_4_pod_2_\u0411\u0435\u043A\u0435\u0440\u043E\u043D"
+    series: "\u0411\u0435\u043A\u0435\u0440\u043E\u043D"
+    floors: 4
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_4_pod_3_1-447\u0421-7"
+    series: "1-447\u0421-7"
+    floors: 4
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_4_pod_3_II-14-33
+    series: II-14-33
+    floors: 4
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_0_1-410
+    series: 1-410
+    floors: 5
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_0_1-410 (\u043E\u0431\u0449\u0435\u0436\u0438\u0442\u0438\u044F);\u0422\u0438\u043F
+      I"
     series: "1-410 (\u043E\u0431\u0449\u0435\u0436\u0438\u0442\u0438\u044F);\u0422\u0438\u043F
       I"
     floors: 5
     entrances: 0
     buildingmodel: {fileID: 0}
-  - predstavlenie: "1-410 (\u043E\u0431\u0449\u0435\u0436\u0438\u0442\u0438\u044F);\u0422\u0438\u043F
-      II_filter_floors_5_entrances_0"
+  - predstavlenie: "et_5_pod_0_1-410 (\u043E\u0431\u0449\u0435\u0436\u0438\u0442\u0438\u044F);\u0422\u0438\u043F
+      IV"
     series: "1-410 (\u043E\u0431\u0449\u0435\u0436\u0438\u0442\u0438\u044F);\u0422\u0438\u043F
-      II"
+      IV"
     floors: 5
     entrances: 0
     buildingmodel: {fileID: 0}
-  - predstavlenie: "1-410 (\u043E\u0431\u0449\u0435\u0436\u0438\u0442\u0438\u044F);\u0422\u0438\u043F
-      II_filter_floors_5_entrances_2"
-    series: "1-410 (\u043E\u0431\u0449\u0435\u0436\u0438\u0442\u0438\u044F);\u0422\u0438\u043F
-      II"
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-410_filter_floors_5_entrances_1
-    series: 1-410
-    floors: 5
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-410_filter_floors_5_entrances_2
-    series: 1-410
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-410_filter_floors_5_entrances_3
-    series: 1-410
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-410-10_filter_floors_5_entrances_2
-    series: 1-410-10
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-410-10_filter_floors_5_entrances_4
-    series: 1-410-10
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-410-11_filter_floors_5_entrances_3
-    series: 1-410-11
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-410-12_filter_floors_5_entrances_2
-    series: 1-410-12
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-410-12_filter_floors_5_entrances_3
-    series: 1-410-12
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-410-13_filter_floors_5_entrances_4
-    series: 1-410-13
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-410-5_filter_floors_5_entrances_1
-    series: 1-410-5
-    floors: 5
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-410-8_filter_floors_5_entrances_2
-    series: 1-410-8
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-410-9_filter_floors_5_entrances_1
+  - predstavlenie: et_5_pod_0_1-410-9
     series: 1-410-9
-    floors: 5
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-410-9_filter_floors_5_entrances_2
-    series: 1-410-9
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-428-3_filter_floors_5_entrances_1
-    series: 1-428-3
-    floors: 5
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-428-3_filter_floors_5_entrances_2
-    series: 1-428-3
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-447\u0421-4;1-447\u0421-8_filter_floors_5_entrances_5"
-    series: "1-447\u0421-4;1-447\u0421-8"
-    floors: 5
-    entrances: 5
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-447\u0421-5_filter_floors_5_entrances_4"
-    series: "1-447\u0421-5"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-447\u0421-7_filter_floors_4_entrances_3"
-    series: "1-447\u0421-7"
-    floors: 4
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-510/23_filter_floors_5_entrances_5
-    series: 1-510/23
-    floors: 5
-    entrances: 5
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-510-2/23;1-510-3/\u041C23_filter_floors_5_entrances_0"
-    series: "1-510-2/23;1-510-3/\u041C23"
     floors: 5
     entrances: 0
     buildingmodel: {fileID: 0}
-  - predstavlenie: "1-510-2/23;1-510-3/\u041C23_filter_floors_5_entrances_5"
-    series: "1-510-2/23;1-510-3/\u041C23"
+  - predstavlenie: "et_5_pod_0_1-468 \u0411\u041D\u0427"
+    series: "1-468 \u0411\u041D\u0427"
     floors: 5
-    entrances: 5
+    entrances: 0
     buildingmodel: {fileID: 0}
-  - predstavlenie: "1-510-3/\u041C_filter_floors_5_entrances_3"
-    series: "1-510-3/\u041C"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-510-3/\u041C23;1-510-4/\u041C23_filter_floors_5_entrances_10"
-    series: "1-510-3/\u041C23;1-510-4/\u041C23"
-    floors: 5
-    entrances: 10
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-510-3/\u041C23_filter_floors_5_entrances_2"
-    series: "1-510-3/\u041C23"
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-510-3/\u041C23_filter_floors_5_entrances_3"
-    series: "1-510-3/\u041C23"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-510-3/\u042E_filter_floors_5_entrances_3"
-    series: "1-510-3/\u042E"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-510-3/\u042E23_filter_floors_5_entrances_3"
-    series: "1-510-3/\u042E23"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-510-4/\u041C_filter_floors_5_entrances_4"
+  - predstavlenie: "et_5_pod_0_1-510-4/\u041C"
     series: "1-510-4/\u041C"
     floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-510-4/\u041C23_filter_floors_5_entrances_3"
-    series: "1-510-4/\u041C23"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-510-4/\u041C23_filter_floors_5_entrances_4"
-    series: "1-510-4/\u041C23"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-510-4/\u041C37_filter_floors_5_entrances_3"
-    series: "1-510-4/\u041C37"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-510-4/\u041C37_filter_floors_5_entrances_4"
-    series: "1-510-4/\u041C37"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-510-4/\u042E23_filter_floors_5_entrances_4"
-    series: "1-510-4/\u042E23"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-511/37_filter_floors_5_entrances_3
-    series: 1-511/37
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-511_filter_floors_5_entrances_3
-    series: 1-511
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-511-130/37_filter_floors_5_entrances_6
-    series: 1-511-130/37
-    floors: 5
-    entrances: 6
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-14/\u041C37_filter_floors_5_entrances_3"
-    series: "1-511-14/\u041C37"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-2/\u041C;1-511-3/\u042E_filter_floors_5_entrances_5"
-    series: "1-511-2/\u041C;1-511-3/\u042E"
-    floors: 5
-    entrances: 5
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-2/\u041C_filter_floors_5_entrances_0"
-    series: "1-511-2/\u041C"
-    floors: 5
     entrances: 0
     buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-2/\u041C_filter_floors_5_entrances_1"
-    series: "1-511-2/\u041C"
-    floors: 5
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-2/\u041C_filter_floors_5_entrances_2"
-    series: "1-511-2/\u041C"
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-2/\u041C_filter_floors_5_entrances_3"
-    series: "1-511-2/\u041C"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-2/\u042E_filter_floors_5_entrances_2"
-    series: "1-511-2/\u042E"
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-3/\u041C;1-511-4/\u041C_filter_floors_5_entrances_10"
-    series: "1-511-3/\u041C;1-511-4/\u041C"
-    floors: 5
-    entrances: 10
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-3/\u041C;1-511-4/\u041C_filter_floors_5_entrances_7"
-    series: "1-511-3/\u041C;1-511-4/\u041C"
-    floors: 5
-    entrances: 7
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-3/\u041C;1-511-4/\u041C_filter_floors_5_entrances_9"
-    series: "1-511-3/\u041C;1-511-4/\u041C"
-    floors: 5
-    entrances: 9
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-3/\u041C_filter_floors_0_entrances_0"
-    series: "1-511-3/\u041C"
-    floors: 0
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-3/\u041C_filter_floors_5_entrances_2"
-    series: "1-511-3/\u041C"
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-3/\u041C_filter_floors_5_entrances_3"
-    series: "1-511-3/\u041C"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-3/\u041C37;1-511-4/\u041C37_filter_floors_5_entrances_6"
-    series: "1-511-3/\u041C37;1-511-4/\u041C37"
-    floors: 5
-    entrances: 6
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-3/\u041C37_filter_floors_5_entrances_3"
-    series: "1-511-3/\u041C37"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-3/\u041C37_filter_floors_5_entrances_5"
-    series: "1-511-3/\u041C37"
-    floors: 5
-    entrances: 5
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-3/\u042E_filter_floors_5_entrances_3"
-    series: "1-511-3/\u042E"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-3/\u042E37_filter_floors_5_entrances_2"
-    series: "1-511-3/\u042E37"
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-4/\u041C_filter_floors_5_entrances_2"
+  - predstavlenie: "et_5_pod_0_1-511-4/\u041C"
     series: "1-511-4/\u041C"
     floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-4/\u041C_filter_floors_5_entrances_3"
-    series: "1-511-4/\u041C"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-4/\u041C_filter_floors_5_entrances_4"
-    series: "1-511-4/\u041C"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-4/\u041C37_filter_floors_5_entrances_4"
-    series: "1-511-4/\u041C37"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-511-4/\u042E37_filter_floors_5_entrances_4"
-    series: "1-511-4/\u042E37"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-513_filter_floors_5_entrances_4
-    series: 1-513
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-515/37_filter_floors_5_entrances_5
-    series: 1-515/37
-    floors: 5
-    entrances: 5
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-04/9\u041C_filter_floors_9_entrances_4"
-    series: "1-515-04/9\u041C"
-    floors: 9
-    entrances: 4
-    buildingmodel: {fileID: 252262691900764276, guid: 83db786af678bd74ba0b3a68995698b9, type: 3}
-  - predstavlenie: "1-515-04/9\u042E\u041B;1-515-06/9\u042E\u041B_filter_floors_9_entrances_9"
-    series: "1-515-04/9\u042E\u041B;1-515-06/9\u042E\u041B"
-    floors: 9
-    entrances: 9
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-04/9\u042E\u041B_filter_floors_9_entrances_4"
-    series: "1-515-04/9\u042E\u041B"
-    floors: 9
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-04/9\u042E\u041B_filter_floors_9_entrances_7"
-    series: "1-515-04/9\u042E\u041B"
-    floors: 9
-    entrances: 7
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-06/9\u041C_filter_floors_9_entrances_0"
-    series: "1-515-06/9\u041C"
-    floors: 9
     entrances: 0
     buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-06/9\u041C_filter_floors_9_entrances_6"
-    series: "1-515-06/9\u041C"
-    floors: 9
-    entrances: 6
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-06/9\u042E\u041B_filter_floors_9_entrances_5"
-    series: "1-515-06/9\u042E\u041B"
-    floors: 9
-    entrances: 5
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-3/\u042E_filter_floors_5_entrances_2"
-    series: "1-515-3/\u042E"
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-3/\u042E_filter_floors_5_entrances_3"
-    series: "1-515-3/\u042E"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-3/\u042E37_filter_floors_5_entrances_3"
-    series: "1-515-3/\u042E37"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-3/\u042E37_filter_floors_5_entrances_5"
-    series: "1-515-3/\u042E37"
-    floors: 5
-    entrances: 5
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-4/\u041C_filter_floors_5_entrances_3"
-    series: "1-515-4/\u041C"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-4/\u041C_filter_floors_5_entrances_4"
-    series: "1-515-4/\u041C"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-4/\u041C37_filter_floors_5_entrances_4"
-    series: "1-515-4/\u041C37"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-4/\u042E_filter_floors_5_entrances_4"
-    series: "1-515-4/\u042E"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-4/\u042E37_filter_floors_5_entrances_4"
-    series: "1-515-4/\u042E37"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-5/\u041C_filter_floors_5_entrances_10"
-    series: "1-515-5/\u041C"
-    floors: 5
-    entrances: 10
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-5/\u041C_filter_floors_5_entrances_4"
-    series: "1-515-5/\u041C"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-5/\u041C_filter_floors_5_entrances_5"
-    series: "1-515-5/\u041C"
-    floors: 5
-    entrances: 5
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-5/\u041C37_filter_floors_5_entrances_5"
-    series: "1-515-5/\u041C37"
-    floors: 5
-    entrances: 5
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1-515-5/\u041C37_filter_floors_5_entrances_9"
-    series: "1-515-5/\u041C37"
-    floors: 5
-    entrances: 9
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 1-801-1_filter_floors_8_entrances_3
-    series: 1-801-1
-    floors: 8
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1\u041C\u0433-601/\u0414_filter_floors_16_entrances_1"
-    series: "1\u041C\u0433-601/\u0414"
-    floors: 16
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "1\u041C\u0433-601-441_filter_floors_16_entrances_1"
-    series: "1\u041C\u0433-601-441"
-    floors: 16
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 222-11/17;222-15/17_filter_floors_12_entrances_2
-    series: 222-11/17;222-15/17
-    floors: 12
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "2\u041C\u0433-04-3_filter_floors_2_entrances_0"
-    series: "2\u041C\u0433-04-3"
-    floors: 2
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 4570-63_filter_floors_5_entrances_3
-    series: 4570-63
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "4572\u0410_filter_floors_5_entrances_3"
-    series: "4572\u0410"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: 65-426/I_filter_floors_3_entrances_0
-    series: 65-426/I
-    floors: 3
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-410(I-410 (\u0421\u0410\u041A\u0411))_filter_floors_5_entrances_2"
-    series: "I-410(I-410 (\u0421\u0410\u041A\u0411))"
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-410(I-410 (\u0421\u0410\u041A\u0411))_filter_floors_5_entrances_3"
-    series: "I-410(I-410 (\u0421\u0410\u041A\u0411))"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-410(I-410 (\u0421\u0410\u041A\u0411))_filter_floors_6_entrances_2"
-    series: "I-410(I-410 (\u0421\u0410\u041A\u0411))"
-    floors: 6
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: I-410_filter_floors_5_entrances_0
-    series: I-410
-    floors: 5
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: I-410_filter_floors_5_entrances_3
-    series: I-410
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: I-447_filter_floors_5_entrances_2
-    series: I-447
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-510(I-510/23\u0411\u0418)_filter_floors_5_entrances_3"
-    series: "I-510(I-510/23\u0411\u0418)"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-510(I-510/23\u0411\u0418)_filter_floors_5_entrances_4"
-    series: "I-510(I-510/23\u0411\u0418)"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: I-510_filter_floors_5_entrances_3
-    series: I-510
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-510-3/\u041C23;I-510-4/\u041C23_filter_floors_5_entrances_9"
-    series: "I-510-3/\u041C23;I-510-4/\u041C23"
-    floors: 5
-    entrances: 9
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-510-4/\u041C23_filter_floors_5_entrances_4"
-    series: "I-510-4/\u041C23"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-511(I-511/25\u0411\u0418)_filter_floors_5_entrances_4"
-    series: "I-511(I-511/25\u0411\u0418)"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-511(I-511/25\u0411\u0418)_filter_floors_5_entrances_6"
-    series: "I-511(I-511/25\u0411\u0418)"
-    floors: 5
-    entrances: 6
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-511-2/\u042E_filter_floors_5_entrances_2"
-    series: "I-511-2/\u042E"
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-511-2/\u042E37;1-511-3/\u041C37_filter_floors_5_entrances_4"
-    series: "I-511-2/\u042E37;1-511-3/\u041C37"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-511-3/\u041C_filter_floors_5_entrances_2"
-    series: "I-511-3/\u041C"
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-511-3/\u041C_filter_floors_5_entrances_3"
-    series: "I-511-3/\u041C"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-511-4/\u041C_filter_floors_5_entrances_3"
-    series: "I-511-4/\u041C"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: I-515(I-515/37)_filter_floors_5_entrances_4
-    series: I-515(I-515/37)
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: I-515(I-515/37)_filter_floors_5_entrances_6
-    series: I-515(I-515/37)
-    floors: 5
-    entrances: 6
-    buildingmodel: {fileID: 0}
-  - predstavlenie: I-515(I-515/37)_filter_floors_5_entrances_8
-    series: I-515(I-515/37)
-    floors: 5
-    entrances: 8
-    buildingmodel: {fileID: 0}
-  - predstavlenie: I-515(I-515/37_filter_floors_5_entrances_11
-    series: I-515(I-515/37
-    floors: 5
-    entrances: 11
-    buildingmodel: {fileID: 0}
-  - predstavlenie: I-515/37_filter_floors_5_entrances_3
-    series: I-515/37
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-515-04/9\u041C_filter_floors_9_entrances_4"
-    series: "I-515-04/9\u041C"
-    floors: 9
-    entrances: 4
-    buildingmodel: {fileID: 252262691900764276, guid: 83db786af678bd74ba0b3a68995698b9, type: 3}
-  - predstavlenie: "I-515-04/9\u042E\u041B_filter_floors_9_entrances_4"
-    series: "I-515-04/9\u042E\u041B"
-    floors: 9
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-515-3/\u041C37_filter_floors_5_entrances_3"
-    series: "I-515-3/\u041C37"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-515-3/\u042E;I-515-4/\u041C_filter_floors_5_entrances_6"
-    series: "I-515-3/\u042E;I-515-4/\u041C"
-    floors: 5
-    entrances: 6
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-515-3/\u042E_filter_floors_5_entrances_2"
-    series: "I-515-3/\u042E"
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-515-3/\u042E_filter_floors_5_entrances_3"
-    series: "I-515-3/\u042E"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-515-3/\u042E37_filter_floors_5_entrances_3"
-    series: "I-515-3/\u042E37"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-515-3/\u042E37_filter_floors_5_entrances_5"
-    series: "I-515-3/\u042E37"
-    floors: 5
-    entrances: 5
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-515-4/\u041C_filter_floors_5_entrances_3"
-    series: "I-515-4/\u041C"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-515-4/\u041C_filter_floors_5_entrances_4"
-    series: "I-515-4/\u041C"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-515-4/\u041C37_filter_floors_5_entrances_4"
-    series: "I-515-4/\u041C37"
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-515-5/\u041C_filter_floors_5_entrances_5"
-    series: "I-515-5/\u041C"
-    floors: 5
-    entrances: 5
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "I-515-5/\u042E37_filter_floors_5_entrances_5"
-    series: "I-515-5/\u042E37"
-    floors: 5
-    entrances: 5
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-01_filter_floors_5_entrances_1
-    series: II-01
-    floors: 5
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-05-01_filter_floors_5_entrances_1
-    series: II-05-01
-    floors: 5
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-05-02\u0410_filter_floors_5_entrances_3"
-    series: "II-05-02\u0410"
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-14_filter_floors_0_entrances_0
-    series: II-14
-    floors: 0
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-14_filter_floors_5_entrances_2
-    series: II-14
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-14_filter_floors_5_entrances_4
-    series: II-14
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-14_filter_floors_6_entrances_3
-    series: II-14
-    floors: 6
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-14-31_filter_floors_0_entrances_0
-    series: II-14-31
-    floors: 0
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-14-31_filter_floors_4_entrances_0
-    series: II-14-31
-    floors: 4
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-14-31_filter_floors_5_entrances_1
+  - predstavlenie: et_5_pod_0_II-14-31
     series: II-14-31
     floors: 5
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-14-31_filter_floors_5_entrances_2
-    series: II-14-31
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-14-31_filter_floors_5_entrances_3
-    series: II-14-31
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-14-32_filter_floors_5_entrances_2
-    series: II-14-32
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-14-32_filter_floors_5_entrances_3
-    series: II-14-32
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-14-33_filter_floors_0_entrances_0
-    series: II-14-33
-    floors: 0
     entrances: 0
     buildingmodel: {fileID: 0}
-  - predstavlenie: II-14-33_filter_floors_5_entrances_2
+  - predstavlenie: et_5_pod_0_II-14-33
     series: II-14-33
     floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-14-33_filter_floors_5_entrances_3
-    series: II-14-33
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-18-01/12_filter_floors_12_entrances_1
-    series: II-18-01/12
-    floors: 12
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-18-01/12_filter_floors_12_entrances_2
-    series: II-18-01/12
-    floors: 12
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-18-01/\u041C\u0418 \u0432\u0430\u0440\u0438\u0430\u043D\u0442
-      \xAB\u0411\xBB_filter_floors_9_entrances_1"
-    series: "II-18-01/\u041C\u0418 \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0411\xBB"
-    floors: 9
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-18-01/\u041C\u0418 \u0432\u0430\u0440\u0438\u0430\u043D\u0442
-      \xAB\u0411\xBB_filter_floors_9_entrances_2"
-    series: "II-18-01/\u041C\u0418 \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0411\xBB"
-    floors: 9
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-18-02/12_filter_floors_0_entrances_-2147483648
-    series: II-18-02/12
-    floors: 0
-    entrances: -2147483648
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-18-02/12_filter_floors_12_entrances_3
-    series: II-18-02/12
-    floors: 12
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-18-11/\u041C\u0418 \u0432\u0430\u0440\u0438\u0430\u043D\u0442
-      \xAB\u0411\xBB_filter_floors_9_entrances_1"
-    series: "II-18-11/\u041C\u0418 \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0411\xBB"
-    floors: 9
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-18-21/12_filter_floors_12_entrances_1
-    series: II-18-21/12
-    floors: 12
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-18-31/12_filter_floors_12_entrances_1
-    series: II-18-31/12
-    floors: 12
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-18-31/12\u0410_filter_floors_12_entrances_1"
-    series: "II-18-31/12\u0410"
-    floors: 12
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-18-31/12\u0410_filter_floors_9_entrances_1"
-    series: "II-18-31/12\u0410"
-    floors: 9
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-28_filter_floors_4_entrances_1
-    series: II-28
-    floors: 4
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-28-3_filter_floors_5_entrances_2
-    series: II-28-3
-    floors: 5
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-28-3_filter_floors_5_entrances_3
-    series: II-28-3
-    floors: 5
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-28-4_filter_floors_5_entrances_4
-    series: II-28-4
-    floors: 5
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-29_filter_floors_9_entrances_4
-    series: II-29
-    floors: 9
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-03/\u041C37;II-29-04/\u041C37_filter_floors_9_entrances_10"
-    series: "II-29-03/\u041C37;II-29-04/\u041C37"
-    floors: 9
-    entrances: 10
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-03/\u042E_filter_floors_8_entrances_2"
-    series: "II-29-03/\u042E"
-    floors: 8
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-03/\u042E_filter_floors_8_entrances_3"
-    series: "II-29-03/\u042E"
-    floors: 8
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-03/\u042E_filter_floors_9_entrances_0"
-    series: "II-29-03/\u042E"
-    floors: 9
     entrances: 0
     buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-03/\u042E37;II-29-05/\u042E37_filter_floors_9_entrances_7"
-    series: "II-29-03/\u042E37;II-29-05/\u042E37"
-    floors: 9
-    entrances: 7
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-03/\u042E37_filter_floors_9_entrances_0"
-    series: "II-29-03/\u042E37"
-    floors: 9
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-03/\u042E37_filter_floors_9_entrances_2"
-    series: "II-29-03/\u042E37"
-    floors: 9
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-03/\u042E37_filter_floors_9_entrances_3"
-    series: "II-29-03/\u042E37"
-    floors: 9
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-04/\u042E_filter_floors_8_entrances_3"
-    series: "II-29-04/\u042E"
-    floors: 8
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-04/\u042E37_filter_floors_9_entrances_7"
-    series: "II-29-04/\u042E37"
-    floors: 9
-    entrances: 7
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-05/\u041C37_filter_floors_9_entrances_4"
-    series: "II-29-05/\u041C37"
-    floors: 9
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-05/\u041C37_filter_floors_9_entrances_9"
-    series: "II-29-05/\u041C37"
-    floors: 9
-    entrances: 9
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-05/\u042E37_filter_floors_9_entrances_4"
-    series: "II-29-05/\u042E37"
-    floors: 9
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-05/\u042E37_filter_floors_9_entrances_5"
-    series: "II-29-05/\u042E37"
-    floors: 9
-    entrances: 5
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-05/\u042E37_filter_floors_9_entrances_9"
-    series: "II-29-05/\u042E37"
-    floors: 9
-    entrances: 9
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-14/\u041C37_filter_floors_9_entrances_3"
-    series: "II-29-14/\u041C37"
-    floors: 9
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-14/\u042E37_filter_floors_9_entrances_3"
-    series: "II-29-14/\u042E37"
-    floors: 9
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-14/\u042E37_filter_floors_9_entrances_7"
-    series: "II-29-14/\u042E37"
-    floors: 9
-    entrances: 7
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-15/\u041C37_filter_floors_9_entrances_8"
-    series: "II-29-15/\u041C37"
-    floors: 9
-    entrances: 8
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-15/\u041C37_filter_floors_9_entrances_9"
-    series: "II-29-15/\u041C37"
-    floors: 9
-    entrances: 9
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-15/\u042E37_filter_floors_9_entrances_4"
-    series: "II-29-15/\u042E37"
-    floors: 9
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-29-160_filter_floors_9_entrances_4
-    series: II-29-160
-    floors: 9
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-29-41/37_filter_floors_10_entrances_2
-    series: II-29-41/37
-    floors: 10
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-32-130_filter_floors_5_entrances_6
-    series: II-32-130
-    floors: 5
-    entrances: 6
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-49/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB_filter_floors_9_entrances_9"
-    series: "II-49/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
-    floors: 9
-    entrances: 9
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-49/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB_filter_floors_9_entrances_9"
-    series: "II-49/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
-    floors: 9
-    entrances: 9
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-49-02/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB_filter_floors_9_entrances_2"
-    series: "II-49-02/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
-    floors: 9
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB_filter_floors_9_entrances_3"
-    series: "II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
-    floors: 9
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB_filter_floors_9_entrances_4"
-    series: "II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
-    floors: 9
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u041F\xBB_filter_floors_9_entrances_3"
-    series: "II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u041F\xBB"
-    floors: 9
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-49-06/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB_filter_floors_9_entrances_11"
-    series: "II-49-06/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
-    floors: 9
-    entrances: 11
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-49-06/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB_filter_floors_9_entrances_5"
-    series: "II-49-06/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
-    floors: 9
-    entrances: 5
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-49-06/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u041F\xBB_filter_floors_9_entrances_5"
-    series: "II-49-06/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u041F\xBB"
-    floors: 9
-    entrances: 5
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-49-08/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB_filter_floors_9_entrances_7"
-    series: "II-49-08/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
-    floors: 9
-    entrances: 7
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-49-08/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB_filter_floors_9_entrances_7"
-    series: "II-49-08/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
-    floors: 9
-    entrances: 7
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-67 \u041C\u043E\u0441\u043A\u0432\u043E\u0440\u0435\u0446\u043A\u0430\u044F_filter_floors_12_entrances_1"
-    series: "II-67 \u041C\u043E\u0441\u043A\u0432\u043E\u0440\u0435\u0446\u043A\u0430\u044F"
-    floors: 12
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-67 \u041C\u043E\u0441\u043A\u0432\u043E\u0440\u0435\u0446\u043A\u0430\u044F_filter_floors_14_entrances_1"
-    series: "II-67 \u041C\u043E\u0441\u043A\u0432\u043E\u0440\u0435\u0446\u043A\u0430\u044F"
-    floors: 14
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-67 \u0421\u043C\u0438\u0440\u043D\u043E\u0432\u0441\u043A\u0430\u044F_filter_floors_12_entrances_1"
-    series: "II-67 \u0421\u043C\u0438\u0440\u043D\u043E\u0432\u0441\u043A\u0430\u044F"
-    floors: 12
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-67 \u0422\u0438\u0448\u0438\u043D\u0441\u043A\u0430\u044F_filter_floors_12_entrances_1"
-    series: "II-67 \u0422\u0438\u0448\u0438\u043D\u0441\u043A\u0430\u044F"
-    floors: 12
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-68_filter_floors_12_entrances_1
-    series: II-68
-    floors: 12
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-68-01/16\u042E_filter_floors_16_entrances_0"
-    series: "II-68-01/16\u042E"
-    floors: 16
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-68-01/16\u042E_filter_floors_16_entrances_1"
-    series: "II-68-01/16\u042E"
-    floors: 16
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-68-01/16\u042E-2/78_filter_floors_12_entrances_1"
-    series: "II-68-01/16\u042E-2/78"
-    floors: 12
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-68-01/16\u042E-2/78_filter_floors_14_entrances_1"
-    series: "II-68-01/16\u042E-2/78"
-    floors: 14
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-68-01/16\u042E-2/78_filter_floors_16_entrances_1"
-    series: "II-68-01/16\u042E-2/78"
-    floors: 16
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: II-68-01/22-83_filter_floors_19_entrances_1
-    series: II-68-01/22-83
-    floors: 19
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-68-02/12\u041A_filter_floors_12_entrances_8"
-    series: "II-68-02/12\u041A"
-    floors: 12
-    entrances: 8
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-68-03/12\u042E_filter_floors_12_entrances_3"
-    series: "II-68-03/12\u042E"
-    floors: 12
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "II-68-03/12\u042E_filter_floors_16_entrances_1"
-    series: "II-68-03/12\u042E"
-    floors: 16
-    entrances: 1
-    buildingmodel: {fileID: 546049448201017079, guid: 0d0b8135f9199084683d4f2b86c60a46, type: 3}
-  - predstavlenie: "II-68-04/12\u041C1_filter_floors_12_entrances_7"
-    series: "II-68-04/12\u041C1"
-    floors: 12
-    entrances: 7
-    buildingmodel: {fileID: 0}
-  - predstavlenie: V-79_filter_floors_4_entrances_0
-    series: V-79
-    floors: 4
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "VI-13\u0410_filter_floors_2_entrances_0"
-    series: "VI-13\u0410"
-    floors: 2
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: VI-44_filter_floors_2_entrances_0
-    series: VI-44
-    floors: 2
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: VI-49_filter_floors_2_entrances_0
-    series: VI-49
-    floors: 2
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "VI-52 \u0432\u0430\u0440\u0438\u0430\u043D\u0442 1_filter_floors_2_entrances_0"
-    series: "VI-52 \u0432\u0430\u0440\u0438\u0430\u043D\u0442 1"
-    floors: 2
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "VI-52 \u0432\u0430\u0440\u0438\u0430\u043D\u0442 2_filter_floors_1_entrances_0"
-    series: "VI-52 \u0432\u0430\u0440\u0438\u0430\u043D\u0442 2"
-    floors: 1
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: VII-40_filter_floors_4_entrances_0
-    series: VII-40
-    floors: 4
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: VII-40_filter_floors_5_entrances_0
-    series: VII-40
+  - predstavlenie: et_5_pod_0_II-34
+    series: II-34
     floors: 5
     entrances: 0
     buildingmodel: {fileID: 0}
-  - predstavlenie: XI-36-01_filter_floors_5_entrances_0
-    series: XI-36-01
-    floors: 5
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0411\u0430\u0448\u043D\u044F \u0412\u0443\u043B\u044B\u0445\u0430_filter_floors_14_entrances_0"
-    series: "\u0411\u0430\u0448\u043D\u044F \u0412\u0443\u043B\u044B\u0445\u0430"
-    floors: 14
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0411\u0430\u0448\u043D\u044F \u0412\u0443\u043B\u044B\u0445\u0430_filter_floors_14_entrances_1"
-    series: "\u0411\u0430\u0448\u043D\u044F \u0412\u0443\u043B\u044B\u0445\u0430"
-    floors: 14
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0411\u0430\u0448\u043D\u044F \u0412\u0443\u043B\u044B\u0445\u0430_filter_floors_14_entrances_2"
-    series: "\u0411\u0430\u0448\u043D\u044F \u0412\u0443\u043B\u044B\u0445\u0430"
-    floors: 14
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0413\u041C\u0421-2001;\u0411\u0421 05-17\u041C;\u0411\u0421
-      08-17\u041C;\u0411\u0421 09-17\u041C_filter_floors_14_entrances_3"
-    series: "\u0413\u041C\u0421-2001;\u0411\u0421 05-17\u041C;\u0411\u0421 08-17\u041C;\u0411\u0421
-      09-17\u041C"
-    floors: 14
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0413\u041C\u0421-2001;\u0411\u0421 05-17\u041C;\u0411\u0421
-      08-17\u041C_filter_floors_18_entrances_7"
-    series: "\u0413\u041C\u0421-2001;\u0411\u0421 05-17\u041C;\u0411\u0421 08-17\u041C"
-    floors: 18
-    entrances: 7
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0413\u041C\u0421-2001;\u0411\u0421 06-17\u041C;\u0411\u0421
-      07-17\u041C_filter_floors_18_entrances_1"
-    series: "\u0413\u041C\u0421-2001;\u0411\u0421 06-17\u041C;\u0411\u0421 07-17\u041C"
-    floors: 18
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0414-4_filter_floors_3_entrances_0"
-    series: "\u0414-4"
-    floors: 3
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-1158_filter_floors_3_entrances_0"
-    series: "\u0418-1158"
-    floors: 3
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-1194_filter_floors_2_entrances_0"
-    series: "\u0418-1194"
-    floors: 2
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-1194_filter_floors_4_entrances_0"
-    series: "\u0418-1194"
-    floors: 4
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-155_filter_floors_12_entrances_0"
-    series: "\u0418-155"
-    floors: 12
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-155_filter_floors_6_entrances_0"
-    series: "\u0418-155"
-    floors: 6
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-155_filter_floors_9_entrances_0"
-    series: "\u0418-155"
-    floors: 9
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-155-16\u041A1_filter_floors_16_entrances_0"
-    series: "\u0418-155-16\u041A1"
-    floors: 16
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-155-16\u041C4_filter_floors_14_entrances_0"
-    series: "\u0418-155-16\u041C4"
-    floors: 14
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-155-22\u041A1_filter_floors_19_entrances_0"
-    series: "\u0418-155-22\u041A1"
-    floors: 19
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-155-22\u041A1_filter_floors_20_entrances_0"
-    series: "\u0418-155-22\u041A1"
-    floors: 20
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-155-22\u041A1_filter_floors_21_entrances_0"
-    series: "\u0418-155-22\u041A1"
-    floors: 21
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-155-22\u041A1_filter_floors_24_entrances_0"
-    series: "\u0418-155-22\u041A1"
-    floors: 24
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-155-9\u041C4_filter_floors_9_entrances_0"
-    series: "\u0418-155-9\u041C4"
-    floors: 9
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-209_filter_floors_14_entrances_1"
-    series: "\u0418-209"
-    floors: 14
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-209\u0410_filter_floors_14_entrances_0"
-    series: "\u0418-209\u0410"
-    floors: 14
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-209\u0410_filter_floors_14_entrances_1"
-    series: "\u0418-209\u0410"
-    floors: 14
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-491\u0410_filter_floors_16_entrances_0"
-    series: "\u0418-491\u0410"
-    floors: 16
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0418-491\u0410_filter_floors_16_entrances_3"
-    series: "\u0418-491\u0410"
-    floors: 16
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041A\u041E\u041F\u042D-85;\u041A\u0422\u0416\u0421-2;\u041A\u0422\u0416\u0421-5_filter_floors_22_entrances_1"
-    series: "\u041A\u041E\u041F\u042D-85;\u041A\u0422\u0416\u0421-2;\u041A\u0422\u0416\u0421-5"
-    floors: 22
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041C\u0413-1_filter_floors_4_entrances_1"
-    series: "\u041C\u0413-1"
-    floors: 4
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041C\u0433-1_filter_floors_5_entrances_0"
-    series: "\u041C\u0433-1"
-    floors: 5
-    entrances: 0
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041C\u0433-1_filter_floors_5_entrances_1"
-    series: "\u041C\u0433-1"
-    floors: 5
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041C\u042E_filter_floors_5_entrances_0"
+  - predstavlenie: "et_5_pod_0_\u041C\u042E"
     series: "\u041C\u042E"
     floors: 5
     entrances: 0
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F30-1/12;\u041F30-4/12;\u041F55-4/12_filter_floors_12_entrances_4"
-    series: "\u041F30-1/12;\u041F30-4/12;\u041F55-4/12"
-    floors: 12
+  - predstavlenie: et_5_pod_1_1-511
+    series: 1-511
+    floors: 5
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_1_II-01
+    series: II-01
+    floors: 5
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_1_II-05-01
+    series: II-05-01
+    floors: 5
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_1_II-14
+    series: II-14
+    floors: 5
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_1_II-14-31
+    series: II-14-31
+    floors: 5
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_1_II-14-32
+    series: II-14-32
+    floors: 5
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_2_1-410
+    series: 1-410
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_2_1-410-10
+    series: 1-410-10
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_2_1-410-13
+    series: 1-410-13
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_2_1-410-9
+    series: 1-410-9
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_2_1-510-3/\u041C"
+    series: "1-510-3/\u041C"
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_2_1-510-3/\u041C23"
+    series: "1-510-3/\u041C23"
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_2_1-510-3/\u042E23"
+    series: "1-510-3/\u042E23"
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_2_1-511-2/\u042E"
+    series: "1-511-2/\u042E"
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_2_1-511-3/\u041C"
+    series: "1-511-3/\u041C"
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_2_1-511-3/\u041C37"
+    series: "1-511-3/\u041C37"
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_2_1-511-4/\u041C"
+    series: "1-511-4/\u041C"
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_2_1-515-3/\u042E37"
+    series: "1-515-3/\u042E37"
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_2_I-511-3/\u041C"
+    series: "I-511-3/\u041C"
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_2_II-05-02\u0410"
+    series: "II-05-02\u0410"
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_2_II-14
+    series: II-14
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_2_II-14-32
+    series: II-14-32
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_2_II-14-33
+    series: II-14-33
+    floors: 5
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_20_II-34
+    series: II-34
+    floors: 5
+    entrances: 20
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_3_1-335-2
+    series: 1-335-2
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_3_1-410
+    series: 1-410
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_3_1-410-11
+    series: 1-410-11
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_3_1-410-12
+    series: 1-410-12
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_3_1-410-13
+    series: 1-410-13
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-447\u0421-37"
+    series: "1-447\u0421-37"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-510-3/\u041C"
+    series: "1-510-3/\u041C"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-510-3/\u041C23"
+    series: "1-510-3/\u041C23"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-510-3/\u042E"
+    series: "1-510-3/\u042E"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-510-4/\u041C"
+    series: "1-510-4/\u041C"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-510-4/\u041C23"
+    series: "1-510-4/\u041C23"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-510-4/\u042E23"
+    series: "1-510-4/\u042E23"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_3_1-511/37
+    series: 1-511/37
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-511-14/\u041C37"
+    series: "1-511-14/\u041C37"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-511-3/\u041C"
+    series: "1-511-3/\u041C"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-511-3/\u041C37"
+    series: "1-511-3/\u041C37"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-511-3/\u042E"
+    series: "1-511-3/\u042E"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-511-3/\u042E37"
+    series: "1-511-3/\u042E37"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-511-4/\u041C"
+    series: "1-511-4/\u041C"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-511-4/\u041C37"
+    series: "1-511-4/\u041C37"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-511-4/\u042E"
+    series: "1-511-4/\u042E"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-515-3/\u042E"
+    series: "1-515-3/\u042E"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-515-3/\u042E37"
+    series: "1-515-3/\u042E37"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_1-515-4/\u042E"
+    series: "1-515-4/\u042E"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_3_4570-63
+    series: 4570-63
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_4572\u0410"
+    series: "4572\u0410"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_I-511-4/\u041C"
+    series: "I-511-4/\u041C"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_II-05-02\u0410"
+    series: "II-05-02\u0410"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_3_II-14
+    series: II-14
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_3_II-14-33
+    series: II-14-33
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_3_II-28-3
+    series: II-28-3
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_3_II-28-4
+    series: II-28-4
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_3_\u041F46\u041C-21/9;\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-22\u043F\u0440/9\u0418;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-21/9;\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-22\u043F\u0440/9\u0418;\u041F46\u041C-4/9"
+    floors: 5
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_4_1-410
+    series: 1-410
+    floors: 5
     entrances: 4
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F30-2/12;\u041F30-3/12;\u041F30-5/12_filter_floors_12_entrances_8"
-    series: "\u041F30-2/12;\u041F30-3/12;\u041F30-5/12"
-    floors: 12
+  - predstavlenie: "et_5_pod_4_1-510-4/\u041C"
+    series: "1-510-4/\u041C"
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_4_1-510-4/\u041C23"
+    series: "1-510-4/\u041C23"
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 8193623529289184213, guid: 91048847c4185824d95f2e4fcc5490d4, type: 3}
+  - predstavlenie: "et_5_pod_4_1-510-4/\u041C37"
+    series: "1-510-4/\u041C37"
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_4_1-510-4/\u042E23"
+    series: "1-510-4/\u042E23"
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_4_1-511-2/\u041C;1-511-3/\u042E"
+    series: "1-511-2/\u041C;1-511-3/\u042E"
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_4_1-511-4/\u041C"
+    series: "1-511-4/\u041C"
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_4_1-511-4/\u041C37"
+    series: "1-511-4/\u041C37"
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 8193623529289184213, guid: 91048847c4185824d95f2e4fcc5490d4, type: 3}
+  - predstavlenie: "et_5_pod_4_1-511-4/\u042E37"
+    series: "1-511-4/\u042E37"
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_4_1-515-4/\u041C"
+    series: "1-515-4/\u041C"
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 8193623529289184213, guid: 91048847c4185824d95f2e4fcc5490d4, type: 3}
+  - predstavlenie: "et_5_pod_4_1-515-4/\u041C37"
+    series: "1-515-4/\u041C37"
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 8193623529289184213, guid: 91048847c4185824d95f2e4fcc5490d4, type: 3}
+  - predstavlenie: "et_5_pod_4_1-515-4/\u042E"
+    series: "1-515-4/\u042E"
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_4_1-515-4/\u042E37"
+    series: "1-515-4/\u042E37"
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 8193623529289184213, guid: 91048847c4185824d95f2e4fcc5490d4, type: 3}
+  - predstavlenie: "et_5_pod_4_1-515-5/\u041C"
+    series: "1-515-5/\u041C"
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_4_1-515-5/\u042E"
+    series: "1-515-5/\u042E"
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_4_II-14-31;II-14-33
+    series: II-14-31;II-14-33
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_4_II-14-32
+    series: II-14-32
+    floors: 5
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_5_1-410
+    series: 1-410
+    floors: 5
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_5_1-447\u0421-38"
+    series: "1-447\u0421-38"
+    floors: 5
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_5_1-515-3/\u041C"
+    series: "1-515-3/\u041C"
+    floors: 5
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_5_1-515-5/\u041C"
+    series: "1-515-5/\u041C"
+    floors: 5
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_5_1-515-5/\u041C37"
+    series: "1-515-5/\u041C37"
+    floors: 5
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_5_1-515-5/\u042E"
+    series: "1-515-5/\u042E"
+    floors: 5
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_5_\u0421\u041C-3"
+    series: "\u0421\u041C-3"
+    floors: 5
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_6_1-447\u0421-39"
+    series: "1-447\u0421-39"
+    floors: 5
+    entrances: 6
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_6_1-511-130/37
+    series: 1-511-130/37
+    floors: 5
+    entrances: 6
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_6_\u042D\u041A-1"
+    series: "\u042D\u041A-1"
+    floors: 5
+    entrances: 6
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_5_pod_7_1-511-4/\u042E37"
+    series: "1-511-4/\u042E37"
+    floors: 5
+    entrances: 7
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_5_pod_8_II-14
+    series: II-14
+    floors: 5
     entrances: 8
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F30-3/12_filter_floors_12_entrances_2"
-    series: "\u041F30-3/12"
-    floors: 12
+  - predstavlenie: "et_6_pod_1_1-446\u0421-3"
+    series: "1-446\u0421-3"
+    floors: 6
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_6_pod_1_1-511-2/\u042E"
+    series: "1-511-2/\u042E"
+    floors: 6
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_6_pod_1_II-05-02\u0410"
+    series: "II-05-02\u0410"
+    floors: 6
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_6_pod_1_II-14
+    series: II-14
+    floors: 6
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_6_pod_2_1-510-3/\u041C"
+    series: "1-510-3/\u041C"
+    floors: 6
     entrances: 2
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F30-4/12_filter_floors_12_entrances_1"
-    series: "\u041F30-4/12"
-    floors: 12
-    entrances: 1
+  - predstavlenie: "et_6_pod_2_1-510-3/\u041C23"
+    series: "1-510-3/\u041C23"
+    floors: 6
+    entrances: 2
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F30-4/12_filter_floors_14_entrances_1"
-    series: "\u041F30-4/12"
-    floors: 14
-    entrances: 1
+  - predstavlenie: "et_6_pod_2_1-511-3/\u041C"
+    series: "1-511-3/\u041C"
+    floors: 6
+    entrances: 2
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F31/12_filter_floors_12_entrances_3"
-    series: "\u041F31/12"
-    floors: 12
+  - predstavlenie: "et_6_pod_2_1-511-4/\u042E"
+    series: "1-511-4/\u042E"
+    floors: 6
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_6_pod_2_\u041F46\u041C-22\u043B/9;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-22\u043B/9;\u041F46\u041C-4/9"
+    floors: 6
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_6_pod_3_1-447\u0421-10"
+    series: "1-447\u0421-10"
+    floors: 6
     entrances: 3
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F3-1/16;\u041F3-2/16_filter_floors_17_entrances_3"
-    series: "\u041F3-1/16;\u041F3-2/16"
-    floors: 17
+  - predstavlenie: "et_6_pod_3_1-510-4/\u042E23"
+    series: "1-510-4/\u042E23"
+    floors: 6
     entrances: 3
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F3-2/16;\u041F3-4/16_filter_floors_12_entrances_4"
-    series: "\u041F3-2/16;\u041F3-4/16"
-    floors: 12
+  - predstavlenie: "et_6_pod_3_II-29-04/\u041C"
+    series: "II-29-04/\u041C"
+    floors: 6
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_6_pod_3_\u041F46\u041C-21/9;\u041F46\u041C-21/9\u0418;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-21/9;\u041F46\u041C-21/9\u0418;\u041F46\u041C-4/9"
+    floors: 6
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_6_pod_3_\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    floors: 6
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_6_pod_4_\u041F46\u041C-21/9;\u041F46\u041C-21/9\u0418;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-21/9;\u041F46\u041C-21/9\u0418;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    floors: 6
     entrances: 4
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F3-2/16_filter_floors_17_entrances_2"
-    series: "\u041F3-2/16"
-    floors: 17
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F3\u041C\u041A_filter_floors_12_entrances_1"
-    series: "\u041F3\u041C\u041A"
-    floors: 12
+  - predstavlenie: "et_7_pod_1_\u041F46\u041C-2/9;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-2/9;\u041F46\u041C-4/9"
+    floors: 7
     entrances: 1
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F3\u041C\u041A_filter_floors_13_entrances_3"
-    series: "\u041F3\u041C\u041A"
-    floors: 13
+  - predstavlenie: "et_7_pod_2_1-510-4/\u042E23"
+    series: "1-510-4/\u042E23"
+    floors: 7
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_7_pod_2_\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043F\u0440/9"
+    series: "\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043F\u0440/9"
+    floors: 7
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_7_pod_2_\u041F46\u041C-22\u043B/9;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-22\u043B/9;\u041F46\u041C-4/9"
+    floors: 7
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_7_pod_3_1-511-4/\u041C37"
+    series: "1-511-4/\u041C37"
+    floors: 7
     entrances: 3
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F3\u041C\u041A_filter_floors_13_entrances_5"
-    series: "\u041F3\u041C\u041A"
-    floors: 13
+  - predstavlenie: "et_7_pod_3_\u041F46\u041C-21/9;\u041F46\u041C-21/9\u0418;\u041F46\u041C-22\u043B/9;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-21/9;\u041F46\u041C-21/9\u0418;\u041F46\u041C-22\u043B/9;\u041F46\u041C-4/9"
+    floors: 7
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_7_pod_3_\u041F46\u041C-21/9;\u041F46\u041C-21/9\u0418;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-21/9;\u041F46\u041C-21/9\u0418;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    floors: 7
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_7_pod_3_\u041F46\u041C-21/9;\u041F46\u041C-22\u043B/9;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-21/9;\u041F46\u041C-22\u043B/9;\u041F46\u041C-4/9"
+    floors: 7
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_7_pod_3_\u041F46\u041C-21/9;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-21/9;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    floors: 7
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_7_pod_3_\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043F\u0440/9;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043F\u0440/9;\u041F46\u041C-4/9"
+    floors: 7
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_7_pod_4_\u041F46\u041C-21/9;\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043F\u0440/9;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-21/9;\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043F\u0440/9;\u041F46\u041C-4/9"
+    floors: 7
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_7_pod_5_\u041F46\u041C-21/9;\u041F46\u041C-21/9\u0418;\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-21/9;\u041F46\u041C-21/9\u0418;\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    floors: 7
     entrances: 5
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F3\u041C\u041A_filter_floors_14_entrances_3"
-    series: "\u041F3\u041C\u041A"
-    floors: 14
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F3\u041C\u041A_filter_floors_14_entrances_4"
-    series: "\u041F3\u041C\u041A"
-    floors: 14
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F3\u041C\u041A_filter_floors_14_entrances_5"
-    series: "\u041F3\u041C\u041A"
-    floors: 14
+  - predstavlenie: "et_7_pod_5_\u041F46\u041C-21/9;\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-21/9;\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    floors: 7
     entrances: 5
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F3\u041C\u041A_filter_floors_15_entrances_3"
-    series: "\u041F3\u041C\u041A"
-    floors: 15
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F43/16_filter_floors_16_entrances_1"
-    series: "\u041F43/16"
-    floors: 16
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F44-1/17 \u0442\u0438\u043F 1;\u041F44-4/17 \u0442\u0438\u043F
-      2_filter_floors_17_entrances_6"
-    series: "\u041F44-1/17 \u0442\u0438\u043F 1;\u041F44-4/17 \u0442\u0438\u043F
-      2"
-    floors: 17
+  - predstavlenie: "et_7_pod_6_\u041F46\u041C-21/9;\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-21/9;\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    floors: 7
     entrances: 6
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F44-1/17 \u0442\u0438\u043F 1_filter_floors_17_entrances_1"
-    series: "\u041F44-1/17 \u0442\u0438\u043F 1"
-    floors: 17
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17
-      \u0442\u0438\u043F 2;\u041F44\u0422-4/17 \u0442\u0438\u043F 5_filter_floors_17_entrances_2"
-    series: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17 \u0442\u0438\u043F
-      2;\u041F44\u0422-4/17 \u0442\u0438\u043F 5"
-    floors: 17
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17
-      \u0442\u0438\u043F 2_filter_floors_17_entrances_6"
-    series: "\u041F44\u0422-1/17 \u0442\u0438\u043F 1;\u041F44\u0422-4/17 \u0442\u0438\u043F
-      2"
-    floors: 17
+  - predstavlenie: "et_7_pod_6_\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    series: "\u041F46\u041C-22\u043B/9;\u041F46\u041C-22\u043B/9\u0418;\u041F46\u041C-4/9"
+    floors: 7
     entrances: 6
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F46(\u041F46/12)_filter_floors_9_entrances_3"
-    series: "\u041F46(\u041F46/12)"
-    floors: 9
-    entrances: 3
+  - predstavlenie: et_8_pod_0_II-04
+    series: II-04
+    floors: 8
+    entrances: 0
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F46-2/12\u0412_filter_floors_12_entrances_1"
-    series: "\u041F46-2/12\u0412"
-    floors: 12
+  - predstavlenie: et_8_pod_1_II-04
+    series: II-04
+    floors: 8
     entrances: 1
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F46-2/12\u0412_filter_floors_14_entrances_1"
-    series: "\u041F46-2/12\u0412"
-    floors: 14
+  - predstavlenie: "et_8_pod_1_II-18-01 \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u041A\xBB"
+    series: "II-18-01 \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u041A\xBB"
+    floors: 8
     entrances: 1
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F46\u041C-2/14;\u041F46\u041C-21/14;\u041F46\u041C-22\u043F\u0440/14;\u041F46\u041C-4/14_filter_floors_12_entrances_3"
-    series: "\u041F46\u041C-2/14;\u041F46\u041C-21/14;\u041F46\u041C-22\u043F\u0440/14;\u041F46\u041C-4/14"
-    floors: 12
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F46\u041C-2/14;\u041F46\u041C-22\u043F\u0440/14;\u041F46\u041C-4/14;\u041F55-4/12;\u041F\u043F83(83-305/28-503)_filter_floors_14_entrances_6"
-    series: "\u041F46\u041C-2/14;\u041F46\u041C-22\u043F\u0440/14;\u041F46\u041C-4/14;\u041F55-4/12;\u041F\u043F83(83-305/28-503)"
-    floors: 14
-    entrances: 6
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F46\u041C-2/14;\u041F46\u041C-22\u043F\u0440/14;\u041F46\u041C-4/14_filter_floors_14_entrances_3"
-    series: "\u041F46\u041C-2/14;\u041F46\u041C-22\u043F\u0440/14;\u041F46\u041C-4/14"
-    floors: 14
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F46\u041C-2/14;\u041F46\u041C-22\u043F\u0440/14_filter_floors_12_entrances_3"
-    series: "\u041F46\u041C-2/14;\u041F46\u041C-22\u043F\u0440/14"
-    floors: 12
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F46\u041C-2/9;\u041F46\u041C-22\u043F\u0440/9_filter_floors_9_entrances_3"
-    series: "\u041F46\u041C-2/9;\u041F46\u041C-22\u043F\u0440/9"
-    floors: 9
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F47/12;\u041F55-4/12_filter_floors_12_entrances_4"
-    series: "\u041F47/12;\u041F55-4/12"
-    floors: 12
-    entrances: 4
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F47/12_filter_floors_12_entrances_3"
-    series: "\u041F47/12"
-    floors: 12
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F55-2/12;\u041F55-4/12;\u041F55-25/12_filter_floors_12_entrances_3"
-    series: "\u041F55-2/12;\u041F55-4/12;\u041F55-25/12"
-    floors: 12
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F55-21/12;\u041F55-26/12_filter_floors_14_entrances_3"
-    series: "\u041F55-21/12;\u041F55-26/12"
-    floors: 14
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F55-21/12_filter_floors_12_entrances_1"
-    series: "\u041F55-21/12"
-    floors: 12
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F55-22/12_filter_floors_12_entrances_2"
-    series: "\u041F55-22/12"
-    floors: 12
+  - predstavlenie: "et_8_pod_2_II-18-01 \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0411\xBB"
+    series: "II-18-01 \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0411\xBB"
+    floors: 8
     entrances: 2
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F55-23/12_filter_floors_14_entrances_2"
-    series: "\u041F55-23/12"
-    floors: 14
+  - predstavlenie: "et_8_pod_2_\u0421\u041C-3-3"
+    series: "\u0421\u041C-3-3"
+    floors: 8
     entrances: 2
     buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F55-26/12_filter_floors_14_entrances_1"
-    series: "\u041F55-26/12"
-    floors: 14
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F55\u041C-2/14_filter_floors_14_entrances_1"
-    series: "\u041F55\u041C-2/14"
-    floors: 14
-    entrances: 1
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u041F\u04343-02/22;\u041F\u04343-03/22_filter_floors_22_entrances_2"
-    series: "\u041F\u04343-02/22;\u041F\u04343-03/22"
-    floors: 22
-    entrances: 2
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0421\u041C-3-4_filter_floors_9_entrances_3"
-    series: "\u0421\u041C-3-4"
-    floors: 9
-    entrances: 3
-    buildingmodel: {fileID: 0}
-  - predstavlenie: "\u0421\u041C-6_filter_floors_8_entrances_3"
+  - predstavlenie: "et_8_pod_3_\u0421\u041C-6"
     series: "\u0421\u041C-6"
     floors: 8
     entrances: 3
     buildingmodel: {fileID: 0}
-  - predstavlenie: "II-29-\u0411_filter_floors_9_entrances_0"
-    series: "II-29-\u0411"
+  - predstavlenie: "et_8_pod_4_II-29-05/\u041C"
+    series: "II-29-05/\u041C"
+    floors: 8
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_8_pod_5_\u0421\u041C-6"
+    series: "\u0421\u041C-6"
+    floors: 8
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_0_1-447\u0421-54"
+    series: "1-447\u0421-54"
     floors: 9
     entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_0_1-515-06/9\u042E\u041B"
+    series: "1-515-06/9\u042E\u041B"
+    floors: 9
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_0_83-\u041D\u0427"
+    series: "83-\u041D\u0427"
+    floors: 9
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_0_I-447(I-447\u0421-54)"
+    series: "I-447(I-447\u0421-54)"
+    floors: 9
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_9_pod_0_II-29
+    series: II-29
+    floors: 9
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_0_II-49-04/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49-04/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_0_II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_0_II-49-06/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49-06/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_0_\u0421\u041C-3"
+    series: "\u0421\u041C-3"
+    floors: 9
+    entrances: 0
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_1_1-515-04/9\u042E\u041B"
+    series: "1-515-04/9\u042E\u041B"
+    floors: 9
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_1_1\u0420-447\u0421-26"
+    series: "1\u0420-447\u0421-26"
+    floors: 9
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_1_II-18-01/\u041C\u0418 \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0411\xBB"
+    series: "II-18-01/\u041C\u0418 \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0411\xBB"
+    floors: 9
+    entrances: 1
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_1_II-18-11/\u041C\u0418 \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0411\xBB"
+    series: "II-18-11/\u041C\u0418 \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0411\xBB"
+    floors: 9
+    entrances: 1
+    buildingmodel: {fileID: 1730828674183174103, guid: 615811f814b8ad642b2c2f27e148473a, type: 3}
+  - predstavlenie: "et_9_pod_10_II-49/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 10
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_11_1-515-06/9\u041C"
+    series: "1-515-06/9\u041C"
+    floors: 9
+    entrances: 11
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_11_1-515-06/9\u042E\u041B"
+    series: "1-515-06/9\u042E\u041B"
+    floors: 9
+    entrances: 11
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_11_II-49/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 11
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_11_II-49/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u041F\xBB"
+    series: "II-49/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u041F\xBB"
+    floors: 9
+    entrances: 11
+    buildingmodel: {fileID: 1040231631245831930, guid: f74a0422d8b587e4582d97a162cafa07, type: 3}
+  - predstavlenie: "et_9_pod_11_II-49-06/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49-06/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 11
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_2_II-18-01/\u041C\u0418 \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0411\xBB"
+    series: "II-18-01/\u041C\u0418 \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0411\xBB"
+    floors: 9
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_2_II-29-03/\u041C37"
+    series: "II-29-03/\u041C37"
+    floors: 9
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_2_II-29-03/\u042E37"
+    series: "II-29-03/\u042E37"
+    floors: 9
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_2_\u041F55-2/12;\u041F55-4/12"
+    series: "\u041F55-2/12;\u041F55-4/12"
+    floors: 9
+    entrances: 2
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_3_1-515/9\u041C"
+    series: "1-515/9\u041C"
+    floors: 9
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_3_1-515-04/9\u041C"
+    series: "1-515-04/9\u041C"
+    floors: 9
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_3_1-515-24/9\u041C"
+    series: "1-515-24/9\u041C"
+    floors: 9
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_3_II-29-03/\u041C37"
+    series: "II-29-03/\u041C37"
+    floors: 9
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_3_II-29-03/\u042E37"
+    series: "II-29-03/\u042E37"
+    floors: 9
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_3_II-49-04/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49-04/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_3_II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_3_II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u041F\xBB"
+    series: "II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u041F\xBB"
+    floors: 9
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_3_\u0421\u041C-3"
+    series: "\u0421\u041C-3"
+    floors: 9
+    entrances: 3
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_4_1-467\u0410-20"
+    series: "1-467\u0410-20"
+    floors: 9
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_4_1-515-04/9\u041C"
+    series: "1-515-04/9\u041C"
+    floors: 9
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_4_1-515-04/9\u042E\u041B"
+    series: "1-515-04/9\u042E\u041B"
+    floors: 9
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_4_1-515-178/9\u041C"
+    series: "1-515-178/9\u041C"
+    floors: 9
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_4_I-515-04/9\u041C"
+    series: "I-515-04/9\u041C"
+    floors: 9
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_4_I-515-178/9\u041C"
+    series: "I-515-178/9\u041C"
+    floors: 9
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_4_II-29-04/\u042E37"
+    series: "II-29-04/\u042E37"
+    floors: 9
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_4_II-29-05/\u042E37"
+    series: "II-29-05/\u042E37"
+    floors: 9
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_9_pod_4_II-29-160
+    series: II-29-160
+    floors: 9
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_4_II-49-04/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49-04/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_4_II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 4
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_5_1-515-06/9\u041C"
+    series: "1-515-06/9\u041C"
+    floors: 9
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_5_1-515-06/9\u042E\u041B"
+    series: "1-515-06/9\u042E\u041B"
+    floors: 9
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_5_1-515-26/9\u041C"
+    series: "1-515-26/9\u041C"
+    floors: 9
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_5_I-515-06/9\u042E\u041B"
+    series: "I-515-06/9\u042E\u041B"
+    floors: 9
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_5_II-29-05/\u042E37"
+    series: "II-29-05/\u042E37"
+    floors: 9
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_5_II-49-06/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49-06/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_5_II-49-06/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u041F\xBB"
+    series: "II-49-06/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u041F\xBB"
+    floors: 9
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_5_II-49-06/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49-06/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_5_II-49-06/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u041F\xBB"
+    series: "II-49-06/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u041F\xBB"
+    floors: 9
+    entrances: 5
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_6_1-515-06/9\u041C"
+    series: "1-515-06/9\u041C"
+    floors: 9
+    entrances: 6
+    buildingmodel: {fileID: 0}
+  - predstavlenie: et_9_pod_6_II-29/37
+    series: II-29/37
+    floors: 9
+    entrances: 6
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_7_1-515-04/9\u041C"
+    series: "1-515-04/9\u041C"
+    floors: 9
+    entrances: 7
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_7_1-515-04/9\u042E\u041B"
+    series: "1-515-04/9\u042E\u041B"
+    floors: 9
+    entrances: 7
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_7_1-515-24/9\u041C"
+    series: "1-515-24/9\u041C"
+    floors: 9
+    entrances: 7
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_7_II-29-03/\u042E37;II-29-05/\u042E37"
+    series: "II-29-03/\u042E37;II-29-05/\u042E37"
+    floors: 9
+    entrances: 7
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_7_II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49-04/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 7
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_7_II-49-08/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49-08/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 7
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_7_II-49-08/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49-08/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 7
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_8_II-29-04/\u041C37"
+    series: "II-29-04/\u041C37"
+    floors: 9
+    entrances: 8
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_8_II-49/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49/\u041C \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 8
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_9_1-515-04/9\u042E\u041B;1-515-06/9\u042E\u041B"
+    series: "1-515-04/9\u042E\u041B;1-515-06/9\u042E\u041B"
+    floors: 9
+    entrances: 9
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_9_II-29-05/\u042E37"
+    series: "II-29-05/\u042E37"
+    floors: 9
+    entrances: 9
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_9_II-49/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u0414\xBB"
+    series: "II-49/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u0414\xBB"
+    floors: 9
+    entrances: 9
+    buildingmodel: {fileID: 0}
+  - predstavlenie: "et_9_pod_9_II-49/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442
+      \xAB\u041F\xBB"
+    series: "II-49/\u042E \u0432\u0430\u0440\u0438\u0430\u043D\u0442 \xAB\u041F\xBB"
+    floors: 9
+    entrances: 9
     buildingmodel: {fileID: 0}

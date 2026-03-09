@@ -31,7 +31,7 @@ Material:
     - _CloudScale: 0.187
     - _CloudScattering: 0.529
     - _CloudSpeed: 0.0838
-    - _DayProgress: 0.53075653
+    - _DayProgress: 0.62124366
     - _StarBrightness: 0.49
     - _StarThreshold: 0.946
     - _SunIntensity: 1
@@ -43,3 +43,4 @@ Material:
     - _NightSkyColor: {r: 0, g: 0, b: 0, a: 0}
     - _SunDirection: {r: 0, g: 1, b: 0, a: 1}
   m_BuildTextureStacks: []
+  m_AllowLocking: 1

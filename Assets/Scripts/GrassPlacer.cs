@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 using static GrassSettings;
+
 
 public class GrassPlacer : MonoBehaviour
 {
@@ -212,21 +212,20 @@ public class GrassPlacer : MonoBehaviour
         // Настройка материала
         if (grassSettings.Length > 0 && grassSettings[0].m_PrototypeTexture != null)
         {
-            Material grassMaterial = new Material(Shader.Find("Standard"));
-            grassMaterial.mainTexture = grassSettings[0].m_PrototypeTexture;
+            Material material = new Material(Shader.Find("HDRP/Lit"));
+            material.mainTexture = grassSettings[0].m_PrototypeTexture;
 
-            grassMaterial.SetOverrideTag("RenderType", "Transparent");
-            grassMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-            grassMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-            grassMaterial.SetInt("_ZWrite", 0);
-            grassMaterial.DisableKeyword("_ALPHATEST_ON");
-            grassMaterial.EnableKeyword("_ALPHABLEND_ON");
-            grassMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-            grassMaterial.SetFloat("_BlendModePreserveSpecular", 0);
-            grassMaterial.SetFloat("_AlphaToMask", 0);
-            grassMaterial.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
+            // Настройки для материала с обрезкой
+//            material.SetFloat("_SurfaceType", (float)SurfaceType.Opaque);
+            material.SetFloat("_AlphaCutoffEnable", 1.0f); // Включаем обрезку
+            material.SetFloat("_AlphaCutoff", 0.5f); // Порог обрезки
+            material.SetFloat("_UseShadowThreshold", 1.0f);
+            material.SetFloat("_AlphaCutoffShadow", 0.5f);
+            material.SetFloat("_DoubleSidedEnable", 1f);
 
-            meshRenderer.material = grassMaterial;
+            material.renderQueue = (int)UnityEngine.Rendering.RenderQueue.AlphaTest; // Используем AlphaTest очередь
+
+            meshRenderer.material = material;
 
         }
 

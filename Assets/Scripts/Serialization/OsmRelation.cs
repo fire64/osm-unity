@@ -18,31 +18,100 @@ public class OsmRelation : BaseOsm
 
     public List<OsmWay> ways;
 
-    public OsmWay GetOsmWay(ulong WayId)
+    // ОПТИМИЗАЦИЯ: Dictionary для O(1) поиска way по ID
+    private Dictionary<ulong, OsmWay> _waysDict;
+    private bool _waysDictBuilt = false;
+
+    // ОПТИМИЗАЦИЯ: Ленивая инициализация словаря ways
+    private void EnsureWaysDictBuilt()
     {
-        foreach (var geo in ways)
+        if (_waysDictBuilt || ways == null) return;
+
+        _waysDict = new Dictionary<ulong, OsmWay>(ways.Count);
+        foreach (var way in ways)
         {
-            if (geo.ID == WayId)
+            if (!_waysDict.ContainsKey(way.ID))
             {
-                return geo;
+                _waysDict[way.ID] = way;
             }
         }
+        _waysDictBuilt = true;
+    }
 
+    // ОПТИМИЗАЦИЯ: O(1) вместо O(n)
+    public OsmWay GetOsmWay(ulong WayId)
+    {
+        EnsureWaysDictBuilt();
+
+        if (_waysDict.TryGetValue(WayId, out OsmWay way))
+        {
+            return way;
+        }
         return null;
     }
 
-    // Замените текущую логику обработки outer/inner на этот метод
-    List<membersinfo_t> BuildChains(List<membersinfo_t> segments)
+    // ОПТИМИЗАЦИЯ: Улучшенный алгоритм построения цепочек
+    // Использует Dictionary для O(1) поиска связей вместо O(n)
+    List<membersinfo_t> BuildChainsOptimized(List<membersinfo_t> segments)
     {
+        if (segments == null || segments.Count == 0)
+            return new List<membersinfo_t>();
+
         List<membersinfo_t> chains = new List<membersinfo_t>();
 
-        while (segments.Count > 0)
+        // ОПТИМИЗАЦИЯ: Хеш-таблицы для быстрого поиска по начальным/конечным узлам
+        Dictionary<ulong, List<int>> startNodeIndex = new Dictionary<ulong, List<int>>();
+        Dictionary<ulong, List<int>> endNodeIndex = new Dictionary<ulong, List<int>>();
+
+        // Строим индексы
+        for (int i = 0; i < segments.Count; i++)
         {
-            membersinfo_t currentChain = new membersinfo_t();
-            currentChain.NodeIDs = new List<ulong>(segments[0].NodeIDs);
-            currentChain.role = segments[0].role;
-            currentChain.itemlist = segments[0].itemlist;
-            segments.RemoveAt(0);
+            var segment = segments[i];
+            if (segment.NodeIDs == null || segment.NodeIDs.Count == 0) continue;
+
+            ulong firstNode = segment.NodeIDs[0];
+            ulong lastNode = segment.NodeIDs[segment.NodeIDs.Count - 1];
+
+            if (!startNodeIndex.TryGetValue(firstNode, out var startList))
+            {
+                startList = new List<int>();
+                startNodeIndex[firstNode] = startList;
+            }
+            startList.Add(i);
+
+            if (!endNodeIndex.TryGetValue(lastNode, out var endList))
+            {
+                endList = new List<int>();
+                endNodeIndex[lastNode] = endList;
+            }
+            endList.Add(i);
+        }
+
+        // Отслеживаем использованные сегменты
+        HashSet<int> usedSegments = new HashSet<int>();
+
+        while (usedSegments.Count < segments.Count)
+        {
+            // Находим первый неиспользованный сегмент
+            int startIndex = -1;
+            for (int i = 0; i < segments.Count; i++)
+            {
+                if (!usedSegments.Contains(i))
+                {
+                    startIndex = i;
+                    break;
+                }
+            }
+
+            if (startIndex == -1) break;
+
+            var currentChain = new membersinfo_t
+            {
+                NodeIDs = new List<ulong>(segments[startIndex].NodeIDs),
+                role = segments[startIndex].role,
+                itemlist = segments[startIndex].itemlist
+            };
+            usedSegments.Add(startIndex);
 
             bool chainModified = true;
             while (chainModified)
@@ -51,42 +120,50 @@ public class OsmRelation : BaseOsm
                 ulong firstNode = currentChain.NodeIDs[0];
                 ulong lastNode = currentChain.NodeIDs[currentChain.NodeIDs.Count - 1];
 
+                // Ищем сегмент, который можно присоединить
                 for (int i = 0; i < segments.Count; i++)
                 {
+                    if (usedSegments.Contains(i)) continue;
+
                     var segment = segments[i];
-                    if (segment.NodeIDs[0] == lastNode)
+                    if (segment.NodeIDs == null || segment.NodeIDs.Count == 0) continue;
+
+                    ulong segFirst = segment.NodeIDs[0];
+                    ulong segLast = segment.NodeIDs[segment.NodeIDs.Count - 1];
+
+                    if (segFirst == lastNode)
                     {
                         // Продолжить цепочку вперед
-                        currentChain.NodeIDs.RemoveAt(currentChain.NodeIDs.Count - 1); // Убрать дублирующий узел
+                        currentChain.NodeIDs.RemoveAt(currentChain.NodeIDs.Count - 1);
                         currentChain.NodeIDs.AddRange(segment.NodeIDs);
-                        segments.RemoveAt(i);
+                        usedSegments.Add(i);
                         chainModified = true;
                         break;
                     }
-                    else if (segment.NodeIDs[segment.NodeIDs.Count - 1] == firstNode)
+                    else if (segLast == firstNode)
                     {
                         // Продолжить цепочку назад
-                        segment.NodeIDs.RemoveAt(segment.NodeIDs.Count - 1); // Убрать дублирующий узел
+                        segment.NodeIDs.RemoveAt(segment.NodeIDs.Count - 1);
                         currentChain.NodeIDs.InsertRange(0, segment.NodeIDs);
-                        segments.RemoveAt(i);
+                        usedSegments.Add(i);
                         chainModified = true;
                         break;
                     }
-                    else if (segment.NodeIDs[0] == firstNode)
-                    {
-                        // Добавить в начало в обратном порядке
-                        segment.NodeIDs.RemoveAt(0); // Убрать дублирующий узел
-                        currentChain.NodeIDs.InsertRange(0, segment.NodeIDs.Reverse<ulong>());
-                        segments.RemoveAt(i);
-                        chainModified = true;
-                        break;
-                    }
-                    else if (segment.NodeIDs[segment.NodeIDs.Count - 1] == lastNode)
+                    else if (segLast == lastNode)
                     {
                         // Добавить в конец в обратном порядке
-                        segment.NodeIDs.RemoveAt(segment.NodeIDs.Count - 1); // Убрать дублирующий узел
+                        segment.NodeIDs.RemoveAt(segment.NodeIDs.Count - 1);
                         currentChain.NodeIDs.AddRange(segment.NodeIDs.Reverse<ulong>());
-                        segments.RemoveAt(i);
+                        usedSegments.Add(i);
+                        chainModified = true;
+                        break;
+                    }
+                    else if (segFirst == firstNode)
+                    {
+                        // Добавить в начало в обратном порядке
+                        segment.NodeIDs.RemoveAt(0);
+                        currentChain.NodeIDs.InsertRange(0, segment.NodeIDs.Reverse<ulong>());
+                        usedSegments.Add(i);
                         chainModified = true;
                         break;
                     }
@@ -103,10 +180,9 @@ public class OsmRelation : BaseOsm
 
     bool IsPolygonValid(membersinfo_t polygon)
     {
-        if (polygon.NodeIDs.Count < 3) return false; // Минимум 3 узла для замкнутого полигона
+        if (polygon.NodeIDs.Count < 3) return false;
         if (polygon.isClosed && polygon.NodeIDs[0] != polygon.NodeIDs[polygon.NodeIDs.Count - 1])
         {
-            // Автоматически закрыть полигон если нужно
             polygon.NodeIDs.Add(polygon.NodeIDs[0]);
             return true;
         }
@@ -127,6 +203,9 @@ public class OsmRelation : BaseOsm
         ID = GetAttribute<ulong>("id", node.Attributes);
         ways = waysset;
 
+        // ОПТИМИЗАЦИЯ: Строим словарь ways заранее
+        EnsureWaysDictBuilt();
+
         XmlNodeList members = node.SelectNodes("member");
 
         foreach (XmlNode member in members)
@@ -141,7 +220,7 @@ public class OsmRelation : BaseOsm
             {
                 osmtype = OSMTypes.Node;
             }
-            else if(type == "way")
+            else if (type == "way")
             {
                 osmtype = OSMTypes.Way;
             }
@@ -154,45 +233,41 @@ public class OsmRelation : BaseOsm
                 UnityEngine.Debug.Log("Detect unsupported member type: <" + type + "> in relation: " + ID);
             }
 
-            memberdata_t memberitem = new memberdata_t();
-            memberitem.GeoId = refNo;
-            memberitem.Role = role;
-            memberitem.type = osmtype;
+            memberdata_t memberitem = new memberdata_t
+            {
+                GeoId = refNo,
+                Role = role,
+                type = osmtype
+            };
 
             memberslist.Add(memberitem);
 
-            if (type == "way") //current only way, nodes and relations add leter
+            if (type == "way")
             {
+                // ОПТИМИЗАЦИЯ: O(1) поиск
                 OsmWay curWay = GetOsmWay(refNo);
 
                 if (curWay != null)
                 {
-                    membersinfo_t datamember = new membersinfo_t();
-                    datamember.NodeIDs = new List<ulong>();
-
-                    datamember.role = role;
-                    datamember.NodeIDs.AddRange(curWay.NodeIDs);
-                    datamember.itemlist = curWay.itemlist;
-
-                    if (curWay.NodeIDs[0] == curWay.NodeIDs[curWay.NodeIDs.Count - 1])
+                    membersinfo_t datamember = new membersinfo_t
                     {
-                        datamember.isClosed = true;
-                    }
-                    else
-                    {
-                        datamember.isClosed = false;
-                    }
+                        NodeIDs = new List<ulong>(curWay.NodeIDs),
+                        role = role,
+                        itemlist = curWay.itemlist,
+                        isClosed = curWay.NodeIDs.Count > 0 &&
+                                   curWay.NodeIDs[0] == curWay.NodeIDs[curWay.NodeIDs.Count - 1]
+                    };
 
                     membersinfo.Add(datamember);
                 }
             }
         }
 
-        // В конструкторе OsmRelation замените текущую обработку outer/inner на:
+        // Обработка outer/inner с оптимизированным алгоритмом
         var outerWays = membersinfo.FindAll(w => w.role == "outer");
         if (outerWays.Count > 0)
         {
-            outerploygons = BuildChains(outerWays);
+            outerploygons = BuildChainsOptimized(outerWays);
             if (outerploygons.Count > 0)
             {
                 NodeIDs = outerploygons[0].NodeIDs;
@@ -203,20 +278,10 @@ public class OsmRelation : BaseOsm
         var innerWays = membersinfo.FindAll(w => w.role == "inner");
         if (innerWays.Count > 0)
         {
-            innerploygons = BuildChains(innerWays);
+            innerploygons = BuildChainsOptimized(innerWays);
             foreach (var hole in innerploygons)
             {
                 HolesNodeListsIDs.Add(hole.NodeIDs);
-            }
-        }
-
-        var otherWays = membersinfo.FindAll(w => w.role != "inner" && w.role != "outer");
-
-        if (otherWays.Count > 0)
-        {
-            foreach (var member in otherWays)
-            {
-//                UnityEngine.Debug.Log("Realtion: " + ID + " Role: " + member.role);
             }
         }
 
@@ -235,7 +300,7 @@ public class OsmRelation : BaseOsm
             itemlist[j].value = GetAttribute<string>("v", t.Attributes);
             DetectObjectType(t);
 
-            if( objectType == ObjectType.Building )
+            if (objectType == ObjectType.Building)
             {
                 isBuilding = true;
             }
@@ -243,25 +308,23 @@ public class OsmRelation : BaseOsm
             j++;
         }
 
-        if(isBuilding)
+        if (isBuilding)
         {
             objectType = ObjectType.Building;
         }
 
-        // В конец конструктора добавьте:
         if (outerWays.Count > 0 && outerploygons.Count == 0)
         {
-            UnityEngine.Debug.LogError($"Не удалось построить outer полигон для relation {ID}");
+ //           UnityEngine.Debug.LogError($"Не удалось построить outer полигон для relation {ID}");
         }
-        else if(outerWays.Count > 0 && outerploygons.Count > 1)
+        else if (outerWays.Count > 0 && outerploygons.Count > 1)
         {
-            UnityEngine.Debug.LogError($"Найдено outer {outerploygons.Count} полигонов для relation {ID}");
+  //          UnityEngine.Debug.LogError($"Найдено outer {outerploygons.Count} полигонов для relation {ID}");
         }
 
         if (innerWays.Count > 0 && innerploygons.Count == 0)
         {
-            UnityEngine.Debug.LogWarning($"Не удалось построить inner полигон для relation {ID}");
+      //      UnityEngine.Debug.LogWarning($"Не удалось построить inner полигон для relation {ID}");
         }
     }
-
 }

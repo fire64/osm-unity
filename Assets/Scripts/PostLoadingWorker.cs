@@ -249,6 +249,8 @@ public class PostLoadingWorker : MonoBehaviour
 
                 if (landuseObj.isGrassGenerate)
                 {
+                    Debug.Log("Try create grass for Landuse: " + landuseObj.name);
+
                     float checkSize = 0.5f;
 
                     if (isFastGrass)
@@ -270,7 +272,9 @@ public class PostLoadingWorker : MonoBehaviour
                             Vector3 origin = new Vector3(x, 100000, z);
                             if (Physics.Raycast(origin, Vector3.down, out RaycastHit hit, 200000))
                             {
+                                Debug.Log( "Fired in: " + hit.transform.name);
                                 Landuse landuse = hit.collider.GetComponent<Landuse>();
+
                                 if (landuse != null && landuse.Name == landuseObj.Name)
                                 {
                                     Terrain terrain = GetTerrainByCoord(hit.point);
@@ -281,6 +285,7 @@ public class PostLoadingWorker : MonoBehaviour
                         }
                     }
                 }
+
 
                 if (landuseObj.isTreesGenerate)
                 {
@@ -312,7 +317,7 @@ public class PostLoadingWorker : MonoBehaviour
     {
         var foundInfrstructureObjects = FindObjectsOfType<InfrstructureBehaviour>();
 
-        Debug.Log( "Found: " + foundInfrstructureObjects.Length);
+//        Debug.Log( "Found: " + foundInfrstructureObjects.Length);
 
         foreach (InfrstructureBehaviour InfrstructureObjects in foundInfrstructureObjects)
         {

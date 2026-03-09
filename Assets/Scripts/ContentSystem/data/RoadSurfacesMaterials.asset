@@ -93,3 +93,5 @@ MonoBehaviour:
     roadSurfacesMaterial: {fileID: 0}
   - roadSurfacesMaterialName: wood_plank
     roadSurfacesMaterial: {fileID: 0}
+  - roadSurfacesMaterialName: paving_stones:lanes
+    roadSurfacesMaterial: {fileID: 0}

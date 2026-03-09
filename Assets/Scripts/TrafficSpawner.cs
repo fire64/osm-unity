@@ -77,24 +77,25 @@ public class TrafficSpawner : MonoBehaviour
 
     private void CreateNavMesh()
     {
-        var navmanager = new GameObject("navmanager").AddComponent<NavMeshSurface>();
-        navmanager.transform.localPosition = new Vector3(0, 0, 0);
+        /*      var navmanager = new GameObject("navmanager").AddComponent<NavMeshSurface>();
+                navmanager.transform.localPosition = new Vector3(0, 0, 0);
 
-        navmanager.collectObjects = CollectObjects.Volume;
+                navmanager.collectObjects = CollectObjects.Volume;
 
-        var map = FindObjectOfType<MapReader>();
+                var map = FindObjectOfType<MapReader>();
 
-        float radiusfixed = map.radiusmeters * 4;
+                float radiusfixed = map.radiusmeters * 4;
 
-        navmanager.size = new Vector3(radiusfixed, 20, radiusfixed);
-        navmanager.center = Vector3.zero;
+                navmanager.size = new Vector3(radiusfixed, 20, radiusfixed);
+                navmanager.center = Vector3.zero;
 
-        navmanager.overrideTileSize = true;
-        navmanager.tileSize = (int)radiusfixed;
+                navmanager.overrideTileSize = true;
+                navmanager.tileSize = (int)radiusfixed;
 
-        navmanager.useGeometry = NavMeshCollectGeometry.RenderMeshes;
+                navmanager.useGeometry = NavMeshCollectGeometry.RenderMeshes;
 
-        navmanager.BuildNavMesh();
+                navmanager.BuildNavMesh();
+        */
     }
 
     public void InitSpawner()
@@ -135,7 +136,7 @@ public class TrafficSpawner : MonoBehaviour
             {
                 GameObject vehiclePrefab = vehiclePrefabs[Random.Range(0, vehiclePrefabs.Length)];
                 GameObject vehicle = Instantiate(vehiclePrefab, Vector3.zero, Quaternion.identity);
-                vehicle.SetActive(true); // Активируем при создании
+                vehicle.SetActive(false); // Активируем при создании
                 vehicle.transform.SetParent(transform);
                 vehiclePool.Enqueue(vehicle);
                 allVehicles.Add(vehicle);
@@ -257,6 +258,14 @@ public class TrafficSpawner : MonoBehaviour
         Debug.Log($"Found {vehicleRoads.Count} roads for vehicles and {pedestrianRoads.Count} roads for pedestrians (out of {allRoads.Length} total roads).");
     }
 
+    // Добавить метод проверки видимости
+    bool IsVisibleFromCamera(Vector3 position)
+    {
+        if (Camera.main == null) return false;
+        Vector3 viewportPos = Camera.main.WorldToViewportPoint(position);
+        return (viewportPos.x > 0 && viewportPos.x < 1 && viewportPos.y > 0 && viewportPos.y < 1 && viewportPos.z > 0);
+    }
+
     void TrySpawnVehicle()
     {
         if (vehiclePool.Count == 0)
@@ -298,6 +307,18 @@ public class TrafficSpawner : MonoBehaviour
 
         // Вычислить позицию спавна с учетом полосы
         Vector3 spawnPosition = CalculateVehicleSpawnPosition(randomRoad, pointIndex, lane);
+
+        // Не спавним прямо перед камерой (разрушение иммерсии), если это не далеко
+        if (Vector3.Distance(spawnPosition, playerTransform.position) < 50f && IsVisibleFromCamera(spawnPosition))
+        {
+            return; // Пропускаем этот тик спавна
+        }
+
+        // Проверка на занятость места (чтобы не заспавнить одну в другой)
+        if (Physics.CheckSphere(spawnPosition, 2.0f, LayerMask.GetMask("Default", "Vehicle")))
+        {
+            return;
+        }
 
         // Создать автомобиль из пула
         SpawnVehicleFromPool(spawnPosition, randomRoad, pointIndex, lane);

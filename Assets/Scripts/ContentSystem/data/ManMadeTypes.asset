@@ -153,3 +153,19 @@ MonoBehaviour:
     defaultDescription: 
     defaultMaterial: {fileID: 0}
     defaultHeight: 1.5
+  - type: tunnel
+    defaultDescription: 
+    defaultMaterial: {fileID: 0}
+    defaultHeight: 1.5
+  - type: gantry
+    defaultDescription: 
+    defaultMaterial: {fileID: 0}
+    defaultHeight: 1.5
+  - type: water_tower
+    defaultDescription: 
+    defaultMaterial: {fileID: 0}
+    defaultHeight: 1.5
+  - type: crane
+    defaultDescription: 
+    defaultMaterial: {fileID: 0}
+    defaultHeight: 1.5

@@ -1,4 +1,4 @@
-using System;
+п»їusing System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -22,16 +22,17 @@ public class AutoBus : MonoBehaviour
     private bool isReversing = false;
 
 
-    // Событие для уведомления о прибытии на остановку
+    // РЎРѕР±С‹С‚РёРµ РґР»СЏ СѓРІРµРґРѕРјР»РµРЅРёСЏ Рѕ РїСЂРёР±С‹С‚РёРё РЅР° РѕСЃС‚Р°РЅРѕРІРєСѓ
     public event Action<int> OnBusArrivedAtStop;
 
-    // Ссылки на компоненты для анимации дверей
+    // РЎСЃС‹Р»РєРё РЅР° РєРѕРјРїРѕРЅРµРЅС‚С‹ РґР»СЏ Р°РЅРёРјР°С†РёРё РґРІРµСЂРµР№
     [SerializeField] private Animator doorAnimator;
     private static readonly int OpenDoors = Animator.StringToHash("OpenDoors");
 
-    // Кэш для расстояний между точками пути
+    // РљСЌС€ РґР»СЏ СЂР°СЃСЃС‚РѕСЏРЅРёР№ РјРµР¶РґСѓ С‚РѕС‡РєР°РјРё РїСѓС‚Рё
     private List<float> pathSegmentLengths = new List<float>();
     private float totalPathLength = 0f;
+    [SerializeField] public RoadFollower roadFollower;
 
     void Start()
     {
@@ -52,19 +53,19 @@ public class AutoBus : MonoBehaviour
         }
     }
 
-    // Метод для установки маршрута
+    // РњРµС‚РѕРґ РґР»СЏ СѓСЃС‚Р°РЅРѕРІРєРё РјР°СЂС€СЂСѓС‚Р°
     public void SetRoute(Route newRoute)
     {
         this.route = newRoute;
         CalculatePathData();
 
-        // Находим ближайшую точку пути для начала движения
+        // РќР°С…РѕРґРёРј Р±Р»РёР¶Р°Р№С€СѓСЋ С‚РѕС‡РєСѓ РїСѓС‚Рё РґР»СЏ РЅР°С‡Р°Р»Р° РґРІРёР¶РµРЅРёСЏ
         currentPathIndex = FindNearestPathPointIndex();
 
-        // Находим следующую остановку
+        // РќР°С…РѕРґРёРј СЃР»РµРґСѓСЋС‰СѓСЋ РѕСЃС‚Р°РЅРѕРІРєСѓ
         nextStopIndex = FindNextStopIndex();
 
-        // Сбрасываем состояние движения
+        // РЎР±СЂР°СЃС‹РІР°РµРј СЃРѕСЃС‚РѕСЏРЅРёРµ РґРІРёР¶РµРЅРёСЏ
         isMoving = true;
         isWaitingAtStop = false;
 
@@ -83,7 +84,7 @@ public class AutoBus : MonoBehaviour
         }
     }
 
-    // Найти индекс ближайшей точки пути
+    // РќР°Р№С‚Рё РёРЅРґРµРєСЃ Р±Р»РёР¶Р°Р№С€РµР№ С‚РѕС‡РєРё РїСѓС‚Рё
     private int FindNearestPathPointIndex()
     {
         if (route == null || route.coordpoints.Count == 0) return 0;
@@ -101,7 +102,7 @@ public class AutoBus : MonoBehaviour
             }
         }
 
-        // Если мы близко к концу пути, начинаем с начала
+        // Р•СЃР»Рё РјС‹ Р±Р»РёР·РєРѕ Рє РєРѕРЅС†Сѓ РїСѓС‚Рё, РЅР°С‡РёРЅР°РµРј СЃ РЅР°С‡Р°Р»Р°
         if (nearestIndex >= route.coordpoints.Count - 2 && loopRoute)
         {
             nearestIndex = 0;
@@ -110,36 +111,36 @@ public class AutoBus : MonoBehaviour
         return nearestIndex;
     }
 
-    // Найти индекс следующей остановки
+    // РќР°Р№С‚Рё РёРЅРґРµРєСЃ СЃР»РµРґСѓСЋС‰РµР№ РѕСЃС‚Р°РЅРѕРІРєРё
     private int FindNextStopIndex()
     {
         if (route == null || route.stoppoints.Count == 0) return 0;
 
-        // Находим ближайшую остановку, которая еще впереди
+        // РќР°С…РѕРґРёРј Р±Р»РёР¶Р°Р№С€СѓСЋ РѕСЃС‚Р°РЅРѕРІРєСѓ, РєРѕС‚РѕСЂР°СЏ РµС‰Рµ РІРїРµСЂРµРґРё
         for (int i = 0; i < route.stoppoints.Count; i++)
         {
-            // Проверяем, находится ли остановка впереди по маршруту
+            // РџСЂРѕРІРµСЂСЏРµРј, РЅР°С…РѕРґРёС‚СЃСЏ Р»Рё РѕСЃС‚Р°РЅРѕРІРєР° РІРїРµСЂРµРґРё РїРѕ РјР°СЂС€СЂСѓС‚Сѓ
             if (IsStopAhead(route.stoppoints[i]))
             {
                 return i;
             }
         }
 
-        // Если не нашли остановку впереди, начинаем с первой
+        // Р•СЃР»Рё РЅРµ РЅР°С€Р»Рё РѕСЃС‚Р°РЅРѕРІРєСѓ РІРїРµСЂРµРґРё, РЅР°С‡РёРЅР°РµРј СЃ РїРµСЂРІРѕР№
         return 0;
     }
 
-    // Проверить, находится ли остановка впереди по маршруту
+    // РџСЂРѕРІРµСЂРёС‚СЊ, РЅР°С…РѕРґРёС‚СЃСЏ Р»Рё РѕСЃС‚Р°РЅРѕРІРєР° РІРїРµСЂРµРґРё РїРѕ РјР°СЂС€СЂСѓС‚Сѓ
     private bool IsStopAhead(Vector3 stopPosition)
     {
-        // Находим ближайшую точку пути к остановке
+        // РќР°С…РѕРґРёРј Р±Р»РёР¶Р°Р№С€СѓСЋ С‚РѕС‡РєСѓ РїСѓС‚Рё Рє РѕСЃС‚Р°РЅРѕРІРєРµ
         int stopPathIndex = FindNearestPathPointToStop(stopPosition);
 
-        // Остановка впереди, если ее индекс пути больше текущего
+        // РћСЃС‚Р°РЅРѕРІРєР° РІРїРµСЂРµРґРё, РµСЃР»Рё РµРµ РёРЅРґРµРєСЃ РїСѓС‚Рё Р±РѕР»СЊС€Рµ С‚РµРєСѓС‰РµРіРѕ
         return stopPathIndex >= currentPathIndex;
     }
 
-    // Найти ближайшую точку пути к остановке
+    // РќР°Р№С‚Рё Р±Р»РёР¶Р°Р№С€СѓСЋ С‚РѕС‡РєСѓ РїСѓС‚Рё Рє РѕСЃС‚Р°РЅРѕРІРєРµ
     private int FindNearestPathPointToStop(Vector3 stopPosition)
     {
         if (route == null || route.coordpoints.Count == 0) return 0;
@@ -160,7 +161,7 @@ public class AutoBus : MonoBehaviour
         return nearestIndex;
     }
 
-    // Расчет данных о пути
+    // Р Р°СЃС‡РµС‚ РґР°РЅРЅС‹С… Рѕ РїСѓС‚Рё
     void CalculatePathData()
     {
         pathSegmentLengths.Clear();
@@ -176,7 +177,7 @@ public class AutoBus : MonoBehaviour
         }
     }
 
-    // Движение по пути
+    // Р”РІРёР¶РµРЅРёРµ РїРѕ РїСѓС‚Рё
     void MoveAlongPath()
     {
         if (currentPathIndex >= route.coordpoints.Count - 1)
@@ -194,13 +195,19 @@ public class AutoBus : MonoBehaviour
         }
 
         Vector3 targetPoint = route.coordpoints[currentPathIndex + 1];
+
+        if (roadFollower.TryProjectToRightLane(targetPoint, out Vector3 laneTarget))
+        {
+            targetPoint = laneTarget;
+        }
+
         transform.position = Vector3.MoveTowards(
             transform.position,
             targetPoint,
             speed * Time.deltaTime
         );
 
-        // Плавное вращение в направлении движения
+        // РџР»Р°РІРЅРѕРµ РІСЂР°С‰РµРЅРёРµ РІ РЅР°РїСЂР°РІР»РµРЅРёРё РґРІРёР¶РµРЅРёСЏ
         Vector3 direction = (targetPoint - transform.position).normalized;
         if (direction != Vector3.zero)
         {
@@ -212,19 +219,19 @@ public class AutoBus : MonoBehaviour
             );
         }
 
-        // Проверка достижения следующей точки пути
+        // РџСЂРѕРІРµСЂРєР° РґРѕСЃС‚РёР¶РµРЅРёСЏ СЃР»РµРґСѓСЋС‰РµР№ С‚РѕС‡РєРё РїСѓС‚Рё
         if (Vector3.Distance(transform.position, targetPoint) < arrivalThreshold)
         {
             currentPathIndex++;
         }
     }
 
-    // Проверка необходимости остановки
+    // РџСЂРѕРІРµСЂРєР° РЅРµРѕР±С…РѕРґРёРјРѕСЃС‚Рё РѕСЃС‚Р°РЅРѕРІРєРё
     void CheckForStop()
     {
         if (nextStopIndex >= route.stoppoints.Count) return;
 
-        // Проверяем, близко ли мы к следующей остановке
+        // РџСЂРѕРІРµСЂСЏРµРј, Р±Р»РёР·РєРѕ Р»Рё РјС‹ Рє СЃР»РµРґСѓСЋС‰РµР№ РѕСЃС‚Р°РЅРѕРІРєРµ
         float distanceToStop = Vector3.Distance(transform.position, route.stoppoints[nextStopIndex]);
 
         if (distanceToStop < arrivalThreshold * 2f)
@@ -233,16 +240,16 @@ public class AutoBus : MonoBehaviour
         }
     }
 
-    // Остановка на станции
+    // РћСЃС‚Р°РЅРѕРІРєР° РЅР° СЃС‚Р°РЅС†РёРё
     IEnumerator StopAtStation()
     {
         isWaitingAtStop = true;
         isMoving = false;
 
-        // Уведомляем о прибытии на остановку
+        // РЈРІРµРґРѕРјР»СЏРµРј Рѕ РїСЂРёР±С‹С‚РёРё РЅР° РѕСЃС‚Р°РЅРѕРІРєСѓ
         OnBusArrivedAtStop?.Invoke(nextStopIndex);
 
-        // Анимация открытия дверей
+        // РђРЅРёРјР°С†РёСЏ РѕС‚РєСЂС‹С‚РёСЏ РґРІРµСЂРµР№
         if (doorAnimator != null)
         {
             doorAnimator.SetBool(OpenDoors, true);
@@ -250,26 +257,32 @@ public class AutoBus : MonoBehaviour
 
         yield return new WaitForSeconds(stopTime);
 
-        // Анимация закрытия дверей
+        // РђРЅРёРјР°С†РёСЏ Р·Р°РєСЂС‹С‚РёСЏ РґРІРµСЂРµР№
         if (doorAnimator != null)
         {
             doorAnimator.SetBool(OpenDoors, false);
         }
 
-        // Переходим к следующей остановке
+        // РџРµСЂРµС…РѕРґРёРј Рє СЃР»РµРґСѓСЋС‰РµР№ РѕСЃС‚Р°РЅРѕРІРєРµ
         nextStopIndex++;
 
-        // Если это последняя остановка и маршрут не зациклен
+        // Р•СЃР»Рё СЌС‚Рѕ РїРѕСЃР»РµРґРЅСЏСЏ РѕСЃС‚Р°РЅРѕРІРєР° Рё РјР°СЂС€СЂСѓС‚ РЅРµ Р·Р°С†РёРєР»РµРЅ
         if (nextStopIndex >= route.stoppoints.Count && !loopRoute)
         {
             isMoving = false;
+
+            // РћР¶РёРґР°РµРј 1 СЃРµРєСѓРЅРґСѓ РїРµСЂРµРґ СѓРґР°Р»РµРЅРёРµРј (РјРѕР¶РЅРѕ СѓР±СЂР°С‚СЊ РµСЃР»Рё РЅРµ РЅСѓР¶РЅРѕ)
+            yield return new WaitForSeconds(1f);
+
+            Destroy(gameObject);   // в†ђ РЈР”РђР›РЇР•Рњ РђР’РўРћР‘РЈРЎ
+            yield break;           // РїСЂРµРєСЂР°С‚РёС‚СЊ РєРѕСЂСѓС‚РёРЅСѓ
         }
         else
         {
             isMoving = true;
             isWaitingAtStop = false;
 
-            // Если зацикливаем маршрут и дошли до конца
+            // Р•СЃР»Рё Р·Р°С†РёРєР»РёРІР°РµРј РјР°СЂС€СЂСѓС‚ Рё РґРѕС€Р»Рё РґРѕ РєРѕРЅС†Р°
             if (nextStopIndex >= route.stoppoints.Count && loopRoute)
             {
                 nextStopIndex = 0;
@@ -277,7 +290,7 @@ public class AutoBus : MonoBehaviour
         }
     }
 
-    // Метод для принудительного открытия/закрытия дверей
+    // РњРµС‚РѕРґ РґР»СЏ РїСЂРёРЅСѓРґРёС‚РµР»СЊРЅРѕРіРѕ РѕС‚РєСЂС‹С‚РёСЏ/Р·Р°РєСЂС‹С‚РёСЏ РґРІРµСЂРµР№
     public void SetDoorsOpen(bool open)
     {
         if (doorAnimator != null)
@@ -286,14 +299,14 @@ public class AutoBus : MonoBehaviour
         }
     }
 
-    // Получение прогресса по маршруту (0-1)
+    // РџРѕР»СѓС‡РµРЅРёРµ РїСЂРѕРіСЂРµСЃСЃР° РїРѕ РјР°СЂС€СЂСѓС‚Сѓ (0-1)
     public float GetRouteProgress()
     {
         if (route == null || route.coordpoints.Count < 2) return 0f;
 
         float traveledDistance = 0f;
 
-        // Суммируем длину пройденных сегментов
+        // РЎСѓРјРјРёСЂСѓРµРј РґР»РёРЅСѓ РїСЂРѕР№РґРµРЅРЅС‹С… СЃРµРіРјРµРЅС‚РѕРІ
         for (int i = 0; i < currentPathIndex; i++)
         {
             if (i < pathSegmentLengths.Count)
@@ -302,7 +315,7 @@ public class AutoBus : MonoBehaviour
             }
         }
 
-        // Добавляем длину текущего сегмента
+        // Р”РѕР±Р°РІР»СЏРµРј РґР»РёРЅСѓ С‚РµРєСѓС‰РµРіРѕ СЃРµРіРјРµРЅС‚Р°
         if (currentPathIndex < route.coordpoints.Count - 1)
         {
             traveledDistance += Vector3.Distance(
@@ -314,30 +327,30 @@ public class AutoBus : MonoBehaviour
         return traveledDistance / totalPathLength;
     }
 
-    // Получение текущего индекса остановки
+    // РџРѕР»СѓС‡РµРЅРёРµ С‚РµРєСѓС‰РµРіРѕ РёРЅРґРµРєСЃР° РѕСЃС‚Р°РЅРѕРІРєРё
     public int GetCurrentStopIndex()
     {
         return nextStopIndex;
     }
 
-    // Получение состояния движения
+    // РџРѕР»СѓС‡РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ РґРІРёР¶РµРЅРёСЏ
     public bool IsMoving()
     {
         return isMoving && !isWaitingAtStop;
     }
 
-    // Получение состояния ожидания на остановке
+    // РџРѕР»СѓС‡РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёСЏ РѕР¶РёРґР°РЅРёСЏ РЅР° РѕСЃС‚Р°РЅРѕРІРєРµ
     public bool IsWaitingAtStop()
     {
         return isWaitingAtStop;
     }
 
-    // Визуализация в редакторе
+    // Р’РёР·СѓР°Р»РёР·Р°С†РёСЏ РІ СЂРµРґР°РєС‚РѕСЂРµ
     private void OnDrawGizmosSelected()
     {
         if (route == null) return;
 
-        // Рисуем путь
+        // Р РёСЃСѓРµРј РїСѓС‚СЊ
         Gizmos.color = Color.blue;
         for (int i = 0; i < route.coordpoints.Count - 1; i++)
         {
@@ -350,24 +363,24 @@ public class AutoBus : MonoBehaviour
             Gizmos.DrawSphere(route.coordpoints[route.coordpoints.Count - 1], 0.2f);
         }
 
-        // Рисуем остановки
+        // Р РёСЃСѓРµРј РѕСЃС‚Р°РЅРѕРІРєРё
         Gizmos.color = Color.red;
         foreach (Vector3 stop in route.stoppoints)
         {
             Gizmos.DrawCube(stop, Vector3.one * 0.5f);
 
-            // Подписываем остановки
+            // РџРѕРґРїРёСЃС‹РІР°РµРј РѕСЃС‚Р°РЅРѕРІРєРё
 #if UNITY_EDITOR
             UnityEditor.Handles.Label(stop + Vector3.up * 0.5f, $"Stop {route.stoppoints.IndexOf(stop)}");
 #endif
         }
 
-        // Рисуем текущее положение и направление автобуса
+        // Р РёСЃСѓРµРј С‚РµРєСѓС‰РµРµ РїРѕР»РѕР¶РµРЅРёРµ Рё РЅР°РїСЂР°РІР»РµРЅРёРµ Р°РІС‚РѕР±СѓСЃР°
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(transform.position, 0.7f);
         Gizmos.DrawRay(transform.position, transform.forward * 2f);
 
-        // Рисуем линию к следующей точке пути
+        // Р РёСЃСѓРµРј Р»РёРЅРёСЋ Рє СЃР»РµРґСѓСЋС‰РµР№ С‚РѕС‡РєРµ РїСѓС‚Рё
         if (Application.isPlaying && route.coordpoints.Count > currentPathIndex + 1)
         {
             Gizmos.color = Color.yellow;

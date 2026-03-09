@@ -129,6 +129,7 @@ class ColumnMaker : DetailBase
         }
 
         gameObject.GetComponent<MeshRenderer>().material.SetColor("_Color", columnColor);
+        gameObject.GetComponent<MeshRenderer>().material.SetColor("_BaseColor", columnColor);
 
         // Обновляем нормали и границы
         mesh.RecalculateNormals();

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static GR;
 using static UnityEngine.UI.GridLayoutGroup;
 
 class WaterMaker : InfrstructureBehaviour
@@ -13,6 +14,27 @@ class WaterMaker : InfrstructureBehaviour
     public TileSystem tileSystem;
 
     private int m_countProcessing = 0;
+
+    // Список для отслеживания уже обработанных ID
+    private HashSet<ulong> processedIDs = new HashSet<ulong>();
+
+    // ============================================
+    // ОПТИМИЗАЦИЯ: batchSize для пакетной обработки
+    // ============================================
+    [Header("Optimization Settings")]
+    [Tooltip("Количество water объектов обрабатываемых за один кадр")]
+    public int batchSize = 10;
+
+    // ============================================
+    // ОПТИМИЗАЦИЯ: Object Pooling для MeshData
+    // ============================================
+    private Stack<MeshData> meshDataPool = new Stack<MeshData>();
+
+    // ============================================
+    // ОПТИМИЗАЦИЯ: Кэширование ссылок
+    // ============================================
+    private Dictionary<ulong, OsmNode> cachedNodes;
+    private Vector3 cachedWorldOrigin;
 
     private void SetProperties(BaseOsm geo, Water water)
     {
@@ -57,25 +79,67 @@ class WaterMaker : InfrstructureBehaviour
 
         water.width = waterwidth;
 
-        water.GetComponent<MeshRenderer>().material = waterMaterial;
+        // ОПТИМИЗАЦИЯ: Кэшируем MeshRenderer
+        var meshRenderer = water.GetComponent<MeshRenderer>();
+        meshRenderer.material = waterMaterial;
 
-//      water.GetComponent<MeshRenderer>().material.SetColor("_Color", GR.SetOSMColour(geo)); //Not used color for water ))
+        //      meshRenderer.material.SetColor("_Color", GR.SetOSMColour(geo)); //Not used color for water ))
+    }
+
+    // ============================================
+    // ОПТИМИЗАЦИЯ: Object Pooling для MeshData
+    // ============================================
+    private MeshData GetMeshData()
+    {
+        if (meshDataPool.Count > 0)
+        {
+            var md = meshDataPool.Pop();
+            md.Clear();
+            return md;
+        }
+        return new MeshData();
+    }
+
+    private void ReturnMeshData(MeshData md)
+    {
+        if (md != null)
+        {
+            meshDataPool.Push(md);
+        }
+    }
+
+    // Вспомогательный метод для безопасного получения центра
+    private Vector3 GetCentre(BaseOsm geo)
+    {
+        Vector3 total = Vector3.zero;
+        int count = 0;
+
+        // ОПТИМИЗАЦИЯ: Используем кэшированную ссылку на nodes
+        var nodes = cachedNodes ?? MapReader.Instance.nodes;
+
+        foreach (var id in geo.NodeIDs)
+        {
+            if (nodes.TryGetValue(id, out OsmNode node))
+            {
+                total += (Vector3)node;
+                count++;
+            }
+        }
+        return count > 0 ? total / count : Vector3.zero;
     }
 
     void CreateWaterss(BaseOsm geo)
     {
+        // Защита от дублей
+        if (processedIDs.Contains(geo.ID)) return;
+        processedIDs.Add(geo.ID);
+
         var searchname = "water " + geo.ID.ToString();
 
         m_countProcessing++;
 
-        //Check for duplicates in case of loading multiple locations
-        if (GameObject.Find(searchname))
-        {
-            Debug.LogError(searchname + " already found...");
-            return;
-        }
-
-        if (contentselector.isGeoObjectDisabled(geo.ID))
+        // ОПТИМИЗАЦИЯ: Безопасная проверка contentselector
+        if (contentselector != null && contentselector.isGeoObjectDisabled(geo.ID))
         {
             Debug.LogError(searchname + " disabled.");
             return;
@@ -98,37 +162,36 @@ class WaterMaker : InfrstructureBehaviour
 
         SetProperties(geo, water);
 
-        var waterCorners = new List<Vector3>();
-
         var countContour = geo.NodeIDs.Count;
 
-        if(countContour < 2)
+        if (countContour < 2)
         {
             Debug.LogError(searchname + " haved " + countContour + " contours.");
             return;
         }
 
-        Vector3 localOrigin = GetCentre(geo);
-        water.transform.position = localOrigin - map.bounds.Centre;
+        // ОПТИМИЗАЦИЯ: Предварительное выделение памяти для списка
+        var waterCorners = new List<Vector3>(countContour);
 
-        if(tileSystem.tileType == TileSystem.TileType.Terrain)
-        {
-            if(tileSystem.isUseElevation)
-            {
-                water.transform.position = GR.getHeightPosition(water.transform.position);
-            }
-        }
-        
+        Vector3 localOrigin = GetCentre(geo);
+
+        // ОПТИМИЗАЦИЯ: Используем кэшированный WorldOrigin
+        water.transform.position = localOrigin - cachedWorldOrigin;
+
         water.transform.position += Vector3.up * 0.025f;
         water.transform.position += Vector3.up * (water.layer * BaseDataObject.layer_size);
 
+        // ОПТИМИЗАЦИЯ: Используем кэшированную ссылку на nodes
+        var nodes = cachedNodes ?? MapReader.Instance.nodes;
+
         for (int i = 0; i < countContour; i++)
         {
-            OsmNode point = map.nodes[geo.NodeIDs[i]];
-
-            Vector3 coords = point - localOrigin;
-
-            waterCorners.Add(coords);
+            // ИЗМЕНЕНИЕ: Безопасный доступ к нодам
+            if (nodes.TryGetValue(geo.NodeIDs[i], out OsmNode point))
+            {
+                Vector3 coords = point - localOrigin;
+                waterCorners.Add(coords);
+            }
         }
 
         var holesCorners = new List<List<Vector3>>();
@@ -138,17 +201,17 @@ class WaterMaker : InfrstructureBehaviour
         for (int i = 0; i < countHoles; i++)
         {
             var holeNodes = geo.HolesNodeListsIDs[i];
-
             var countHoleContourPoints = holeNodes.Count;
-
-            // Создаем новый контур для каждого отверстия
-            var holeContour = new List<Vector3>();
+            // ОПТИМИЗАЦИЯ: Предварительное выделение памяти
+            var holeContour = new List<Vector3>(countHoleContourPoints);
 
             for (int j = 0; j < countHoleContourPoints; j++)
             {
-                OsmNode point = map.nodes[holeNodes[j]];
-                Vector3 coords = point - localOrigin;
-                holeContour.Add(coords);
+                if (nodes.TryGetValue(holeNodes[j], out OsmNode point))
+                {
+                    Vector3 coords = point - localOrigin;
+                    holeContour.Add(coords);
+                }
             }
 
             holesCorners.Add(holeContour);
@@ -156,13 +219,14 @@ class WaterMaker : InfrstructureBehaviour
 
         var mesh = water.GetComponent<MeshFilter>().mesh;
 
-        var tb = new MeshData();
+        // ОПТИМИЗАЦИЯ: Используем пул для MeshData
+        var tb = GetMeshData();
 
-        if(geo.IsClosedPolygon)
+        if (geo.IsClosedPolygon)
         {
             GR.CreateMeshWithHeight(waterCorners, -10.0f, 0.0f, tb, holesCorners);
         }
-        else if(geo.HasField("type") && geo.GetValueStringByKey("type") == "multipolygon")
+        else if (geo.HasField("type") && geo.GetValueStringByKey("type") == "multipolygon")
         {
             GR.CreateMeshWithHeight(waterCorners, -10.0f, 0.0f, tb, holesCorners);
         }
@@ -180,44 +244,144 @@ class WaterMaker : InfrstructureBehaviour
         mesh.RecalculateTangents();
         mesh.RecalculateNormals();
 
-        //Add colider 
-        if(isCreateColision)
+        // ОПТИМИЗАЦИЯ: Возвращаем MeshData в пул
+        ReturnMeshData(tb);
+
+        // Add colider
+        if (isCreateColision)
         {
             water.transform.gameObject.AddComponent<MeshCollider>();
             water.transform.GetComponent<MeshCollider>().sharedMesh = water.GetComponent<MeshFilter>().mesh;
             water.transform.GetComponent<MeshCollider>().convex = false;
         }
 
+        // ОПТИМИЗАЦИЯ: Безопасная проверка tileSystem
+        if (tileSystem != null && tileSystem.tileType == TileSystem.TileType.Terrain)
+        {
+            if (tileSystem.isUseElevation)
+            {
+                // Настройки тесселяции
+                var settings = new TessellationSettings
+                {
+                    maxEdgeLength = 0.001f,      // Максимальное расстояние между вершинами в метрах
+                    heightSensitivity = 0.001f,  // Минимальный перепад высот для разбиения
+                    maxVertexCount = 50000,      // Максимальное количество вершин
+                    heightfix = 0.3f             // Корректировка высоты
+                };
+
+                if (geo.IsClosedPolygon)
+                {
+                    StartCoroutine(SpawnInHeight(water.gameObject, AlgorithmHeightSorting.AverageHeight));
+                }
+                else
+                {
+                    StartCoroutine(AdjustMeshToTerrainCorutine(water.gameObject, settings));
+                }
+            }
+        }
+
         water.Activate();
     }
+
     IEnumerator Start()
     {
-        while (!map.IsReady)
+        // Ждем готовности MapReader
+        while (MapReader.Instance == null || !MapReader.Instance.IsReady)
         {
             yield return null;
         }
 
         contentselector = FindObjectOfType<GameContentSelector>();
-
         tileSystem = FindObjectOfType<TileSystem>();
 
-        foreach (var way in map.ways.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Water && w.NodeIDs.Count > 1; }))
+        // ОПТИМИЗАЦИЯ: Кэшируем ссылки один раз при старте
+        cachedNodes = MapReader.Instance.nodes;
+        cachedWorldOrigin = MapReader.Instance.WorldOrigin;
+
+        // 1. Подписываемся на новые события
+        MapReader.Instance.OnWayLoaded += OnGeoObjectLoaded;
+        MapReader.Instance.OnRelationLoaded += OnGeoObjectLoaded;
+
+        float starttime = Time.time;
+
+        // ============================================
+        // ОПТИМИЗАЦИЯ: Пакетная обработка объектов
+        // ============================================
+        int processedInBatch = 0;
+
+        // 2. Обрабатываем уже загруженные данные
+        var ways = MapReader.Instance.ways;
+        if (ways != null)
         {
-            way.AddField("source_type", "way");
-            CreateWaterss(way);
-            yield return null;
+            foreach (var way in ways)
+            {
+                if (way.objectType == BaseOsm.ObjectType.Water && way.NodeIDs.Count > 1)
+                {
+                    way.AddField("source_type", "way");
+                    CreateWaterss(way);
+
+                    processedInBatch++;
+                    if (processedInBatch >= batchSize)
+                    {
+                        processedInBatch = 0;
+                        yield return null; // Пауза только после обработки batchSize объектов
+                    }
+                }
+            }
         }
 
-        foreach (var relation in map.relations.FindAll((w) => { return w.objectType == BaseOsm.ObjectType.Water && w.NodeIDs.Count > 1; }))
+        var relations = MapReader.Instance.relations;
+        if (relations != null)
         {
-            relation.AddField("source_type", "relation");
+            foreach (var relation in relations)
+            {
+                if (relation.objectType == BaseOsm.ObjectType.Water && relation.NodeIDs.Count > 1)
+                {
+                    relation.AddField("source_type", "relation");
+                    CreateWaterss(relation);
 
-            CreateWaterss(relation);
-
-            yield return null;
+                    processedInBatch++;
+                    if (processedInBatch >= batchSize)
+                    {
+                        processedInBatch = 0;
+                        yield return null;
+                    }
+                }
+            }
         }
+
+        float endtime = Time.time;
+
+        Debug.Log("Waters create at: " + (endtime - starttime) + " | Total: " + m_countProcessing);
 
         isFinished = true;
+    }
+
+    // Обработчик событий
+    private void OnGeoObjectLoaded(BaseOsm geo)
+    {
+        // Фильтрация: обрабатываем только Water
+        if (geo.objectType != BaseOsm.ObjectType.Water) return;
+
+        // Проверка количества нод
+        if (geo.NodeIDs.Count <= 1) return;
+
+        StartCoroutine(ProcessWaterCoroutine(geo));
+    }
+
+    private IEnumerator ProcessWaterCoroutine(BaseOsm geo)
+    {
+        CreateWaterss(geo);
+        yield return null;
+    }
+
+    private void OnDestroy()
+    {
+        if (MapReader.Instance != null)
+        {
+            MapReader.Instance.OnWayLoaded -= OnGeoObjectLoaded;
+            MapReader.Instance.OnRelationLoaded -= OnGeoObjectLoaded;
+        }
     }
 
     public int GetCountProcessing()

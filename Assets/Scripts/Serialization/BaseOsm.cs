@@ -57,7 +57,36 @@ public class BaseOsm
 
     public ObjectType objectType { get; set; }
 
+    // ќѕ“»ћ»«ј÷»я: ќсновной массив дл€ сериализации
     public Item[] itemlist;
+
+    // ќѕ“»ћ»«ј÷»я: Dictionary дл€ O(1) доступа
+    private Dictionary<string, int> _itemIndexMap;
+    private bool _indexBuilt = false;
+
+    // ќѕ“»ћ»«ј÷»я: Ћенивое построение индекса
+    private void EnsureIndexBuilt()
+    {
+        if (_indexBuilt || itemlist == null) return;
+
+        _itemIndexMap = new Dictionary<string, int>(itemlist.Length);
+        for (int i = 0; i < itemlist.Length; i++)
+        {
+            if (!string.IsNullOrEmpty(itemlist[i].key))
+            {
+                _itemIndexMap[itemlist[i].key] = i;
+            }
+        }
+        _indexBuilt = true;
+    }
+
+    // ќѕ“»ћ»«ј÷»я: ѕерестроить индекс (вызывать после изменени€ itemlist)
+    public void RebuildIndex()
+    {
+        _indexBuilt = false;
+        _itemIndexMap?.Clear();
+        EnsureIndexBuilt();
+    }
 
     public void DetectObjectType(XmlNode tag)
     {
@@ -103,68 +132,67 @@ public class BaseOsm
         }
     }
 
+    // ќѕ“»ћ»«ј÷»я: O(1) вместо O(n)
     public bool HasField(string sKey)
     {
-        foreach (Item item in itemlist)
-        {
-            if (item.key == sKey)
-            {
-                return true;
-            }
-        }
-        return false;
+        if (itemlist == null || itemlist.Length == 0) return false;
+
+        EnsureIndexBuilt();
+        return _itemIndexMap.ContainsKey(sKey);
     }
 
+    // ќѕ“»ћ»«ј÷»я: ”лучшенный AddField с минимальными аллокаци€ми
     public void AddField(string sKey, string sValue, bool bReplaceIfFound = true)
     {
-        // Check if the key already exists in the item list
+        if (itemlist == null)
+        {
+            itemlist = new Item[] { new Item { key = sKey, value = sValue } };
+            _indexBuilt = false;
+            return;
+        }
+
+        // »щем существующий ключ
         for (int i = 0; i < itemlist.Length; i++)
         {
             if (itemlist[i].key == sKey)
             {
-                // If the key is found and bReplaceIfFound is true, replace the value
                 if (bReplaceIfFound)
                 {
                     itemlist[i].value = sValue;
-                    return;
                 }
-                else
-                {
-                    // If bReplaceIfFound is false, do nothing and return
-                    return;
-                }
+                return;
             }
         }
 
-        // If the key is not found, add a new item to the list
-        Item newItem = new Item { key = sKey, value = sValue };
-        itemlist = itemlist.Concat(new[] { newItem }).ToArray();
+        // ƒобавл€ем новый элемент
+        Array.Resize(ref itemlist, itemlist.Length + 1);
+        itemlist[itemlist.Length - 1] = new Item { key = sKey, value = sValue };
+
+        // ќбновл€ем индекс
+        if (_itemIndexMap != null)
+        {
+            _itemIndexMap[sKey] = itemlist.Length - 1;
+        }
     }
 
+    // ќѕ“»ћ»«ј÷»я: O(1) вместо O(n)
     public string GetValueStringByKey(string sKey)
     {
-        foreach (Item item in itemlist)
-        {
-            if (item.key == sKey)
-            {
-                return item.value;
-            }
-        }
+        if (itemlist == null || itemlist.Length == 0) return null;
 
+        EnsureIndexBuilt();
+
+        if (_itemIndexMap.TryGetValue(sKey, out int index))
+        {
+            return itemlist[index].value;
+        }
         return null;
     }
 
     public string GetValueStringByKey(string sKey, string sDefault)
     {
-        foreach (Item item in itemlist)
-        {
-            if (item.key == sKey)
-            {
-                return item.value;
-            }
-        }
-
-        return sDefault;
+        string result = GetValueStringByKey(sKey);
+        return result ?? sDefault;
     }
 
     public float GetValueFloatByKey(string sKey, float vDefault = 0.0f)
@@ -184,11 +212,6 @@ public class BaseOsm
         float result = vDefault;
 
         bool isOk = float.TryParse(res, out result);
-
-        if (!isOk)
-        {
-       //     UnityEngine.Debug.LogError("Can't float parse from: \"" + res + "\"");
-        }
 
         return result;
     }
@@ -245,18 +268,14 @@ public class BaseOsm
     */
     protected T GetAttribute<T>(string attrName, XmlAttributeCollection attributes)
     {
-        // TODO: We are going to assume 'attrName' exists in the collection
-
         string strValue = "True";
 
         try
         {
-            //  Block of code to try
             strValue = attributes[attrName].Value;
         }
         catch (Exception e)
         {
-            //  Block of code to handle errors
             UnityEngine.Debug.Log("Error parsing atr: " + attrName + " error: " + e.Message);
         }
 

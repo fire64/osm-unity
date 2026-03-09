@@ -61,6 +61,7 @@ public class WaterTerrainDeformer : MonoBehaviour
 
     float GetWaterMinHeight(Mesh mesh)
     {
+        return 0; 
         float minY = float.MaxValue;
         foreach (Vector3 vertex in mesh.vertices)
         {

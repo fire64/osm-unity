@@ -1,313 +1,521 @@
-using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UMA.SlotDataAsset;
 
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(AudioSource))]
 public class AICarController : MonoBehaviour
 {
+    [Header("Navigation")]
     public Road currentRoad;
     public int waypointIndex;
     public int laneIndex;
-    public bool islaneForward;
+    public bool isLaneForward;
 
-    // Параметры движения
-    public float speed = 0.0f;
+    [Header("Physics & Movement")]
+    public float maxSpeed = 15.0f;
+    public float acceleration = 5.0f;
+    public float brakingPower = 10.0f;
+    public float steerSpeed = 5.0f;
+    public float arrivalThreshold = 1.5f;
 
-    public float minspeed = 10.0f;
-    public float maxspeed = 15.0f;
+    [Header("Sensors (ACC)")]
+    public float sensorLength = 10.0f;
+    public float sideSensorLength = 5.0f;
+    public LayerMask obstacleMask;
+    public LayerMask pedestrianMask;
 
-    public float rotationSpeed = 2.0f;
-    public float reachThreshold = 0.5f;
+    [Header("Safety Settings")]
+    public float emergencyBrakingMultiplier = 3.0f;
+    public float minSafeDistance = 2.0f;
 
-    // Статус движения
-    private bool isMoving = true;
+    [Header("Immersive - Visuals")]
+    public Transform[] frontWheels;
+    public GameObject leftTurnSignal;   // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ)
+    public GameObject rightTurnSignal;  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public GameObject brakeLights;      // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    public float blinkSpeed = 0.4f;     // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
-    public LayerMask roadMask;
+    [Header("Immersive - Audio")]
+    public AudioClip hornSound;         // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    public AudioClip hitSound;          // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+    public AudioClip explosionSound;    // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+
+    [Header("Immersive - Health")]
+    public float maxHealth = 100f;
+    public GameObject explosionPrefab;  // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (Particles)
+    public GameObject firePrefab;       // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)
+    public MeshRenderer carBodyRenderer; // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+    private GameObject currentFireEffect; // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    private float currentHealth;
+    private float currentSpeed = 0.0f;
+    private float targetSpeed = 0.0f;
+    private bool isMoving = false;
+    private bool isDead = false;
+
+    private Rigidbody rb;
+    private AudioSource audioSource;
+
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    private bool blockedByTraffic = false;
+    private bool blockedByPedestrian = false;
+    private float blockedTimer = 0f;    // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
     void Start()
     {
-        speed = UnityEngine.Random.Range(minspeed, maxspeed);
+        rb = GetComponent<Rigidbody>();
+        audioSource = GetComponent<AudioSource>();
 
-        // Инициализация начальной позиции
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+        rb.useGravity = true;
+        rb.isKinematic = false; // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!
+        rb.mass = 1500f;        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        rb.linearDamping = 0.5f;         // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        rb.angularDamping = 2f;    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ,
+        // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (Constraints пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+
+        currentHealth = maxHealth;
+        maxSpeed = Random.Range(maxSpeed * 0.9f, maxSpeed * 1.1f);
+
         if (currentRoad != null)
         {
-            SetCarPosition();
+            ResetAI(currentRoad, waypointIndex, laneIndex);
         }
     }
 
     void Update()
     {
-        if (currentRoad == null || !isMoving) return;
+        if (isDead) return; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        if (!isMoving || currentRoad == null) return;
 
-        MoveToNextPoint();
+        SensorsLogic();
+        MovementLogic();
+        SteeringVisuals();
+        ImmersiveVisualsLogic(); // пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        ImmersiveAudioLogic();   // пїЅпїЅпїЅпїЅпїЅ
     }
 
-    void MoveToNextPoint()
+    // ---------------------------------------------------------
+    // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ + пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)
+    // ---------------------------------------------------------
+    void SensorsLogic()
     {
-        Vector3 targetPoint = GetNextPoint();
+        blockedByTraffic = false;
+        blockedByPedestrian = false;
 
-        // Направление к целевой точке
-        Vector3 direction = targetPoint - transform.position;
+        float dynamicSensorLength = Mathf.Max(sensorLength, currentSpeed * 1.5f);
+        float obstacleDistance = dynamicSensorLength;
 
-        // Поворот в направлении движения
-        if (direction != Vector3.zero)
+        Vector3 sensorStart = transform.position + Vector3.up * 0.5f + transform.forward * 1.5f;
+
+        // 1. пїЅпїЅпїЅпїЅпїЅпїЅ
+        RaycastHit hit;
+        if (Physics.Raycast(sensorStart, transform.forward, out hit, dynamicSensorLength, obstacleMask))
         {
-            Quaternion targetRotation = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+            if (hit.collider.gameObject != gameObject && !hit.collider.GetComponent<Road>())
+            {
+                blockedByTraffic = true;
+                obstacleDistance = hit.distance;
+            }
         }
 
-        // Движение вперед
-        transform.Translate(Vector3.forward * speed * Time.deltaTime);
-
-        // Проверка достижения вейпоинта
-        if (Vector3.Distance(transform.position, targetPoint) < reachThreshold)
+        // 2. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        if (Physics.SphereCast(sensorStart, 1.0f, transform.forward, out hit, sideSensorLength, pedestrianMask))
         {
-            UpdateWaypointIndex();
+            blockedByPedestrian = true;
+            obstacleDistance = Mathf.Min(obstacleDistance, hit.distance);
         }
-    }
 
-    void RemoveFinishedCar()
-    {
-        // Найти спавнер и вернуть пешехода в пул
-        TrafficSpawner spawner = FindObjectOfType<TrafficSpawner>();
-        if (spawner != null)
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        if (blockedByTraffic || blockedByPedestrian)
         {
-            spawner.ReturnVehicleToPool(gameObject);
+            if (obstacleDistance < 1.5f)
+            {
+                targetSpeed = 0;
+                currentSpeed = 0;
+            }
+            else if (obstacleDistance < minSafeDistance)
+            {
+                targetSpeed = 0;
+            }
+            else
+            {
+                float factor = (obstacleDistance - minSafeDistance) / (dynamicSensorLength - minSafeDistance);
+                targetSpeed = maxSpeed * Mathf.Clamp01(factor);
+            }
         }
         else
         {
-            // Если спавнер не найден, просто деактивировать
-            gameObject.SetActive(false);
+            targetSpeed = maxSpeed;
+        }
+    }
+
+    // ---------------------------------------------------------
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    // ---------------------------------------------------------
+    void MovementLogic()
+    {
+        Vector3 targetPoint = GetTargetPoint();
+        targetPoint.y = transform.position.y;
+
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ kinematic=false, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Transform, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+        // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ RotateTowards + MovePosition/Translate, 
+        // пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (isKinematic=false), пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ Velocity, 
+        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
+
+        // 1. пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        Vector3 directionToTarget = (targetPoint - transform.position).normalized;
+        if (directionToTarget != Vector3.zero)
+        {
+            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, steerSpeed * 10f * Time.deltaTime);
+        }
+
+        // 2. пїЅпїЅпїЅпїЅпїЅпїЅ / пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        if (currentSpeed < targetSpeed)
+        {
+            currentSpeed += acceleration * Time.deltaTime;
+        }
+        else if (currentSpeed > targetSpeed)
+        {
+            float currentBrakingPower = brakingPower;
+            if (targetSpeed < 0.1f) currentBrakingPower *= emergencyBrakingMultiplier;
+            currentSpeed -= currentBrakingPower * Time.deltaTime;
+        }
+        currentSpeed = Mathf.Max(0, currentSpeed);
+
+        // 3. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ Rigidbody (пїЅпїЅпїЅпїЅпїЅпїЅ Translate)
+        // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ Unity пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        Vector3 velocity = transform.forward * currentSpeed;
+        velocity.y = rb.linearVelocity.y; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        rb.linearVelocity = velocity;
+
+        // 4. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        if (Vector3.Distance(transform.position, targetPoint) < arrivalThreshold)
+        {
+            AdvanceWaypoint();
+        }
+    }
+
+    // ---------------------------------------------------------
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ)
+    // ---------------------------------------------------------
+    void ImmersiveVisualsLogic()
+    {
+        // --- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ---
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ
+        Vector3 targetPoint = GetTargetPoint();
+        Vector3 relativeDir = transform.InverseTransformPoint(targetPoint);
+
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)
+        float turnAngle = relativeDir.x;
+
+        bool turningLeft = turnAngle < -0.5f;  // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        bool turningRight = turnAngle > 0.5f;
+
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ/пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ blinkSpeed пїЅпїЅпїЅпїЅпїЅпїЅ)
+        bool blinkState = Mathf.Repeat(Time.time, blinkSpeed * 2) < blinkSpeed;
+
+        if (leftTurnSignal) leftTurnSignal.SetActive(turningLeft && blinkState);
+        if (rightTurnSignal) rightTurnSignal.SetActive(turningRight && blinkState);
+
+        // --- пїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅпїЅ ---
+        // пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (current > target) пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (current < 0.1)
+        bool isBraking = (currentSpeed > targetSpeed + 0.5f) || (currentSpeed < 0.1f && blockedByTraffic);
+
+        if (brakeLights) brakeLights.SetActive(isBraking);
+    }
+
+    // ---------------------------------------------------------
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ)
+    // ---------------------------------------------------------
+    void ImmersiveAudioLogic()
+    {
+        if (blockedByTraffic || blockedByPedestrian)
+        {
+            // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            if (currentSpeed < 0.5f)
+            {
+                blockedTimer += Time.deltaTime;
+                // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ 2 пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+                if (blockedTimer > 2.0f && !audioSource.isPlaying)
+                {
+                    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+                    if (Random.value < 0.02f)
+                    {
+                        PlaySound(hornSound, 1.0f);
+                        blockedTimer = 0f; // пїЅпїЅпїЅпїЅпїЅ
+                    }
+                }
+            }
+        }
+        else
+        {
+            blockedTimer = 0f;
+        }
+    }
+
+    // ---------------------------------------------------------
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    // ---------------------------------------------------------
+    void OnCollisionEnter(Collision collision)
+    {
+        if (isDead) return;
+
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+        if (collision.gameObject.layer == LayerMask.NameToLayer("Roads") ||
+            collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            return;
+
+        Debug.Log( "Colision on: " + collision.gameObject.name);
+
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        float impactForce = collision.relativeVelocity.magnitude;
+
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (> 5 пїЅ/пїЅ)
+        if (impactForce > 5.0f)
+        {
+            // пїЅпїЅпїЅпїЅ
+            float damage = impactForce * 2.0f; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+            currentHealth -= damage;
+
+            // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ)
+            PlaySound(hitSound, Mathf.Clamp01(impactForce / 20f));
+
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+            if (currentHealth <= 0)
+            {
+                Explode();
+            }
+        }
+    }
+
+    void Explode()
+    {
+        if (isDead) return;
+        isDead = true;
+
+        // 1. пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (One-shot пїЅпїЅпїЅпїЅпїЅпїЅ)
+        if (explosionPrefab)
+        {
+            GameObject explosion = Instantiate(explosionPrefab, transform.position, transform.rotation);
+            // пїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 5 пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+            Destroy(explosion, 5.0f);
+        }
+
+        if (explosionSound) AudioSource.PlayClipAtPoint(explosionSound, transform.position);
+
+        // 2. пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ (Loop пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)
+        if (firePrefab)
+        {
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ!
+            currentFireEffect = Instantiate(firePrefab, transform);
+            currentFireEffect.transform.localPosition = Vector3.zero;
+        }
+
+        // ... (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ) ...
+        if (carBodyRenderer) carBodyRenderer.material.color = Color.black;
+        if (leftTurnSignal) leftTurnSignal.SetActive(false);
+        if (rightTurnSignal) rightTurnSignal.SetActive(false);
+        if (brakeLights) brakeLights.SetActive(false);
+
+        rb.constraints = RigidbodyConstraints.None;
+        rb.AddExplosionForce(5000f, transform.position + Vector3.down, 5f);
+
+        StartCoroutine(DespawnAfterDeath());
+    }
+
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    void CleanupEffects()
+    {
+        if (currentFireEffect != null)
+        {
+            Destroy(currentFireEffect);
+            currentFireEffect = null;
+        }
+    }
+
+    IEnumerator DespawnAfterDeath()
+    {
+        yield return new WaitForSeconds(10f); // пїЅпїЅпїЅпїЅпїЅ 10 пїЅпїЅпїЅпїЅпїЅпїЅ
+
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅ
+        CleanupEffects();
+
+        TrafficSpawner spawner = FindObjectOfType<TrafficSpawner>();
+        if (spawner) spawner.ReturnVehicleToPool(gameObject);
+        else gameObject.SetActive(false);
+
+        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        isDead = false;
+        currentHealth = maxHealth;
+        if (carBodyRenderer) carBodyRenderer.material.color = Color.white;
+    }
+
+    // ---------------------------------------------------------
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+    // ---------------------------------------------------------
+    void PlaySound(AudioClip clip, float volume)
+    {
+        if (clip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clip, volume);
+        }
+    }
+
+    void SteeringVisuals()
+    {
+        if (frontWheels == null || frontWheels.Length == 0) return;
+        Vector3 targetPoint = GetTargetPoint();
+        Vector3 relativePos = transform.InverseTransformPoint(targetPoint);
+        float steeringAngle = Mathf.Atan2(relativePos.x, relativePos.z) * Mathf.Rad2Deg;
+        steeringAngle = Mathf.Clamp(steeringAngle, -45, 45);
+
+        foreach (var wheel in frontWheels)
+        {
+            Vector3 currentEuler = wheel.localEulerAngles;
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (velocity.magnitude, пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ)
+            float rotationAmount = rb.linearVelocity.magnitude * Time.deltaTime * 100f;
+            wheel.localRotation = Quaternion.Euler(currentEuler.x + rotationAmount, steeringAngle, 0);
+        }
+    }
+
+    // ... (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ: GetTargetPoint, AdvanceWaypoint, ResetAI, GetTargetPoint, TryFindNextRoad 
+    // ...  пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+    Vector3 GetTargetPoint()
+    {
+        if (currentRoad == null) return transform.position;
+        return currentRoad.GetCenterPointByIdAndLane(laneIndex, waypointIndex);
+    }
+
+    void AdvanceWaypoint()
+    {
+        int nextIndex = isLaneForward ? waypointIndex + 1 : waypointIndex - 1;
+        int limit = currentRoad.GetLaneCenterPoints(laneIndex).Count;
+
+        if ((isLaneForward && nextIndex >= limit) || (!isLaneForward && nextIndex < 0))
+        {
+            if (!TryFindNextRoad()) RemoveCar();
+        }
+        else
+        {
+            waypointIndex = nextIndex;
         }
     }
 
     bool TryFindNextRoad()
     {
-        RaycastHit hit;
-
-        if (Physics.Raycast(transform.position + Vector3.up * 0.5f, Vector3.down, out hit, 2.0f, roadMask))
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        Vector3 searchPos = transform.position + transform.forward * 3.0f + Vector3.up * 2.0f;
+        RaycastHit[] hits = Physics.SphereCastAll(searchPos, 2.0f, Vector3.down, 10.0f, LayerMask.GetMask("Roads"));
+        foreach (var hit in hits)
         {
-            Road newroad = hit.collider.GetComponent<Road>();
-
-            if (newroad != null && newroad != currentRoad && newroad.isCanUseAutomobile())
+            Road nextRoad = hit.collider.GetComponent<Road>();
+            if (nextRoad != null && nextRoad != currentRoad && nextRoad.isCanUseAutomobile())
             {
-                int newlaneIndex = 0;
-                int newpointIndex = 0;
-                Vector3 nearestPoint = Vector3.zero;
-                float distance = 0.0f;
-
-                bool ret = newroad.FindNearestLane(transform.position, out newlaneIndex, out newpointIndex, out nearestPoint, out distance);
-
-                if (!ret)
-                    return false;
-
-                this.currentRoad = newroad;
-                this.waypointIndex = newpointIndex;
-                this.laneIndex = newlaneIndex;
-                this.islaneForward = this.currentRoad.isLineForward(this.laneIndex);
-                this.isMoving = true;
-                SetCarPosition();
-
-
-                return true;
+                // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+                currentRoad = nextRoad;
+                // (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ)
+                int nl; int np; Vector3 p; float d;
+                if (nextRoad.FindNearestLane(transform.position, out nl, out np, out p, out d))
+                {
+                    laneIndex = nl;
+                    waypointIndex = np; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+                    isLaneForward = nextRoad.isLineForward(nl);
+                    return true;
+                }
             }
         }
-
         return false;
-
     }
 
-    void UpdateWaypointIndex()
+    void RemoveCar()
     {
-        if (islaneForward)
-        {
-            waypointIndex++;
-
-            // Проверка достижения конца пути
-            if (waypointIndex >= GetCountWaypoints() - 1)
-            {
-                waypointIndex = GetCountWaypoints() - 1;
-                isMoving = false; // Остановка в конце пути
-                Debug.Log("Reached end of forward path");
-
-                bool isSetNewRoad = TryFindNextRoad();
-
-                if(isSetNewRoad)
-                {
-                    Debug.Log( "Set new road..." );
-                }
-                else
-                {
-                    RemoveFinishedCar();
-                }
-
-            }
-        }
-        else
-        {
-            waypointIndex--;
-
-            // Проверка достижения начала пути
-            if (waypointIndex <= 0)
-            {
-                waypointIndex = 0;
-                isMoving = false; // Остановка в начале пути
-                Debug.Log("Reached start of backward path");
-
-                bool isSetNewRoad = TryFindNextRoad();
-
-                if (isSetNewRoad)
-                {
-                    Debug.Log("Set new road...");
-                }
-                else
-                {
-                    RemoveFinishedCar();
-                }
-            }
-        }
+        TrafficSpawner spawner = FindObjectOfType<TrafficSpawner>();
+        if (spawner) spawner.ReturnVehicleToPool(gameObject);
+        else gameObject.SetActive(false);
     }
 
-    Vector3 GetCurrentPoint()
+    public void ResetAI(Road road, int pointIndex, int lane)
     {
-        return currentRoad.GetCenterPointByIdAndLane(laneIndex, waypointIndex);
+        CleanupEffects(); // <-- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
+
+        currentRoad = road;
+        // ... (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ ResetAI пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
+        waypointIndex = pointIndex;
+        laneIndex = lane;
+        isLaneForward = road.isLineForward(lane);
+        isMoving = true;
+        isDead = false;
+        currentHealth = maxHealth;
+        currentSpeed = maxSpeed * 0.5f;
+
+        if (carBodyRenderer) carBodyRenderer.material.color = Color.white;
+        if (leftTurnSignal) leftTurnSignal.SetActive(false);
+        if (rightTurnSignal) rightTurnSignal.SetActive(false);
+        if (brakeLights) brakeLights.SetActive(false);
+
+        Vector3 pos = GetTargetPoint();
+        transform.position = pos;
+        if (rb) rb.linearVelocity = Vector3.zero;
+        if (rb) rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ; // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     }
 
-    Vector3 GetNextPoint()
+    // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+    void OnDisable()
     {
-        int nextwaypointIndex = waypointIndex;
-
-        if (islaneForward)
-        {
-            nextwaypointIndex = waypointIndex + 1;
-            // Ограничение индекса
-            if (nextwaypointIndex >= GetCountWaypoints())
-                nextwaypointIndex = GetCountWaypoints() - 1;
-        }
-        else
-        {
-            nextwaypointIndex = waypointIndex - 1;
-            // Ограничение индекса
-            if (nextwaypointIndex < 0)
-                nextwaypointIndex = 0;
-        }
-
-        return currentRoad.GetCenterPointByIdAndLane(laneIndex, nextwaypointIndex);
+        CleanupEffects();
     }
 
-    Vector3 GetPointById(int pointid)
-    {
-        return currentRoad.GetCenterPointByIdAndLane(laneIndex, pointid);
-    }
-
-    int GetCountWaypoints()
-    {
-        List<Vector3> points = currentRoad.GetLaneCenterPoints(laneIndex);
-        return points.Count;
-    }
-
+    // Gizmos пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     void OnDrawGizmos()
     {
-        if (currentRoad == null) return;
-
-        // Отображение текущей позиции
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(transform.position, 0.3f);
-
-        // Отображение направления движения
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawRay(transform.position, transform.forward * 2f);
-    }
-
-    public void ResetAI(Road road, int waypointIndex, int laneIndex)
-    {
-        this.currentRoad = road;
-        this.waypointIndex = waypointIndex;
-        this.laneIndex = laneIndex;
-        this.islaneForward = this.currentRoad.isLineForward(this.laneIndex);
-        this.isMoving = true;
-
-        SetCarPosition();
-    }
-
-    void SetCarPosition()
-    {
-        transform.position = GetCurrentPoint();
-
-        // Плавный поворот к следующей точке
-        Vector3 nextPoint = GetNextPoint();
-        Vector3 direction = nextPoint - transform.position;
-        if (direction != Vector3.zero)
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+        if (currentRoad != null)
         {
-            transform.rotation = Quaternion.LookRotation(direction);
+            Gizmos.color = Color.cyan;
+            Vector3 target = GetTargetPoint();
+            Gizmos.DrawLine(transform.position, target);
+            Gizmos.DrawWireSphere(target, 0.5f);
         }
-    }
 
-    void OnDrawGizmosSelected()
-    {
-        if (currentRoad == null) return;
+        // --- пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ ---
+        Vector3 sensorStart = transform.position + Vector3.up * 0.5f + transform.forward * 1.5f;
 
-        Vector3 startpoint = GetCurrentPoint();
+        // 1. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ)
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ)
+        float effectiveSensorLength = Mathf.Max(sensorLength, currentSpeed * 1.5f); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(startpoint, 1.0f);
+        bool isHitCentral = Physics.Raycast(sensorStart, transform.forward, out RaycastHit hitCentral, effectiveSensorLength, obstacleMask);
 
-        int startwaypointid = waypointIndex;
-
-        if (islaneForward)
+        if (isHitCentral)
         {
             Gizmos.color = Color.red;
-            for (int i = startwaypointid + 1; i < GetCountWaypoints(); i++)
-            {
-                Vector3 coordpoint = GetPointById(i);
-                Gizmos.DrawSphere(coordpoint, 0.5f);
-
-                // Линии между точками
-                if (i > startwaypointid + 1)
-                {
-                    Vector3 prevPoint = GetPointById(i - 1);
-                    Gizmos.DrawLine(prevPoint, coordpoint);
-                }
-            }
+            Gizmos.DrawLine(sensorStart, hitCentral.point);
+            Gizmos.DrawSphere(hitCentral.point, 0.2f); // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         }
         else
         {
-            Gizmos.color = Color.blue;
-            for (int i = startwaypointid - 1; i >= 0; i--)
-            {
-                Vector3 coordpoint = GetPointById(i);
-                Gizmos.DrawSphere(coordpoint, 0.5f);
-
-                // Линии между точками
-                if (i < startwaypointid - 1)
-                {
-                    Vector3 nextPoint = GetPointById(i + 1);
-                    Gizmos.DrawLine(nextPoint, coordpoint);
-                }
-            }
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(sensorStart, sensorStart + transform.forward * effectiveSensorLength);
         }
-    }
 
-    // Методы для внешнего управления
-    public void SetSpeed(float newSpeed)
-    {
-        speed = newSpeed;
-    }
+        // 2. пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (SphereCast)
+        // пїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅ" пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        bool isHitSide = Physics.SphereCast(sensorStart, 1.0f, transform.forward, out RaycastHit hitSide, sideSensorLength, pedestrianMask);
 
-    public void StopMovement()
-    {
-        isMoving = false;
-    }
+        Gizmos.color = isHitSide ? new Color(1, 0, 1, 0.5f) : new Color(1, 1, 0, 0.2f); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
-    public void StartMovement()
-    {
-        isMoving = true;
-    }
+        Vector3 endPoint = isHitSide ? hitSide.point : (sensorStart + transform.forward * sideSensorLength);
 
-    public void ChangeLane(int newLaneIndex)
-    {
-        laneIndex = newLaneIndex;
-        islaneForward = currentRoad.isLineForward(laneIndex);
-        SetCarPosition();
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ SphereCast)
+        Gizmos.DrawWireSphere(endPoint, 1.0f);
+        Gizmos.DrawLine(sensorStart, endPoint);
     }
 }

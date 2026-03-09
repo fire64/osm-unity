@@ -291,3 +291,7 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
   - colorname: dark_grey
     color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: peach
+    color: {r: 1, g: 1, b: 1, a: 1}
+  - colorname: light_grey
+    color: {r: 1, g: 1, b: 1, a: 1}

@@ -1291,3 +1291,84 @@ MonoBehaviour:
     isUseRoofs: 1
     defaultRoofShape: flat
     defaultRoofHeight: 0
+  - buildingtype: prison
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: wall
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: monument
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: weir
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: cellar
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: boiler
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: shack
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: heat_station
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
+  - buildingtype: "\u043D"
+    buildingDescription: 
+    buildingMaterial: {fileID: 0}
+    defaultHeight: 0
+    isUseDoors: 1
+    isUseWindows: 1
+    isUseRoofs: 1
+    defaultRoofShape: flat
+    defaultRoofHeight: 0
